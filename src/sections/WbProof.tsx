@@ -8,13 +8,13 @@ export function ProofSection() {
   return (
     <section className="section">
       <div className="container">
-        <SectionLabel num="07">Proof</SectionLabel>
-        <StatStrip stats={[
+        <SectionLabel num="">Testimonials</SectionLabel>
+        {/* <StatStrip stats={[
           { value: <Counter value={10} format={(n) => n.toFixed(0)} />, unit: 'cr+', label: 'Invoices filed via Whitebooks' },
           { value: <Counter value={12000} />, unit: '+', label: '12,000+ businesses · 5,000+ CA firms' },
           { value: <Counter value={30000} />, unit: '+', label: 'Users across 8,000+ Indian cities' },
           { prefix: '₹', value: '0', label: 'Customer data shared with third parties' },
-        ]} />
+        ]} /> */}
         <div className="grid-3" style={{ marginTop: 48 }}>
           <QuoteCard
             big

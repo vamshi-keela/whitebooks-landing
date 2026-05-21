@@ -1,15 +1,12 @@
 import React from 'react';
-import SectionLabel from '@/components/ui/SectionLabel';
-
 export function AILayerSection() {
   return (
     <section className="section hairline relative" style={{ overflow: 'hidden' }}>
       <div className="mesh" style={{ ['--mesh-opacity' as string]: 0.55 } as React.CSSProperties}></div>
       <div className="container relative">
-        <SectionLabel num="06">AI layer</SectionLabel>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'end', marginBottom: 56 }}>
+        <div className="wb-section-header">
           <h2 className="h1">AI that <em className="grad-text" style={{ fontStyle: 'italic' }}>reconciles, predicts, and explains</em> — not just a chatbot in the corner.</h2>
-          <p className="lede" style={{ maxWidth: 460, justifySelf: 'end' }}>
+          <p className="lede">
             Whitebooks uses purpose-built models for four jobs that humans have been doing manually since GST launched in 2017.
           </p>
         </div>
@@ -30,11 +27,9 @@ export function AILayerSection() {
             </div>
           ))}
         </div>
-        <div style={{ marginTop: 40, display: 'flex', alignItems: 'center', gap: 16 }}>
+        <div className="wb-ai-footer">
           <a href="#" className="link-arrow link-arrow-accent" onClick={(e) => e.preventDefault()}>See the AI in action (2-min demo)</a>
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--fg-quaternary)' }}>
-            ⤷ models on the Anthropic API · data never used for training
-          </span>
+          <span className="wb-ai-footer-note">⤷ models on the Anthropic API · data never used for training</span>
         </div>
       </div>
     </section>

@@ -60,23 +60,16 @@ export function HubSection({ tab, setTab, navigate }: HubSectionProps) {
   const onTabClick = (v: string) => setTab(v);
 
   return (
-    <section className="section hairline" style={{ padding: '120px 0', position: 'relative' }}>
-      <div className="container" style={{ maxWidth: 1240, margin: '0 auto', padding: '0 40px' }}>
-        <SectionLabel num="03">Platform</SectionLabel>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'end', marginBottom: 56 }}>
+    <section className="section hairline">
+      <div className="container">
+        <div className="wb-section-header">
           <h2 className="h2">One platform. Four compliance engines.<br /><em>Every Indian filing requirement.</em></h2>
-          <p className="body" style={{ maxWidth: 460, justifySelf: 'end' }}>
+          <p className="body">
             Built on a direct GSP license from GSTN. Each engine is a product on its own — together they cover every filing requirement in India, and a few outside.
           </p>
         </div>
 
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
-          gap: 16,
-          gridAutoFlow: 'row dense',
-        }}>
-          {/* Featured: GST Software (spans 2 cols) */}
+        <div className="wb-hub-cards">
           <PillarCard
             tag="GST Software"
             title="GST filing that thinks before you click submit."
@@ -87,8 +80,6 @@ export function HubSection({ tab, setTab, navigate }: HubSectionProps) {
             mock={<MiniReconMock />}
             onClick={() => navigate('gst-soft')}
           />
-
-          {/* e-Invoicing (1 col, tall) */}
           <PillarCard
             tag="e-Invoicing"
             title="IRNs, sub-second."
@@ -97,8 +88,6 @@ export function HubSection({ tab, setTab, navigate }: HubSectionProps) {
             tone="violet"
             mock={<MiniEinvoiceMock />}
           />
-
-          {/* e-Way Bills */}
           <PillarCard
             tag="e-Way Bills"
             title="Generate, extend, cancel."
@@ -107,8 +96,6 @@ export function HubSection({ tab, setTab, navigate }: HubSectionProps) {
             tone="blue"
             mock={<MiniEwayMock />}
           />
-
-          {/* Accounting */}
           <PillarCard
             tag="Accounting"
             title="Books that journal themselves."
@@ -117,8 +104,6 @@ export function HubSection({ tab, setTab, navigate }: HubSectionProps) {
             tone="cyan"
             mock={<MiniAccountingMock />}
           />
-
-          {/* KSA bonus */}
           <PillarCard
             tag="KSA e-Invoicing"
             title="ZATCA-approved, same platform."
@@ -129,10 +114,8 @@ export function HubSection({ tab, setTab, navigate }: HubSectionProps) {
           />
         </div>
 
-        <div style={{ marginTop: 40, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 16 }}>
-          <div style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--fg-tertiary)', letterSpacing: '0.03em' }}>
-            ⤷ Every product runs on the same GSP-licensed pipe to GSTN.
-          </div>
+        <div className="wb-hub-footer">
+          <span className="wb-hub-footer-note">⤷ Every product runs on the same GSP-licensed pipe to GSTN.</span>
           <a href="#" className="link-arrow" onClick={(e) => e.preventDefault()}>See all products</a>
         </div>
       </div>

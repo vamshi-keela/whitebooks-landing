@@ -45,6 +45,13 @@ export function Hero() {
       <div className="wb-grid-bg" aria-hidden="true"></div> */}
       <HeroBackdrop intensity={0.55} />
 
+      <img
+        src="/assets/Photoroom.png"
+        alt=""
+        aria-hidden="true"
+        className="wb-hero-bg-image"
+      />
+
       <div className="wb-wrap wb-hero-inner">
         <div className="wb-stagger in">
           <div>
@@ -74,11 +81,12 @@ export function Hero() {
 
         </div>
 
+        {/* 
         <div className="wb-hero-visual wb-stagger in" style={{ animationDelay: '400ms' }}>
           <TerminalCard />
           <ReconciliationUI motion={true} />
-          {/* <DashboardCard /> */}
-        </div>
+          <DashboardCard />
+        </div> */}
       </div>
     </section>
   );
@@ -193,20 +201,13 @@ export function LogoWall() {
   const row2 = ['Accenture', 'Philips', 'TVS', 'Yamaha', 'WheelsEye', 'PepsiCo', 'Coca-Cola', 'EaseMyTrip', 'Grant Thornton'];
 
   return (
-    <section className="wb-section-tight wb-reveal" data-reveal style={{ paddingLeft: 120, paddingRight: 120 }}>
-      {/* <div className="wb-wrap">
-        <div style={{ textAlign: 'center', marginBottom: 32 }}>
-          <p className="wb-section-label" style={{ marginBottom: 0 }}>The companies that can't afford to get compliance wrong</p>
-        </div>
-      </div> */}
-      <SectionLabel num="01">Customers</SectionLabel>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, marginBottom: 56, alignItems: 'end' }}>
-        <h2 className="h2">Compliance for the companies that <em>can't afford</em> to get it wrong.</h2>
-        <p className="body" style={{ maxWidth: 460, justifySelf: 'end' }}>
+    <section className="wb-section-tight wb-reveal wb-logo-wall" data-reveal>
+      <div className="wb-logo-wall-header">
+        <h2 className="h1">Compliance for the companies that <em>can't afford</em> to get it wrong.</h2>
+        <p className="body">
           Whitebooks runs GST, e-invoicing, and e-way bill operations for India's largest enterprises and the CA firms that audit them.
           We already helped 3,000+ Customers across India.
         </p>
-
       </div>
       <div className="wb-logos-wrap">
         <div className="wb-ticker" aria-hidden="false">

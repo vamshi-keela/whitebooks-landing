@@ -1,13 +1,10 @@
-import SectionLabel from '@/components/ui/SectionLabel';
-
 export function FinanceTeamsSection() {
     return (
         <section className="section hairline">
             <div className="container">
-                <SectionLabel num="04">For finance teams</SectionLabel>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'end', marginBottom: 56 }}>
+                <div className="wb-section-header">
                     <h2 className="h2">Built for finance teams running<br /><em>₹50Cr to ₹5,000Cr</em> in turnover.</h2>
-                    <p className="body" style={{ maxWidth: 460, justifySelf: 'end' }}>
+                    <p className="body">
                         Direct SAP and Tally connectors. Zero CSV uploads. Your ERP stays the source of truth — Whitebooks handles the rest.
                     </p>
                 </div>
@@ -29,6 +26,5 @@ export function FinanceTeamsSection() {
                 </div>
             </div>
         </section>
-
     );
 }

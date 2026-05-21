@@ -5,13 +5,12 @@ import { FAQ } from '@/components/ui/FAQ';
 export function FAQSection() {
   return (
     <section className="section hairline">
-      <div className="container container-narrow" style={{ maxWidth: 980 }}>
-        <SectionLabel num="9">FAQ</SectionLabel>
-        <div style={{ display: 'grid', gridTemplateColumns: '0.7fr 1.3fr', gap: 64, alignItems: 'start' }}>
+      <div className="container" style={{ paddingLeft: 30, paddingRight: 30 }}>
+        <div className="wb-faq-layout">
           <div>
-            <h2 className="h2">Frequently<br />asked.</h2>
-            <p className="body" style={{ marginTop: 18 }}>
-              JSON-LD schema embedded — these answers are what ChatGPT, Perplexity, and Google AI Overviews pull when someone asks about Whitebooks.
+            <h2 className="h2">Frequently<br className="wb-br-desktop" /> asked.</h2>
+            <p className="" style={{ marginTop: 18 }}>
+              "Signup to Explore the Features of WhiteBooks —<br className="wb-br-desktop" /> A GST Software - A licensed GSP"
             </p>
           </div>
           <FAQ items={[

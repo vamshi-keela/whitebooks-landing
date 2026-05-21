@@ -14,12 +14,12 @@ const HERO_PROPS_HOME: HeroProps = {
   h1: {
     before: 'Compliance ',
     italic: 'infrastructure',
-    after: " for India's largest finance teams.",
+    // after: " for India's largest finance teams.",
   },
   sub: 'GST filing, e-invoicing, and e-way bills — automated, AI-reconciled, and trusted by P&G, IBM, Razorpay, and 12,000+ businesses across India.',
   primary: 'Book a 20-min demo',
   secondary: 'Talk to sales · +91 90321 11788',
-  microcopy: 'Migrating from ClearTax TaxCloud? We import your data in under 45 minutes.',
+  // microcopy: 'Migrating from ClearTax TaxCloud? We import your data in under 45 minutes.',
 };
 
 function HeroFrame({ children }: { children: React.ReactNode }): React.ReactElement {
@@ -77,7 +77,7 @@ function App(): React.ReactElement {
               h1={{
                 before: 'Compliance ',
                 italic: 'that explains itself',
-                after: ', not just a chatbot in the corner.',
+                // after: ', not just a chatbot in the corner.',
               }}
               sub="Ask Whitebooks why your ITC dropped, which vendors are unfiled, what your notice risk looks like — answered from your live data with source rows linked."
             />
@@ -89,11 +89,14 @@ function App(): React.ReactElement {
             <HeroTerminal
               {...HERO_PROPS_HOME}
               eyebrow="Direct GSP pipe · REST API"
-              h1={{ before: 'India compliance, ', italic: 'in five lines', after: ' of code.' }}
+              h1={{
+                before: 'India compliance, ', italic: 'in five lines',
+                // after: ' of code.'
+              }}
               sub="REST, idempotent, retryable. Sandbox keys in 5 minutes. Production-grade SLAs. SDKs in Node, Python, PHP, Java, Go."
               primary="Get sandbox keys"
               secondary="Read the docs"
-              microcopy="Used in production by Razorpay, Pharmeasy, Cars24, WheelsEye, and 200+ teams."
+            // microcopy="Used in production by Razorpay, Pharmeasy, Cars24, WheelsEye, and 200+ teams."
             />
           </HeroFrame>
         </DCArtboard>

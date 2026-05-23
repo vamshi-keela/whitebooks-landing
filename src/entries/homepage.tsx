@@ -16,6 +16,7 @@ import { ProofSection } from '@/sections/WbProof';
 import { KSASection } from '@/sections/WbKSA';
 import { PricingSection } from '@/sections/WbPricing';
 import { FAQSection } from '@/sections/WbFAQ';
+import WhiteBooksHero from '@/sections/heros/hero';
 
 function App(): React.ReactElement {
   const [tab, setTab] = useState<string>('softwares');
@@ -40,6 +41,7 @@ function App(): React.ReactElement {
     <div className="wb-page">
       <Header mode="home" />
       <main>
+        <WhiteBooksHero/>
         <Hero />
         <LogoWall />
         <ProblemSection />

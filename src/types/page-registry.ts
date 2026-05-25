@@ -1,5 +1,6 @@
 import type React from 'react';
 import type { BreadcrumbItem, FaqItem, HeaderMode } from './components';
+import { SubPageData } from './pages';
 
 export interface CtaLink {
   label: string;
@@ -100,4 +101,4 @@ export interface PageDef {
   extra?: React.ReactNode;
 }
 
-export type PagesRegistry = Record<string, PageDef>;
+export type PagesRegistry = Record<string, SubPageData>;

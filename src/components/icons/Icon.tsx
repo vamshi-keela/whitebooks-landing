@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { SVGProps } from 'react';
 
 type SvgProps = React.SVGProps<SVGSVGElement>;
+type IconProps = SVGProps<SVGSVGElement>
 
 export const Chevron = (p: SvgProps) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...p}>
@@ -36,7 +37,6 @@ export const Box = (p: SvgProps) => (
     <circle cx="7" cy="6.25" r="0.6" fill="currentColor" />
   </svg>
 );
-
 export const Code = (p: SvgProps) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="wb-toggle-icon" {...p}>
     <polyline points="8 7 3 12 8 17" />

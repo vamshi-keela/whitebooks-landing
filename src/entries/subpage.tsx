@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { SubPage } from '@/layouts/SubpageShell';
+import { SubPage } from '@/components/subpage/SubPage.tsx';
 import { pagesRegistry } from '@/pages/registry/index';
 import { useReveal } from '@/hooks/useReveal';
 import '@/styles/design-system-wb.css';
 import '@/styles/globals.css';
+import { SubPageData } from '@/types/pages';
 
 function SubpageApp(): React.ReactElement | null {
   const root = document.getElementById('root');
@@ -20,7 +21,7 @@ function SubpageApp(): React.ReactElement | null {
     );
   }
 
-  return <SubPage {...pageDef} />;
+  return <SubPage data={pageDef as SubPageData} />;
 }
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

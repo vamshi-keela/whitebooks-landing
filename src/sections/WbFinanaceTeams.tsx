@@ -1,28 +1,39 @@
 export function FinanceTeamsSection() {
     return (
-        <section className="section hairline">
-            <div className="container">
-                <div className="wb-section-header">
-                    <h2 className="h2">Built for finance teams running<br /><em>₹50Cr to ₹5,000Cr</em> in turnover.</h2>
-                    <p className="body">
+        <section className="relative border-b border-[var(--hairline)] max-[700px]:py-[72px] py-24">
+            <div className="w-full px-24 max-[700px]:px-8">
+                <div className="grid grid-cols-[1.3fr_0.7fr] gap-16 items-end mb-14 max-[900px]:grid-cols-1 max-[900px]:gap-6 max-[900px]:mb-10">
+                    <h2 className="font-serif font-semibold text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px] text-balance">
+                        Built for finance teams running<br /><em>₹50Cr to ₹5,000Cr</em> in turnover.
+                    </h2>
+                    <p className="text-[18px] text-[var(--fg-secondary)] leading-[1.6] m-0 max-w-[460px] justify-self-end max-[900px]:justify-self-start max-[900px]:max-w-full">
                         Direct SAP and Tally connectors. Zero CSV uploads. Your ERP stays the source of truth — Whitebooks handles the rest.
                     </p>
                 </div>
-                <div className="grid-3">
+                <div className="grid grid-cols-[repeat(3,1fr)] gap-[18px] mt-12 max-[1100px]:grid-cols-[repeat(2,1fr)] max-[768px]:grid-cols-1">
                     {[
                         { title: 'SAP-native integration', body: 'Push invoices from SAP S/4HANA or ECC to GSTN in real time. Generate IRNs and e-way bills inside the SAP transaction. No middleware, no separate ETL, no CSV fallbacks.', mono: 'sap_s4hana · sap_ecc' },
                         { title: 'ITC optimization, not just matching', body: 'Match 6,000+ invoices per minute against GSTR-2B. Surface every blocked credit, every Rule 37A risk, every vendor with a falling compliance score — before you file 3B.', mono: '6,000 inv/min · Rule 37A' },
                         { title: 'AATO-aware automation', body: 'Whitebooks reads your AATO and applies the right e-invoicing threshold, the right 30-day IRN window, the right ISD rule. The software adapts to the law, not the other way around.', mono: 'aato_threshold · 30d_window' },
                     ].map((f, i) => (
-                        <div key={i} className="card">
-                            <div className="mono-tag accent"><span className="dot"></span>{f.mono}</div>
-                            <h3 className="h3" style={{ marginTop: 18, fontSize: 20 }}>{f.title}</h3>
-                            <p className="body" style={{ marginTop: 12 }}>{f.body}</p>
+                        <div key={i} className="bg-[var(--bg-card)] border border-[var(--hairline)] rounded-[14px] p-7 transition-[border-color,background] duration-200 ease-[ease] hover:border-[var(--hairline-bright)] hover:bg-[var(--bg-elev)]">
+                            <div className="inline-flex items-center gap-[6px] px-[10px] py-1 rounded-full font-mono text-[11px] font-medium tracking-[0.05em] uppercase text-[var(--accent)] bg-[rgba(220,47,101,0.08)] border border-[rgba(220,47,101,0.2)]">
+                                <span className="w-[5px] h-[5px] rounded-full bg-[var(--accent)] shrink-0 inline-block"></span>
+                                {f.mono}
+                            </div>
+                            <h3 className="font-serif font-semibold text-[20px] leading-[1.2] tracking-[-0.015em] m-0 mt-[18px]">{f.title}</h3>
+                            <p className="text-[18px] text-[var(--fg-secondary)] leading-[1.6] m-0 mt-3">{f.body}</p>
                         </div>
                     ))}
                 </div>
-                <div style={{ marginTop: 48 }}>
-                    <a href="#" className="link-arrow" onClick={(e) => e.preventDefault()}>Explore the enterprise stack</a>
+                <div className="mt-12">
+                    <a
+                        href="#"
+                        className="inline-flex items-center gap-[6px] text-[14px] font-medium text-[var(--fg-primary)] no-underline transition-[color,gap] duration-[160ms] cursor-pointer hover:text-[var(--accent-bright)] hover:gap-[10px] after:content-['→']"
+                        onClick={(e) => e.preventDefault()}
+                    >
+                        Explore the enterprise stack
+                    </a>
                 </div>
             </div>
         </section>

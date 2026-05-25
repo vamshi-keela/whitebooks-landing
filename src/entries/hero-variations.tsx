@@ -10,7 +10,7 @@ import '@/styles/globals.css';
 const HERO_PROPS_HOME: HeroProps = {
   motion: true,
   intensity: 0.55,
-  eyebrow: 'GSP · Licensed by GSTN',
+  eyebrow: 'GSP | Licensed by GSTN',
   h1: {
     before: 'Compliance ',
     italic: 'infrastructure',
@@ -73,7 +73,7 @@ function App(): React.ReactElement {
           <HeroFrame>
             <HeroCopilot
               {...HERO_PROPS_HOME}
-              eyebrow="AI-native · On the Anthropic API"
+              eyebrow="AI-native | On the Anthropic API"
               h1={{
                 before: 'Compliance ',
                 italic: 'that explains itself',
@@ -88,7 +88,7 @@ function App(): React.ReactElement {
           <HeroFrame>
             <HeroTerminal
               {...HERO_PROPS_HOME}
-              eyebrow="Direct GSP pipe · REST API"
+              eyebrow="Direct GSP pipe | REST API"
               h1={{
                 before: 'India compliance, ', italic: 'in five lines',
                 // after: ' of code.'

@@ -24,7 +24,7 @@ interface PageHomeProps {
 export function PageHome({ motion, intensity, heroVariant, navigate }: PageHomeProps) {
   const heroProps = {
     motion, intensity,
-    eyebrow: 'GST Suvidha Provider · Licensed by GSTN',
+    eyebrow: 'GST Suvidha Provider | Licensed by GSTN',
     h1: { before: 'Compliance infrastructure for ', italic: `India's largest finance teams` },
     sub: 'GST filing, e-invoicing, and e-way bills — automated, AI-reconciled, and trusted by P&G, IBM, Razorpay, and 12,000+ businesses across India.',
     primary: 'Book a 20-min demo',
@@ -400,7 +400,7 @@ response = wb.einvoice.<span class="fn">create</span>(
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 40 }}>
                 <div>
-                  <div className="eyebrow"><span className="dot"></span>One platform · two regulators</div>
+                  <div className="eyebrow"><span className="dot"></span>One platform | two regulators</div>
                 </div>
                 <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--fg-quaternary)' }}>↳ 2026</div>
               </div>
@@ -519,7 +519,8 @@ response = wb.einvoice.<span class="fn">create</span>(
       </section>
 
       <ClosingCTA
-        eyebrow="One platform · India + GCC"
+        eyebrow="One platform"
+        eyebrowSubTitle="India + GCC"
         title="Build your India compliance once."
         body="GSP-licensed, AI-native, used by P&G, IBM, Razorpay, and 12,000+ more. Twenty minutes to see it run on your own data."
         primary="Book a 20-min demo"

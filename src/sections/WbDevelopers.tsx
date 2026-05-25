@@ -1,32 +1,55 @@
 import CodeBlock from "@/components/ui/CodeBlock";
+
 export function ForDevelopersSection() {
     return (
-        <section className="section hairline relative" style={{ overflow: 'hidden' }}>
-            <div className="mesh" style={{ ['--mesh-opacity' as string]: 0.55 * 0.6 } as React.CSSProperties}></div>
-            <div className="container relative">
-                <div className="wb-dev-grid">
+        <section className="relative overflow-hidden border-b border-white/[0.06] max-[700px]:py-[72px] py-24">
+            <div
+                className="absolute inset-[-10%] pointer-events-none z-0"
+                style={{
+                    background: `radial-gradient(ellipse 38% 50% at var(--m1x) var(--m1y), rgba(220,47,101,0.5), transparent 65%),
+                        radial-gradient(ellipse 36% 42% at var(--m2x) var(--m2y), rgba(255,110,156,0.42), transparent 70%),
+                        radial-gradient(ellipse 30% 36% at var(--m3x) var(--m3y), rgba(255,168,120,0.22), transparent 72%),
+                        radial-gradient(ellipse 32% 38% at var(--m4x) var(--m4y), rgba(155,22,68,0.55), transparent 65%)`,
+                    filter: 'blur(38px) saturate(160%)',
+                    animation: 'wb-mesh-drift 22s ease-in-out infinite alternate',
+                    opacity: 0.33,
+                } as React.CSSProperties}
+            />
+            <div className="relative w-full px-24 max-[700px]:px-8">
+                <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] gap-10 md:gap-16 items-center">
                     <div>
-                        <h2 className="h2">The only India compliance API <em>written like a modern API</em> should be.</h2>
-                        <p className="lede" style={{ marginTop: 22 }}>
+                        <h2 className="[font-family:var(--font-serif)] font-semibold text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px] [text-wrap:balance]">
+                            The only India compliance API <em>written like a modern API</em> should be.
+                        </h2>
+                        <p className="text-[18px] text-[var(--fg-secondary)] leading-[1.55] max-w-[600px] m-0 mt-[22px]">
                             REST, idempotent, retryable. Sandbox keys in 5 minutes. Production-grade SLAs. Direct GSTN-licensed pipe — no resold APIs.
                         </p>
-                        <div className="wb-dev-stats">
+                        <div className="mt-8 flex flex-col gap-[10px]">
                             {[
                                 { k: 'Sub-200ms', v: 'IRN generation (p50)' },
                                 { k: '99.95%', v: 'uptime SLA' },
                                 { k: 'SOC 2', v: 'Type II in progress' },
                             ].map((s, i) => (
-                                <div key={i} className="wb-dev-stat-row">
-                                    <span className="wb-dev-stat-key">{s.k}</span>
-                                    <span className="wb-dev-stat-lbl">{s.v}</span>
+                                <div key={i} className="flex justify-between items-center py-[14px] border-b border-white/[0.06]">
+                                    <span className="[font-family:var(--font-serif)] text-[clamp(17px,1.8vw,22px)] tracking-[-0.015em]">{s.k}</span>
+                                    <span className="[font-family:var(--font-mono)] text-[12px] text-[var(--fg-tertiary)] tracking-[0.06em] uppercase">{s.v}</span>
                                 </div>
                             ))}
                         </div>
-                        <div className="wb-dev-ctas">
-                            <a href="API - GST.html" className="btn btn-accent btn-arrow">
+                        <div className="mt-8 flex gap-[14px] flex-wrap">
+                            <a
+                                href="API - GST.html"
+                                className="inline-flex items-center justify-center gap-2 py-[11px] px-[18px] rounded-lg font-medium text-sm tracking-[0.005em] border border-[var(--accent)] transition-all duration-[160ms] ease-in-out whitespace-nowrap no-underline cursor-pointer bg-[var(--accent)] text-white hover:bg-[#e8447a] hover:shadow-[0_8px_24px_-8px_rgba(220,47,101,0.55)] hover:-translate-y-px after:content-['→']"
+                            >
                                 Read the API docs
                             </a>
-                            <a href="#" className="btn btn-ghost" onClick={(e) => e.preventDefault()}>Get sandbox keys</a>
+                            <a
+                                href="#"
+                                className="inline-flex items-center justify-center gap-2 py-[11px] px-[18px] rounded-lg font-medium text-sm tracking-[0.005em] border border-[var(--hairline-strong)] transition-all duration-[160ms] ease-in-out whitespace-nowrap no-underline cursor-pointer bg-transparent text-[var(--fg-secondary)] hover:bg-white/[0.04] hover:border-white/[0.16] hover:text-[var(--fg-primary)]"
+                                onClick={(e) => e.preventDefault()}
+                            >
+                                Get sandbox keys
+                            </a>
                         </div>
                     </div>
                     <CodeBlock samples={{

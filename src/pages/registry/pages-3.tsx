@@ -1,26 +1,38 @@
 import React from 'react';
-import type { PageDef } from '@/types/page-registry';
+import { SubPageData } from '@/types/pages';
 
-const PAGES_3: Record<string, PageDef> = {
+const PAGES_3: Record<string, SubPageData> = {
 
   /* -------------------- GST API -------------------- */
   "gst-api": {
     headerMode: "apis",
     breadcrumb: [
-      { label: "Home", href: "Whitebooks Homepage.html" },
-      { label: "APIs", href: "APIs.html" },
+      { label: "Home", href: "/" },
+      { label: "APIs", href: "/apis" },
       { label: "GST API" },
     ],
     hero: {
       eyebrow: "GST API · Direct GSP pipe to GSTN",
-      title: <>File returns, pull 2A/2B, validate GSTINs — <span className="accent">over a real REST API.</span></>,
-      sub: <>The GST API for developers who actually have to ship. Direct GSP-licensed connection to GSTN. SDKs in 5 languages. <strong>99.95% uptime SLA.</strong></>,
+      title: (
+        <>
+          File returns, pull 2A/2B, validate GSTINs — <span className="accent">over a real REST API.</span>
+        </>
+      ),
+      sub: (
+        <>
+          The GST API for developers who actually have to ship. Direct GSP-licensed connection to GSTN. SDKs in 5 languages. <strong>99.95% uptime SLA.</strong>
+        </>
+      ),
       primaryCta: { label: "Get sandbox keys" },
       secondaryCta: { label: "Read the docs" },
       micro: "Used in production by <a href='#'>Razorpay, Pharmeasy, Cars24, WheelsEye, and 200+ teams</a>.",
     },
     problem: {
-      heading: <>Three reasons most "GST APIs" <span className="accent">disappoint developers.</span></>,
+      heading: (
+        <>
+          Three reasons most &quot;GST APIs&quot; <span className="accent">disappoint developers.</span>
+        </>
+      ),
       items: [
         { title: "Resold APIs add latency", body: "Most 'GST APIs' on the market are resold from a real GSP — your request goes through their server before it reaches GSTN. That's 200–600ms of extra latency on every call. Whitebooks holds its own GSP license. Your request goes one hop, not two." },
         { title: "XML, SOAP, and undocumented quirks", body: "Some providers wrap the GSTN's underlying APIs without modernization — leaving you to handle XML payloads, SOAP envelopes, and undocumented error codes. Whitebooks normalizes everything to clean JSON with well-typed errors." },
@@ -29,26 +41,35 @@ const PAGES_3: Record<string, PageDef> = {
     },
     features: {
       label: "Endpoints",
-      heading: <>The endpoints. <span className="accent">Documented like an API should be.</span></>,
+      heading: (
+        <>
+          The endpoints. <span className="accent">Documented like an API should be.</span>
+        </>
+      ),
       items: [
-        { endpoint: "POST /v1/gstr/file", body: "File any GSTR — 1, 1A, 3B, 4, 5, 6, 7, 8, 9, 9A, 9C, IFF, ITC-04, CMP-08. JSON in, ARN out. Idempotency key supported." },
-        { endpoint: "GET /v1/gstr/2a", body: "Pull GSTR-2A and 2B data for any return period, any GSTIN under delegated authentication. Returns parsed JSON with vendor-wise breakdown." },
-        { endpoint: "GET /v1/gstin/validate", body: "Validate any GSTIN against the GSTN registry. Returns legal name, trade name, registration status, last filing date, state code, and PAN linkage." },
-        { endpoint: "GET /v1/hsn/search", body: "Search HSN and SAC codes by keyword or code. Returns description, current GST 2.0 rate, chapter, and last revision date." },
-        { endpoint: "POST /v1/ims/accept", body: "Manage Invoice Management System (IMS) actions in bulk. Accept, reject, or hold inward invoices, with reason codes. Returns updated GSTR-3B liability preview." },
-        { endpoint: "GET /v1/notice/list", body: "Pull Section 61, 73, 74 notices issued against any of your monitored GSTINs. Returns notice type, date, amount in dispute, and response deadline." },
-        { endpoint: "POST /v1/refund/file", body: "File GST refund applications (RFD-01, RFD-10) via API. Supports refund of unutilized ITC, IGST paid on exports, and inverted duty structure." },
-        { endpoint: "Webhooks", body: "Subscribe to events: GSTR filed, notice received, GSTR-2B available, refund status changed. HMAC-signed payloads, replay protection, exponential backoff on delivery." },
+        { endpoint: "POST /v1/gstr/file", body: "File any GSTR — 1, 1A, 3B, 4, 5, 6, 7, 8, 9, 9A, 9C, IFF, ITC-04, CMP-08. JSON in, ARN out. Idempotency key supported.", title: "" },
+        { endpoint: "GET /v1/gstr/2a", body: "Pull GSTR-2A and 2B data for any return period, any GSTIN under delegated authentication. Returns parsed JSON with vendor-wise breakdown.", title: "" },
+        { endpoint: "GET /v1/gstin/validate", body: "Validate any GSTIN against the GSTN registry. Returns legal name, trade name, registration status, last filing date, state code, and PAN linkage.", title: "" },
+        { endpoint: "GET /v1/hsn/search", body: "Search HSN and SAC codes by keyword or code. Returns description, current GST 2.0 rate, chapter, and last revision date.", title: "" },
+        { endpoint: "POST /v1/ims/accept", body: "Manage Invoice Management System (IMS) actions in bulk. Accept, reject, or hold inward invoices, with reason codes. Returns updated GSTR-3B liability preview.", title: "" },
+        { endpoint: "GET /v1/notice/list", body: "Pull Section 61, 73, 74 notices issued against any of your monitored GSTINs. Returns notice type, date, amount in dispute, and response deadline.", title: "" },
+        { endpoint: "POST /v1/refund/file", body: "File GST refund applications (RFD-01, RFD-10) via API. Supports refund of unutilized ITC, IGST paid on exports, and inverted duty structure.", title: "" },
+        { endpoint: "Webhooks", body: "Subscribe to events: GSTR filed, notice received, GSTR-2B available, refund status changed. HMAC-signed payloads, replay protection, exponential backoff on delivery.", title: "" },
       ],
     },
     integrations: {
       heading: "SDKs, frameworks, and the tools you already use.",
-      body: "Official SDKs in Node.js, Python, PHP, Java, and Go. Community SDKs in Ruby, .NET, Elixir. All on github.com/whitebooks. First-class support for Express, FastAPI, Django, Laravel, Spring Boot, and Gin.",
+      body:
+        "Official SDKs in Node.js, Python, PHP, Java, and Go. Community SDKs in Ruby, .NET, Elixir. All on github.com/whitebooks. First-class support for Express, FastAPI, Django, Laravel, Spring Boot, and Gin.",
       logos: ["Node.js", "Python", "PHP", "Java", "Go", "Ruby", ".NET", "Elixir", "Postman", "OpenAPI 3.1", "Express", "FastAPI", "Django", "Laravel"],
       cta: { label: "See SDK docs" },
     },
     ai: {
-      heading: <>AI-friendly responses, <span className="accent">AI-friendly tooling.</span></>,
+      heading: (
+        <>
+          AI-friendly responses, <span className="accent">AI-friendly tooling.</span>
+        </>
+      ),
       items: [
         { title: "Structured response shapes designed for LLM extraction", body: "Every endpoint returns responses with consistent field naming and explicit type information. Easy to feed into agentic workflows or AI-driven reconciliation systems." },
         { title: "Inline error explanations", body: "When GSTN rejects a return, the error code is returned alongside a plain-language explanation and a suggested fix. The kind of thing that saves you from grep-ing GSTN's PDF documentation at 2am." },
@@ -78,8 +99,13 @@ const PAGES_3: Record<string, PageDef> = {
       ],
     },
     closing: {
-      h2: <>Five minutes to <span className="accent">your first sandbox call.</span></>,
-      body: "Sign up, get sandbox keys, run the quickstart. Production access in 5 business days after KYC. No procurement-cycle minimum — Startup tier starts at ₹14,999/month.",
+      h2: (
+        <>
+          Five minutes to <span className="accent">your first sandbox call.</span>
+        </>
+      ),
+      body:
+        "Sign up, get sandbox keys, run the quickstart. Production access in 5 business days after KYC. No procurement-cycle minimum — Startup tier starts at ₹14,999/month.",
       primaryCta: { label: "Get sandbox keys" },
       secondaryCta: { label: "Talk to a solutions engineer" },
     },
@@ -89,19 +115,31 @@ const PAGES_3: Record<string, PageDef> = {
   "e-invoice-api": {
     headerMode: "apis",
     breadcrumb: [
-      { label: "Home", href: "Whitebooks Homepage.html" },
-      { label: "APIs", href: "APIs.html" },
+      { label: "Home", href: "/" },
+      { label: "APIs", href: "/apis" },
       { label: "e-Invoice API" },
     ],
     hero: {
       eyebrow: "e-Invoice API · Direct IRP integration",
-      title: <>Generate IRNs at scale. <span className="accent">In under 200 milliseconds.</span></>,
-      sub: <>The e-Invoice API for billing systems, ERPs, and B2B marketplaces. Sub-200ms p50 latency. Direct GSP-licensed pipe to the IRP. <strong>Used by Razorpay to generate IRNs for 100,000+ merchants.</strong></>,
+      title: (
+        <>
+          Generate IRNs at scale. <span className="accent">In under 200 milliseconds.</span>
+        </>
+      ),
+      sub: (
+        <>
+          The e-Invoice API for billing systems, ERPs, and B2B marketplaces. Sub-200ms p50 latency. Direct GSP-licensed pipe to the IRP. <strong>Used by Razorpay to generate IRNs for 100,000+ merchants.</strong>
+        </>
+      ),
       primaryCta: { label: "Get sandbox keys" },
       secondaryCta: { label: "Read the docs" },
     },
     problem: {
-      heading: <>Three reasons e-invoicing integrations <span className="accent">fail in production.</span></>,
+      heading: (
+        <>
+          Three reasons e-invoicing integrations <span className="accent">fail in production.</span>
+        </>
+      ),
       items: [
         { title: "The 30-day window is unforgiving", body: "For AATO above ₹10 crore, invoices not reported to the IRP within 30 days are invalid for ITC. If your integration ages out invoices silently, your customers lose money. Whitebooks surfaces window-at-risk invoices via webhook before they expire." },
         { title: "The IRP has unplanned outages", body: "Around month-end, IRP latency spikes and intermittent failures are common. Naive integrations fail; resilient ones queue and retry. Whitebooks queues and retries on your behalf, surfacing only the ones requiring human decision." },
@@ -112,22 +150,27 @@ const PAGES_3: Record<string, PageDef> = {
       label: "Endpoints",
       heading: <>The endpoints.</>,
       items: [
-        { endpoint: "POST /v1/einvoice/create", body: "Generate IRN, signed QR code, and acknowledgment number. JSON in, full response in <200ms p50. Idempotency key supported." },
-        { endpoint: "POST /v1/einvoice/cancel", body: "Cancel an IRN within 24 hours of generation. Returns updated IRP state. After 24 hours, redirects you to the credit-note flow." },
-        { endpoint: "POST /v1/einvoice/credit-note", body: "Generate a credit note linked to an existing IRN. Auto-populates buyer GSTIN, place of supply, and reverse logic. Returns new IRN for the credit note." },
-        { endpoint: "POST /v1/einvoice/debit-note", body: "Generate a debit note linked to an existing IRN. Same semantics as credit note, opposite direction." },
-        { endpoint: "POST /v1/einvoice/bulk", body: "Submit up to 10,000 IRN requests in one batch. Returns batch ID; poll status or subscribe via webhook." },
-        { endpoint: "GET /v1/einvoice/{irn}", body: "Retrieve full IRN details, status, and history. Useful for reconciliation and audit." },
+        { endpoint: "POST /v1/einvoice/create", body: "Generate IRN, signed QR code, and acknowledgment number. JSON in, full response in <200ms p50. Idempotency key supported.", title: "" },
+        { endpoint: "POST /v1/einvoice/cancel", body: "Cancel an IRN within 24 hours of generation. Returns updated IRP state. After 24 hours, redirects you to the credit-note flow.", title: "" },
+        { endpoint: "POST /v1/einvoice/credit-note", body: "Generate a credit note linked to an existing IRN. Auto-populates buyer GSTIN, place of supply, and reverse logic. Returns new IRN for the credit note.", title: "" },
+        { endpoint: "POST /v1/einvoice/debit-note", body: "Generate a debit note linked to an existing IRN. Same semantics as credit note, opposite direction.", title: "" },
+        { endpoint: "POST /v1/einvoice/bulk", body: "Submit up to 10,000 IRN requests in one batch. Returns batch ID; poll status or subscribe via webhook.", title: "" },
+        { endpoint: "GET /v1/einvoice/{irn}", body: "Retrieve full IRN details, status, and history. Useful for reconciliation and audit.", title: "" },
       ],
     },
     integrations: {
       heading: "SDKs, code examples, and integration guides.",
-      body: "Official SDKs in Node.js, Python, PHP, Java, Go. Working integrations for Stripe-style billing platforms, Razorpay merchant flows, custom ERPs, and bulk dispatch workflows. HMAC-signed webhooks for every state transition.",
+      body:
+        "Official SDKs in Node.js, Python, PHP, Java, Go. Working integrations for Stripe-style billing platforms, Razorpay merchant flows, custom ERPs, and bulk dispatch workflows. HMAC-signed webhooks for every state transition.",
       logos: ["Node.js", "Python", "PHP", "Java", "Go", "Webhooks", "Postman", "OpenAPI 3.1"],
       cta: { label: "Read integration guide" },
     },
     ai: {
-      heading: <>Smart features that <span className="accent">fit into your code.</span></>,
+      heading: (
+        <>
+          Smart features that <span className="accent">fit into your code.</span>
+        </>
+      ),
       items: [
         { title: "HSN auto-suggestion endpoint", body: <><code>GET /v1/hsn/suggest?description=...</code> returns the most likely HSN code and current rate for a product description. Useful for marketplaces accepting seller-uploaded products.</> },
         { title: "Anomaly flagging in webhook payloads", body: <>Webhook events include a <code>risk_flags</code> array — high-value invoice to a new buyer, GSTIN with falling compliance score, unusual HSN pattern. Surface these in your UI for human review.</> },
@@ -157,8 +200,13 @@ const PAGES_3: Record<string, PageDef> = {
       ],
     },
     closing: {
-      h2: <>April 2026 is closer than <span className="accent">your customers think.</span></>,
-      body: "The ₹5 crore AATO mandate goes live April 1, 2026. Billing systems and ERPs serving Indian SMBs need e-invoicing capability — and most can't build it from scratch in time. Whitebooks ships the capability in a sprint.",
+      h2: (
+        <>
+          April 2026 is closer than <span className="accent">your customers think.</span>
+        </>
+      ),
+      body:
+        "The ₹5 crore AATO mandate goes live April 1, 2026. Billing systems and ERPs serving Indian SMBs need e-invoicing capability — and most can't build it from scratch in time. Whitebooks ships the capability in a sprint.",
       primaryCta: { label: "Get sandbox keys" },
       secondaryCta: { label: "Talk to a solutions engineer" },
     },
@@ -168,19 +216,31 @@ const PAGES_3: Record<string, PageDef> = {
   "e-way-bill-api": {
     headerMode: "apis",
     breadcrumb: [
-      { label: "Home", href: "Whitebooks Homepage.html" },
-      { label: "APIs", href: "APIs.html" },
+      { label: "Home", href: "/" },
+      { label: "APIs", href: "/apis" },
       { label: "e-Way Bill API" },
     ],
     hero: {
       eyebrow: "e-Way Bill API · GSP-Licensed",
-      title: <>Every dispatch event triggers an e-way bill. <span className="accent">We make it one API call.</span></>,
-      sub: <>Generate, extend, and cancel e-way bills programmatically. Auto-populate from existing IRNs. Handle bulk dispatch from warehouses. <strong>Used in production by Pharmeasy (14 warehouses) and WheelsEye.</strong></>,
+      title: (
+        <>
+          Every dispatch event triggers an e-way bill. <span className="accent">We make it one API call.</span>
+        </>
+      ),
+      sub: (
+        <>
+          Generate, extend, and cancel e-way bills programmatically. Auto-populate from existing IRNs. Handle bulk dispatch from warehouses. <strong>Used in production by Pharmeasy (14 warehouses) and WheelsEye.</strong>
+        </>
+      ),
       primaryCta: { label: "Get sandbox keys" },
       secondaryCta: { label: "Read the docs" },
     },
     problem: {
-      heading: <>Three reasons e-way bill integrations <span className="accent">break at scale.</span></>,
+      heading: (
+        <>
+          Three reasons e-way bill integrations <span className="accent">break at scale.</span>
+        </>
+      ),
       items: [
         { title: "Re-keying data from the invoice system", body: "Most integrations require pushing all invoice and buyer data again to generate the e-way bill. Whitebooks reads existing IRNs and pre-populates 90% of the e-way bill fields automatically." },
         { title: "Validity expiry mid-transit", body: "Trucks break down. Routes divert. Bills expire. Whitebooks emits a webhook 4 hours before any e-way bill expires, giving your dispatch team time to extend." },
@@ -191,22 +251,27 @@ const PAGES_3: Record<string, PageDef> = {
       label: "Endpoints",
       heading: <>The endpoints.</>,
       items: [
-        { endpoint: "POST /v1/ewaybill/create", body: "Generate an e-way bill for a single consignment. Optional irn field auto-populates buyer, item, and tax fields from the source invoice." },
-        { endpoint: "POST /v1/ewaybill/create-consolidated", body: "Generate a consolidated e-way bill for a multi-invoice vehicle trip. Pass an array of IRNs or invoice IDs." },
-        { endpoint: "POST /v1/ewaybill/extend", body: "Extend validity within 8 hours before or after expiry. Requires reason code (vehicle breakdown, transshipment, natural calamity)." },
-        { endpoint: "POST /v1/ewaybill/cancel", body: "Cancel within 24 hours of generation. After 24 hours, the bill auto-expires per its validity period." },
-        { endpoint: "POST /v1/ewaybill/update-vehicle", body: "Update vehicle number mid-transit (for transshipment). Log every vehicle change with timestamp and authorized user." },
-        { endpoint: "GET /v1/ewaybill/{ewb_no}", body: "Retrieve full e-way bill details, validity, and status history. Includes pin-to-pin distance calculation and computed validity." },
+        { endpoint: "POST /v1/ewaybill/create", body: "Generate an e-way bill for a single consignment. Optional irn field auto-populates buyer, item, and tax fields from the source invoice.", title: "" },
+        { endpoint: "POST /v1/ewaybill/create-consolidated", body: "Generate a consolidated e-way bill for a multi-invoice vehicle trip. Pass an array of IRNs or invoice IDs.", title: "" },
+        { endpoint: "POST /v1/ewaybill/extend", body: "Extend validity within 8 hours before or after expiry. Requires reason code (vehicle breakdown, transshipment, natural calamity).", title: "" },
+        { endpoint: "POST /v1/ewaybill/cancel", body: "Cancel within 24 hours of generation. After 24 hours, the bill auto-expires per its validity period.", title: "" },
+        { endpoint: "POST /v1/ewaybill/update-vehicle", body: "Update vehicle number mid-transit (for transshipment). Log every vehicle change with timestamp and authorized user.", title: "" },
+        { endpoint: "GET /v1/ewaybill/{ewb_no}", body: "Retrieve full e-way bill details, validity, and status history. Includes pin-to-pin distance calculation and computed validity.", title: "" },
       ],
     },
     integrations: {
       heading: "Built for logistics, WMS, and TMS platforms.",
-      body: "SDKs in Node.js, Python, PHP, Java, Go. Integration patterns for warehouse management dispatch flows, transporter onboarding, and freight brokerage platforms. Webhooks: bill generated, bill approaching expiry (4hr alert), bill expired, vehicle updated, bill cancelled.",
+      body:
+        "SDKs in Node.js, Python, PHP, Java, Go. Integration patterns for warehouse management dispatch flows, transporter onboarding, and freight brokerage platforms. Webhooks: bill generated, bill approaching expiry (4hr alert), bill expired, vehicle updated, bill cancelled.",
       logos: ["Node.js", "Python", "PHP", "Java", "Go", "WheelsEye", "Pharmeasy", "WMS connectors", "TMS connectors"],
       cta: { label: "Read integration guide" },
     },
     ai: {
-      heading: <>What the AI <span className="accent">does inside the API.</span></>,
+      heading: (
+        <>
+          What the AI <span className="accent">does inside the API.</span>
+        </>
+      ),
       items: [
         { title: "Realistic transit prediction", body: "Beyond GSTN's pin-to-pin calculation, Whitebooks predicts realistic transit time based on route history, transporter performance, and seasonal factors. Returned in every bill creation response." },
         { title: "Anomaly flagging", body: "Webhook events include flags for invalid vehicle number formats, unknown transporter IDs, distances outside historical norms, and bills generated outside typical dispatch hours." },
@@ -236,8 +301,13 @@ const PAGES_3: Record<string, PageDef> = {
       ],
     },
     closing: {
-      h2: <>Logistics doesn't wait. <span className="accent">Your e-way bill integration shouldn't either.</span></>,
-      body: "Pharmeasy generates e-way bills for 14 warehouses via the Whitebooks API. WheelsEye uses the API for fleet onboarding and transporter invoice reconciliation. Same SLA, same direct GSP pipe.",
+      h2: (
+        <>
+          Logistics doesn&apos;t wait. <span className="accent">Your e-way bill integration shouldn&apos;t either.</span>
+        </>
+      ),
+      body:
+        "Pharmeasy generates e-way bills for 14 warehouses via the Whitebooks API. WheelsEye uses the API for fleet onboarding and transporter invoice reconciliation. Same SLA, same direct GSP pipe.",
       primaryCta: { label: "Get sandbox keys" },
       secondaryCta: { label: "Talk to a solutions engineer" },
     },
@@ -247,19 +317,31 @@ const PAGES_3: Record<string, PageDef> = {
   "ksa-e-invoice-api": {
     headerMode: "apis",
     breadcrumb: [
-      { label: "Home", href: "Whitebooks Homepage.html" },
-      { label: "APIs", href: "APIs.html" },
+      { label: "Home", href: "/" },
+      { label: "APIs", href: "/apis" },
       { label: "KSA e-Invoice API" },
     ],
     hero: {
       eyebrow: "KSA e-Invoice API · ZATCA Phase 2 Compliant",
-      title: <>ZATCA Phase 2 integration. <span className="accent">Without becoming an integration specialist.</span></>,
-      sub: <>Generate, sign, and clear ZATCA-compliant e-invoices via REST. CSID lifecycle managed for you. <strong>Bilingual invoice rendering, QR generation, FATOORAH clearance — all in one API call.</strong></>,
+      title: (
+        <>
+          ZATCA Phase 2 integration. <span className="accent">Without becoming an integration specialist.</span>
+        </>
+      ),
+      sub: (
+        <>
+          Generate, sign, and clear ZATCA-compliant e-invoices via REST. CSID lifecycle managed for you. <strong>Bilingual invoice rendering, QR generation, FATOORAH clearance — all in one API call.</strong>
+        </>
+      ),
       primaryCta: { label: "Get sandbox keys" },
       secondaryCta: { label: "Talk to KSA solutions team" },
     },
     problem: {
-      heading: <>Three reasons ZATCA Phase 2 integrations are <span className="accent">painful to build alone.</span></>,
+      heading: (
+        <>
+          Three reasons ZATCA Phase 2 integrations are <span className="accent">painful to build alone.</span>
+        </>
+      ),
       items: [
         { title: "Cryptographic signing is not a weekend project", body: "ZATCA Phase 2 requires generating a CSR, retrieving a CSID from ZATCA, signing every invoice with the certificate, and managing renewal — all under specific cryptographic standards. Whitebooks handles certificate lifecycle entirely." },
         { title: "FATOORAH integration is real-time and unforgiving", body: "Standard tax invoices must be cleared by ZATCA before they reach the buyer. Latency, retries, and error handling matter. Whitebooks runs production-grade infrastructure with documented SLAs." },
@@ -270,17 +352,18 @@ const PAGES_3: Record<string, PageDef> = {
       label: "Endpoints",
       heading: <>The endpoints.</>,
       items: [
-        { endpoint: "POST /v1/ksa/einvoice/create", body: "Generate, sign, and submit a standard tax invoice to FATOORAH. Returns cleared invoice with QR code and signed XML." },
-        { endpoint: "POST /v1/ksa/einvoice/simplified", body: "Generate simplified tax invoice (B2C, under SAR 1,000). Real-time signing, no clearance required (reported within 24 hours)." },
-        { endpoint: "POST /v1/ksa/einvoice/credit-note", body: "Issue credit note linked to a previously cleared invoice. Auto-populates buyer fields, applies reverse logic." },
-        { endpoint: "GET /v1/ksa/csid/status", body: "Check CSID validity, expiry, and renewal schedule for your account." },
-        { endpoint: "POST /v1/ksa/csid/renew", body: "Trigger CSID renewal before expiry. Whitebooks handles the ZATCA portal interaction." },
-        { endpoint: "GET /v1/ksa/einvoice/{invoice_id}", body: "Retrieve full invoice details, signed XML, QR code, and FATOORAH clearance receipt." },
+        { endpoint: "POST /v1/ksa/einvoice/create", body: "Generate, sign, and submit a standard tax invoice to FATOORAH. Returns cleared invoice with QR code and signed XML.", title: "" },
+        { endpoint: "POST /v1/ksa/einvoice/simplified", body: "Generate simplified tax invoice (B2C, under SAR 1,000). Real-time signing, no clearance required (reported within 24 hours).", title: "" },
+        { endpoint: "POST /v1/ksa/einvoice/credit-note", body: "Issue credit note linked to a previously cleared invoice. Auto-populates buyer fields, applies reverse logic.", title: "" },
+        { endpoint: "GET /v1/ksa/csid/status", body: "Check CSID validity, expiry, and renewal schedule for your account.", title: "" },
+        { endpoint: "POST /v1/ksa/csid/renew", body: "Trigger CSID renewal before expiry. Whitebooks handles the ZATCA portal interaction.", title: "" },
+        { endpoint: "GET /v1/ksa/einvoice/{invoice_id}", body: "Retrieve full invoice details, signed XML, QR code, and FATOORAH clearance receipt.", title: "" },
       ],
     },
     integrations: {
       heading: "SDKs and integration patterns for KSA.",
-      body: "SDKs in Node.js, Python, PHP, Java, Go. Integration guides for SAP S/4HANA KSA edition, Oracle NetSuite KSA, Microsoft Dynamics 365 Business Central, and Zoho Books KSA. Webhooks: invoice cleared, invoice rejected, CSID nearing expiry, credit note issued.",
+      body:
+        "SDKs in Node.js, Python, PHP, Java, Go. Integration guides for SAP S/4HANA KSA edition, Oracle NetSuite KSA, Microsoft Dynamics 365 Business Central, and Zoho Books KSA. Webhooks: invoice cleared, invoice rejected, CSID nearing expiry, credit note issued.",
       logos: ["Node.js", "Python", "PHP", "Java", "Go", "SAP S/4HANA KSA", "Oracle NetSuite KSA", "Microsoft Dynamics 365", "Zoho Books KSA"],
       cta: { label: "Read integration guide" },
     },
@@ -307,8 +390,13 @@ const PAGES_3: Record<string, PageDef> = {
       ],
     },
     closing: {
-      h2: <>ZATCA Phase 2, behind <span className="accent">six clean endpoints.</span></>,
-      body: "If your product sells into Saudi Arabia or your business operates there, ZATCA Phase 2 is non-optional. Whitebooks is one of the few API providers operating ZATCA-approved infrastructure alongside a GSTN GSP license.",
+      h2: (
+        <>
+          ZATCA Phase 2, behind <span className="accent">six clean endpoints.</span>
+        </>
+      ),
+      body:
+        "If your product sells into Saudi Arabia or your business operates there, ZATCA Phase 2 is non-optional. Whitebooks is one of the few API providers operating ZATCA-approved infrastructure alongside a GSTN GSP license.",
       primaryCta: { label: "Get sandbox keys" },
       secondaryCta: { label: "Talk to KSA solutions team" },
     },

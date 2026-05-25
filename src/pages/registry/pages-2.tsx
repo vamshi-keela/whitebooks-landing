@@ -1,26 +1,42 @@
 import React from 'react';
 import type { PageDef } from '@/types/page-registry';
+import { SubPageData } from '@/types/pages';
+import { ProductMap } from "@/components/product-map/ProductMap";
 
-const PAGES_2: Record<string, PageDef> = {
+const PAGES_2: Record<string, SubPageData> = {
 
   /* -------------------- e-INVOICE SOFTWARE -------------------- */
   "e-invoice-software": {
     headerMode: "softwares",
     breadcrumb: [
-      { label: "Home", href: "Whitebooks Homepage.html" },
-      { label: "Softwares", href: "Softwares.html" },
+      { label: "Home", href: "/" },
+      { label: "Softwares", href: "/softwares" },
       { label: "e-Invoice Software" },
     ],
+    extra: <ProductMap active="e-invoice" />,
     hero: {
       eyebrow: "e-Invoice Software · Direct IRP Integration",
-      title: <>Generate IRNs for every B2B invoice. <span className="accent">In bulk. Within the window.</span></>,
-      sub: <>Whitebooks e-Invoice Software pushes invoices to the IRP and returns IRNs in under 200ms. Handles the 30-day reporting window, cancellation, amendment, and credit notes. <strong>Built for the April 2026 ₹5 crore mandate.</strong></>,
+      title: (
+        <>
+          Generate IRNs for every B2B invoice. <span className="accent">In bulk. Within the window.</span>
+        </>
+      ),
+      sub: (
+        <>
+          Whitebooks e-Invoice Software pushes invoices to the IRP and returns IRNs in under 200ms. Handles the 30-day reporting window, cancellation, amendment, and credit notes. <strong>Built for the April 2026 ₹5 crore mandate.</strong>
+        </>
+      ),
       primaryCta: { label: "Start 14-day free trial" },
       secondaryCta: { label: "Book a demo" },
-      micro: "AATO above ₹10 crore? <a href='#'>Whitebooks enforces the 30-day window automatically — never miss ITC eligibility →</a>",
+      micro:
+        "AATO above ₹10 crore? <a href='#'>Whitebooks enforces the 30-day window automatically — never miss ITC eligibility →</a>",
     },
     problem: {
-      heading: <>Three things that go wrong with e-invoicing — <span className="accent">and shouldn't.</span></>,
+      heading: (
+        <>
+          Three things that go wrong with e-invoicing — <span className="accent">and shouldn&apos;t.</span>
+        </>
+      ),
       items: [
         { title: "The 30-day window is non-negotiable. Your software should know.", body: "For businesses with AATO above ₹10 crore, invoices not reported to the IRP within 30 days are invalid for ITC. Whitebooks tracks the window per invoice, escalates as you approach the deadline, and refuses to let invoices age out silently." },
         { title: "The IRP goes down. Your business doesn't stop.", body: "The IRP has unplanned outages — usually around month-end. Whitebooks queues invoices through outages, retries automatically with exponential backoff, and surfaces only the ones that need your attention. Your dispatch and billing don't wait." },
@@ -28,34 +44,48 @@ const PAGES_2: Record<string, PageDef> = {
       ],
     },
     features: {
-      heading: <>What Whitebooks e-Invoice <span className="accent">does.</span></>,
+      heading: (
+        <>
+          What Whitebooks e-Invoice <span className="accent">does.</span>
+        </>
+      ),
+      layout: "guide",
       items: [
-        { title: "Single-click IRN generation", body: "Generate IRN, signed QR code, and acknowledgment number for any B2B invoice. Sub-200ms p50 latency. Direct IRP pipe — no resold endpoints." },
-        { title: "Bulk generation", body: "Upload via CSV, Excel, or push from your ERP. Generate 10,000+ IRNs per batch. Live progress, per-row status, automatic retry on transient failures." },
-        { title: "30-day window enforcement", body: "Whitebooks reads your AATO and applies the 30-day reporting window automatically. Invoices approaching the deadline escalate in your dashboard, your inbox, and your finance team's Slack." },
-        { title: "Cancellation and amendment", body: "Cancel within 24 hours of IRN generation under GSTN rules. After 24 hours, generate a credit note linked to the original IRN. The workflow is built in — not a separate process." },
-        { title: "Credit notes and debit notes", body: "Generate credit notes and debit notes against existing IRNs with one click. Auto-link to the original invoice. Auto-populate buyer GSTIN, place of supply, and reverse logic for ITC adjustment." },
-        { title: "Multi-GSTIN, multi-entity", body: "One workspace, every operating entity. Filter IRNs by GSTIN, by branch, by date range. Consolidated reporting across the group." },
-        { title: "Pre-IRN validation", body: "HSN codes validated against GSTN master, place of supply checked against buyer GSTIN, GST rates applied per GST 2.0 slabs, mandatory fields validated against the latest IRP schema — before the request leaves your screen." },
-        { title: "Audit log per invoice", body: "Every IRN action — generation, cancellation, amendment, retry — logged with user, timestamp, IRP response code, and full request/response payload. Exportable for audit." },
+        { visualKey: "auto-journal", navLabel: "1-click IRN", title: "Single-click IRN generation", body: "Generate IRN, signed QR code, and acknowledgment number for any B2B invoice. Sub-200ms p50 latency. Direct IRP pipe — no resold endpoints." },
+        { visualKey: "auto-journal", navLabel: "Bulk generation", title: "Bulk generation", body: "Upload via CSV, Excel, or push from your ERP. Generate 10,000+ IRNs per batch. Live progress, per-row status, automatic retry on transient failures." },
+        { visualKey: "continuous-close", navLabel: "30-day window", title: "30-day window enforcement", body: "Whitebooks reads your AATO and applies the 30-day reporting window automatically. Invoices approaching the deadline escalate in your dashboard, your inbox, and your finance team's Slack." },
+        { visualKey: "native-integration", navLabel: "Cancel & amend", title: "Cancellation and amendment", body: "Cancel within 24 hours of IRN generation under GSTN rules. After 24 hours, generate a credit note linked to the original IRN. The workflow is built in — not a separate process." },
+        { visualKey: "native-integration", navLabel: "Credit · debit notes", title: "Credit notes and debit notes", body: "Generate credit notes and debit notes against existing IRNs with one click. Auto-link to the original invoice. Auto-populate buyer GSTIN, place of supply, and reverse logic for ITC adjustment." },
+        { visualKey: "multi-entity", navLabel: "Multi-GSTIN entities", title: "Multi-GSTIN, multi-entity", body: "One workspace, every operating entity. Filter IRNs by GSTIN, by branch, by date range. Consolidated reporting across the group." },
+        { visualKey: "gst-chart", navLabel: "Pre-IRN validation", title: "Pre-IRN validation", body: "HSN codes validated against GSTN master, place of supply checked against buyer GSTIN, GST rates applied per GST 2.0 slabs, mandatory fields validated against the latest IRP schema — before the request leaves your screen." },
+        { visualKey: "audit-reports", navLabel: "Per-invoice audit log", title: "Audit log per invoice", body: "Every IRN action — generation, cancellation, amendment, retry — logged with user, timestamp, IRP response code, and full request/response payload. Exportable for audit." },
       ],
     },
     integrations: {
       heading: "Connect to your billing system, your ERP, your custom code.",
-      body: "Whitebooks e-Invoice Software integrates with 40+ ERPs and billing systems via native connectors. For custom systems, the Whitebooks e-Invoice API delivers the same capabilities programmatically.",
+      body:
+        "Whitebooks e-Invoice Software integrates with 40+ ERPs and billing systems via native connectors. For custom systems, the Whitebooks e-Invoice API delivers the same capabilities programmatically.",
       logos: ["SAP S/4HANA", "SAP ECC", "Tally Prime", "Oracle NetSuite", "Microsoft Dynamics 365", "Zoho Books", "Odoo", "Marg", "Busy", "30+ more"],
       cta: { label: "See all integrations" },
-      secondaryCta: { label: "Looking for the API? Explore the e-Invoice API", href: "API - e-Invoice.html" },
+      secondaryCta: { label: "Looking for the API? Explore the e-Invoice API", href: "/apis/e-invoice" },
     },
     ai: {
-      heading: <>What the AI actually does <span className="accent">inside Whitebooks e-Invoice.</span></>,
+      heading: (
+        <>
+          What the AI actually does <span className="accent">inside Whitebooks e-Invoice.</span>
+        </>
+      ),
       items: [
         { title: "HSN auto-suggestion", body: "Type the product name, get the right HSN code and current GST 2.0 rate. Trained on 10 crore+ invoices across every Indian industry." },
         { title: "Place-of-supply auto-resolution", body: "Whitebooks reads the buyer GSTIN and shipping address, resolves the place of supply, and applies IGST vs CGST/SGST automatically. Handles bill-to/ship-to splits, third-party movements, and SEZ transactions." },
         { title: "Anomaly flagging", body: "Invoice values 3× higher than the buyer's historical pattern? Flagged. Buyer GSTIN inactive in the GSTN registry? Flagged before IRN request. New HSN never used by your business before? Flagged for human review." },
-        { title: "Compliance copilot", body: <>Ask <code>"show me all IRNs cancelled last month with reasons"</code> or <code>"which buyers have invoices nearing the 30-day deadline?"</code> — answers from live data, source rows linked.</> },
+        { title: "Compliance copilot", body: <>Ask <code>&quot;show me all IRNs cancelled last month with reasons&quot;</code> or <code>&quot;which buyers have invoices nearing the 30-day deadline?&quot;</code> — answers from live data, source rows linked.</> },
       ],
-      note: <><strong>Built on the Anthropic API.</strong> Your data never used to train models.</>,
+      note: (
+        <>
+          <strong>Built on the Anthropic API.</strong> Your data never used to train models.
+        </>
+      ),
     },
     pricing: {
       heading: "Pricing",
@@ -80,8 +110,13 @@ const PAGES_2: Record<string, PageDef> = {
       ],
     },
     closing: {
-      h2: <>April 2026 is closer than <span className="accent">your AP team thinks.</span></>,
-      body: "The ₹5 crore AATO mandate goes live April 1, 2026. For ₹10 crore+ AATO, the 30-day reporting window means ITC at stake on every late invoice. Whitebooks customers move from 'evaluating e-invoicing' to 'live in production' in 2–6 weeks.",
+      h2: (
+        <>
+          April 2026 is closer than <span className="accent">your AP team thinks.</span>
+        </>
+      ),
+      body:
+        "The ₹5 crore AATO mandate goes live April 1, 2026. For ₹10 crore+ AATO, the 30-day reporting window means ITC at stake on every late invoice. Whitebooks customers move from 'evaluating e-invoicing' to 'live in production' in 2–6 weeks.",
       primaryCta: { label: "Start 14-day free trial" },
       secondaryCta: { label: "Book a demo" },
     },
@@ -91,20 +126,31 @@ const PAGES_2: Record<string, PageDef> = {
   "e-way-bill-software": {
     headerMode: "softwares",
     breadcrumb: [
-      { label: "Home", href: "Whitebooks Homepage.html" },
-      { label: "Softwares", href: "Softwares.html" },
+      { label: "Home", href: "/" },
+      { label: "Softwares", href: "/softwares" },
       { label: "e-Way Bill Software" },
     ],
+    extra: <ProductMap active="e-way-bill" />,
     hero: {
       eyebrow: "e-Way Bill Software · GSP-Licensed",
-      title: <>Every dispatch needs an e-way bill. <span className="accent">Generate it in one click.</span></>,
-      sub: "Auto-populate from your IRN or invoice. Bulk-generate for warehouse dispatch batches. Extend validity for in-transit delays. Cancel within 24 hours when needed. One screen, every workflow.",
+      title: (
+        <>
+          Every dispatch needs an e-way bill. <span className="accent">Generate it in one click.</span>
+        </>
+      ),
+      sub:
+        "Auto-populate from your IRN or invoice. Bulk-generate for warehouse dispatch batches. Extend validity for in-transit delays. Cancel within 24 hours when needed. One screen, every workflow.",
       primaryCta: { label: "Start 14-day free trial" },
       secondaryCta: { label: "Book a demo" },
-      micro: "Dispatching from multiple warehouses? <a href='#'>See how Pharmeasy generates e-way bills for 14 locations on Whitebooks →</a>",
+      micro:
+        "Dispatching from multiple warehouses? <a href='#'>See how Pharmeasy generates e-way bills for 14 locations on Whitebooks →</a>",
     },
     problem: {
-      heading: <>Three things that slow down e-way bill operations — <span className="accent">and shouldn't.</span></>,
+      heading: (
+        <>
+          Three things that slow down e-way bill operations — <span className="accent">and shouldn&apos;t.</span>
+        </>
+      ),
       items: [
         { title: "Re-entering the same data twice", body: "Most businesses generate the invoice in one system, then re-key buyer details, item details, and vehicle details into the e-way bill portal. Whitebooks reads your existing invoice or IRN and pre-populates 90% of the e-way bill fields." },
         { title: "The validity clock is brutal", body: "E-way bills expire based on distance and vehicle type. A truck breakdown, a route diversion, or a delivery delay can invalidate the bill mid-transit — and the goods become non-compliant. Whitebooks tracks validity, alerts before expiry, and extends in one click when you're authorized." },
@@ -112,34 +158,48 @@ const PAGES_2: Record<string, PageDef> = {
       ],
     },
     features: {
-      heading: <>What Whitebooks e-Way Bill <span className="accent">does.</span></>,
+      heading: (
+        <>
+          What Whitebooks e-Way Bill <span className="accent">does.</span>
+        </>
+      ),
+      layout: "guide",
       items: [
-        { title: "Single-click generation from IRN or invoice", body: "Pull buyer GSTIN, item details, HSN, taxable value, and transporter ID directly from the source invoice. Enter only what's new — vehicle number, distance, transport mode." },
-        { title: "Bulk generation", body: "Upload a CSV or push from your ERP. Generate 500+ e-way bills in one batch. Live progress, per-row status, automatic retry." },
-        { title: "Validity tracking and extension", body: "Real-time view of every active e-way bill, its remaining validity, and its in-transit status. Alerts before expiry. One-click extension when permitted under GSTN rules." },
-        { title: "Cancellation within 24 hours", body: "Cancel e-way bills within 24 hours of generation when goods aren't dispatched, vehicles change, or invoices are revoked. After 24 hours, the bill auto-expires per GSTN rules." },
-        { title: "Multi-vehicle, multi-transporter", body: "Support for consolidated e-way bills, multi-vehicle movement, and transporter changes mid-transit. All updates logged with timestamp and authorized user." },
-        { title: "Distance auto-calculation", body: "Whitebooks calculates pin-to-pin distance using GSTN's standard mapping. No more guessing distance fields and getting validity wrong." },
-        { title: "Multi-GSTIN, multi-warehouse", body: "Each warehouse operates as a dispatch node with its own user roles, vehicle registries, and transporter relationships. Consolidated reporting across the group." },
-        { title: "Audit log per bill", body: "Every e-way bill — generation, update, cancellation, expiry — logged with user, timestamp, vehicle number, distance, and GSTN response. Exportable for audit and dispute resolution." },
+        { visualKey: "auto-journal", navLabel: "1-click from IRN", title: "Single-click generation from IRN or invoice", body: "Pull buyer GSTIN, item details, HSN, taxable value, and transporter ID directly from the source invoice. Enter only what's new — vehicle number, distance, transport mode." },
+        { visualKey: "auto-journal", navLabel: "Bulk generation", title: "Bulk generation", body: "Upload a CSV or push from your ERP. Generate 500+ e-way bills in one batch. Live progress, per-row status, automatic retry." },
+        { visualKey: "continuous-close", navLabel: "Validity tracking", title: "Validity tracking and extension", body: "Real-time view of every active e-way bill, its remaining validity, and its in-transit status. Alerts before expiry. One-click extension when permitted under GSTN rules." },
+        { visualKey: "native-integration", navLabel: "24-hour cancel", title: "Cancellation within 24 hours", body: "Cancel e-way bills within 24 hours of generation when goods aren't dispatched, vehicles change, or invoices are revoked. After 24 hours, the bill auto-expires per GSTN rules." },
+        { visualKey: "multi-entity", navLabel: "Multi-vehicle", title: "Multi-vehicle, multi-transporter", body: "Support for consolidated e-way bills, multi-vehicle movement, and transporter changes mid-transit. All updates logged with timestamp and authorized user." },
+        { visualKey: "gst-chart", navLabel: "Distance auto-calc", title: "Distance auto-calculation", body: "Whitebooks calculates pin-to-pin distance using GSTN's standard mapping. No more guessing distance fields and getting validity wrong." },
+        { visualKey: "multi-entity", navLabel: "Multi-warehouse", title: "Multi-GSTIN, multi-warehouse", body: "Each warehouse operates as a dispatch node with its own user roles, vehicle registries, and transporter relationships. Consolidated reporting across the group." },
+        { visualKey: "audit-reports", navLabel: "Per-bill audit log", title: "Audit log per bill", body: "Every e-way bill — generation, update, cancellation, expiry — logged with user, timestamp, vehicle number, distance, and GSTN response. Exportable for audit and dispute resolution." },
       ],
     },
     integrations: {
       heading: "Connect to your invoicing, your warehouse system, your TMS.",
-      body: "40+ ERPs, WMS, and TMS platforms via native connectors. Auto-trigger e-way bill generation from invoice creation or dispatch event.",
+      body:
+        "40+ ERPs, WMS, and TMS platforms via native connectors. Auto-trigger e-way bill generation from invoice creation or dispatch event.",
       logos: ["SAP S/4HANA", "SAP ECC", "Tally Prime", "Oracle NetSuite", "WheelsEye", "Microsoft Dynamics 365", "Zoho Books", "Odoo", "30+ more"],
       cta: { label: "See all integrations" },
-      secondaryCta: { label: "Looking for the API? Explore the e-Way Bill API", href: "API - e-Way Bill.html" },
+      secondaryCta: { label: "Looking for the API? Explore the e-Way Bill API", href: "/apis/e-way-bill" },
     },
     ai: {
-      heading: <>What the AI actually does <span className="accent">inside Whitebooks e-Way Bill.</span></>,
+      heading: (
+        <>
+          What the AI actually does <span className="accent">inside Whitebooks e-Way Bill.</span>
+        </>
+      ),
       items: [
         { title: "Distance and validity prediction", body: "Beyond GSTN's pin-to-pin calculation, Whitebooks predicts realistic transit time based on route history, transporter performance, and seasonal factors. Reduces expired-bill incidents by surfacing risk before dispatch." },
         { title: "Anomaly flagging", body: "Vehicle numbers that don't match the standard Indian format, transporter IDs not seen before, distances outside the historical range — flagged before bill generation." },
         { title: "Bulk dispatch optimizer", body: "Given a list of consignments and available vehicles, Whitebooks suggests optimal vehicle assignments to minimize total e-way bills generated (via consolidated bills) and maximize vehicle utilization." },
-        { title: "Compliance copilot", body: <>Ask <code>"show me all e-way bills that expired last week"</code> or <code>"which warehouses generated the most bills in March?"</code> — answers from live data, source rows linked.</> },
+        { title: "Compliance copilot", body: <>Ask <code>&quot;show me all e-way bills that expired last week&quot;</code> or <code>&quot;which warehouses generated the most bills in March?&quot;</code> — answers from live data, source rows linked.</> },
       ],
-      note: <><strong>Built on the Anthropic API.</strong> Your data never used to train models.</>,
+      note: (
+        <>
+          <strong>Built on the Anthropic API.</strong> Your data never used to train models.
+        </>
+      ),
     },
     pricing: {
       heading: "Pricing",
@@ -164,8 +224,13 @@ const PAGES_2: Record<string, PageDef> = {
       ],
     },
     closing: {
-      h2: <>Dispatches don't wait. <span className="accent">Your e-way bill software shouldn't either.</span></>,
-      body: "Whitebooks customers generate millions of e-way bills annually — from single-warehouse SMBs to 14-warehouse Pharmeasy operations. Same software, same SLA, same direct GSP pipe.",
+      h2: (
+        <>
+          Dispatches don&apos;t wait. <span className="accent">Your e-way bill software shouldn&apos;t either.</span>
+        </>
+      ),
+      body:
+        "Whitebooks customers generate millions of e-way bills annually — from single-warehouse SMBs to 14-warehouse Pharmeasy operations. Same software, same SLA, same direct GSP pipe.",
       primaryCta: { label: "Start 14-day free trial" },
       secondaryCta: { label: "Book a demo" },
     },
@@ -175,20 +240,34 @@ const PAGES_2: Record<string, PageDef> = {
   "ksa-e-invoicing-software": {
     headerMode: "softwares",
     breadcrumb: [
-      { label: "Home", href: "Whitebooks Homepage.html" },
-      { label: "Softwares", href: "Softwares.html" },
+      { label: "Home", href: "/" },
+      { label: "Softwares", href: "/softwares" },
       { label: "KSA e-Invoicing Software" },
     ],
+    extra: <ProductMap active="ksa" />,
     hero: {
       eyebrow: "KSA e-Invoicing · ZATCA Phase 2 Compliant",
-      title: <>ZATCA-ready e-invoicing for <span className="accent">businesses operating in Saudi Arabia.</span></>,
-      sub: <>Generate, sign, and submit e-invoices to ZATCA's FATOORAH portal in real time. Arabic and English invoicing, cryptographic signing, QR-coded outputs — <strong>and the same workspace handles your Indian GST filings.</strong></>,
+      title: (
+        <>
+          ZATCA-ready e-invoicing for <span className="accent">businesses operating in Saudi Arabia.</span>
+        </>
+      ),
+      sub: (
+        <>
+          Generate, sign, and submit e-invoices to ZATCA&apos;s FATOORAH portal in real time. Arabic and English invoicing, cryptographic signing, QR-coded outputs — <strong>and the same workspace handles your Indian GST filings.</strong>
+        </>
+      ),
       primaryCta: { label: "Book a demo" },
       secondaryCta: { label: "Talk to KSA solutions team" },
-      micro: "Operating in India and KSA? <a href='#'>Whitebooks is one of the few platforms that handles both on one contract →</a>",
+      micro:
+        "Operating in India and KSA? <a href='#'>Whitebooks is one of the few platforms that handles both on one contract →</a>",
     },
     problem: {
-      heading: <>Three reasons KSA e-invoicing is <span className="accent">harder than it looks.</span></>,
+      heading: (
+        <>
+          Three reasons KSA e-invoicing is <span className="accent">harder than it looks.</span>
+        </>
+      ),
       items: [
         { title: "ZATCA Phase 2 is not a CSV upload", body: "Phase 2 e-invoicing requires real-time integration with FATOORAH, XML in the specified UBL schema, cryptographic signing using a ZATCA-issued certificate, and clearance before the invoice reaches the buyer. Off-the-shelf accounting software in KSA does not do this end-to-end." },
         { title: "Bilingual is mandatory, not optional", body: "Tax invoices in KSA must include both Arabic and English fields for buyer name, item descriptions, and tax amounts. Most Indian systems can't generate Arabic at all. Whitebooks generates both, in the right glyph order, with right-to-left layout where required." },
@@ -196,22 +275,28 @@ const PAGES_2: Record<string, PageDef> = {
       ],
     },
     features: {
-      heading: <>What Whitebooks KSA e-Invoicing <span className="accent">does.</span></>,
+      heading: (
+        <>
+          What Whitebooks KSA e-Invoicing <span className="accent">does.</span>
+        </>
+      ),
+      layout: "guide",
       items: [
-        { title: "ZATCA Phase 2 clearance", body: "Real-time integration with FATOORAH. Invoices submitted, cleared, and signed before they reach the buyer. UBL 2.1 XML format, ZATCA-approved schema." },
-        { title: "Cryptographic signing", body: "Cryptographic stamp generation using ZATCA-issued compliance certificate (CSID). Whitebooks manages certificate lifecycle — issuance, renewal, revocation — so your finance team doesn't." },
-        { title: "Bilingual invoicing (Arabic + English)", body: "Invoice templates in Arabic-English bilingual layout with right-to-left text rendering. Buyer name, supplier name, item descriptions, and tax labels in both languages by default." },
-        { title: "QR code generation", body: "ZATCA-compliant QR code containing supplier VAT number, invoice timestamp, total amount, VAT amount, and cryptographic hash — embedded on every issued invoice." },
-        { title: "Simplified and standard tax invoices", body: "Support for both simplified tax invoices (B2C, sub-1,000 SAR) and standard tax invoices (B2B and high-value B2C). Different schemas, different requirements — both handled." },
-        { title: "India + KSA single workspace", body: "For Indian-headquartered businesses operating in KSA, manage both compliance regimes on one Whitebooks contract. Cross-jurisdiction reporting, consolidated dashboards, one support team." },
+        { visualKey: "native-integration", navLabel: "Phase 2 clearance", title: "ZATCA Phase 2 clearance", body: "Real-time integration with FATOORAH. Invoices submitted, cleared, and signed before they reach the buyer. UBL 2.1 XML format, ZATCA-approved schema." },
+        { visualKey: "gst-chart", navLabel: "Cryptographic signing", title: "Cryptographic signing", body: "Cryptographic stamp generation using ZATCA-issued compliance certificate (CSID). Whitebooks manages certificate lifecycle — issuance, renewal, revocation — so your finance team doesn't." },
+        { visualKey: "audit-reports", navLabel: "Arabic + English", title: "Bilingual invoicing (Arabic + English)", body: "Invoice templates in Arabic-English bilingual layout with right-to-left text rendering. Buyer name, supplier name, item descriptions, and tax labels in both languages by default." },
+        { visualKey: "auto-journal", navLabel: "QR code generation", title: "QR code generation", body: "ZATCA-compliant QR code containing supplier VAT number, invoice timestamp, total amount, VAT amount, and cryptographic hash — embedded on every issued invoice." },
+        { visualKey: "roles", navLabel: "Simplified · Standard", title: "Simplified and standard tax invoices", body: "Support for both simplified tax invoices (B2C, sub-1,000 SAR) and standard tax invoices (B2B and high-value B2C). Different schemas, different requirements — both handled." },
+        { visualKey: "multi-entity", navLabel: "India + KSA unified", title: "India + KSA single workspace", body: "For Indian-headquartered businesses operating in KSA, manage both compliance regimes on one Whitebooks contract. Cross-jurisdiction reporting, consolidated dashboards, one support team." },
       ],
     },
     integrations: {
       heading: "Connect to your KSA accounting and billing systems.",
-      body: "Whitebooks KSA integrates with Zoho Books KSA edition, Microsoft Dynamics, SAP S/4HANA, Oracle NetSuite, and major regional billing systems.",
+      body:
+        "Whitebooks KSA integrates with Zoho Books KSA edition, Microsoft Dynamics, SAP S/4HANA, Oracle NetSuite, and major regional billing systems.",
       logos: ["SAP S/4HANA KSA", "Oracle NetSuite KSA", "Microsoft Dynamics 365", "Zoho Books KSA", "Sage", "Tally Prime", "Custom ERPs", "Regional billing systems"],
       cta: { label: "See all integrations" },
-      secondaryCta: { label: "Looking for the API? Explore the KSA e-Invoice API", href: "API - KSA e-Invoice.html" },
+      secondaryCta: { label: "Looking for the API? Explore the KSA e-Invoice API", href: "/apis/ksa" },
     },
     pricing: {
       heading: "Pricing",
@@ -236,8 +321,13 @@ const PAGES_2: Record<string, PageDef> = {
       ],
     },
     closing: {
-      h2: <>India compliance is hard. KSA compliance is harder. <span className="accent">We do both.</span></>,
-      body: "Whitebooks is one of the few platforms operating ZATCA-approved e-invoicing infrastructure alongside a GSTN GSP license. If your business files in both India and the GCC, talk to our KSA solutions team about a unified contract.",
+      h2: (
+        <>
+          India compliance is hard. KSA compliance is harder. <span className="accent">We do both.</span>
+        </>
+      ),
+      body:
+        "Whitebooks is one of the few platforms operating ZATCA-approved e-invoicing infrastructure alongside a GSTN GSP license. If your business files in both India and the GCC, talk to our KSA solutions team about a unified contract.",
       primaryCta: { label: "Talk to KSA solutions team" },
       secondaryCta: { label: "Book a demo" },
     },

@@ -121,7 +121,7 @@ export function HubAPIs() {
           <div className="wb-wrap wb-hero-inner">
             <div className="wb-subhero-grid">
               <div>
-                <Eyebrow>Whitebooks APIs · v1</Eyebrow>
+                <Eyebrow>Whitebooks APIs | v1</Eyebrow>
                 <h1 className="wb-display" style={{ fontSize: "clamp(38px, 5.4vw, 68px)" }}>
                   Compliance APIs that <span className="accent">don't make you build the compliance.</span>
                 </h1>

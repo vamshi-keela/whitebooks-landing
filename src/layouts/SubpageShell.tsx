@@ -4,7 +4,6 @@ import { Header, Footer, FluidBackground, Eyebrow, Breadcrumb } from '@/layouts/
 import { useReveal } from '@/hooks/useReveal';
 import type { HeaderMode, BreadcrumbItem, FaqItem } from '@/types/components';
 import type {
-  CtaLink,
   HeroDef,
   ProblemDef,
   FeaturesDef,
@@ -81,7 +80,7 @@ interface PlainSectionProps {
 export function PlainSection({ label, heading, sub, children }: PlainSectionProps) {
   return (
     <section className="wb-section wb-reveal" data-reveal>
-      <div className="wb-wrap">
+      <div className="w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4">
         {label && <p className="wb-section-label">{label}</p>}
         {heading && <h2 className="wb-h2">{heading}</h2>}
         {sub && <p className="wb-section-sub">{sub}</p>}
@@ -243,7 +242,7 @@ export function FaqList({ items }: FaqListProps) {
 export function SubClose({ h2, body, primaryCta, secondaryCta }: ClosingDef) {
   return (
     <section className="wb-subclose wb-reveal" data-reveal id="book-demo">
-      <div className="wb-wrap wb-subclose-inner">
+      <div className="w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4 wb-subclose-inner">
         <h2 className="wb-display">{h2}</h2>
         <p className="wb-subclose-body">{body}</p>
         <div className="wb-subclose-cta">

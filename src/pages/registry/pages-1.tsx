@@ -1,58 +1,99 @@
 import React from 'react';
 import type { PageDef } from '@/types/page-registry';
+import { SubPageData } from '@/types/pages';
+import { ProductMap } from '@/components/product-map/ProductMap';
 
-const PAGES: Record<string, PageDef> = {
+const PAGES: Record<string, SubPageData> = {
   "accounting": {
     headerMode: "softwares",
     breadcrumb: [
-      { label: "Home", href: "Whitebooks Homepage.html" },
-      { label: "Softwares", href: "Softwares.html" },
+      { label: "Home", href: "/" },
+      { label: "Softwares", href: "/softwares" },
       { label: "Accounting Software" },
     ],
+    extra: <ProductMap active="accounting" />,
     hero: {
       eyebrow: "Accounting Software · Cloud-native, GST-aware",
-      title: <>Books that <span className="accent">post themselves.</span> From your invoices, your bank, your ERP.</>,
-      sub: <>Whitebooks Accounting reads your sales, purchase, and bank data and posts journal entries automatically. Your accountant reviews and certifies — not enters. <strong>Multi-entity, GST-aware, audit-ready by design.</strong></>,
+      title: (
+        <>
+          Books that <span className="accent">post themselves.</span> From your invoices, your bank, your ERP.
+        </>
+      ),
+      sub: (
+        <>
+          Whitebooks Accounting reads your sales, purchase, and bank data and posts journal entries automatically. Your accountant reviews and certifies — not enters. <strong>Multi-entity, GST-aware, audit-ready by design.</strong>
+        </>
+      ),
       primaryCta: { label: "Start 14-day free trial" },
       secondaryCta: { label: "Book a demo" },
       micro: "Moving from Tally? <a href='#'>We import your 3 most recent years of books in under 2 hours →</a>",
     },
     problem: {
-      heading: <>Three reasons your books still cost <span className="accent">more than they should.</span></>,
+      heading: (
+        <>
+          Three reasons your books still cost <span className="accent">more than they should.</span>
+        </>
+      ),
       items: [
-        { title: "Manual journal entry is a 20th-century job", body: "Most Indian businesses still type sales and purchase entries into desktop accounting software, one invoice at a time. Whitebooks reads your raw transactions — from your billing system, your e-invoice records, your bank feed — and posts journals automatically. Your accountant becomes a reviewer, not a typist." },
-        { title: "Tally was built for one company. You probably run more.", body: "Group structures with multiple operating companies, multiple GSTINs, and multiple states are the norm in India — not the exception. Whitebooks handles multi-entity consolidation, inter-company elimination, and cross-GSTIN ISD distribution as core features, not paid add-ons." },
-        { title: "Year-end is where everything breaks", body: "Most accounting software treats the financial year close as an event. Whitebooks treats it as a continuous process — books are audit-ready every day, not after a six-week scramble in April." },
+        {
+          title: "Manual journal entry is a 20th-century job",
+          body:
+            "Most Indian businesses still type sales and purchase entries into desktop accounting software, one invoice at a time. Whitebooks reads your raw transactions — from your billing system, your e-invoice records, your bank feed — and posts journals automatically. Your accountant becomes a reviewer, not a typist.",
+        },
+        {
+          title: "Tally was built for one company. You probably run more.",
+          body:
+            "Group structures with multiple operating companies, multiple GSTINs, and multiple states are the norm in India — not the exception. Whitebooks handles multi-entity consolidation, inter-company elimination, and cross-GSTIN ISD distribution as core features, not paid add-ons.",
+        },
+        {
+          title: "Year-end is where everything breaks",
+          body:
+            "Most accounting software treats the financial year close as an event. Whitebooks treats it as a continuous process — books are audit-ready every day, not after a six-week scramble in April.",
+        },
       ],
     },
     features: {
-      heading: <>What Whitebooks Accounting <span className="accent">does.</span></>,
+      heading: (
+        <>
+          What Whitebooks Accounting <span className="accent">does.</span>
+        </>
+      ),
+      layout: "guide",
       items: [
-        { title: "Automated journal posting", body: "Sales invoices, purchase bills, bank transactions, and payment receipts auto-post to the correct ledgers with the correct GST classifications. Your accountant reviews exceptions, not norms." },
-        { title: "Multi-entity, multi-GSTIN consolidation", body: "One workspace, every operating company. Consolidated P&L and balance sheet across entities with one click. Inter-company eliminations handled automatically. Inter-GSTIN ISD distribution under the post-2024 ISD mandate is built in." },
-        { title: "GST-aware chart of accounts", body: "The ledger structure understands GST. Output tax, input tax, RCM, ISD, IGST, CGST, SGST, and UTGST have their own positions and post automatically based on transaction type and place of supply." },
-        { title: "Bank reconciliation, automated", body: "Connect bank feeds from 100+ Indian banks. Auto-match receipts and payments to ledger entries. Surface unmatched items for review — not the matched ones." },
-        { title: "Audit-ready reports", body: "P&L, balance sheet, trial balance, ledger-wise summaries, GST reconciliation, depreciation schedules — every report exportable as PDF, Excel, or directly to your auditor's portal." },
-        { title: "Role-based access for finance teams", body: "Junior accountants enter. Senior accountants review. CFOs see the dashboard. Auditors get read-only with audit trail. Permissions are granular, not 'admin or not.'" },
-        { title: "Continuous close", body: "Daily reconciliation, daily P&L, daily AP/AR aging. Month-end is a 30-minute review, not a 30-day project. Year-end is a 2-day certification, not a 2-month sprint." },
-        { title: "Native integration with Whitebooks GST and e-Invoice", body: "An e-invoice generated in Whitebooks e-Invoice automatically becomes a sales journal here. A GSTR-2B reconciliation in Whitebooks GST automatically reflects in your purchase ledger. No CSV exports, no double entry." },
+        { visualKey: "auto-journal", navLabel: "Auto journal posting", title: "Automated journal posting", body: "Sales invoices, purchase bills, bank transactions, and payment receipts auto-post to the correct ledgers with the correct GST classifications. Your accountant reviews exceptions, not norms." },
+        { visualKey: "multi-entity", navLabel: "Multi-entity rollup", title: "Multi-entity, multi-GSTIN consolidation", body: "One workspace, every operating company. Consolidated P&L and balance sheet across entities with one click. Inter-company eliminations handled automatically. Inter-GSTIN ISD distribution under the post-2024 ISD mandate is built in." },
+        { visualKey: "gst-chart", navLabel: "GST-aware ledger", title: "GST-aware chart of accounts", body: "The ledger structure understands GST. Output tax, input tax, RCM, ISD, IGST, CGST, SGST, and UTGST have their own positions and post automatically based on transaction type and place of supply." },
+        { visualKey: "bank-recon", navLabel: "Bank reconciliation", title: "Bank reconciliation, automated", body: "Connect bank feeds from 100+ Indian banks. Auto-match receipts and payments to ledger entries. Surface unmatched items for review — not the matched ones." },
+        { visualKey: "audit-reports", navLabel: "Audit-ready reports", title: "Audit-ready reports", body: "P&L, balance sheet, trial balance, ledger-wise summaries, GST reconciliation, depreciation schedules — every report exportable as PDF, Excel, or directly to your auditor's portal." },
+        { visualKey: "roles", navLabel: "Role-based access", title: "Role-based access for finance teams", body: "Junior accountants enter. Senior accountants review. CFOs see the dashboard. Auditors get read-only with audit trail. Permissions are granular, not 'admin or not.'" },
+        { visualKey: "continuous-close", navLabel: "Continuous close", title: "Continuous close", body: "Daily reconciliation, daily P&L, daily AP/AR aging. Month-end is a 30-minute review, not a 30-day project. Year-end is a 2-day certification, not a 2-month sprint." },
+        { visualKey: "native-integration", navLabel: "Native integration", title: "Native integration with Whitebooks GST and e-Invoice", body: "An e-invoice generated in Whitebooks e-Invoice automatically becomes a sales journal here. A GSTR-2B reconciliation in Whitebooks GST automatically reflects in your purchase ledger. No CSV exports, no double entry." },
       ],
     },
     integrations: {
       heading: "Connect your bank, your ERP, your billing system.",
-      body: "100+ Indian banks via direct feed and aggregator partners. SAP, Oracle NetSuite, Microsoft Dynamics 365, Tally migration, Zoho Books migration, Marg, Busy, Vyapar.",
+      body:
+        "100+ Indian banks via direct feed and aggregator partners. SAP, Oracle NetSuite, Microsoft Dynamics 365, Tally migration, Zoho Books migration, Marg, Busy, Vyapar.",
       logos: ["SAP S/4HANA", "Oracle NetSuite", "Microsoft Dynamics 365", "Tally Prime", "Zoho Books", "ICICI", "HDFC", "Axis", "SBI", "Razorpay X", "Marg", "Busy", "30+ more"],
       cta: { label: "See all integrations" },
     },
     ai: {
-      heading: <>What the AI actually does <span className="accent">inside Whitebooks Accounting.</span></>,
+      heading: (
+        <>
+          What the AI actually does <span className="accent">inside Whitebooks Accounting.</span>
+        </>
+      ),
       items: [
         { title: "Transaction auto-classification", body: "A model trained on 10 crore+ Indian invoices classifies your transactions into the correct ledger heads — even when vendor names are inconsistent, descriptions are vague, or the same vendor sells under multiple categories." },
         { title: "Anomaly detection", body: "Flags transactions that don't fit your historical pattern. A vendor that's never billed above ₹50,000 suddenly invoices ₹4,80,000? Flagged. A ledger that posts a credit when it should always debit? Flagged. Catches fraud, mistakes, and misclassification." },
-        { title: "Audit Q&A", body: <>Ask <code>"show me all transactions above ₹10 lakh in Q3 from new vendors"</code> or <code>"variance in marketing spend month-over-month?"</code> — answers draw from live data, with source rows linked.</> },
+        { title: "Audit Q&A", body: <>Ask <code>&quot;show me all transactions above ₹10 lakh in Q3 from new vendors&quot;</code> or <code>&quot;variance in marketing spend month-over-month?&quot;</code> — answers draw from live data, with source rows linked.</> },
         { title: "Bank reconciliation matching", body: "A fuzzy matching model reconciles bank narration to your books — handles UPI references, NEFT codes, payment gateway descriptors, and partial settlements. 90%+ auto-match on first pass." },
       ],
-      note: <><strong>Built on the Anthropic API.</strong> Your data never used to train models.</>,
+      note: (
+        <>
+          <strong>Built on the Anthropic API.</strong> Your data never used to train models.
+        </>
+      ),
     },
     pricing: {
       heading: "Pricing",
@@ -77,30 +118,50 @@ const PAGES: Record<string, PageDef> = {
       ],
     },
     closing: {
-      h2: <>Stop typing. <span className="accent">Start reviewing.</span></>,
-      body: "Most Whitebooks Accounting customers cut monthly bookkeeping time by 60% in their first quarter. Try it free for 14 days. Bring your last quarter's data — see what your books look like when they post themselves.",
+      h2: (
+        <>
+          Stop typing. <span className="accent">Start reviewing.</span>
+        </>
+      ),
+      body:
+        "Most Whitebooks Accounting customers cut monthly bookkeeping time by 60% in their first quarter. Try it free for 14 days. Bring your last quarter's data — see what your books look like when they post themselves.",
       primaryCta: { label: "Start 14-day free trial" },
       secondaryCta: { label: "Book a demo" },
     },
   },
 
   "gst-software": {
+
     headerMode: "softwares",
     breadcrumb: [
-      { label: "Home", href: "Whitebooks Homepage.html" },
-      { label: "Softwares", href: "Softwares.html" },
+      { label: "Home", href: "/" },
+      { label: "Softwares", href: "/softwares" },
       { label: "GST Software" },
     ],
+    extra: <ProductMap active="gst" />,
     hero: {
       eyebrow: "GST Software · GSP-Licensed",
-      title: <>GST filing that <span className="accent">thinks before you click submit.</span></>,
-      sub: <>File GSTR-1, 3B, 9, and 9C across unlimited GSTINs from one workspace. Auto-reconcile GSTR-2B against your purchase register in under 60 seconds. Built on a direct GSP license — <strong>no resold pipes.</strong></>,
+      title: (
+        <>
+          GST filing that <span className="accent">thinks before you click submit.</span>
+        </>
+      ),
+      sub: (
+        <>
+          File GSTR-1, 3B, 9, and 9C across unlimited GSTINs from one workspace. Auto-reconcile GSTR-2B against your purchase register in under 60 seconds. Built on a direct GSP license — <strong>no resold pipes.</strong>
+        </>
+      ),
       primaryCta: { label: "Start 14-day free trial" },
       secondaryCta: { label: "Book a demo" },
-      micro: "Migrating from ClearTax TaxCloud, Tally, or Zoho? <a href='#'>We import your prior 36 months of returns →</a>",
+      micro:
+        "Migrating from ClearTax TaxCloud, Tally, or Zoho? <a href='#'>We import your prior 36 months of returns →</a>",
     },
     problem: {
-      heading: <>Three problems most GST software <span className="accent">still hasn't solved.</span></>,
+      heading: (
+        <>
+          Three problems most GST software <span className="accent">still hasn&apos;t solved.</span>
+        </>
+      ),
       items: [
         { title: "Reconciliation is still a nightmare", body: "ClearTax and Tally hand you a mismatch report and walk away. Whitebooks' matching engine handles fuzzy vendor names, rounded values, partially settled invoices, and split GSTINs — the cases where exact-match logic fails. 95%+ of mismatches resolve without human review." },
         { title: "You only see errors after the portal rejects them", body: "Whitebooks validates against the 47 most common GSTN rejection codes before you click file. If GSTR-3B will fail, you know on screen — not at 11:47pm when the portal returns a cryptic error." },
@@ -108,33 +169,47 @@ const PAGES: Record<string, PageDef> = {
       ],
     },
     features: {
-      heading: <>What Whitebooks GST <span className="accent">does.</span></>,
+      heading: (
+        <>
+          What Whitebooks GST <span className="accent">does.</span>
+        </>
+      ),
+      layout: "guide",
       items: [
-        { title: "File every GSTR your business needs", body: "GSTR-1, 1A, 3B, 4, 5, 6, 7, 8, 9, 9A, 9C, IFF, ITC-04, and CMP-08 — all supported. Bulk filing across multiple GSTINs is included on CA Firm and Enterprise plans." },
-        { title: "Auto-reconcile 2A, 2B, and IMS", body: "Pull GSTR-2A, 2B, and IMS data from GSTN automatically. Match against your purchase register in under 60 seconds. Average review queue: 3% of total invoices." },
-        { title: "Multi-GSTIN, multi-client workspace", body: "Add a client once. File across all their GSTINs without re-authenticating. Switch between clients in two clicks, not two logins. Role-based access for partner, manager, article, reviewer." },
-        { title: "Pre-submission validator", body: "The 47-point validator scans every return for common GSTN rejection causes — HSN errors, place-of-supply mismatches, RCM misclassification, ISD distribution gaps, ITC blocked under Section 17(5) — before submission." },
-        { title: "Working paper auto-generation", body: "Every reconciliation, every adjustment, every notice response — logged automatically with user, timestamp, source row, and reason. Export as PDF for audit, or hand to the next reviewer mid-cycle." },
-        { title: "Notice tracker", body: "Section 61, 73, 74 notices imported automatically from your client GSTINs. Assigned to a partner. Tracked to resolution. Linked back to the return that caused them." },
-        { title: "Bulk operations", body: "Reconcile 500 clients in one job. Push GSTR-1 for 200 clients in one queue. Bulk is a first-class action, not a hack." },
-        { title: "White-label client portal", body: "Each of your clients gets a branded portal under your firm's name where they upload invoices, see their compliance status, and pay you. White-label included on Growth plan." },
+        { visualKey: "audit-reports", navLabel: "Every GSTR filing", title: "File every GSTR your business needs", body: "GSTR-1, 1A, 3B, 4, 5, 6, 7, 8, 9, 9A, 9C, IFF, ITC-04, and CMP-08 — all supported. Bulk filing across multiple GSTINs is included on CA Firm and Enterprise plans." },
+        { visualKey: "bank-recon", navLabel: "2A · 2B · IMS recon", title: "Auto-reconcile 2A, 2B, and IMS", body: "Pull GSTR-2A, 2B, and IMS data from GSTN automatically. Match against your purchase register in under 60 seconds. Average review queue: 3% of total invoices." },
+        { visualKey: "multi-entity", navLabel: "Multi-GSTIN workspace", title: "Multi-GSTIN, multi-client workspace", body: "Add a client once. File across all their GSTINs without re-authenticating. Switch between clients in two clicks, not two logins. Role-based access for partner, manager, article, reviewer." },
+        { visualKey: "gst-chart", navLabel: "47-point validator", title: "Pre-submission validator", body: "The 47-point validator scans every return for common GSTN rejection causes — HSN errors, place-of-supply mismatches, RCM misclassification, ISD distribution gaps, ITC blocked under Section 17(5) — before submission." },
+        { visualKey: "audit-reports", navLabel: "Working paper auto-gen", title: "Working paper auto-generation", body: "Every reconciliation, every adjustment, every notice response — logged automatically with user, timestamp, source row, and reason. Export as PDF for audit, or hand to the next reviewer mid-cycle." },
+        { visualKey: "continuous-close", navLabel: "Notice tracker", title: "Notice tracker", body: "Section 61, 73, 74 notices imported automatically from your client GSTINs. Assigned to a partner. Tracked to resolution. Linked back to the return that caused them." },
+        { visualKey: "auto-journal", navLabel: "Bulk operations", title: "Bulk operations", body: "Reconcile 500 clients in one job. Push GSTR-1 for 200 clients in one queue. Bulk is a first-class action, not a hack." },
+        { visualKey: "native-integration", navLabel: "White-label portal", title: "White-label client portal", body: "Each of your clients gets a branded portal under your firm's name where they upload invoices, see their compliance status, and pay you. White-label included on Growth plan." },
       ],
     },
     integrations: {
       heading: "SAP, Tally, and 40+ ERPs. Zero CSV uploads.",
-      body: "Push transactional data from your ERP to Whitebooks in real time. Native connectors built by Whitebooks engineers, maintained against every ERP version upgrade.",
+      body:
+        "Push transactional data from your ERP to Whitebooks in real time. Native connectors built by Whitebooks engineers, maintained against every ERP version upgrade.",
       logos: ["SAP S/4HANA", "SAP ECC", "Tally Prime", "Oracle NetSuite", "Microsoft Dynamics 365", "Zoho Books", "Odoo", "Sage", "QuickBooks", "Marg", "Busy", "30+ more"],
       cta: { label: "See all integrations" },
     },
     ai: {
-      heading: <>What the AI actually does <span className="accent">inside Whitebooks GST.</span></>,
+      heading: (
+        <>
+          What the AI actually does <span className="accent">inside Whitebooks GST.</span>
+        </>
+      ),
       items: [
-        { title: "Fuzzy vendor matching", body: <>A model trained on 10 crore+ Indian invoices reconciles <code>"M/s. RAJESH ENTERPRISES"</code> with <code>"Rajesh Enterprises Pvt Ltd"</code> with <code>"RAJESH ENT."</code> — without you maintaining alias tables.</> },
+        { title: "Fuzzy vendor matching", body: <>A model trained on 10 crore+ Indian invoices reconciles <code>&quot;M/s. RAJESH ENTERPRISES&quot;</code> with <code>&quot;Rajesh Enterprises Pvt Ltd&quot;</code> with <code>&quot;RAJESH ENT.&quot;</code> — without you maintaining alias tables.</> },
         { title: "Notice risk scoring", body: "Each GSTR-3B you're about to file gets a 0–100 notice risk score, based on ITC variance, turnover trend, HSN concentration, and prior notice history. Above 70, Whitebooks suggests what to recheck." },
-        { title: "Natural-language queries", body: <>Type <code>"show me all October vendors with ITC variance above 10%"</code> or <code>"which clients haven't filed 3B for September?"</code> — answers draw from your live data with source rows linked.</> },
+        { title: "Natural-language queries", body: <>Type <code>&quot;show me all October vendors with ITC variance above 10%&quot;</code> or <code>&quot;which clients haven&apos;t filed 3B for September?&quot;</code> — answers draw from your live data with source rows linked.</> },
         { title: "Auto-categorization of unmatched invoices", body: "Mismatches get auto-classified: vendor unfiled, invoice missing in PR, rate mismatch, GSTIN typo, time-of-supply error. Each class routes to a different resolution workflow." },
       ],
-      note: <><strong>Built on the Anthropic API.</strong> Your data never used to train models.</>,
+      note: (
+        <>
+          <strong>Built on the Anthropic API.</strong> Your data never used to train models.
+        </>
+      ),
     },
     pricing: {
       heading: "Pricing",
@@ -160,12 +235,17 @@ const PAGES: Record<string, PageDef> = {
       ],
     },
     closing: {
-      h2: <>File faster. File cleaner. <span className="accent">File from one workspace.</span></>,
-      body: "Median filing time per GSTIN per month, across 12,000+ Whitebooks customers: 14 minutes. Most CA firms switching from ClearTax or Tally hit that benchmark inside two filing cycles.",
+      h2: (
+        <>
+          File faster. File cleaner. <span className="accent">File from one workspace.</span>
+        </>
+      ),
+      body:
+        "Median filing time per GSTIN per month, across 12,000+ Whitebooks customers: 14 minutes. Most CA firms switching from ClearTax or Tally hit that benchmark inside two filing cycles.",
       primaryCta: { label: "Start 14-day free trial" },
       secondaryCta: { label: "Book a demo" },
     },
-  },
+  }
 };
 
 export { PAGES };

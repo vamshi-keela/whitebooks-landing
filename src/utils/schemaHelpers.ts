@@ -5,7 +5,7 @@ export function getTypeLabel(schema: SchemaObject): string {
   if (schema.type === 'array') {
     const items = schema.items;
     if (items) {
-      const inner = '$ref' in items ? items.$ref.split('/').pop() ?? 'object' : ((items as SchemaObject).type ?? 'object');
+      const inner = '$ref' in items ? (items as { $ref: string }).$ref.split('/').pop() ?? 'object' : ((items as SchemaObject).type ?? 'object');
       return `array<${inner}>`;
     }
     return 'array';

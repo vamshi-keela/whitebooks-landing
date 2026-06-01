@@ -4,7 +4,7 @@ export function AILayerSection() {
       <div
         className="absolute inset-[-10%] pointer-events-none z-0 blur-[38px] saturate-[160%] opacity-[0.55] [animation:wb-mesh-drift_22s_ease-in-out_infinite_alternate] bg-[radial-gradient(ellipse_38%_50%_at_var(--m1x)_var(--m1y),rgba(220,47,101,0.5),transparent_65%),radial-gradient(ellipse_36%_42%_at_var(--m2x)_var(--m2y),rgba(255,110,156,0.42),transparent_70%),radial-gradient(ellipse_30%_36%_at_var(--m3x)_var(--m3y),rgba(255,168,120,0.22),transparent_72%),radial-gradient(ellipse_32%_38%_at_var(--m4x)_var(--m4y),rgba(155,22,68,0.55),transparent_65%)]"
       />
-      <div className="w-full px-24 relative z-[1] max-[700px]:px-8">
+      <div className="w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4 relative z-[1]">
         <div className="grid grid-cols-[1.3fr_0.7fr] gap-16 items-end mb-14 max-[900px]:grid-cols-1 max-[900px]:gap-6 max-[900px]:mb-10">
           <h2 className="font-serif font-semibold text-[clamp(34px,5vw,64px)] leading-[1.04] tracking-[-0.025em] m-0 text-balance">
             AI that{' '}

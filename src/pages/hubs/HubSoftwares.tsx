@@ -68,17 +68,17 @@ interface ProductRowProps {
 function ProductRow({ p, index }: ProductRowProps) {
   return (
     <article
-      className="grid grid-cols-[60px_70px_1fr_180px] items-center gap-7 py-8 border-b border-[var(--line)] transition-[background] duration-200 relative before:content-[''] before:absolute before:inset-0 before:bg-[linear-gradient(90deg,rgba(220,47,101,0),rgba(220,47,101,0.04),rgba(220,47,101,0))] before:opacity-0 before:transition-opacity before:duration-200 before:pointer-events-none hover:before:opacity-100"
+      className="grid grid-cols-[60px_70px_1fr_180px] items-center gap-7 py-8 max-md:flex max-md:flex-col max-md:items-stretch max-md:gap-4 max-md:py-6 border-b border-[var(--line)] transition-[background] duration-200 relative before:content-[''] before:absolute before:inset-0 before:bg-[linear-gradient(90deg,rgba(220,47,101,0),rgba(220,47,101,0.04),rgba(220,47,101,0))] before:opacity-0 before:transition-opacity before:duration-200 before:pointer-events-none hover:before:opacity-100"
       data-reveal
     >
-      <div className="font-[var(--font-mono)] text-[13px] tracking-[0.14em] text-[var(--muted)] relative z-[1]">
+      <div className="font-[var(--font-mono)] text-[13px] tracking-[0.14em] text-[var(--muted)] relative z-[1] max-md:hidden">
         {String(index + 1).padStart(2, "0")}
       </div>
       <div className="w-14 h-14 inline-flex items-center justify-center rounded-xl bg-[var(--brand-soft)] text-[var(--brand)] border border-[var(--brand-border)] relative z-[1] [&_svg]:w-7 [&_svg]:h-7">
         {p.icon}
       </div>
       <div className="relative z-[1]">
-        <h3 className="font-[var(--font-display)] font-semibold text-[22px] tracking-[-0.01em] mt-0 mb-[6px]">{p.name}</h3>
+        <h3 className="font-[var(--font-display)] font-semibold text-[22px] tracking-[-0.01em] mt-0 mb-[6px] max-md:text-[19px]">{p.name}</h3>
         <p className="m-0 mb-3 text-[15px] text-[var(--muted-2)] leading-[1.5] max-w-[620px]">{p.oneliner}</p>
         <div className="flex flex-wrap gap-2 mb-3">
           {p.features.map((f, i) => (
@@ -95,7 +95,7 @@ function ProductRow({ p, index }: ProductRowProps) {
           {p.bestFor}
         </p>
       </div>
-      <div className="relative z-[1] text-right">
+      <div className="relative z-[1] text-right max-md:text-left">
         <a
           href={p.href}
           className="inline-flex items-center justify-center gap-2 px-[18px] py-[11px] rounded-lg font-[var(--font-body)] font-medium text-sm tracking-[0.005em] border transition-all duration-[160ms] whitespace-nowrap bg-transparent text-[var(--brand)] border-[rgba(220,47,101,0.5)] hover:bg-[var(--brand)] hover:text-white hover:border-[var(--brand)]"
@@ -126,7 +126,7 @@ export function HubSoftwares() {
         </section>
 
         {/* Hero */}
-        <section className="pt-[100px] pb-[72px] relative overflow-hidden">
+        <section className="pt-[70px] pb-[72px] relative overflow-hidden">
           <FluidBackground />
           <div className={`${wrap} relative z-[2]`}>
             <div className="w-[60%] max-lg:w-[70%] max-md:w-[85%] max-sm:w-full">
@@ -218,7 +218,7 @@ export function HubSoftwares() {
         </section> */}
 
         <SharedAILayer
-          h2={<>Every Whitebooks software ships with the <span className="text-[var(--brand)]">same AI engine.</span></>}
+          h2={<>Every Whitebooks software ships with the <span className="text-[#DC2F65]">same AI engine.</span></>}
           body="Invoice matching, anomaly detection, notice prediction, and the compliance copilot run across all five products — not as features per product but as a shared layer over your unified data. The longer your data lives in Whitebooks, the smarter each product gets."
           primaryCta={{ label: 'Read more about Whitebooks AI' }}
         // secondaryCta={{ label: 'Talk to sales' }}

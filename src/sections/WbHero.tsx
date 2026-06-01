@@ -5,6 +5,7 @@ import { useIsMobile } from "@/hooks/useIsMobile";
 import { ArrowDown, ArrowRight } from "lucide-react";
 import { FluidBackground } from "@/layouts/SiteShell";
 import EyebrowPill from "@/components/ui/EyebrowPill";
+import LogoWallCarousel from "@/components/ui/LogoWall";
 
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 
@@ -145,6 +146,8 @@ export function DashboardCard() {
   );
 }
 
+const wrap = "w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4";
+
 // ─── LogoWall ─────────────────────────────────────────────────────────────────
 
 export function LogoWall() {
@@ -173,7 +176,8 @@ export function LogoWall() {
 
   return (
     <section className="wb-section-tight wb-reveal wb-logo-wall" data-reveal>
-      <div className="wb-logo-wall-header">
+      {/* <div className="wb-logo-wall-header mb-10"> */}
+      <div className={`${wrap} grid md:grid-cols-2 grid-cols-1 gap-10 items-end mb-10`}>
         <h2 className="h1">
           Compliance for the companies that <em>can't afford</em> to get it
           wrong.
@@ -184,26 +188,9 @@ export function LogoWall() {
           already helped 3,000+ Customers across India.
         </p>
       </div>
-      <div className="wb-logos-wrap">
-        <div className="wb-ticker" aria-hidden="false">
-          {[...row1, ...row1].map((l, i) => (
-            <span key={i} className="wb-logo">
-              {l}
-              <span className="wb-logo-sep">·</span>
-            </span>
-          ))}
-        </div>
-        <div className="wb-ticker reverse" aria-hidden="true">
-          {[...row2, ...row2].map((l, i) => (
-            <span key={i} className="wb-logo">
-              {l}
-              <span className="wb-logo-sep">·</span>
-            </span>
-          ))}
-        </div>
-      </div>
+      <LogoWallCarousel />
 
-      <div className="wb-wrap">
+      <div className={wrap}>
         <div className="wb-stat-strip">
           <Stat val="10 Cr+" lbl="Invoices filed" />
           <Stat val="12,000+" lbl="Businesses" />
@@ -230,3 +217,118 @@ export function Stat({ val, lbl }: StatProps) {
     </div>
   );
 }
+
+// // ─── LogoWall ─────────────────────────────────────────────────────────────────
+// const logoFiles = import.meta.glob('/src/assets/logos/*', { eager: true }) as Record<string, { default: string }>;
+
+// function getLogoSrc(key: string): string | null {
+//   for (const ext of ['svg', 'png', 'jpg']) {
+//     const path = `/src/assets/logos/${key}.${ext}`;
+//     if (logoFiles[path]) return (logoFiles[path] as { default: string }).default;
+//   }
+//   return null;
+// }
+
+// export function LogoWall() {
+//   const row1 = [
+//     { name: 'P&G', key: 'pg' },
+//     { name: 'IBM', key: 'ibm' },
+//     { name: 'Hindustan Unilever', key: 'hul' },
+//     { name: 'KPMG', key: 'kpmg' },
+//     { name: 'Coca-Cola', key: 'coca-cola' },
+//     { name: 'Razorpay', key: 'razorpay' },
+//     { name: 'SBI', key: 'sbi' },
+//     { name: 'Aditya Birla', key: 'aditya-birla' },
+//     { name: 'Accenture', key: 'accenture' },
+
+//     { name: 'P&G', key: 'pg' },
+//     { name: 'IBM', key: 'ibm' },
+//     { name: 'Hindustan Unilever', key: 'hul' },
+//     { name: 'KPMG', key: 'kpmg' },
+//     { name: 'Coca-Cola', key: 'coca-cola' },
+//     { name: 'Razorpay', key: 'razorpay' },
+//     { name: 'SBI', key: 'sbi' },
+//     { name: 'Aditya Birla', key: 'aditya-birla' },
+//     { name: 'Accenture', key: 'accenture' },
+//   ];
+//   const row2 = [
+//     { name: 'Philips', key: 'philips' },
+//     { name: 'Yamaha', key: 'yamaha' },
+//     { name: 'TVS', key: 'tvs' },
+//     { name: 'PepsiCo', key: 'pepsico' },
+//     { name: 'Pharmeasy', key: 'pharmeasy' },
+//     { name: 'Cars24', key: 'cars24' },
+//     { name: 'KIA', key: 'kia' },
+//     { name: 'INOX', key: 'inox' },
+//     { name: 'Grant Thornton', key: 'grant-thornton' },
+//     { name: 'PepsiCo', key: 'pepsico' },
+//     { name: 'Pharmeasy', key: 'pharmeasy' },
+//     { name: 'Cars24', key: 'cars24' },
+//     { name: 'KIA', key: 'kia' },
+//     { name: 'INOX', key: 'inox' },
+//     { name: 'Grant Thornton', key: 'grant-thornton' },
+//   ];
+
+//   return (
+//     <section className="wb-section-tight wb-reveal wb-logo-wall" data-reveal>
+//       <div className="wb-logo-wall-header">
+//         <h2 className="h1">
+//           Compliance for the companies that <em>can't afford</em> to get it
+//           wrong.
+//         </h2>
+//         <p className="body">
+//           Whitebooks runs GST, e-invoicing, and e-way bill operations for
+//           India's largest enterprises and the CA firms that audit them. We
+//           already helped 3,000+ Customers across India.
+//         </p>
+//       </div>
+//       <div className="wb-logos-wrap">
+//         <div className="wb-ticker" aria-hidden="false">
+//           {row1.map(({ name, key }) => {
+//             const src = getLogoSrc(key);
+//             if (src) {
+//               return (
+//                 <span key={key} className="wb-logo">
+//                   <img src={src} alt={name} />
+//                 </span>
+//               )
+//             } else {
+//               return (
+//                 <span key={key} className="wb-logo">
+//                   {name}
+//                 </span>
+//               )
+//             }
+//           })}
+//         </div>
+//         <div className="wb-ticker reverse" aria-hidden="true">
+//           {row2.map(({ name, key }) => {
+//             const src = getLogoSrc(key);
+//             if (src) {
+//               return (
+//                 <span key={key} className="wb-logo">
+//                   <img src={src} alt={name} />
+//                 </span>
+//               )
+//             } else {
+//               return (
+//                 <span key={key} className="wb-logo">
+//                   {name}
+//                 </span>
+//               )
+//             }
+//           })}
+//         </div>
+//       </div>
+
+//       <div className="wb-wrap">
+//         <div className="wb-stat-strip">
+//           <Stat val="10 Cr+" lbl="Invoices filed" />
+//           <Stat val="12,000+" lbl="Businesses" />
+//           <Stat val="5,000+" lbl="CAs & Tax Professionals" />
+//           <Stat val="99.95%" lbl="API uptime SLA" />
+//         </div>
+//       </div>
+//     </section>
+//   );
+// }

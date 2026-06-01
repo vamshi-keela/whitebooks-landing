@@ -2,7 +2,7 @@ import CodeBlock from "@/components/ui/CodeBlock";
 
 export function ForDevelopersSection() {
     return (
-        <section className="relative overflow-hidden border-b border-white/[0.06] max-[700px]:py-[72px] py-24">
+        <section className="relative overflow-hidden border-b border-white/[0.06] py-24 max-md:py-16 max-sm:py-12">
             <div
                 className="absolute inset-[-10%] pointer-events-none z-0"
                 style={{
@@ -15,13 +15,13 @@ export function ForDevelopersSection() {
                     opacity: 0.33,
                 } as React.CSSProperties}
             />
-            <div className="relative w-full px-24 max-[700px]:px-8">
-                <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] gap-10 md:gap-16 items-center">
+            <div className="relative w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4">
+                <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] gap-16 items-center max-lg:gap-10 max-md:grid-cols-1 max-md:gap-8">
                     <div>
                         <h2 className="[font-family:var(--font-serif)] font-semibold text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px] [text-wrap:balance]">
                             The only India compliance API <em>written like a modern API</em> should be.
                         </h2>
-                        <p className="text-[18px] text-[var(--fg-secondary)] leading-[1.55] max-w-[600px] m-0 mt-[22px]">
+                        <p className="text-[17px] max-sm:text-[15px] text-[var(--fg-secondary)] leading-[1.55] max-w-[600px] m-0 mt-[22px]">
                             REST, idempotent, retryable. Sandbox keys in 5 minutes. Production-grade SLAs. Direct GSTN-licensed pipe — no resold APIs.
                         </p>
                         <div className="mt-8 flex flex-col gap-[10px]">

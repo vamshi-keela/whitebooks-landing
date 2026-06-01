@@ -31,6 +31,7 @@ export default defineConfig({
         softwareEInvoice:     path.resolve(root, 'Software - e-Invoice.html'),
         softwareEWayBill:     path.resolve(root, 'Software - e-Way Bill.html'),
         softwareKsa:          path.resolve(root, 'Software - KSA e-Invoicing.html'),
+        devportal:            path.resolve(root, 'WhiteBooks Developer Portal.html'),
       },
       output: {
         entryFileNames: 'assets/[name]-[hash].js',

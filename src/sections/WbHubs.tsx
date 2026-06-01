@@ -60,18 +60,18 @@ export function HubSection({ tab, setTab, navigate }: HubSectionProps) {
   const onTabClick = (v: string) => setTab(v);
 
   return (
-    <section className="relative border-b border-[var(--hairline)] max-[700px]:py-[72px] py-24">
-      <div className="w-full px-24 max-[700px]:px-8">
-        <div className="grid grid-cols-[1.3fr_0.7fr] gap-16 items-end mb-14 max-[900px]:grid-cols-1 max-[900px]:gap-6 max-[900px]:mb-10">
+    <section className="relative border-b border-[var(--hairline)] py-24 max-md:py-16 max-sm:py-12">
+      <div className="w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4">
+        <div className="grid grid-cols-[1.3fr_0.7fr] gap-16 items-end mb-14 max-lg:gap-10 max-md:grid-cols-1 max-md:gap-6 max-md:mb-10">
           <h2 className="font-serif font-semibold text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px] text-balance">
             One platform. Four compliance engines.<br /><em>Every Indian filing requirement.</em>
           </h2>
-          <p className="text-[18px] text-[var(--fg-secondary)] leading-[1.6] m-0 max-w-[460px] justify-self-end max-[900px]:justify-self-start max-[900px]:max-w-full">
+          <p className="text-[17px] max-sm:text-[15px] text-[var(--fg-secondary)] leading-[1.6] m-0 max-w-[460px] justify-self-end max-md:justify-self-start max-md:max-w-full">
             Built on a direct GSP license from GSTN. Each engine is a product on its own — together they cover every filing requirement in India, and a few outside.
           </p>
         </div>
 
-        <div className="grid grid-cols-[repeat(3,minmax(0,1fr))] gap-4 mx-auto grid-flow-dense max-[1100px]:grid-cols-[repeat(2,minmax(0,1fr))] max-[600px]:grid-cols-1">
+        <div className="grid grid-cols-3 gap-4 grid-flow-dense max-lg:grid-cols-2 max-sm:grid-cols-1">
           <PillarCard
             tag="GST Software"
             title="GST filing that thinks before you click submit."
@@ -116,16 +116,6 @@ export function HubSection({ tab, setTab, navigate }: HubSectionProps) {
           />
         </div>
 
-        <div className="mt-10 flex justify-between items-center flex-wrap gap-4">
-          <span className="font-mono text-[12px] text-[var(--fg-tertiary)] tracking-[0.03em]">⤷ Every product runs on the same GSP-licensed pipe to GSTN.</span>
-          <a
-            href="#"
-            className="inline-flex items-center gap-[6px] text-[14px] font-medium text-[var(--fg-primary)] no-underline transition-[color,gap] duration-[160ms] cursor-pointer hover:text-[var(--accent-bright)] hover:gap-[10px] after:content-['→']"
-            onClick={(e) => e.preventDefault()}
-          >
-            See all products
-          </a>
-        </div>
       </div>
     </section>
   );

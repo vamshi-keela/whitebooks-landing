@@ -3,6 +3,25 @@ import { Icon, Box, Code } from '@/components/icons/Icon';
 import type { HeaderMode, BreadcrumbItem } from '@/types/components';
 import wbLogo from "@/assets/logo-white-books.svg"
 import homeIcon from "@/assets/home.svg"
+// ── SiteLogo ─────────────────────────────────────────────────────────────────
+
+interface SiteLogoProps {
+  href?: string;
+  className?: string;
+}
+
+export function SiteLogo({ href = 'Whitebooks Homepage.html', className }: SiteLogoProps) {
+  return (
+    <a
+      href={href}
+      className={`flex items-center gap-2.5 font-display font-bold text-[17px] tracking-[-0.01em] text-[#e8e8f0] shrink-0 ${className ?? ''}`}
+      aria-label="Whitebooks"
+    >
+      <img src={wbLogo} alt="whitebooks logo" className="w-[90px] h-auto sm:w-[117px]" />
+    </a>
+  );
+}
+
 // ── Header ──────────────────────────────────────────────────────────────────
 
 interface HeaderProps {
@@ -43,13 +62,7 @@ export function Header({ mode = 'home' }: HeaderProps) {
       }
     >
       <div className="wb-wrap wb-header-row">
-        <a href="Whitebooks Homepage.html" className="flex items-center gap-2.5 font-display font-bold text-[17px] tracking-[-0.01em] text-[#e8e8f0] shrink-0" aria-label="Whitebooks">
-          <img
-            src={wbLogo}
-            alt="whitebooks logo"
-            className="w-[90px] h-auto sm:w-[117px]"
-          />
-        </a>
+        <SiteLogo />
         <div>
 
           <div className="hidden sm:inline-flex border-solid border-1 border-white/10 rounded-full p-1 gap-1 mx-2">

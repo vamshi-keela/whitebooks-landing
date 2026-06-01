@@ -3,16 +3,14 @@ import { FAQ } from "@/components/ui/FAQ";
 export function FAQSection() {
   return (
     <section className="relative border-b border-[var(--hairline)] max-[700px]:py-[72px] py-24">
-      <div className="w-full px-24 max-[700px]:px-8">
-        <div className="grid grid-cols-[auto_1fr] gap-16 items-start max-[768px]:grid-cols-1 max-[768px]:gap-9">
+      <div className="w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4">
+        <div className="flex flex-col gap-5">
           <div>
             <h2 className="font-serif font-semibold text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px] text-balance">
-              Frequently
-              <br className="max-[768px]:hidden" /> asked.
+              Frequently asked.
             </h2>
             <p className="mt-[18px] text-[var(--fg-secondary)] text-[15px] leading-[1.6]">
-              "Signup to Explore the Features of WhiteBooks —
-              <br className="max-[768px]:hidden" /> A GST Software - A licensed GSP"
+              Signup to Explore the Features of WhiteBooks — A GST Software - A licensed GSP
             </p>
           </div>
           <FAQ

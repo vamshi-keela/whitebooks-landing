@@ -3,7 +3,7 @@
 import React from 'react';
 import type { RouteKey } from '@/hooks/useHashRoute';
 import { SectionLabel } from '@/components/ui/SectionLabel';
-import { LogoWall } from '@/components/ui/LogoWall';
+import { LogoWallCarousel } from '@/components/ui/LogoWall';
 import { Counter } from '@/components/ui/Counter';
 import { FAQ } from '@/components/ui/FAQ';
 import { StatStrip } from '@/components/ui/StatStrip';
@@ -49,7 +49,7 @@ export function PageHome({ motion, intensity, heroVariant, navigate }: PageHomeP
               Whitebooks runs GST, e-invoicing, and e-way bill operations for India's largest enterprises and the CA firms that audit them.
             </p>
           </div>
-          <LogoWall />
+          <LogoWallCarousel />
           <div style={{
             marginTop: 24,
             display: 'flex',

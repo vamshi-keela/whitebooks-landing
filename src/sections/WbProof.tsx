@@ -4,10 +4,10 @@ import { QuoteCard } from '@/components/ui/QuoteCard';
 
 export function ProofSection() {
   return (
-    <section className="relative max-[700px]:py-[72px py-24">
-      <div className="w-full px-24 max-[700px]:px-8">
+    <section className="relative max-[700px]:py-[72px] py-24">
+      <div className="w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4">
         <SectionLabel num="">Testimonials</SectionLabel>
-        <div className="grid grid-cols-1 md:grid-cols-2 [1101px]:grid-cols-3 gap-[18px] mt-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 min-[1101px]:grid-cols-3 gap-[18px] mt-12">
           <QuoteCard
             big
             quote="We moved our entire India e-invoicing and e-way bill stack onto Whitebooks' SAP connector. What took three steps inside SAP plus a portal upload is now one button. The cost savings paid back the year-one license in six weeks."

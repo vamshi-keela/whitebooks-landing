@@ -8,7 +8,7 @@ import sdkNodejs from '../../assets/logos/nodejs-logo.svg';
 import sdkPhp from '../../assets/logos/php-logo.svg';
 import vbNet from '../../assets/logos/vbnet-logo.svg';
 import vb6 from '../../assets/logos/vb6.png';
-import dotNet from '../../assets/logos/dotnet-logo.png';
+import dotNet from '@/assets/logos/dot-net-logo.png';
 import visualFox from '../../assets/logos/vs-fox-logo.png';
 
 import { LOGIN_URL, SIGNUP_URL } from "@/utils/contants";

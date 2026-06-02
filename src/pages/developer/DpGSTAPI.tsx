@@ -11,8 +11,8 @@ import type { StaticNavGroup } from '../../components/api/ApiSidebar';
 import EnvironmentBar from '../../components/api/EnvironmentBar';
 import OperationDetail from '../../components/api/OperationDetail';
 import GstOverview from './GstOverview';
-import GstGetStarted from './GstGetStarted';
-import GstResources from './GstResources';
+import InvoiceApiOverview from './EinvoiceApiOverview';
+import EWayBillApiOverview from './EWayBillApiOverview';
 
 const STATIC_IDS = {
   OVERVIEW: '__gst:overview',
@@ -80,7 +80,16 @@ export default function DpGSTAPI({ apiType }: { apiType: ApiSpecKey }): React.Re
 
   function renderMain() {
     if (isStaticId(selectedOpId)) {
-      if (selectedOpId === STATIC_IDS.OVERVIEW) return <GstOverview />;
+      if (selectedOpId === STATIC_IDS.OVERVIEW) {
+        switch (apiType) {
+          case 'gst-api':
+            return <GstOverview />;
+          case 'e-invoice-api':
+            return <InvoiceApiOverview />;
+          case 'e-way-bill-api':
+            return <EWayBillApiOverview />;
+        }
+      }
     }
     if (visibleOps.length === 0) {
       return (

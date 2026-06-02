@@ -106,15 +106,25 @@ const SidebarGroup = memo(function SidebarGroup({
 
 /* ─── Static nav group ───────────────────────────────────────────────────── */
 const StaticGroup = memo(function StaticGroup({
-  group, selectedOpId, onSelect,
+  group, selectedOpId, searchQuery, onSelect,
 }: {
   group: StaticNavGroup;
   selectedOpId: string;
+  searchQuery: string;
   onSelect: (id: string) => void;
 }): React.ReactElement {
   const [open, setOpen] = useState(true);
-  const anyActive = group.items.some(item => item.id === selectedOpId);
+  // const anyActive = group.items.some(item => item.id === selectedOpId);
 
+  const filteredOps = group.items.filter(op => {
+    if (!searchQuery) return true;
+    const q = searchQuery.toLowerCase();
+    return op.label.toLowerCase().includes(q);
+  });
+
+  if (filteredOps.length === 0) return <></>;
+
+  const anyActive = filteredOps.some(op => op.id === selectedOpId);
   return (
     <div className="mb-0.5">
       {group.items.length > 1 && <div
@@ -137,7 +147,7 @@ const StaticGroup = memo(function StaticGroup({
       </div>}
       {open && (
         <div className="pl-1.5 mt-px">
-          {group.items.map(item => {
+          {filteredOps.map(item => {
             const isActive = selectedOpId === item.id;
             return (
               <div
@@ -194,6 +204,7 @@ export default function ApiSidebar({
             key={group.heading}
             group={group}
             selectedOpId={selectedOpId}
+            searchQuery={searchQuery}
             onSelect={id => { onSelect(id); setMobileOpen(false); }}
           />
         ))}

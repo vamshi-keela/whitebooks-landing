@@ -44,19 +44,6 @@ const LOGOS = [
 export function LogoWallCarousel() {
   return (
     <>
-      {/* <div className="logo-wall">
-        {LOGOS.map(({ name, key }) => {
-          const src = getLogoSrc(key);
-          return (
-            <div className="logo-wall-cell" key={key} title={name}>
-              {src
-                ? <img src={src} alt={name} className="logo-wall-img" />
-                : <span className="logo-wall-text">{name}</span>
-              }
-            </div>
-          );
-        })}
-      </div> */}
       <div>
         <div className="wb-logos-wrap">
           <div className="wb-ticker" aria-hidden="false">

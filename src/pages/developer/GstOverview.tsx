@@ -9,13 +9,12 @@ import {
   Headphones, TrendingUp, Star, Box, FileSpreadsheet, Braces,
   Eye, AlertCircle
 } from 'lucide-react';
-import GstGetStarted from './GstGetStarted';
 import GstResources from './GstResources';
 import sdkPostman from '../../assets/logos/postman.svg';
-import sdkCsharp from '../../assets/logos/csharp-logo.svg';
-import sdkNodejs from '../../assets/logos/nodejs-logo.svg';
-import sdkPhp from '../../assets/logos/php-logo.svg';
 import { SurfaceCard } from './DpComponents';
+import { GST_FAQS, GST_RESOURCE_ITEMS } from '@/data/gst-api-page-data';
+import { FinalCTA } from './EinvoiceApiOverview';
+import { SIGNUP_URL } from '@/utils/contants';
 
 // ─── Animation helpers ────────────────────────────────────────────────────────
 
@@ -233,7 +232,7 @@ function ApiPanel() {
 
 // ─── Section 1: Hero ──────────────────────────────────────────────────────────
 
-function HeroSection() {
+export function HeroSection({ title, description }: { title: string; description: string; }) {
   return (
     <section className="relative px-6 sm:px-10 lg:px-12 pt-12 sm:pt-14 lg:pt-16 pb-12 sm:pb-14 lg:pb-[60px] overflow-hidden">
       {/* Ambient glows */}
@@ -289,7 +288,7 @@ function HeroSection() {
             className="text-[clamp(2rem,4vw,2.9rem)] font-bold tracking-[-0.03em] leading-[1.06] mb-5"
             style={{ fontFamily: 'var(--dp-font-display)', color: 'var(--dp-fg)' }}
           >
-            GST APIs for<br />
+            {title}<br />
             <span style={{ color: 'var(--dp-accent-2)' }}>Modern Developers</span>
           </motion.h1>
 
@@ -301,7 +300,7 @@ function HeroSection() {
             className="text-base leading-[1.75] mb-8 max-w-[480px]"
             style={{ color: 'var(--dp-fg-muted)' }}
           >
-            The WhiteBooks GST API gives developers programmatic access to GSTR-1 / GSTR-3B / GSTR-9 filing, GSTR-2B fetch, GSTIN verification, and HSN/SAC lookup through the certified GSP channel to the GSTN.
+            {description}
           </motion.p>
 
           {/* CTAs */}
@@ -358,7 +357,7 @@ function HeroSection() {
 }
 
 // section 1.1: Architecture
-function GuideArchitecture(): React.ReactElement {
+export function GuideArchitecture(): React.ReactElement {
   return (
     <section id="architecture" className="px-6 sm:px-10 lg:px-12 pb-12 sm:pb-14 lg:pb-[60px]">
       <div className="max-w-[980px] mx-auto">
@@ -443,7 +442,7 @@ const STATS = [
   { icon: Terminal, value: 'Free', label: 'Sandbox Environment' },
 ];
 
-function StatsSection() {
+export function StatsSection() {
   return (
     <section className="px-6 sm:px-10 lg:px-12 pb-12 sm:pb-14 lg:pb-[60px]">
       <motion.div
@@ -666,7 +665,7 @@ function CapabilitiesSection() {
 
 // ─── Section 5: Getting Started ───────────────────────────────────────────────
 
-const STEPS = [
+const STEPS_GST = [
   {
     n: '01',
     icon: Building2,
@@ -711,7 +710,7 @@ const STEPS = [
   },
 ];
 
-function GettingStartedSection() {
+export function GettingStartedSection({ steps }: { steps: typeof STEPS_GST }) {
   return (
     <section className="px-6 sm:px-10 lg:px-12 py-12 sm:py-14 lg:py-[60px]">
       <div className="max-w-[980px] mx-auto">
@@ -735,9 +734,9 @@ function GettingStartedSection() {
           variants={stagger}
           className="flex flex-col"
         >
-          {STEPS.map(({ n, icon: Icon, title, desc, link }, i) => (
+          {steps.map(({ n, icon: Icon, title, desc, link }, i) => (
             <motion.div key={n} variants={fadeUp} className="flex gap-4 relative">
-              {i < STEPS.length - 1 && (
+              {i < steps.length - 1 && (
                 <div
                   className="absolute left-[17px] top-10 bottom-[-20px] w-px z-0"
                   style={{ background: 'linear-gradient(to bottom, rgba(220,47,101,0.3), rgba(220,47,101,0.05))' }}
@@ -802,7 +801,7 @@ const SANDBOX_FEATURES = [
   'Full request/response logging and replay',
 ];
 
-const SANDBOX_SETUP_STEPS = [
+const GST_SANDBOX_SETUP_STEPS = [
   {
     n: 1,
     title: 'Sign up with WhiteBooks',
@@ -833,93 +832,13 @@ const SANDBOX_SETUP_STEPS = [
   },
 ];
 
-function SandboxSection() {
+export function SandboxSection({ title, subTitle, setupSteps, showOTPBlock = true }: { title: string, subTitle: string, setupSteps: any[], showOTPBlock?: boolean }) {
   return (
     <section
       className="px-6 sm:px-10 lg:px-12 py-12 sm:py-14 lg:py-[60px]"
       style={{ background: 'rgba(13,13,19,0.6)' }}
     >
       <div className="max-w-[980px] mx-auto">
-        {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-60px' }}
-            variants={fadeUp}
-          >
-            <SectionHeading>Safe Sandbox Environment</SectionHeading>
-            <p className="mt-3.5 mb-7 text-[14px] leading-[1.75]" style={{ color: 'var(--dp-fg-muted)' }}>
-              Test every API endpoint in isolation before touching production. Our sandbox mirrors the live environment exactly — same request format, same response schema, zero risk.
-            </p>
-            <div className="flex flex-col gap-2.5">
-              {SANDBOX_FEATURES.map(f => (
-                <div key={f} className="flex items-start gap-2.5">
-                  <div
-                    className="w-[18px] h-[18px] rounded-full flex items-center justify-center flex-shrink-0 mt-[1px]"
-                    style={{ background: 'rgba(34,197,94,0.1)', border: '1px solid rgba(34,197,94,0.2)' }}
-                  >
-                    <Check size={9} color="#22c55e" />
-                  </div>
-                  <span className="text-[13px] leading-[1.5]" style={{ color: 'var(--dp-fg-muted)' }}>{f}</span>
-                </div>
-              ))}
-            </div>
-            <div className="mt-7">
-              <button
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-[9px] text-[13px] font-semibold cursor-pointer"
-                style={{
-                  background: 'rgba(220,47,101,0.08)',
-                  border: '1px solid rgba(220,47,101,0.2)',
-                  color: 'var(--dp-accent-2)',
-                }}
-              >
-                <PlayCircle size={14} /> Open Sandbox Console
-              </button>
-            </div>
-          </motion.div>
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-60px' }}
-            variants={scaleIn}
-          >
-            <div
-              className="rounded-[14px] overflow-hidden"
-              style={{
-                background: 'rgba(8,8,12,0.95)',
-                border: '1px solid rgba(255,255,255,0.07)',
-                boxShadow: '0 24px 48px rgba(0,0,0,0.4)',
-              }}
-            >
-              <div
-                className="px-3.5 py-2.5 flex items-center gap-2"
-                style={{ background: 'rgba(255,255,255,0.02)', borderBottom: '1px solid rgba(255,255,255,0.05)' }}
-              >
-                <div className="flex gap-[5px]">
-                  {['#ff5f56', '#febc2e', '#27c93f'].map(c => (
-                    <span key={c} className="block w-[7px] h-[7px] rounded-full" style={{ background: c }} />
-                  ))}
-                </div>
-                <span className="text-[10px] ml-1.5" style={{ color: 'var(--dp-fg-dim)', fontFamily: 'var(--dp-font-mono)' }}>
-                  sandbox.whitebooks.in
-                </span>
-              </div>
-              <div className="px-[18px] py-4">
-                <pre className="m-0 text-[11px] leading-[1.8] overflow-x-auto" style={{ color: 'var(--dp-fg-muted)', fontFamily: 'var(--dp-font-mono)' }}>
-                  {`$ wb sandbox test einvoice\n`}
-                  <span style={{ color: '#22c55e' }}>✓</span>{` Connected to sandbox environment\n`}
-                  <span style={{ color: '#22c55e' }}>✓</span>{` Authentication: OK\n`}
-                  <span style={{ color: '#22c55e' }}>✓</span>{` GSTIN validation: MOCK_27AABCU9603R1ZX\n\n→ Generating mock IRN...\n`}
-                  <span style={{ color: 'var(--dp-accent-2)' }}>◆</span>{` IRN: a1b2c3d4e5f6789abcdef012...\n`}
-                  <span style={{ color: 'var(--dp-accent-2)' }}>◆</span>{` Status: SIGNED (sandbox)\n`}
-                  <span style={{ color: 'var(--dp-accent-2)' }}>◆</span>{` ACK No: 232410293847561\n\n`}
-                  <span style={{ color: '#22c55e' }}>✓</span>{` Test completed in 124ms\n`}
-                  <span style={{ color: 'var(--dp-fg-faint)' }}>{`►  Ready for next test_`}</span>
-                </pre>
-              </div>
-            </div>
-          </motion.div>
-        </div> */}
         <SectionHeading>Sandbox API</SectionHeading>
 
         {/* ── Sandbox API Credential Setup ────────────────────────────── */}
@@ -971,10 +890,10 @@ function SandboxSection() {
                     className="text-[20px] font-semibold leading-snug m-0 mb-1.5"
                     style={{ color: 'var(--dp-fg)', fontFamily: 'var(--dp-font-display)' }}
                   >
-                    WhiteBooks GST API Sandbox Information
+                    {title}
                   </h3>
                   <p className="text-[14px] leading-[1.65] m-0 max-w-[520px]" style={{ color: 'var(--dp-fg-muted)' }}>
-                    To use GST API Sandbox Credentials, follow the steps below to generate your API keys from the developer dashboard.
+                    {subTitle}
                   </p>
                 </div>
               </div>
@@ -984,7 +903,7 @@ function SandboxSection() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-px p-px"
               style={{ background: 'rgba(255,255,255,0.04)' }}
             >
-              {SANDBOX_SETUP_STEPS.map(({ n, title, desc, link, icon: Icon }) => (
+              {setupSteps.map(({ n, title, desc, link, icon: Icon }) => (
                 <div
                   key={n}
                   className="relative flex flex-col justify-between p-6 overflow-hidden transition-colors duration-200 cursor-default"
@@ -1085,7 +1004,7 @@ function SandboxSection() {
         </motion.div>
 
         {/* ── OTP info tag ── */}
-        <div
+        {showOTPBlock && <div
           className="mt-4 flex items-center gap-3 px-4 py-3 rounded-2xl"
           style={{
             background: 'rgba(251,191,36,0.05)',
@@ -1103,7 +1022,7 @@ function SandboxSection() {
             for GSTR1 authentication in sandbox is&nbsp;
             <span style={{ color: '#fbbf24' }}>575757</span>
           </p>
-        </div>
+        </div>}
 
       </div>
     </section>
@@ -1358,7 +1277,7 @@ const BEST_PRACTICES = [
   },
 ];
 
-function BestPracticesSection() {
+export function BestPracticesSection() {
   return (
     <section className="px-6 sm:px-10 lg:px-12 py-12 sm:py-14 lg:py-[60px]" style={{ background: 'rgba(13,13,19,0.6)' }}>
       <div className="max-w-[980px] mx-auto">
@@ -1483,7 +1402,7 @@ function ResourcesSection() {
 
 // ─── Section 12: Final CTA ────────────────────────────────────────────────────
 
-function CtaSection() {
+export function CtaSection() {
   return (
     <section className="relative px-6 sm:px-10 lg:px-12 pt-16 pb-20 overflow-hidden">
       {/* Glow */}
@@ -1520,7 +1439,7 @@ function CtaSection() {
           style={{ fontFamily: 'var(--dp-font-display)', color: 'var(--dp-fg)' }}
         >
           Start Building GST Automation<br />
-          <span style={{ color: 'var(--dp-accent-2)' }}>at Scale</span>
+          <span style={{ fontFamily: 'var(--dp-font-display)', color: 'var(--dp-accent-2)' }}>at Scale</span>
         </h2>
 
         <p className="text-[14px] leading-[1.75] mb-9" style={{ color: 'var(--dp-fg-muted)' }}>
@@ -1564,15 +1483,17 @@ function CtaSection() {
 }
 
 // ─── Section: SDKs & Libraries ───────────────────────────────────────────────
-
-const SDK_ITEMS = [
+export interface SdkType {
+  name: string;
+  version: string;
+  logoUrl: string;
+  href: string;
+}
+const GST_SDK_ITEMS: SdkType[] = [
   { name: 'Postman', version: 'v2.1.0', logoUrl: sdkPostman, href: '#' },
-  { name: 'C-Sharp', version: 'v4.8.2', logoUrl: sdkCsharp, href: '#' },
-  { name: 'Node JS', version: 'v20.12.0', logoUrl: sdkNodejs, href: '#' },
-  { name: 'PHP', version: 'v8.3.4', logoUrl: sdkPhp, href: '#' },
 ];
 
-function SdkCard({ sdk }: { sdk: typeof SDK_ITEMS[0] }) {
+function SdkCard({ sdk }: { sdk: SdkType }) {
   const glowRef = React.useRef<HTMLDivElement>(null);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -1618,7 +1539,7 @@ function SdkCard({ sdk }: { sdk: typeof SDK_ITEMS[0] }) {
   );
 }
 
-function SdkLibrariesSection() {
+export function SdkLibrariesSection({ sdkItems }: { sdkItems: SdkType[] }) {
   return (
     <section className="px-6 sm:px-10 lg:px-12 py-12 sm:py-14 lg:py-[60px]">
       <div className="max-w-[980px] mx-auto">
@@ -1656,7 +1577,7 @@ function SdkLibrariesSection() {
           variants={stagger}
           className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5"
         >
-          {SDK_ITEMS.map((sdk) => (
+          {sdkItems.map((sdk) => (
             <motion.div key={sdk.name} variants={fadeUp}>
               <SdkCard sdk={sdk} />
             </motion.div>
@@ -1672,7 +1593,7 @@ function SdkLibrariesSection() {
 export default function GstOverview(): React.ReactElement {
   return (
     <div className="min-h-screen" style={{ background: 'var(--dp-bg)' }}>
-      <HeroSection />
+      <HeroSection title='GST APIs' description='The WhiteBooks GST API gives developers programmatic access to GSTR-1 / GSTR-3B / GSTR-9 filing, GSTR-2B fetch, GSTIN verification, and HSN/SAC lookup through the certified GSP channel to the GSTN.' />
       <Divider />
       <StatsSection />
       <Divider />
@@ -1682,9 +1603,13 @@ export default function GstOverview(): React.ReactElement {
       <Divider />
       <CapabilitiesSection />
       <Divider /> */}
-      <GettingStartedSection />
+      <GettingStartedSection steps={STEPS_GST} />
       <Divider />
-      <SandboxSection />
+      <SandboxSection
+        title='WhiteBooks GST API Sandbox Information'
+        subTitle='To use GST API Sandbox Credentials, follow the steps below to generate your API keys from the developer dashboard.'
+        setupSteps={GST_SANDBOX_SETUP_STEPS}
+      />
       {/* <Divider />
       <WorkflowSection /> */}
       {/* <Divider />
@@ -1698,12 +1623,22 @@ export default function GstOverview(): React.ReactElement {
       {/* <Divider />
       <GstGetStarted /> */}
       <Divider />
-      <SdkLibrariesSection />
+      <SdkLibrariesSection sdkItems={GST_SDK_ITEMS} />
       <Divider />
       {/* gst resources */}
-      <GstResources />
+      <GstResources resources={GST_RESOURCE_ITEMS} faqs={GST_FAQS} />
       <Divider />
-      <CtaSection />
+      {/* <CtaSection /> */}
+      <FinalCTA
+        eyebrowLabel="GST SUVIDHA PROVIDER | ISO 27001:2013"
+        headingStart='Scale '
+        headingAccent='GST Compliance'
+        headingEnd='with Powerful APIs'
+        description='Integrate WhiteBooks GST APIs into your ERP, accounting software, fintech platform, or SaaS application to automate GST filing, GSTIN verification, reconciliation, invoicing, and tax compliance workflows with scalable production-ready APIs.'
+        trustItems={['GST Return Filing APIs', 'GSTIN Verification', 'Sandbox & Production Access']}
+        primaryButton={{ label: 'Get API Access', href: SIGNUP_URL }}
+        secondaryButton={{ label: 'Read the Docs', href: '#' }}
+      />
     </div>
   );
 }

@@ -135,7 +135,7 @@ export default function DpGSTAPI({ apiType }: { apiType: ApiSpecKey }): React.Re
             staticGroups={STATIC_GROUPS}
           />
 
-          <main className="flex-1 min-w-0 overflow-y-auto">
+          <main className="flex-1 min-w-0 ">
             {renderMain()}
           </main>
         </div>

@@ -1,13 +1,16 @@
 import React, { useState, useMemo } from 'react';
-import { Play, Loader2, AlertCircle } from 'lucide-react';
+import { Play, Loader2, AlertCircle, AlertTriangle } from 'lucide-react';
 import type { NormalizedOperation } from '../../data/openapi-spec';
 import { useSpec } from '../../contexts/SpecContext';
 import { generateExampleFromSchema } from '../../utils/schemaHelpers';
 import { resolveSchema } from '../../utils/normalizeSpec';
 import JsonTree from './JsonTree';
+import MethodBadge from './MethodBadge';
+import CopyButton from './CopyButton';
 
 interface Props {
   operation: NormalizedOperation;
+  fullUrl: string;
 }
 
 interface ResponseState {
@@ -18,9 +21,9 @@ interface ResponseState {
 }
 
 function statusColors(code: number): { text: string; bg: string; border: string } {
-  if (code >= 200 && code < 300) return { text: '#4ade80', bg: 'rgba(34,197,94,0.1)',  border: 'rgba(34,197,94,0.25)'  };
+  if (code >= 200 && code < 300) return { text: '#4ade80', bg: 'rgba(34,197,94,0.1)', border: 'rgba(34,197,94,0.25)' };
   if (code >= 400 && code < 500) return { text: '#fbbf24', bg: 'rgba(251,191,36,0.1)', border: 'rgba(251,191,36,0.25)' };
-  if (code >= 500)               return { text: '#f87171', bg: 'rgba(239,68,68,0.1)',  border: 'rgba(239,68,68,0.25)'  };
+  if (code >= 500) return { text: '#f87171', bg: 'rgba(239,68,68,0.1)', border: 'rgba(239,68,68,0.25)' };
   return { text: 'var(--dp-fg-muted)', bg: 'var(--dp-surface)', border: 'var(--dp-border)' };
 }
 
@@ -33,13 +36,13 @@ const inputCls = [
 ].join(' ');
 
 const sectionHead = 'text-[10px] font-bold uppercase tracking-[0.1em] text-[var(--dp-fg-faint)] mt-[18px] mb-2';
-const fieldLabel  = 'block text-[11px] font-[family-name:var(--dp-font-mono)] text-[var(--dp-fg-muted)] mb-1';
+const fieldLabel = 'block text-[11px] font-[family-name:var(--dp-font-mono)] text-[var(--dp-fg-muted)] mb-1';
 
-export default function TryItPanel({ operation }: Props): React.ReactElement {
-  const { spec, baseUrl } = useSpec();
+export default function TryItPanel({ operation, fullUrl }: Props): React.ReactElement {
+  const { spec } = useSpec();
 
-  const pathParams   = useMemo(() => operation.parameters?.filter(p => p.in === 'path')   ?? [], [operation]);
-  const queryParams  = useMemo(() => operation.parameters?.filter(p => p.in === 'query')  ?? [], [operation]);
+  const pathParams = useMemo(() => operation.parameters?.filter(p => p.in === 'path') ?? [], [operation]);
+  const queryParams = useMemo(() => operation.parameters?.filter(p => p.in === 'query') ?? [], [operation]);
   const headerParams = useMemo(() => operation.parameters?.filter(p => p.in === 'header') ?? [], [operation]);
 
   const defaultBody = useMemo(() => {
@@ -49,17 +52,24 @@ export default function TryItPanel({ operation }: Props): React.ReactElement {
     return JSON.stringify(generateExampleFromSchema(resolved, spec), null, 2);
   }, [operation, spec]);
 
-  const [authToken, setAuthToken]   = useState('');
-  const [pathVals, setPathVals]     = useState<Record<string, string>>({});
-  const [queryVals, setQueryVals]   = useState<Record<string, string>>({});
+  const [authToken, setAuthToken] = useState('');
+  const [pathVals, setPathVals] = useState<Record<string, string>>({});
+  const [queryVals, setQueryVals] = useState<Record<string, string>>({});
   const [headerVals, setHeaderVals] = useState<Record<string, string>>({});
-  const [body, setBody]             = useState(defaultBody);
-  const [loading, setLoading]       = useState(false);
-  const [response, setResponse]     = useState<ResponseState | null>(null);
-  const [error, setError]           = useState<string | null>(null);
+  const [body, setBody] = useState(defaultBody);
+  const [loading, setLoading] = useState(false);
+
+  const canSend = useMemo(() => {
+    if (pathParams.some(p => p.required && !pathVals[p.name]?.trim())) return false;
+    if (queryParams.some(p => p.required && !queryVals[p.name]?.trim())) return false;
+    if (headerParams.some(p => p.required && !headerVals[p.name]?.trim())) return false;
+    return true;
+  }, [pathParams, queryParams, headerParams, pathVals, queryVals, headerVals]);
+  const [response, setResponse] = useState<ResponseState | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const buildUrl = () => {
-    let url = `${baseUrl}${operation.path}`;
+    let url = fullUrl;
     for (const p of pathParams) {
       url = url.replace(`{${p.name}}`, encodeURIComponent(pathVals[p.name] ?? `{${p.name}}`));
     }
@@ -101,7 +111,31 @@ export default function TryItPanel({ operation }: Props): React.ReactElement {
 
   return (
     <div className="flex flex-col">
+      {/* Method + path hint — only on sm+ */}
+      {/* <div className="hidden sm:flex items-left justify-left gap-1.5 px-3 overflow-hidden min-w-0">
+        <MethodBadge method={operation.method} size="sm" />
+        <span className="text-[11px] font-[family-name:var(--dp-font-mono)] text-[var(--dp-fg-faint)] overflow-hidden text-ellipsis whitespace-nowrap overflow-x-auto">
+          {operation.path}
+        </span>
+      </div> */}
+      {/* Method + path */}
+      <div className="flex flex-wrap items-center gap-2.5 mb-[18px]">
+        <MethodBadge method={operation.method} />
 
+        <code className="font-[family-name:var(--dp-font-mono)] text-xs sm:xs text-[var(--dp-fg)] bg-white/[0.04] border border-[var(--dp-border)] rounded-[7px] px-3 py-1 tracking-[0.01em] break-all">
+          {operation.path}
+        </code>
+
+        {operation.deprecated && (
+          <span className="inline-flex items-center gap-1 text-[11px] text-[#f59e0b] bg-[rgba(245,158,11,0.08)] border border-[rgba(245,158,11,0.2)] rounded-[6px] px-2 py-0.5 font-[family-name:var(--dp-font-mono)] shrink-0">
+            <AlertTriangle size={10} /> Deprecated
+          </span>
+        )}
+
+        {/* <div className="ml-auto shrink-0">
+          <CopyButton text={fullUrl} size={14} />
+        </div> */}
+      </div>
       {/* Authorization */}
       <div className={sectionHead}>Authorization</div>
       <div className="relative">
@@ -199,13 +233,13 @@ export default function TryItPanel({ operation }: Props): React.ReactElement {
       {/* Execute button */}
       <button
         onClick={execute}
-        disabled={loading}
+        disabled={loading || !canSend}
         className={[
           'flex items-center justify-center gap-2 mt-[18px] w-full',
           'px-4 py-[10px] rounded-[8px]',
           'text-white font-[family-name:var(--dp-font-body)] text-[13px] font-semibold tracking-[0.02em]',
           'transition-[background] duration-200',
-          loading
+          loading || !canSend
             ? 'bg-[rgba(220,47,101,0.5)] cursor-not-allowed'
             : 'bg-[var(--dp-accent)] cursor-pointer',
         ].join(' ')}

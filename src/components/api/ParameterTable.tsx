@@ -6,14 +6,14 @@ interface Props {
 }
 
 const inColors: Record<string, { color: string; bg: string }> = {
-  path:   { color: '#f5c986', bg: 'rgba(245,201,134,0.08)' },
-  query:  { color: '#7dd3fc', bg: 'rgba(125,211,252,0.08)' },
+  path: { color: '#f5c986', bg: 'rgba(245,201,134,0.08)' },
+  query: { color: '#7dd3fc', bg: 'rgba(125,211,252,0.08)' },
   header: { color: '#c084fc', bg: 'rgba(192,132,252,0.08)' },
   cookie: { color: '#a5e3a1', bg: 'rgba(165,227,161,0.08)' },
 };
 
-export default memo(function ParameterTable({ parameters }: Props): React.ReactElement {
-  if (!parameters.length) return <></>;
+const ParameterTable: React.FC<Props> = ({ parameters }) => {
+  if (!parameters.length) return null;
 
   const byLocation: Record<string, ParameterObject[]> = {};
   for (const p of parameters) {
@@ -22,60 +22,40 @@ export default memo(function ParameterTable({ parameters }: Props): React.ReactE
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+    <div className="flex flex-col gap-4">
       {Object.entries(byLocation).map(([loc, params]) => (
         <div key={loc}>
           <div
-            style={{
-              fontSize: 11,
-              fontFamily: 'var(--dp-font-mono)',
-              color: inColors[loc]?.color ?? 'var(--dp-fg-dim)',
-              textTransform: 'uppercase',
-              letterSpacing: '0.08em',
-              marginBottom: 6,
-            }}
+            className="text-[11px] font-[family-name:var(--dp-font-mono)] uppercase tracking-[0.08em] mb-1.5"
+            style={{ color: inColors[loc]?.color ?? 'var(--dp-fg-dim)' }}
           >
             {loc} parameters
           </div>
-          <div
-            style={{
-              background: 'var(--dp-surface)',
-              border: '1px solid var(--dp-border)',
-              borderRadius: 10,
-              overflow: 'hidden',
-            }}
-          >
+          <div className="bg-[var(--dp-surface)] border border-white/10 rounded-[10px] overflow-hidden">
             {params.map((param, i) => {
               const schema = param.schema && !('$ref' in param.schema) ? param.schema : null;
               const paramType = schema?.type ?? 'string';
+              const locColor = inColors[loc];
               return (
                 <div
                   key={param.name}
-                  style={{
-                    padding: '10px 14px',
-                    borderBottom: i < params.length - 1 ? '1px solid var(--dp-border)' : 'none',
-                    display: 'grid',
-                    gridTemplateColumns: '180px 80px 70px 1fr',
-                    gap: 12,
-                    alignItems: 'start',
-                  }}
+                  className={[
+                    'px-[14px] py-[10px] grid gap-3 items-start',
+                    'grid-cols-[minmax(0,180px)_80px_70px_1fr]',
+                    i < params.length - 1 ? 'border-b border-[var(--dp-border)]' : '',
+                  ].join(' ')}
                 >
                   {/* Name */}
                   <div>
-                    <code style={{ fontFamily: 'var(--dp-font-mono)', fontSize: 13, color: 'var(--dp-fg)', fontWeight: 600 }}>
+                    <code className="font-[family-name:var(--dp-font-mono)] text-[13px] text-[var(--dp-fg)] font-semibold">
                       {param.name}
                     </code>
                     <span
+                      className="inline-block ml-1.5 text-[10px] font-[family-name:var(--dp-font-mono)] rounded-[4px] px-[5px]"
                       style={{
-                        display: 'inline-block',
-                        marginLeft: 6,
-                        fontSize: 10,
-                        fontFamily: 'var(--dp-font-mono)',
-                        color: inColors[loc]?.color ?? 'var(--dp-fg-dim)',
-                        background: inColors[loc]?.bg ?? 'transparent',
-                        border: `1px solid ${inColors[loc]?.color ?? 'var(--dp-border)'}30`,
-                        borderRadius: 4,
-                        padding: '0 5px',
+                        color: locColor?.color ?? 'var(--dp-fg-dim)',
+                        background: locColor?.bg ?? 'transparent',
+                        border: `1px solid ${locColor?.color ?? 'var(--dp-border)'}30`,
                       }}
                     >
                       {loc}
@@ -83,22 +63,18 @@ export default memo(function ParameterTable({ parameters }: Props): React.ReactE
                   </div>
 
                   {/* Type */}
-                  <code style={{ fontFamily: 'var(--dp-font-mono)', fontSize: 12, color: '#7dd3fc' }}>
+                  <code className="font-[family-name:var(--dp-font-mono)] text-[12px] text-[#7dd3fc]">
                     {paramType}
                   </code>
 
                   {/* Required */}
                   <span
-                    style={{
-                      fontSize: 10,
-                      fontFamily: 'var(--dp-font-mono)',
-                      color: param.required ? '#f87171' : 'var(--dp-fg-faint)',
-                      background: param.required ? 'rgba(239,68,68,0.08)' : 'transparent',
-                      border: param.required ? '1px solid rgba(239,68,68,0.2)' : 'none',
-                      borderRadius: 4,
-                      padding: '1px 5px',
-                      alignSelf: 'center',
-                    }}
+                    className={[
+                      'text-[10px] font-[family-name:var(--dp-font-mono)] rounded-[4px] px-[5px] py-px self-center w-fit',
+                      param.required
+                        ? 'text-[#f87171] bg-[rgba(239,68,68,0.08)] border border-[rgba(239,68,68,0.2)]'
+                        : 'text-[var(--dp-fg-faint)]',
+                    ].join(' ')}
                   >
                     {param.required ? 'required' : 'optional'}
                   </span>
@@ -106,23 +82,25 @@ export default memo(function ParameterTable({ parameters }: Props): React.ReactE
                   {/* Description + example */}
                   <div>
                     {param.description && (
-                      <div style={{ fontSize: 12, color: 'var(--dp-fg-muted)', lineHeight: 1.5 }}>
+                      <div className="text-[12px] text-[var(--dp-fg-muted)] leading-[1.5]">
                         {param.description}
                       </div>
                     )}
                     {param.example !== undefined && (
-                      <div style={{ fontSize: 11, fontFamily: 'var(--dp-font-mono)', color: 'var(--dp-fg-faint)', marginTop: 2 }}>
-                        Example: <span style={{ color: '#a5e3a1' }}>{JSON.stringify(param.example)}</span>
+                      <div className="text-[11px] font-[family-name:var(--dp-font-mono)] text-[var(--dp-fg-faint)] mt-0.5">
+                        Example: <span className="text-[#a5e3a1]">{JSON.stringify(param.example)}</span>
                       </div>
                     )}
                     {schema?.enum && (
-                      <div style={{ fontSize: 11, fontFamily: 'var(--dp-font-mono)', color: '#c084fc', marginTop: 2 }}>
+                      <div className="text-[11px] font-[family-name:var(--dp-font-mono)] text-[#c084fc] mt-0.5">
                         Enum: {schema.enum.map(String).join(' | ')}
                       </div>
                     )}
-                    {schema?.deprecated || param.deprecated ? (
-                      <span style={{ fontSize: 10, color: '#f59e0b', fontFamily: 'var(--dp-font-mono)' }}>⚠ deprecated</span>
-                    ) : null}
+                    {(schema?.deprecated || param.deprecated) && (
+                      <span className="text-[10px] text-[#f59e0b] font-[family-name:var(--dp-font-mono)]">
+                        ⚠ deprecated
+                      </span>
+                    )}
                   </div>
                 </div>
               );
@@ -132,4 +110,6 @@ export default memo(function ParameterTable({ parameters }: Props): React.ReactE
       ))}
     </div>
   );
-});
+};
+
+export default memo(ParameterTable);

@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import type { ReactNode } from 'react'
-import { Box, Code } from './Icons'
+import { Box, Code } from '@/components/icons/Icon'
+import { ButtonLink } from '@/components/ui/Button'
 
 type HeaderMode = 'home' | 'softwares' | 'apis'
 
@@ -49,7 +50,7 @@ export default function Header({ mode = 'home' }: HeaderProps) {
       <div className="max-w-[1240px] mx-auto px-8 max-sm:px-5 flex items-center justify-between h-16 gap-6">
 
         {/* Brand */}
-        <Link to="Whitebooks Homepage.html" className="flex items-center gap-2.5 font-display font-bold text-[17px] tracking-[-0.01em] text-[#e8e8f0] shrink-0">
+        <Link to="/" className="flex items-center gap-2.5 font-display font-bold text-[17px] tracking-[-0.01em] text-[#e8e8f0] shrink-0">
           <span
             className="relative w-[22px] h-[22px] rounded-[5px] bg-[#dc2f65] shadow-[0_0_0_1px_rgba(220,47,101,0.4),0_0_20px_rgba(220,47,101,0.3)] after:absolute after:inset-1 after:border-[1.5px] after:border-white/85 after:rounded-[2px]"
             aria-hidden="true"
@@ -72,19 +73,16 @@ export default function Header({ mode = 'home' }: HeaderProps) {
             aria-label="Product stack"
             className="hidden sm:inline-flex items-center bg-white/[0.03] border border-white/10 rounded-full p-1 gap-0.5"
           >
-            <ToggleBtn href="Softwares.html" active={isSoft} icon={<Box />}>Softwares</ToggleBtn>
+            <ToggleBtn href="/softwares" active={isSoft} icon={<Box />}>Softwares</ToggleBtn>
             <ToggleBtn href="/apis" active={isApi} icon={<Code />}>APIs</ToggleBtn>
           </nav>
         </div>
 
         {/* Right side */}
         <div className="flex items-center gap-3.5">
-          <a
-            href="#book-demo"
-            className="hidden xs:inline-flex items-center justify-center gap-2 px-[18px] py-[11px] rounded-lg font-body font-medium text-sm text-[#dc2f65] border border-[rgba(220,47,101,0.5)] transition-all duration-150 hover:bg-[#dc2f65] hover:text-white hover:border-[#dc2f65]"
-          >
+          <ButtonLink href="#book-demo" variant="outline" className="hidden xs:inline-flex">
             Book a demo
-          </a>
+          </ButtonLink>
 
           {/* Hamburger — mobile only */}
           <button
@@ -104,13 +102,13 @@ export default function Header({ mode = 'home' }: HeaderProps) {
         <div className="sm:hidden border-t border-white/[0.06] bg-[rgba(10,10,15,0.95)] px-5 py-4 flex flex-col gap-3">
           <MobileNav href="/softwares" icon={<Box />}>Softwares · 5 products</MobileNav>
           <MobileNav href="/apis" icon={<Code />}>APIs · 4 products</MobileNav>
-          <a
+          <ButtonLink
             href="#book-demo"
-            className="mt-1 inline-flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-medium text-sm bg-[#dc2f65] text-white"
+            className="mt-1"
             onClick={() => setMenuOpen(false)}
           >
             Book a demo
-          </a>
+          </ButtonLink>
         </div>
       )}
     </header>

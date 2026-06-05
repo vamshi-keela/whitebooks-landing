@@ -1,6 +1,16 @@
 import { useState, useEffect, useCallback } from 'react';
 
-export type RouteKey = 'home' | 'gst-soft' | 'gst-api';
+export type RouteKey =
+  | 'home'
+  | 'gst-soft'
+  | 'gst-api'
+  | 'einvoice-soft'
+  | 'einvoice-api'
+  | 'eway-soft'
+  | 'eway-api'
+  | 'ksa-soft'
+  | 'ksa-api'
+  | 'accounting';
 
 function hashToRoute(hash: string): RouteKey {
   if (hash === '#/gst-software') return 'gst-soft';

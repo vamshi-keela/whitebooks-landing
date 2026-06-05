@@ -20,7 +20,7 @@ interface SubPageProps {
 export function SubPage({ data }: SubPageProps) {
   useReveal();
   return (
-    <div className="wb-page">
+    <div className="min-h-screen bg-[var(--bg)]">
       <Header mode={data.headerMode} />
       <main>
         {data.breadcrumb && (

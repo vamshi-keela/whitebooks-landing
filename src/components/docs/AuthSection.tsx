@@ -4,11 +4,11 @@ import { CodeBlock } from '../../pages/developer/DpComponents';
 import type { CodeTab } from '../../pages/developer/DpComponents';
 
 const authFeatures = [
-  { icon: Shield, label: 'OAuth 2.0',          desc: 'Client credentials flow' },
-  { icon: Key,    label: 'Bearer tokens',       desc: 'Authorization header' },
-  { icon: Lock,   label: 'TLS 1.2+',            desc: 'All traffic encrypted' },
-  { icon: Clock,  label: '1-hour expiry',       desc: 'Tokens auto-expire' },
-  { icon: Globe,  label: 'IP allow-listing',    desc: 'Optional per-account' },
+  { icon: Shield, label: 'OAuth 2.0', desc: 'Client credentials flow' },
+  { icon: Key, label: 'Bearer tokens', desc: 'Authorization header' },
+  { icon: Lock, label: 'TLS 1.2+', desc: 'All traffic encrypted' },
+  { icon: Clock, label: '1-hour expiry', desc: 'Tokens auto-expire' },
+  { icon: Globe, label: 'IP allow-listing', desc: 'Optional per-account' },
 ];
 
 const curlAuthTabs: CodeTab[] = [
@@ -32,8 +32,8 @@ const bearerTabs: CodeTab[] = [
     lines: [
       [['pun', '{']],
       [['key', '  "access_token"'], ['pun', ': '], ['str', '"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9..."'], ['pun', ',']],
-      [['key', '  "token_type"'],   ['pun', ': '], ['str', '"Bearer"'], ['pun', ',']],
-      [['key', '  "expires_in"'],   ['pun', ': '], ['num', '3600']],
+      [['key', '  "token_type"'], ['pun', ': '], ['str', '"Bearer"'], ['pun', ',']],
+      [['key', '  "expires_in"'], ['pun', ': '], ['num', '3600']],
       [['pun', '}']],
     ],
   },
@@ -86,7 +86,7 @@ export default function AuthSection(): React.ReactElement {
         </h2>
         <p style={{ fontSize: 15, color: 'var(--dp-fg-muted)', margin: 0, maxWidth: 600 }}>
           All API calls require a Bearer token obtained via the client credentials flow. Tokens expire
-          after 1 hour — implement token refresh logic in your integration.
+          after 1 hour, implement token refresh logic in your integration.
         </p>
       </div>
 

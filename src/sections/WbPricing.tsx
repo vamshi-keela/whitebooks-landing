@@ -1,4 +1,5 @@
 import React from 'react';
+import { ButtonLink } from '@/components/ui/Button';
 import SectionLabel from '@/components/ui/SectionLabel';
 
 export function PricingSection() {
@@ -52,11 +53,15 @@ export function PricingSection() {
                   </li>
                 ))}
               </ul>
-              <a href="#" className={`btn ${t.featured ? 'btn-accent' : 'btn-ghost'} btn-arrow`}
-                style={{ marginTop: 28, width: '100%', justifyContent: 'center' }}
-                onClick={(e) => e.preventDefault()}>
+              <ButtonLink
+                href="#"
+                variant={t.featured ? 'primary' : 'ghost'}
+                arrow
+                className="mt-7 w-full"
+                onClick={(e) => e.preventDefault()}
+              >
                 {t.price === 'Custom' ? 'Talk to sales' : 'Start free trial'}
-              </a>
+              </ButtonLink>
             </div>
           ))}
         </div>

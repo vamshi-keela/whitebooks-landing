@@ -2,6 +2,7 @@
 // embedded mini product UI mocks + per-card gradient washes.
 
 import React, { useState, useEffect } from 'react';
+import { cn } from '@/lib/cn';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -53,11 +54,11 @@ function miniHeader(): React.CSSProperties {
 
 export function CardWash({ tone, intensity = 1 }: CardWashProps) {
   const tones: Record<CardWashProps['tone'], { c1: string; c2: string }> = {
-    pink:   { c1: 'rgba(220,47,101,0.22)',  c2: 'rgba(139,92,246,0.16)' },
-    violet: { c1: 'rgba(139,92,246,0.22)',  c2: 'rgba(59,130,246,0.16)' },
-    blue:   { c1: 'rgba(59,130,246,0.22)',  c2: 'rgba(6,182,212,0.16)'  },
-    cyan:   { c1: 'rgba(6,182,212,0.22)',   c2: 'rgba(34,197,94,0.14)'  },
-    amber:  { c1: 'rgba(245,158,11,0.22)',  c2: 'rgba(220,47,101,0.18)' },
+    pink: { c1: 'rgba(220,47,101,0.22)', c2: 'rgba(139,92,246,0.16)' },
+    violet: { c1: 'rgba(139,92,246,0.22)', c2: 'rgba(59,130,246,0.16)' },
+    blue: { c1: 'rgba(59,130,246,0.22)', c2: 'rgba(6,182,212,0.16)' },
+    cyan: { c1: 'rgba(6,182,212,0.22)', c2: 'rgba(34,197,94,0.14)' },
+    amber: { c1: 'rgba(245,158,11,0.22)', c2: 'rgba(220,47,101,0.18)' },
   };
   const t = tones[tone];
 
@@ -128,9 +129,9 @@ export function MiniReconMock() {
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', borderBottom: '1px solid var(--hairline)' } as React.CSSProperties}>
         {[
-          { lbl: 'Matched',  val: matched.toLocaleString('en-IN'), tone: 'var(--ok)' },
-          { lbl: 'Mismatch', val: '17',                             tone: 'var(--warn)' },
-          { lbl: 'At risk',  val: '₹2.4L',                          tone: 'var(--fg-primary)' },
+          { lbl: 'Matched', val: matched.toLocaleString('en-IN'), tone: 'var(--ok)' },
+          { lbl: 'Mismatch', val: '17', tone: 'var(--warn)' },
+          { lbl: 'At risk', val: '₹2.4L', tone: 'var(--fg-primary)' },
         ].map((s, i) => (
           <div key={i} style={{
             padding: '14px 16px',
@@ -168,8 +169,8 @@ export function MiniReconMock() {
       {/* Tiny preview rows */}
       <div style={{ borderTop: '1px solid var(--hairline)' } as React.CSSProperties}>
         {[
-          { v: 'IBM India Pvt Ltd',  a: '₹12,40,000', s: 'match' },
-          { v: 'Suresh Trading Co',  a: '₹22,400',    s: 'amber' },
+          { v: 'IBM India Pvt Ltd', a: '₹12,40,000', s: 'match' },
+          { v: 'Suresh Trading Co', a: '₹22,400', s: 'amber' },
           { v: 'Hindustan Unilever', a: '₹32,84,500', s: 'match' },
         ].map((r, i) => (
           <div key={i} style={{
@@ -451,7 +452,6 @@ export function PillarCard({
   mock,
   onClick,
   featured = false,
-  mockSide = 'right',
 }: PillarCardProps) {
   const [hovered, setHovered] = useState(false);
 
@@ -460,95 +460,109 @@ export function PillarCard({
       onClick={onClick}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      className={cn(
+        'relative overflow-hidden flex flex-col',
+        // Featured: switch to side-by-side only from lg (1024px+) where there's enough room
+        featured && 'lg:flex-row',
+        onClick ? 'cursor-pointer' : 'cursor-default',
+      )}
       style={{
-        position: 'relative',
         background: 'var(--bg-card)',
         border: `1px solid ${hovered ? 'var(--hairline-bright)' : 'var(--hairline)'}`,
         borderRadius: 16,
-        padding: 0,
-        cursor: onClick ? 'pointer' : 'default',
-        overflow: 'hidden',
+        // span-2 works on 2-col and 3-col grids; on 1-col it's ignored
+        gridColumn: featured ? 'span 2' : 'auto',
         transition: 'border-color 180ms ease, transform 220ms ease',
         transform: hovered ? 'translateY(-2px)' : 'none',
-        minHeight: featured ? 380 : 320,
-        display: 'flex',
-        flexDirection: featured ? 'row' : 'column',
-        gridColumn: featured ? 'span 2' : 'auto',
-      } as React.CSSProperties}
+      }}
     >
       <CardWash tone={tone} />
 
-      {/* Text side */}
-      <div style={{
-        position: 'relative',
-        zIndex: 2,
-        padding: featured ? '36px 36px 32px' : '28px 28px 24px',
-        flex: featured ? 1 : 'none',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 18,
-        ...(featured ? { maxWidth: 380 } : {}),
-      } as React.CSSProperties}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-          <span className="mono-tag accent"><span className="dot"></span>{tag}</span>
+      {/* Text content */}
+      <div
+        className={cn(
+          'relative z-[2] flex flex-col',
+          // Padding scales up at each breakpoint
+          featured
+            ? 'p-5 gap-3 sm:p-6 sm:gap-4 lg:p-9 lg:max-w-[400px]'
+            : 'p-4 gap-3 sm:p-5 lg:p-7',
+        )}
+        style={{ flex: featured ? 1 : 'none' }}
+      >
+        {/* Tag + optional nav arrow */}
+        <div className="flex justify-between items-start">
+          <span className="mono-tag accent">
+            <span className="dot" />
+            {tag}
+          </span>
           {onClick && (
-            <span style={{
-              width: 28,
-              height: 28,
-              borderRadius: 6,
-              border: '1px solid var(--hairline)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontFamily: 'var(--font-mono)',
-              fontSize: 13,
-              color: hovered ? 'var(--accent-bright)' : 'var(--fg-tertiary)',
-              background: hovered ? 'rgba(220,47,101,0.06)' : 'transparent',
-              transition: 'all 180ms',
-            } as React.CSSProperties}>↗</span>
+            <span
+              className="shrink-0 w-7 h-7 rounded-[6px] flex items-center justify-center font-mono text-[13px] transition-all duration-[180ms]"
+              style={{
+                border: '1px solid var(--hairline)',
+                color: hovered ? 'var(--accent-bright)' : 'var(--fg-tertiary)',
+                background: hovered ? 'rgba(220,47,101,0.06)' : 'transparent',
+              }}
+            >
+              ↗
+            </span>
           )}
         </div>
-        <h3 style={{
-          fontFamily: 'var(--font-serif)',
-          fontSize: featured ? 38 : 28,
-          lineHeight: 1.12,
-          letterSpacing: '-0.018em',
-          color: 'var(--fg-primary)',
-          margin: 0,
-          fontWeight: 400,
-        } as React.CSSProperties}>
+
+        {/* Title — clamp shrinks gracefully on narrow viewports */}
+        <h3
+          className={cn(
+            'm-0 font-normal leading-[1.12] tracking-[-0.018em]',
+            featured
+              ? 'text-[clamp(20px,3.2vw,38px)]'
+              : 'text-[clamp(16px,2.2vw,28px)]',
+          )}
+          style={{ fontFamily: 'var(--font-serif)', color: 'var(--fg-primary)' }}
+        >
           {title}
         </h3>
-        <p className="body" style={{
-          fontSize: featured ? 15 : 14,
-          maxWidth: featured ? 380 : 'none',
-          margin: 0,
-        } as React.CSSProperties}>
+
+        {/* Body */}
+        <p
+          className="body m-0"
+          style={{ fontSize: featured ? 15 : 14 }}
+        >
           {body}
         </p>
-        <div style={{ marginTop: 'auto', paddingTop: 14 }}>
-          <span className="link-arrow" style={{
-            color: hovered ? 'var(--accent-bright)' : 'var(--fg-primary)',
-            transition: 'color 180ms',
-          } as React.CSSProperties}>
+
+        {/* CTA pushed to card bottom */}
+        <div className="mt-auto pt-3 sm:pt-[14px]">
+          <span
+            className="link-arrow transition-colors duration-[180ms]"
+            style={{ color: hovered ? 'var(--accent-bright)' : 'var(--fg-primary)' }}
+          >
             {cta}
           </span>
         </div>
       </div>
 
-      {/* Mock side */}
-      <div style={{
-        position: 'relative',
-        zIndex: 2,
-        flex: featured ? 1.1 : 'none',
-        padding: featured ? '36px 36px 36px 0' : '0 28px 28px',
-        display: 'flex',
-        alignItems: featured ? 'center' : 'stretch',
-        justifyContent: featured ? 'flex-end' : 'stretch',
-        minHeight: featured ? 'auto' : 200,
-      } as React.CSSProperties}>
-        {mock}
-      </div>
+      {/* Mock panel
+          • Featured: hidden on phones (<sm), shown as bottom panel sm–lg,
+            side panel from lg onward
+          • Non-featured: hidden below lg to keep cards compact on mobile/tablet */}
+      {mock && (
+        <div
+          className={cn(
+            'relative z-[2] flex',
+            featured
+              ? cn(
+                // Column mode (all sizes): padding below the text block
+                'px-5 pb-5 sm:px-6 sm:pb-6',
+                // Row mode (lg+): right panel with no left padding
+                'lg:items-center lg:justify-end lg:py-9 lg:pr-9 lg:pl-0',
+              )
+              : 'px-4 pb-4 sm:px-5 sm:pb-5 lg:px-7 lg:pb-7',
+          )}
+          style={{ flex: featured ? '1.1' : 'none' }}
+        >
+          {mock}
+        </div>
+      )}
     </div>
   );
 }

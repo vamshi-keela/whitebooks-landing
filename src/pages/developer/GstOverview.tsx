@@ -15,67 +15,10 @@ import { SurfaceCard } from './DpComponents';
 import { GST_FAQS, GST_RESOURCE_ITEMS } from '@/data/gst-api-page-data';
 import { FinalCTA } from './EinvoiceApiOverview';
 import { SIGNUP_URL } from '@/utils/contants';
+import { Button, ButtonLink } from '@/components/ui/Button';
+import { fadeUp, stagger, scaleIn, SectionLabel, SectionHeading, GlassCard, Divider } from './GstShared';
 
-// ─── Animation helpers ────────────────────────────────────────────────────────
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 22 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] as const } },
-};
-const stagger = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.08 } },
-};
-const scaleIn = {
-  hidden: { opacity: 0, scale: 0.94 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] as const } },
-};
-
-// ─── Shared primitives ────────────────────────────────────────────────────────
-
-function SectionLabel({ children }: { children: React.ReactNode }) {
-  return (
-    <p
-      className="text-[10px] font-bold tracking-[0.1em] uppercase mb-3"
-      style={{ color: 'var(--dp-accent-2)', fontFamily: 'var(--dp-font-mono)' }}
-    >
-      {children}
-    </p>
-  );
-}
-
-function SectionHeading({ children }: { children: React.ReactNode }) {
-  return (
-    <h2
-      className="text-3xl font-bold tracking-[-0.025em] leading-[1.1] m-0"
-      style={{ fontFamily: 'var(--dp-font-display)', color: 'var(--dp-fg)' }}
-    >
-      {children}
-    </h2>
-
-  );
-}
-
-function GlassCard({ children, className = '', style = {} }: {
-  children: React.ReactNode; className?: string; style?: React.CSSProperties;
-}) {
-  return (
-    <div
-      className={`rounded-[14px] border ${className}`}
-      style={{
-        background: 'var(--dp-surface-2)',
-        borderColor: 'var(--dp-border)',
-        ...style,
-      }}
-    >
-      {children}
-    </div>
-  );
-}
-
-export function Divider() {
-  return <div className="h-px" style={{ background: 'rgba(255,255,255,0.05)' }} />;
-}
+export { Divider };
 
 // ─── Hero: API visualization panel ───────────────────────────────────────────
 
@@ -310,27 +253,19 @@ export function HeroSection({ title, description }: { title: string; description
             transition={{ duration: 0.6, delay: 0.3 }}
             className="flex gap-3 flex-wrap mb-8"
           >
-            <button
-              className="inline-flex items-center gap-2 px-[22px] py-[11px] rounded-[9px] text-[13px] font-semibold text-white border-0 cursor-pointer transition-opacity hover:opacity-80"
-              style={{
-                background: 'var(--dp-accent)',
-                boxShadow: '0 0 28px rgba(220,47,101,0.28), 0 4px 14px rgba(0,0,0,0.3)',
-              }}
+            <Button
+              variant="developerPrimary"
+              className="shadow-[0_0_28px_rgba(220,47,101,0.28),0_4px_14px_rgba(0,0,0,0.3)]"
               onClick={() => window.open('https://accounts.whitebooks.in/signup?type=Developer&subscrid=&inviteId', '_blank')}
             >
               Get API Access <ArrowRight size={14} />
-            </button>
-            <button
-              className="inline-flex items-center gap-2 px-[22px] py-[11px] rounded-[9px] text-[13px] font-semibold cursor-pointer transition-all hover:opacity-80"
-              style={{
-                background: 'rgba(255,255,255,0.05)',
-                border: '1px solid rgba(255,255,255,0.1)',
-                color: 'var(--dp-fg)',
-              }}
+            </Button>
+            <Button
+              variant="developerGhost"
               onClick={() => window.open('https://accounts.whitebooks.in/signup?type=Developer&subscrid=&inviteId', '_blank')}
             >
               Try in Sandbox <ArrowRight size={14} />
-            </button>
+            </Button>
           </motion.div>
 
           {/* Trust */}
@@ -984,7 +919,7 @@ export function SandboxSection({ title, subTitle, setupSteps, showOTPBlock = tru
               <div className="flex items-center gap-2">
                 <Shield size={11} color="var(--dp-fg-faint)" />
                 <span className="text-[11px]" style={{ color: 'var(--dp-fg-faint)', fontFamily: 'var(--dp-font-mono)' }}>
-                  Sandbox credentials are isolated — no real GSTN data is touched
+                  Sandbox credentials are isolated, no real GSTN data is touched
                 </span>
               </div>
               <button
@@ -1034,7 +969,7 @@ export function SandboxSection({ title, subTitle, setupSteps, showOTPBlock = tru
 
 const WORKFLOW = [
   { step: '01', title: 'Authenticate User', desc: 'OTP / EVC / DSC login via government portal credentials.', tag: 'Auth API', color: 'rgba(220,47,101,0.2)', tcolor: 'var(--dp-accent-2)' },
-  { step: '02', title: 'Upload Invoice Data', desc: 'Push invoice records — B2B, B2C, exports — via batch or single API.', tag: 'Invoice API', color: 'rgba(96,165,250,0.15)', tcolor: '#60a5fa' },
+  { step: '02', title: 'Upload Invoice Data', desc: 'Push invoice records. B2B, B2C, exports via batch or single API.', tag: 'Invoice API', color: 'rgba(96,165,250,0.15)', tcolor: '#60a5fa' },
   { step: '03', title: 'Save Return Data', desc: 'Draft return data is saved to GSTN staging before submission.', tag: 'Returns API', color: 'rgba(251,191,36,0.12)', tcolor: '#fbbf24' },
   { step: '04', title: 'Submit Return', desc: 'Trigger formal GSTR submission with idempotent request handling.', tag: 'Submit API', color: 'rgba(34,197,94,0.12)', tcolor: '#22c55e' },
   { step: '05', title: 'Proceed to File', desc: 'Confirm submission summary and queue for e-filing.', tag: 'File API', color: 'rgba(167,139,250,0.12)', tcolor: '#a78bfa' },
@@ -1123,7 +1058,7 @@ const API_CATS = [
   {
     icon: Truck,
     title: 'e-Way Bill APIs',
-    desc: 'End-to-end EWB lifecycle management — create, update, extend, verify, and cancel with real-time NIC sync.',
+    desc: 'End-to-end EWB lifecycle management, create, update, extend, verify, and cancel with real-time NIC sync.',
     tags: ['EWB create', 'Part-B update', 'Multi-vehicle', 'Cancel'],
   },
 ];
@@ -1217,7 +1152,7 @@ function WhySection() {
           <SectionLabel>Why WhiteBooks</SectionLabel>
           <SectionHeading>Built for Production<br />Compliance at Scale</SectionHeading>
           <p className="mt-3.5 text-[14px] max-w-[500px] leading-[1.7]" style={{ color: 'var(--dp-fg-muted)' }}>
-            WhiteBooks is the infrastructure layer for compliance-critical applications. Not just another API — a GSP-certified platform built for the demands of enterprise fintech.
+            WhiteBooks is the infrastructure layer for compliance-critical applications. Not just another API. A GSP-certified platform built for the demands of enterprise fintech.
           </p>
         </motion.div>
 
@@ -1254,7 +1189,7 @@ const BEST_PRACTICES = [
   {
     icon: Terminal,
     title: 'Use Sandbox Before Production',
-    body: 'Always validate integration against the sandbox environment. The sandbox mirrors production schema exactly — no surprises at go-live.',
+    body: 'Always validate integration against the sandbox environment. The sandbox mirrors production schema exactly. No surprises at go-live.',
     tip: 'Set BASE_URL=https://sandbox.whitebooks.in/api/v2',
   },
   {
@@ -1447,25 +1382,16 @@ export function CtaSection() {
         </p>
 
         <div className="flex justify-center gap-3 flex-wrap mb-8">
-          <button
-            className="inline-flex items-center gap-2 px-7 py-[13px] rounded-[10px] text-[14px] font-semibold text-white border-0 cursor-pointer"
-            style={{
-              background: 'var(--dp-accent)',
-              boxShadow: '0 0 32px rgba(220,47,101,0.3), 0 4px 16px rgba(0,0,0,0.3)',
-            }}
+          <Button
+            variant="developerPrimary"
+            size="lg"
+            className="shadow-[0_0_32px_rgba(220,47,101,0.3),0_4px_16px_rgba(0,0,0,0.3)]"
           >
             Get API Access <ArrowRight size={15} />
-          </button>
-          <button
-            className="inline-flex items-center gap-2 px-7 py-[13px] rounded-[10px] text-[14px] font-semibold cursor-pointer"
-            style={{
-              background: 'rgba(255,255,255,0.05)',
-              border: '1px solid rgba(255,255,255,0.1)',
-              color: 'var(--dp-fg)',
-            }}
-          >
+          </Button>
+          <Button variant="developerGhost" size="lg">
             <BookOpen size={15} /> Read the Docs
-          </button>
+          </Button>
         </div>
 
         {/* Trust row */}
@@ -1523,18 +1449,15 @@ function SdkCard({ sdk }: { sdk: SdkType }) {
       >
         {sdk.name}
       </h3>
-      <a
+      <ButtonLink
         href={sdk.href}
-        className="sdk-download-btn w-full mt-auto flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-xs font-medium transition-all no-underline"
-        style={{
-          background: 'rgba(255,255,255,0.04)',
-          border: '1px solid rgba(255,255,255,0.06)',
-          color: 'var(--dp-fg)',
-        }}
+        variant="developerGhost"
+        size="sm"
+        className="sdk-download-btn w-full mt-auto"
       >
         <span>Download SDK</span>
         <ExternalLink size={13} />
-      </a>
+      </ButtonLink>
     </div>
   );
 }

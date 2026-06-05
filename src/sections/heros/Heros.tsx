@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { ReconciliationUI } from './ReconciliationUI';
 import { HeroBackdrop } from '@/components/ui/HeroBackdrop';
+import { ButtonLink } from '@/components/ui/Button';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -301,12 +302,12 @@ export function HeroReconciliation({
               </h1>
               <p className="lede" style={{ marginTop: 26 }}>{sub}</p>
               <div style={{ marginTop: 32, display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-                <a href="#" className="btn btn-accent btn-arrow" onClick={(e) => e.preventDefault()}>
+                <ButtonLink href="#" arrow onClick={(e) => e.preventDefault()}>
                   {primary}
-                </a>
-                <a href="#" className="btn btn-ghost" onClick={(e) => e.preventDefault()}>
+                </ButtonLink>
+                <ButtonLink href="#" variant="ghost" onClick={(e) => e.preventDefault()}>
                   {secondary}
-                </a>
+                </ButtonLink>
               </div>
               <div style={{ marginTop: 40, display: 'flex', gap: 12, flexWrap: 'wrap' }}>
                 <span className="mono-tag accent"><span className="dot"></span>GSP licensed</span>
@@ -348,12 +349,12 @@ export function HeroCopilot({
             </h1>
             <p className="lede" style={{ marginTop: 26 }}>{sub}</p>
             <div style={{ marginTop: 32, display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-              <a href="#" className="btn btn-accent btn-arrow" onClick={(e) => e.preventDefault()}>
+              <ButtonLink href="#" arrow onClick={(e) => e.preventDefault()}>
                 {primary}
-              </a>
-              <a href="#" className="btn btn-ghost" onClick={(e) => e.preventDefault()}>
+              </ButtonLink>
+              <ButtonLink href="#" variant="ghost" onClick={(e) => e.preventDefault()}>
                 {secondary}
-              </a>
+              </ButtonLink>
             </div>
             <div style={{ marginTop: 40, display: 'flex', gap: 12, flexWrap: 'wrap' }}>
               <span className="mono-tag accent"><span className="dot"></span>AI on the Anthropic API</span>
@@ -389,12 +390,12 @@ export function HeroTerminal({
         </h1>
         <p className="lede" style={{ marginTop: 26, marginLeft: 'auto', marginRight: 'auto' }}>{sub}</p>
         <div style={{ marginTop: 32, display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
-          <a href="#" className="btn btn-accent btn-arrow" onClick={(e) => e.preventDefault()}>
+          <ButtonLink href="#" arrow onClick={(e) => e.preventDefault()}>
             {primary}
-          </a>
-          <a href="#" className="btn btn-ghost" onClick={(e) => e.preventDefault()}>
+          </ButtonLink>
+          <ButtonLink href="#" variant="ghost" onClick={(e) => e.preventDefault()}>
             {secondary}
-          </a>
+          </ButtonLink>
         </div>
         <div style={{ marginTop: 56, maxWidth: 820, marginLeft: 'auto', marginRight: 'auto' }}>
           <TerminalUI motion={motion} />

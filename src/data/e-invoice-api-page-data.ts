@@ -75,7 +75,7 @@ export const INV_FAQS: FaqType[] = [
     },
     {
         q: 'What rate limits apply to the Sandbox environment?',
-        a: 'The Sandbox tier has no rate limits on test requests. Production API limits depend on your subscription plan — Starter plans include 10,000 requests/month, while Enterprise plans offer custom quotas with SLA guarantees.',
+        a: 'The Sandbox tier has no rate limits on test requests. Production API limits depend on your subscription plan. Starter plans include 10,000 requests/month, while Enterprise plans offer custom quotas with SLA guarantees.',
     },
     {
         q: 'Can I use the API for bulk GSTR filing?',

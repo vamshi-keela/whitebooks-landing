@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Icon from '@/components/icons/Icon';
+import { ButtonLink } from '@/components/ui/Button';
 import { Header, Footer, FluidBackground, Eyebrow, Breadcrumb } from '@/layouts/SiteShell';
 import { useReveal } from '@/hooks/useReveal';
 import type { HeaderMode, BreadcrumbItem, FaqItem } from '@/types/components';
@@ -38,20 +39,14 @@ export function SubHero({
             <p className="wb-subhero-sub">{sub}</p>
             <div className="wb-subhero-cta">
               {primaryCta && (
-                <a
-                  className="wb-btn wb-btn-primary wb-btn-lg"
-                  href={primaryCta.href ?? '#'}
-                >
-                  {primaryCta.label} <Icon.ArrowRight width="14" height="14" />
-                </a>
+                <ButtonLink href={primaryCta.href ?? '#'} size="lg" arrow>
+                  {primaryCta.label}
+                </ButtonLink>
               )}
               {secondaryCta && (
-                <a
-                  className="wb-btn wb-btn-ghost wb-btn-lg"
-                  href={secondaryCta.href ?? '#'}
-                >
+                <ButtonLink href={secondaryCta.href ?? '#'} variant="ghost" size="lg">
                   {secondaryCta.label}
-                </a>
+                </ButtonLink>
               )}
             </div>
             {micro && (
@@ -195,12 +190,9 @@ export function PricingTiers({ tiers, note }: PricingTiersProps) {
               ))}
             </ul>
             <div className="wb-tier-cta">
-              <a
-                href="#"
-                className={`wb-btn ${t.featured ? 'wb-btn-primary' : 'wb-btn-ghost'}`}
-              >
-                {t.cta || 'Get started'} <Icon.ArrowRight width="13" height="13" />
-              </a>
+              <ButtonLink href="#" variant={t.featured ? 'primary' : 'ghost'} arrow>
+                {t.cta || 'Get started'}
+              </ButtonLink>
             </div>
           </div>
         ))}
@@ -247,20 +239,14 @@ export function SubClose({ h2, body, primaryCta, secondaryCta }: ClosingDef) {
         <p className="wb-subclose-body">{body}</p>
         <div className="wb-subclose-cta">
           {primaryCta && (
-            <a
-              className="wb-btn wb-btn-primary wb-btn-lg"
-              href={primaryCta.href ?? '#'}
-            >
-              {primaryCta.label} <Icon.ArrowRight width="14" height="14" />
-            </a>
+            <ButtonLink href={primaryCta.href ?? '#'} size="lg" arrow>
+              {primaryCta.label}
+            </ButtonLink>
           )}
           {secondaryCta && (
-            <a
-              className="wb-btn wb-btn-ghost wb-btn-lg"
-              href={secondaryCta.href ?? '#'}
-            >
+            <ButtonLink href={secondaryCta.href ?? '#'} variant="ghost" size="lg">
               {secondaryCta.label}
-            </a>
+            </ButtonLink>
           )}
         </div>
       </div>
@@ -300,7 +286,7 @@ export function SubPage({
   useReveal();
 
   return (
-    <div className="wb-page">
+    <div className="min-h-screen bg-[var(--bg)]">
       <Header mode={headerMode} />
       <main>
         <section style={{ paddingTop: 100, paddingBottom: 0 }}>
@@ -335,23 +321,16 @@ export function SubPage({
             sub={integrations.body}
           >
             <IntegrationStrip logos={integrations.logos} />
-            <div style={{ marginTop: 28, display: 'flex', gap: 16, flexWrap: 'wrap' }}>
+            <div className="mt-7 flex flex-wrap gap-4">
               {integrations.cta && (
-                <a
-                  href={integrations.cta.href ?? '#'}
-                  className="wb-btn wb-btn-ghost"
-                >
-                  {integrations.cta.label} <Icon.ArrowRight width="13" height="13" />
-                </a>
+                <ButtonLink href={integrations.cta.href ?? '#'} variant="ghost" arrow>
+                  {integrations.cta.label}
+                </ButtonLink>
               )}
               {integrations.secondaryCta && (
-                <a
-                  href={integrations.secondaryCta.href ?? '#'}
-                  className="wb-btn wb-btn-ghost"
-                >
-                  {integrations.secondaryCta.label}{' '}
-                  <Icon.ArrowRight width="13" height="13" />
-                </a>
+                <ButtonLink href={integrations.secondaryCta.href ?? '#'} variant="ghost" arrow>
+                  {integrations.secondaryCta.label}
+                </ButtonLink>
               )}
             </div>
           </PlainSection>
@@ -387,10 +366,10 @@ export function SubPage({
           >
             <PricingTiers tiers={pricing.tiers} note={pricing.note} />
             {pricing.cta && (
-              <div style={{ marginTop: 28 }}>
-                <a href={pricing.cta.href ?? '#'} className="wb-btn wb-btn-ghost">
-                  {pricing.cta.label} <Icon.ArrowRight width="13" height="13" />
-                </a>
+              <div className="mt-7">
+                <ButtonLink href={pricing.cta.href ?? '#'} variant="ghost" arrow>
+                  {pricing.cta.label}
+                </ButtonLink>
               </div>
             )}
           </PlainSection>

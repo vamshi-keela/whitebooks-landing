@@ -1,1 +1,0 @@
-import{r as o}from"./globals-DxdoTq-v.js";function c(){o.useEffect(()=>{const s=document.querySelectorAll("[data-reveal]"),e=new IntersectionObserver(t=>{t.forEach(r=>{r.isIntersecting&&(r.target.classList.add("in"),e.unobserve(r.target))})},{threshold:.15});return s.forEach(t=>e.observe(t)),()=>e.disconnect()},[])}export{c as u};

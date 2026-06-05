@@ -1,8 +1,10 @@
 import React from 'react';
 import Icon from '@/components/icons/Icon';
+import { ButtonLink } from '@/components/ui/Button';
 import { Header, Footer, FluidBackground, Eyebrow, Breadcrumb } from '@/layouts/SiteShell';
 import { PlainSection, ColumnGrid, SubClose } from '@/layouts/SubpageShell';
 import { useReveal } from '@/hooks/useReveal';
+import EyebrowPill from '@/components/ui/EyebrowPill';
 
 interface ApiProduct {
   icon: React.ReactNode;
@@ -20,7 +22,7 @@ const API_PRODUCTS: ApiProduct[] = [
     oneliner: "File GSTR returns, pull 2A/2B, validate GSTINs, search HSN — all over REST.",
     endpoints: ["/gstr/file", "/gstin/validate", "/hsn/search"],
     bestFor: "Fintechs, ERPs, tax-tech startups embedding GST capability.",
-    href: "API - GST.html",
+    href: "/apis/gst",
   },
   {
     icon: <Icon.EInvoice />,
@@ -28,7 +30,7 @@ const API_PRODUCTS: ApiProduct[] = [
     oneliner: "Generate IRNs, cancel invoices, issue credit notes — direct IRP pipe.",
     endpoints: ["/einvoice/create", "/einvoice/cancel", "/einvoice/credit-note"],
     bestFor: "Billing systems, ERPs, B2B marketplaces with AATO-above-₹5cr customers.",
-    href: "API - e-Invoice.html",
+    href: "/apis/e-invoice",
   },
   {
     icon: <Icon.EWayBill />,
@@ -36,7 +38,7 @@ const API_PRODUCTS: ApiProduct[] = [
     oneliner: "Generate, extend, cancel e-way bills — auto-populate from IRN or invoice.",
     endpoints: ["/ewaybill/create", "/ewaybill/extend", "/ewaybill/cancel"],
     bestFor: "Logistics platforms, WMS providers, TMS systems, freight brokers.",
-    href: "API - e-Way Bill.html",
+    href: "/apis/e-way-bill",
   },
   {
     icon: <Icon.KSA />,
@@ -44,7 +46,7 @@ const API_PRODUCTS: ApiProduct[] = [
     oneliner: "Generate ZATCA Phase 2 e-invoices — FATOORAH submission, signing, QR generation.",
     endpoints: ["/ksa/einvoice/create", "/ksa/einvoice/clear", "/ksa/einvoice/csid"],
     bestFor: "SaaS products operating in Saudi Arabia or serving KSA businesses.",
-    href: "API - KSA e-Invoice.html",
+    href: "/apis/ksa",
   },
 ];
 
@@ -68,7 +70,9 @@ function ApiCard({ p }: ApiCardProps) {
         ))}
       </div>
       <p className="wb-api-best"><span>Best for —</span> {p.bestFor}</p>
-      <a href={p.href} className="wb-btn wb-btn-outline">Explore {p.name} <Icon.ArrowRight width="13" height="13" /></a>
+      <ButtonLink href={p.href} variant="outline">
+        Explore {p.name} <Icon.ArrowRight width="13" height="13" />
+      </ButtonLink>
     </article>
   );
 }
@@ -103,13 +107,13 @@ export function HubAPIs() {
   useReveal();
 
   return (
-    <div className="wb-page">
+    <div className="min-h-screen bg-[var(--bg)]">
       <Header mode="apis" />
       <main>
         <section style={{ paddingTop: 100, paddingBottom: 0 }}>
           <div className="wb-wrap">
             <Breadcrumb items={[
-              { label: "Home", href: "Whitebooks Homepage.html" },
+              { label: "Home", href: "/" },
               { label: "APIs" },
             ]} />
           </div>
@@ -121,7 +125,7 @@ export function HubAPIs() {
           <div className="wb-wrap wb-hero-inner">
             <div className="wb-subhero-grid">
               <div>
-                <Eyebrow>Whitebooks APIs | v1</Eyebrow>
+                <EyebrowPill label={'Whitebooks APIs | v1'} />
                 <h1 className="wb-display" style={{ fontSize: "clamp(38px, 5.4vw, 68px)" }}>
                   Compliance APIs that <span className="accent">don't make you build the compliance.</span>
                 </h1>
@@ -129,8 +133,8 @@ export function HubAPIs() {
                   Four REST APIs for India and KSA — GST, e-Invoice, e-Way Bill, and KSA e-Invoice. Built by a directly licensed GSP, used in production by Razorpay, Pharmeasy, and 200+ teams.
                 </p>
                 <div className="wb-subhero-cta">
-                  <a className="wb-btn wb-btn-primary wb-btn-lg" href="#">Get sandbox keys <Icon.ArrowRight width="14" height="14" /></a>
-                  <a className="wb-btn wb-btn-ghost wb-btn-lg" href="#">Read the docs</a>
+                  <ButtonLink href="#" size="lg" arrow>Get sandbox keys</ButtonLink>
+                  <ButtonLink href="#" variant="ghost" size="lg">Read the docs</ButtonLink>
                 </div>
               </div>
               <div className="wb-subhero-visual">
@@ -206,7 +210,7 @@ export function HubAPIs() {
           sub="Whitebooks API pricing scales with your call volume, not your team size. Free sandbox for unlimited testing. Production starts at the Startup tier."
         >
           <div style={{ marginTop: 28 }}>
-            <a href="#" className="wb-btn wb-btn-ghost">See full API pricing <Icon.ArrowRight width="13" height="13" /></a>
+            <ButtonLink href="#" variant="ghost" arrow>See full API pricing</ButtonLink>
           </div>
         </PlainSection>
 

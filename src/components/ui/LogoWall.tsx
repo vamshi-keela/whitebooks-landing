@@ -49,7 +49,6 @@ export function LogoWallCarousel() {
           <div className="wb-ticker" aria-hidden="false">
             {[...LOGOS].map((l, i) => {
               const src = getLogoSrc(l.key);
-              console.log("src is ", src)
               if (src) {
                 return (
                   <img key={i} className="wb-logo" src={src} alt={l.name} />

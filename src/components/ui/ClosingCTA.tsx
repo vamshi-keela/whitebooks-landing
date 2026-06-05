@@ -1,4 +1,5 @@
 import React from "react";
+import { ButtonLink } from "./Button";
 import { EyebrowPill } from "./EyebrowPill";
 
 interface ClosingCTAProps {
@@ -45,21 +46,21 @@ export function ClosingCTA({
           </p>
         )}
         <div className="mt-8 flex gap-3 justify-center flex-wrap">
-          <a
+          <ButtonLink
             href="#"
-            className="inline-flex items-center justify-center gap-2 py-[11px] px-[18px] rounded-lg font-medium text-sm tracking-[0.005em] border border-[var(--accent)] transition-all duration-[160ms] ease-in-out whitespace-nowrap no-underline cursor-pointer bg-[var(--accent)] text-white hover:bg-[#e8447a] hover:shadow-[0_8px_24px_-8px_rgba(220,47,101,0.55)] hover:-translate-y-px after:content-['→']"
+            arrow
             onClick={(e) => e.preventDefault()}
           >
             {primary}
-          </a>
+          </ButtonLink>
           {secondary && (
-            <a
+            <ButtonLink
               href="#"
-              className="inline-flex items-center justify-center gap-2 py-[11px] px-[18px] rounded-lg font-medium text-sm tracking-[0.005em] border border-[var(--hairline-strong)] transition-all duration-[160ms] ease-in-out whitespace-nowrap no-underline cursor-pointer bg-transparent text-[var(--fg-secondary)] hover:bg-white/[0.04] hover:border-white/[0.16] hover:text-[var(--fg-primary)]"
+              variant="ghost"
               onClick={(e) => e.preventDefault()}
             >
               {secondary}
-            </a>
+            </ButtonLink>
           )}
         </div>
       </div>

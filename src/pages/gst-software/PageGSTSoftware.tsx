@@ -6,6 +6,7 @@ import { SectionLabel } from '@/components/ui/SectionLabel';
 import { FAQ } from '@/components/ui/FAQ';
 import { ClosingCTA } from '@/components/ui/ClosingCTA';
 import { HeroBackdrop } from '@/components/ui/HeroBackdrop';
+import { ButtonLink } from '@/components/ui/Button';
 import { ReconciliationUI } from '@/sections/heros/ReconciliationUI';
 
 interface PageGSTSoftwareProps {
@@ -31,8 +32,8 @@ export function PageGSTSoftware({ motion, intensity, navigate }: PageGSTSoftware
                 File GSTR-1, 3B, 9, and 9C across unlimited GSTINs from one workspace. Auto-reconcile GSTR-2B against your purchase register in under 60 seconds. Built on a direct GSP license — no resold pipes.
               </p>
               <div style={{ marginTop: 32, display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-                <a href="#" className="btn btn-accent btn-arrow" onClick={(e) => e.preventDefault()}>Start 14-day free trial</a>
-                <a href="#" className="btn btn-ghost" onClick={(e) => e.preventDefault()}>Book a demo</a>
+                <ButtonLink href="#" arrow onClick={(e) => e.preventDefault()}>Start 14-day free trial</ButtonLink>
+                <ButtonLink href="#" variant="ghost" onClick={(e) => e.preventDefault()}>Book a demo</ButtonLink>
               </div>
               <div style={{ marginTop: 22, fontSize: 13, color: 'var(--fg-tertiary)' }}>
                 Migrating from ClearTax TaxCloud, Tally, or Zoho? We import your prior 36 months of returns.

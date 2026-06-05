@@ -1,6 +1,6 @@
-import { Icon } from "../../components/icons/Icon";
 import { FluidBackground } from "../../layouts/SiteShell";
 import type { HeroConfig } from "../../types/pages.ts";
+import { ButtonLink } from "../ui/Button";
 import EyebrowPill from "../ui/EyebrowPill.tsx";
 import PhotoRoom from "@/assets/Photoroom.png";
 
@@ -18,14 +18,14 @@ export default function SubHero({ eyebrow, title, sub, primaryCta, secondaryCta,
             <p className="wb-subhero-sub">{sub}</p>
             <div className="wb-subhero-cta">
               {primaryCta && (
-                <a className="wb-btn wb-btn-primary wb-btn-lg" href={primaryCta.href || "#"}>
-                  {primaryCta.label} <Icon.ArrowRight width="14" height="14" />
-                </a>
+                <ButtonLink href={primaryCta.href || "#"} size="lg" arrow>
+                  {primaryCta.label}
+                </ButtonLink>
               )}
               {secondaryCta && (
-                <a className="wb-btn wb-btn-ghost wb-btn-lg" href={secondaryCta.href || "#"}>
+                <ButtonLink href={secondaryCta.href || "#"} variant="ghost" size="lg">
                   {secondaryCta.label}
-                </a>
+                </ButtonLink>
               )}
             </div>
             {micro && <p className="wb-subhero-micro" dangerouslySetInnerHTML={{ __html: micro }} />}

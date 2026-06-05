@@ -10,6 +10,7 @@ import { StatStrip } from '@/components/ui/StatStrip';
 import { QuoteCard } from '@/components/ui/QuoteCard';
 import { ClosingCTA } from '@/components/ui/ClosingCTA';
 import { CodeBlock } from '@/components/ui/CodeBlock';
+import { ButtonLink } from '@/components/ui/Button';
 import { HeroReconciliation, HeroCopilot, HeroTerminal } from '@/sections/heros/Heros';
 import { PillarCard, MiniReconMock, MiniEinvoiceMock, MiniEwayMock, MiniAccountingMock, MiniKSAMock } from '@/sections/PillarCards';
 import type { HeroVariant } from '@/types/tweaks';
@@ -265,10 +266,10 @@ export function PageHome({ motion, intensity, heroVariant, navigate }: PageHomeP
                 ))}
               </div>
               <div style={{ marginTop: 32, display: 'flex', gap: 14 }}>
-                <a href="#/gst-api" className="btn btn-accent btn-arrow" onClick={(e) => { e.preventDefault(); navigate('gst-api'); }}>
+                <ButtonLink href="#/gst-api" arrow onClick={(e) => { e.preventDefault(); navigate('gst-api'); }}>
                   Read the API docs
-                </a>
-                <a href="#" className="btn btn-ghost" onClick={(e) => e.preventDefault()}>Get sandbox keys</a>
+                </ButtonLink>
+                <ButtonLink href="#" variant="ghost" onClick={(e) => e.preventDefault()}>Get sandbox keys</ButtonLink>
               </div>
             </div>
             <CodeBlock samples={{
@@ -389,7 +390,7 @@ response = wb.einvoice.<span class="fn">create</span>(
                 Whitebooks is one of the few GSPs operating ZATCA-approved e-invoicing infrastructure in Saudi Arabia. If your company files in India and the GCC, this is one platform, one contract, one team.
               </p>
               <div style={{ marginTop: 32 }}>
-                <a href="#" className="btn btn-ghost btn-arrow" onClick={(e) => e.preventDefault()}>Explore KSA e-Invoicing</a>
+                <ButtonLink href="#" variant="ghost" arrow onClick={(e) => e.preventDefault()}>Explore KSA e-Invoicing</ButtonLink>
               </div>
             </div>
             <div style={{

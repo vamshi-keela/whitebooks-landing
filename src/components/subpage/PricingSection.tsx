@@ -1,4 +1,4 @@
-import { Icon } from "../icons/Icon";
+import { ButtonLink } from "../ui/Button";
 import { PlainSection } from "./PlainSection";
 import type { PricingSection as PricingSectionData } from "../../types/pages.ts";
 
@@ -23,19 +23,19 @@ export function PricingSection({ data }: Props) {
               ))}
             </ul>
             <div className="wb-tier-cta">
-              <a href="#" className={`wb-btn ${t.featured ? "wb-btn-primary" : "wb-btn-ghost"}`}>
-                {t.cta || "Get started"} <Icon.ArrowRight width="13" height="13" />
-              </a>
+              <ButtonLink href="#" variant={t.featured ? "primary" : "ghost"} arrow>
+                {t.cta || "Get started"}
+              </ButtonLink>
             </div>
           </div>
         ))}
       </div>
       {data.note && <p className="wb-tier-note">{data.note}</p>}
       {data.cta && (
-        <div style={{ marginTop: 28 }}>
-          <a href={data.cta.href || "#"} className="wb-btn wb-btn-ghost">
-            {data.cta.label} <Icon.ArrowRight width="13" height="13" />
-          </a>
+        <div className="mt-7">
+          <ButtonLink href={data.cta.href || "#"} variant="ghost" arrow>
+            {data.cta.label}
+          </ButtonLink>
         </div>
       )}
     </PlainSection>

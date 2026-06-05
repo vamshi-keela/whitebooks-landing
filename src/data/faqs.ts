@@ -7,7 +7,7 @@ export const faqs: FAQ[] = [
   {
     question: 'What is WhiteBooks GST API?',
     answer:
-      'WhiteBooks GST API is a GSP-licensed developer platform that lets you integrate GSTR filing, ITC reconciliation, GSTIN verification, e-Invoicing, e-Way Bill generation, and HSN lookup directly into your ERP, accounting software, or custom application — via a single OpenAPI 3.0-compliant REST interface.',
+      'WhiteBooks GST API is a GSP-licensed developer platform that lets you integrate GSTR filing, ITC reconciliation, GSTIN verification, e-Invoicing, e-Way Bill generation, and HSN lookup directly into your ERP, accounting software, or custom application via a single OpenAPI 3.0-compliant REST interface.',
   },
   {
     question: 'How do I get sandbox access?',

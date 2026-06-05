@@ -8,6 +8,7 @@ import { ClosingCTA } from "@/components/ui/ClosingCTA";
 import { HeroBackdrop } from "@/components/ui/HeroBackdrop";
 import { CodeBlock } from "@/components/ui/CodeBlock";
 import { StatStrip } from "@/components/ui/StatStrip";
+import { ButtonLink } from "@/components/ui/Button";
 import { TerminalUI } from "@/sections/heros/Heros";
 import { QuoteCard } from "@/components/ui/QuoteCard";
 import { TickMark } from "@/components/ui/TickMark";
@@ -111,20 +112,20 @@ $response = $wb->einvoice-><span class="fn">create</span>([
                   flexWrap: "wrap",
                 }}
               >
-                <a
+                <ButtonLink
                   href="#"
-                  className="btn btn-accent btn-arrow"
+                  arrow
                   onClick={(e) => e.preventDefault()}
                 >
                   Get sandbox keys
-                </a>
-                <a
+                </ButtonLink>
+                <ButtonLink
                   href="#"
-                  className="btn btn-ghost"
+                  variant="ghost"
                   onClick={(e) => e.preventDefault()}
                 >
                   Read the docs
-                </a>
+                </ButtonLink>
               </div>
               <div
                 style={{
@@ -755,20 +756,20 @@ $response = $wb->einvoice-><span class="fn">create</span>([
             ))}
           </div>
           <div style={{ marginTop: 40, display: "flex", gap: 14 }}>
-            <a
+            <ButtonLink
               href="#"
-              className="btn btn-accent btn-arrow"
+              arrow
               onClick={(e) => e.preventDefault()}
             >
               Sign up — get sandbox keys
-            </a>
-            <a
+            </ButtonLink>
+            <ButtonLink
               href="#"
-              className="btn btn-ghost"
+              variant="ghost"
               onClick={(e) => e.preventDefault()}
             >
               Talk to a solutions engineer
-            </a>
+            </ButtonLink>
           </div>
         </div>
       </section>

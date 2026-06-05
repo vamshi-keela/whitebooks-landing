@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Icon } from "../icons/Icon";
 
 export type ProductMapKey = "accounting" | "gst" | "e-invoice" | "e-way-bill" | "ksa";
@@ -7,11 +8,11 @@ interface ProductMapProps {
 }
 
 const PRODUCTS: { id: ProductMapKey; label: string; href: string; Icon: typeof Icon.Accounting }[] = [
-  { id: "accounting", label: "Accounting", href: "Software - Accounting.html", Icon: Icon.Accounting },
-  { id: "gst", label: "GST", href: "Software - GST.html", Icon: Icon.GST },
-  { id: "e-invoice", label: "e-Invoice", href: "Software - e-Invoice.html", Icon: Icon.EInvoice },
-  { id: "e-way-bill", label: "e-Way Bill", href: "Software - e-Way Bill.html", Icon: Icon.EWayBill },
-  { id: "ksa", label: "KSA e-Invoice", href: "Software - KSA e-Invoicing.html", Icon: Icon.KSA },
+  { id: "accounting", label: "Accounting", href: "/softwares/accounting", Icon: Icon.Accounting },
+  { id: "gst", label: "GST", href: "/softwares/gst", Icon: Icon.GST },
+  { id: "e-invoice", label: "e-Invoice", href: "/softwares/e-invoice", Icon: Icon.EInvoice },
+  { id: "e-way-bill", label: "e-Way Bill", href: "/softwares/e-way-bill", Icon: Icon.EWayBill },
+  { id: "ksa", label: "KSA e-Invoice", href: "/softwares/ksa", Icon: Icon.KSA },
 ];
 
 const COLUMN_X = ["10%", "30%", "50%", "70%", "90%"];
@@ -25,7 +26,7 @@ export function ProductMap({ active }: ProductMapProps) {
             Your end-to-end compliance lifecycle <span className="accent">in one place.</span>
           </h2>
           <p className="wb-section-sub wb-pmap-sub">
-            Five products. One core platform. One contract, one workspace, one ledger of record — so every workflow from book-keeping to dispatch sees the same data.
+            Five products. One core platform. One contract, one workspace, one ledger of record. So every workflow from book-keeping to dispatch sees the same data.
           </p>
         </div>
 
@@ -36,8 +37,8 @@ export function ProductMap({ active }: ProductMapProps) {
               const I = p.Icon;
               return (
                 <div key={p.id} className="wb-pmap-cell">
-                  <a
-                    href={p.href}
+                  <Link
+                    to={p.href}
                     className={`wb-pmap-card ${isActive ? "is-active" : ""}`}
                     aria-current={isActive ? "page" : undefined}
                   >
@@ -49,7 +50,7 @@ export function ProductMap({ active }: ProductMapProps) {
                       <div className="wb-pmap-label">{p.label}</div>
                     </div>
                     {isActive && <span className="wb-pmap-active-pulse" aria-hidden="true" />}
-                  </a>
+                  </Link>
                 </div>
               );
             })}

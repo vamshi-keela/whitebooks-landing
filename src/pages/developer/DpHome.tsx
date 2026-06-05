@@ -1,100 +1,14 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Button } from '@/components/ui/Button';
+import { Header, Footer } from '@/layouts/SiteShell';
 import { CodeBlock, SurfaceCard, Status, InlineCode, Pill, MethodBadge } from './DpComponents';
 import DpIcon from './DpIcon';
-import type { CodeTab } from './DpComponents';
-
-/* ─── Hero code tabs ──────────────────────────────────────────────────────────── */
-const heroTabs: CodeTab[] = [
-  {
-    label: 'Node.js',
-    lines: [
-      [['kw', 'import'], ['', ' '], ['fn', 'WhiteBooks'], ['', ' '], ['kw', 'from'], ['', ' '], ['str', "'@whitebooks/node'"]],
-      [['', '']],
-      [['kw', 'const'], ['', ' client = '], ['kw', 'new'], ['', ' '], ['fn', 'WhiteBooks'], ['pun', '({']],
-      [['', '  apiKey: '], ['key', 'process'], ['pun', '.'], ['fn', 'env'], ['pun', '.'], ['key', 'WB_API_KEY'], ['pun', ',']],
-      [['', '  sandbox: '], ['kw', 'false'], ['pun', ',']],
-      [['pun', '});']],
-      [['', '']],
-      [['com', '// Generate an e-invoice (IRN)']],
-      [['kw', 'const'], ['', ' irn = '], ['kw', 'await'], ['', ' client'], ['pun', '.'], ['fn', 'einvoice'], ['pun', '.'], ['fn', 'generate'], ['pun', '({']],
-      [['', '  gstin: '], ['str', '"29AAGCW7302R1ZF"'], ['pun', ',']],
-      [['', '  invoiceType: '], ['str', '"B2B"'], ['pun', ',']],
-      [['', '  invoiceNumber: '], ['str', '"INV-001"'], ['pun', ',']],
-      [['', '  invoiceDate: '], ['str', '"2024-01-15"'], ['pun', ',']],
-      [['pun', '});']],
-      [['', '']],
-      [['fn', 'console'], ['pun', '.'], ['fn', 'log'], ['pun', '('], ['str', '"IRN:"'], ['', ', irn'], ['pun', '.'], ['key', 'irn'], ['pun', ')']],
-    ],
-  },
-  {
-    label: 'Python',
-    lines: [
-      [['kw', 'import'], ['', ' whitebooks']],
-      [['', '']],
-      [['fn', 'client'], ['', ' = whitebooks'], ['pun', '.'], ['fn', 'Client'], ['pun', '(']],
-      [['', '  api_key='], ['str', '"sk_live_..."'], ['pun', ',']],
-      [['', '  sandbox='], ['kw', 'False'], ['pun', ',']],
-      [['pun', ')']],
-      [['', '']],
-      [['com', '# Generate an e-invoice (IRN)']],
-      [['fn', 'irn'], ['', ' = client'], ['pun', '.'], ['fn', 'einvoice'], ['pun', '.'], ['fn', 'generate'], ['pun', '(']],
-      [['', '  gstin='], ['str', '"29AAGCW7302R1ZF"'], ['pun', ',']],
-      [['', '  invoice_type='], ['str', '"B2B"'], ['pun', ',']],
-      [['', '  invoice_number='], ['str', '"INV-001"'], ['pun', ',']],
-      [['pun', ')']],
-      [['', '']],
-      [['fn', 'print'], ['pun', '('], ['fn', 'irn'], ['pun', '.'], ['key', 'irn'], ['pun', ')']],
-    ],
-  },
-  {
-    label: 'cURL',
-    lines: [
-      [['fn', 'curl'], ['', ' -X POST \\']],
-      [['str', '  "https://api.whitebooks.dev/v3/einvoice/generate"'], ['', ' \\']],
-      [['', '  -H '], ['str', '"Authorization: Bearer sk_live_..."'], ['', ' \\']],
-      [['', '  -H '], ['str', '"Content-Type: application/json"'], ['', ' \\']],
-      [['', '  -d '], ['str', '\'{"gstin":"29AAGCW7302R1ZF",']],
-      [['str', '    "invoiceType":"B2B",']],
-      [['str', '    "invoiceNumber":"INV-001",']],
-      [['str', '    "invoiceDate":"2024-01-15"}\'']],
-    ],
-  },
-];
-
-/* ─── Quickstart code tabs ──────────────────────────────────────────────────── */
-const quickstartReqTabs: CodeTab[] = [
-  {
-    label: 'Request',
-    lines: [
-      [['com', '// 1. Install the SDK']],
-      [['fn', 'npm'], ['', ' install @whitebooks/node']],
-      [['', '']],
-      [['com', '// 2. Initialize']],
-      [['kw', 'const'], ['', ' wb = '], ['kw', 'new'], ['', ' '], ['fn', 'WhiteBooks'], ['pun', '({'], ['', ' apiKey '], ['pun', '})']],
-      [['', '']],
-      [['com', '// 3. Generate IRN']],
-      [['kw', 'const'], ['', ' result = '], ['kw', 'await'], ['', ' wb'], ['pun', '.'], ['fn', 'einvoice'], ['pun', '.'], ['fn', 'generate'], ['pun', '(payload)']],
-    ],
-  },
-];
-
-const quickstartRespTabs: CodeTab[] = [
-  {
-    label: 'Response',
-    lines: [
-      [['pun', '{']],
-      [['', '  '], ['key', '"irn"'], ['pun', ':'], ['', ' '], ['str', '"e9fc7b4b2c1a..."'], ['pun', ',']],
-      [['', '  '], ['key', '"ackNo"'], ['pun', ':'], ['', ' '], ['num', '232410297398'], ['pun', ',']],
-      [['', '  '], ['key', '"ackDt"'], ['pun', ':'], ['', ' '], ['str', '"2024-01-15T10:30:00"'], ['pun', ',']],
-      [['', '  '], ['key', '"signedQRCode"'], ['pun', ':'], ['', ' '], ['str', '"MSME/2024/..."'], ['pun', ',']],
-      [['', '  '], ['key', '"status"'], ['pun', ':'], ['', ' '], ['str', '"success"']],
-      [['pun', '}']],
-    ],
-  },
-];
+import { heroTabs, quickstartReqTabs, quickstartRespTabs } from './DpHomeData';
 
 /* ─── Hero Section ───────────────────────────────────────────────────────────── */
 function HeroSection(): React.ReactElement {
+  const navigate = useNavigate();
   return (
     <section className="relative px-4 pt-12 pb-16 md:px-6 md:pt-20 md:pb-[100px] max-w-[1280px] mx-auto overflow-hidden">
       {/* Grid background */}
@@ -145,20 +59,20 @@ function HeroSection(): React.ReactElement {
           </p>
 
           <div className="flex gap-[10px] flex-wrap mb-8 md:mb-10">
-            <button className="bg-[var(--dp-accent)] border-none rounded-[9px] px-[18px] md:px-[22px] py-[10px] text-[14px] font-semibold text-white cursor-pointer flex items-center gap-[7px]"
+            <Button
+              variant="developerPrimary"
               onClick={() => window.location.href = 'https://accounts.whitebooks.in/signup?type=Developer&subscrid=&inviteId'}
             >
               Get API keys
               <DpIcon name="arrow-right" size={14} />
-            </button>
-            <button
-              className="border border-[var(--dp-border)] rounded-[9px] px-[18px] md:px-[22px] py-[10px] text-[14px] text-[var(--dp-fg)] cursor-pointer flex items-center gap-[7px]"
-              style={{ background: 'rgba(255,255,255,0.06)' }}
-              onClick={() => window.location.href = '/WhiteBooks Developer Portal.html'}
+            </Button>
+            <Button
+              variant="developerGhost"
+              onClick={() => navigate('/developer')}
             >
               <DpIcon name="book" size={14} />
               Read guides
-            </button>
+            </Button>
             <button className="bg-transparent border-none px-[14px] py-[10px] text-[14px] text-[var(--dp-fg-muted)] cursor-pointer hidden sm:flex items-center gap-[6px]"
               onClick={() => window.location.href = 'https://whitebooks.in/resources/product-videos/'}>
               <DpIcon name="play" size={13} />
@@ -229,7 +143,7 @@ const ECOSYSTEM_APIS = [
   {
     icon: 'receipt' as const,
     name: 'GST API',
-    description: 'End-to-end GST compliance — returns filing, reconciliation, and ledger management via a single RESTful interface.',
+    description: 'End-to-end GST compliance, returns filing, reconciliation, and ledger management via a single RESTful interface.',
     endpoints: ['/gst/returns', '/gst/ledger', '/gst/reconcile'],
   },
   {
@@ -508,7 +422,7 @@ function AuthAndMetricsSection(): React.ReactElement {
             Platform Metrics
           </h3>
           <p className="text-[var(--dp-fg-dim)] text-[12px] md:text-[13px] mb-5 md:mb-6">
-            Last 90 days — live production stats
+            Last 90 days live production stats
           </p>
 
           <div className="grid grid-cols-2 gap-3 mb-5 md:mb-6">
@@ -536,7 +450,7 @@ function AuthAndMetricsSection(): React.ReactElement {
           <div>
             <div className="flex justify-between mb-[6px]">
               <span className="text-[11px] md:text-[12px] text-[var(--dp-fg-dim)] font-[family-name:var(--dp-font-mono)]">
-                Uptime — 60 days
+                Uptime: 60 days
               </span>
               <Status kind="ok" label="Operational" />
             </div>
@@ -734,15 +648,12 @@ function SandboxSection(): React.ReactElement {
               ))}
             </div>
             <div className="flex gap-[10px] flex-wrap">
-              <button className="bg-[var(--dp-accent)] border-none rounded-[9px] px-4 md:px-5 py-[10px] text-[13px] font-semibold text-white cursor-pointer flex items-center gap-[6px]">
+              <Button variant="developerPrimary">
                 Open sandbox <DpIcon name="arrow-right" size={13} />
-              </button>
-              <button
-                className="border border-[var(--dp-border)] rounded-[9px] px-4 md:px-5 py-[10px] text-[13px] text-[var(--dp-fg)] cursor-pointer"
-                style={{ background: 'rgba(255,255,255,0.06)' }}
-              >
+              </Button>
+              <Button variant="developerGhost">
                 View docs
-              </button>
+              </Button>
             </div>
           </div>
 
@@ -825,16 +736,13 @@ function CTASection(): React.ReactElement {
           Free sandbox, no credit card required.
         </p>
         <div className="flex gap-3 justify-center flex-wrap">
-          <button className="bg-[var(--dp-accent)] border-none rounded-[10px] px-5 md:px-7 py-3 md:py-[13px] text-[14px] md:text-[15px] font-semibold text-white cursor-pointer flex items-center gap-2">
-            Get API keys — free <DpIcon name="arrow-right" size={15} />
-          </button>
-          <button
-            className="border border-[var(--dp-border)] rounded-[10px] px-5 md:px-7 py-3 md:py-[13px] text-[14px] md:text-[15px] text-[var(--dp-fg)] cursor-pointer flex items-center gap-2"
-            style={{ background: 'rgba(255,255,255,0.06)' }}
-          >
+          <Button variant="developerPrimary" size="lg">
+            Get API keys for free <DpIcon name="arrow-right" size={15} />
+          </Button>
+          <Button variant="developerGhost" size="lg">
             <DpIcon name="book" size={15} />
             Read the docs
-          </button>
+          </Button>
         </div>
       </div>
     </section>
@@ -985,18 +893,21 @@ function FooterSection(): React.ReactElement {
 /* ─── DpHome (default export) ────────────────────────────────────────────────── */
 export default function DpHome(): React.ReactElement {
   return (
-    <>
-      <HeroSection />
-      <TrustStrip />
-      <EcosystemSection />
-      <QuickstartSection />
-      <OnboardingSection />
-      <AuthAndMetricsSection />
-      <SDKSection />
-      <UseCasesSection />
-      <SandboxSection />
-      <CTASection />
-      <FooterSection />
-    </>
+    <div className="min-h-screen bg-[var(--bg)]">
+      <Header mode="apis" />
+      <main>
+        <HeroSection />
+        <TrustStrip />
+        <EcosystemSection />
+        <QuickstartSection />
+        <OnboardingSection />
+        <AuthAndMetricsSection />
+        <SDKSection />
+        <UseCasesSection />
+        <SandboxSection />
+        <CTASection />
+      </main>
+      <Footer />
+    </div>
   );
 }

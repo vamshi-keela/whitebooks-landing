@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Icon } from '@/components/icons/Icon';
+import { ButtonLink } from '@/components/ui/Button';
 
 // ─── useCountUp (wb-content local variant) ────────────────────────────────────
 // Signature: useCountUp(target, duration?, start?)
@@ -193,10 +194,10 @@ export function ProofSection() {
           </div>
 
           <div className="wb-stat-stack">
-            <CountStat target={10}    suffix=" Cr+" label="Invoices filed via Whitebooks" started={started} />
-            <CountStat target={12000} suffix="+"    label="Businesses on the platform"    started={started} />
-            <CountStat target={5000}  suffix="+"    label="CA firms using Whitebooks"      started={started} />
-            <CountStat target={99.95} suffix="%"    decimals={2} label="API uptime SLA"   started={started} />
+            <CountStat target={10} suffix=" Cr+" label="Invoices filed via Whitebooks" started={started} />
+            <CountStat target={12000} suffix="+" label="Businesses on the platform" started={started} />
+            <CountStat target={5000} suffix="+" label="CA firms using Whitebooks" started={started} />
+            <CountStat target={99.95} suffix="%" decimals={2} label="API uptime SLA" started={started} />
           </div>
         </div>
       </div>
@@ -216,8 +217,8 @@ export function ClosingCTA() {
           Whitebooks gives finance teams and developers a directly licensed GSP, an AI-native product, and a developer API that doesn't make you build the compliance yourself.
         </p>
         <div className="wb-closing-cta-row">
-          <a className="wb-btn wb-btn-white wb-btn-lg" href="#">Book a demo <Icon.ArrowRight width={14} height={14} /></a>
-          <a className="wb-btn wb-btn-white-outline wb-btn-lg" href="#hub">Browse the product suite</a>
+          <ButtonLink href="#" variant="white" size="lg" arrow>Book a demo</ButtonLink>
+          <ButtonLink href="#hub" variant="whiteOutline" size="lg">Browse the product suite</ButtonLink>
         </div>
       </div>
     </section>

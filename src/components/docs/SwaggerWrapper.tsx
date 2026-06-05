@@ -77,7 +77,7 @@ export default function SwaggerWrapper({ environment }: Props): React.ReactEleme
           </span>
         </div>
         <p style={{ fontSize: 14, color: 'var(--dp-fg-muted)', margin: '8px 0 0' }}>
-          Explore endpoints, run requests, and inspect responses — directly in the browser.
+          Explore endpoints, run requests, and inspect responses. Directly in the browser.
         </p>
       </div>
 

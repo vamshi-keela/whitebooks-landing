@@ -1,4 +1,4 @@
-import { Icon } from "../icons/Icon";
+import { ButtonLink } from "../ui/Button";
 import type { ClosingSection } from "../../types/pages.ts";
 
 interface Props {
@@ -13,14 +13,14 @@ export function SubClose({ data }: Props) {
         <p className="wb-subclose-body">{data.body}</p>
         <div className="wb-subclose-cta">
           {data.primaryCta && (
-            <a className="wb-btn wb-btn-primary wb-btn-lg" href={data.primaryCta.href || "#"}>
-              {data.primaryCta.label} <Icon.ArrowRight width="14" height="14" />
-            </a>
+            <ButtonLink href={data.primaryCta.href || "#"} size="lg" arrow>
+              {data.primaryCta.label}
+            </ButtonLink>
           )}
           {data.secondaryCta && (
-            <a className="wb-btn wb-btn-ghost wb-btn-lg" href={data.secondaryCta.href || "#"}>
+            <ButtonLink href={data.secondaryCta.href || "#"} variant="ghost" size="lg">
               {data.secondaryCta.label}
-            </a>
+            </ButtonLink>
           )}
         </div>
       </div>

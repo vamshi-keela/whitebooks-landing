@@ -17,11 +17,11 @@ const badges = [
 
 const features = [
   { icon: FileText, label: 'GST Return Filing', desc: 'GSTR-1, 3B, 9, 9C, and more' },
-  { icon: Shield,   label: 'ITC Reconciliation', desc: 'GSTR-2B match and ITC claims' },
-  { icon: Search,   label: 'GSTIN Verification', desc: 'Real-time taxpayer lookup' },
-  { icon: Receipt,  label: 'e-Invoicing',        desc: 'IRN generation via IRP' },
-  { icon: Truck,    label: 'e-Way Bill APIs',     desc: 'Generate, update, cancel EWBs' },
-  { icon: Network,  label: 'ERP Integrations',   desc: 'SAP, Oracle, Dynamics, Tally' },
+  { icon: Shield, label: 'ITC Reconciliation', desc: 'GSTR-2B match and ITC claims' },
+  { icon: Search, label: 'GSTIN Verification', desc: 'Real-time taxpayer lookup' },
+  { icon: Receipt, label: 'e-Invoicing', desc: 'IRN generation via IRP' },
+  { icon: Truck, label: 'e-Way Bill APIs', desc: 'Generate, update, cancel EWBs' },
+  { icon: Network, label: 'ERP Integrations', desc: 'SAP, Oracle, Dynamics, Tally' },
 ];
 
 export default function ApiHero(): React.ReactElement {
@@ -90,7 +90,7 @@ export default function ApiHero(): React.ReactElement {
         }}
       >
         GSTR-1/3B/9 filing, ITC reconciliation, GSTR-2B match, GSTIN verification, HSN lookup, and
-        e-Invoicing APIs — powered by WhiteBooks GSP infrastructure.
+        e-Invoicing APIs powered by WhiteBooks GSP infrastructure.
       </p>
 
       {/* Feature grid */}

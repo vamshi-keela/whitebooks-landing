@@ -78,11 +78,6 @@ img {
   font-family: var(--font-mono);
 }
 
-.wb-page {
-  min-height: 100vh;
-  background: var(--bg);
-}
-
 /* ---------- Container ---------- */
 .wb-wrap {
   padding-left: 64px;

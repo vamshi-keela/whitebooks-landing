@@ -162,7 +162,7 @@ export function AppShell(): React.ReactElement {
         <TweakSection label="Variations" />
         {/* <TweakButton
           label="Open hero variations canvas →"
-          onClick={() => { window.location.href = 'Hero Variations.html'; }}
+          onClick={() => { window.location.href = '/hero-variations'; }}
         /> */}
       </TweaksPanel>
     </div>

@@ -2,8 +2,8 @@ import React from "react";
 import heroImage from "../assets/hero-image.png";
 import heroImageMobile from "../assets/hero-image-mobile.png";
 import { useIsMobile } from "@/hooks/useIsMobile";
-import { ArrowDown, ArrowRight } from "lucide-react";
 import { FluidBackground } from "@/layouts/SiteShell";
+import { ButtonLink } from "@/components/ui/Button";
 import EyebrowPill from "@/components/ui/EyebrowPill";
 import LogoWallCarousel from "@/components/ui/LogoWall";
 
@@ -24,12 +24,9 @@ export function Hero() {
             <span className="text-[#dc2f65]">India's largest finance teams.</span>
           </h1>
           <div className="mt-9 flex flex-wrap gap-3 justify-center">
-            <a
-              href="#book-demo"
-              className="inline-flex items-center justify-center gap-2 px-[22px] py-[14px] rounded-lg font-medium text-[15px] bg-[#dc2f65] text-white transition-all duration-150 hover:bg-[#e8447a] hover:shadow-[0_8px_24px_-8px_rgba(220,47,101,0.55)] hover:-translate-y-px"
-            >
-              Book a 20-min demo <ArrowRight className="w-3.5 h-3.5" />
-            </a>
+            <ButtonLink href="#book-demo" size="lg" arrow>
+              Book a 20-min demo
+            </ButtonLink>
           </div>
           {/* 
           <p className="mt-4 text-[13.5px] italic text-[#6b6b80]">

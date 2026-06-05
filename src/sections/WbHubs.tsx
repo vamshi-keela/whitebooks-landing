@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Icon } from '@/components/icons/Icon';
 import { SectionLabel } from '@/components/ui/SectionLabel';
+import { cn } from '@/lib/cn';
 import {
   PillarCard,
   MiniReconMock,
@@ -60,18 +61,24 @@ export function HubSection({ tab, setTab, navigate }: HubSectionProps) {
   const onTabClick = (v: string) => setTab(v);
 
   return (
-    <section className="relative border-b border-[var(--hairline)] py-24 max-md:py-16 max-sm:py-12">
-      <div className="w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4">
-        <div className="grid grid-cols-[1.3fr_0.7fr] gap-16 items-end mb-14 max-lg:gap-10 max-md:grid-cols-1 max-md:gap-6 max-md:mb-10">
-          <h2 className="font-serif font-semibold text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px] text-balance">
+    <section className="relative border-b border-[var(--hairline)] py-10 sm:py-14 md:py-16 lg:py-24">
+      <div className="w-full max-w-[1280px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-16">
+
+        {/* Heading row — stacks on mobile, side-by-side from md */}
+        <div className="grid grid-cols-1 gap-3 items-end mb-7 sm:mb-9 md:grid-cols-[1.3fr_0.7fr] md:gap-10 md:mb-10 lg:gap-16 lg:mb-14">
+          <h2 className="font-serif font-semibold text-[clamp(24px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 text-balance">
             One platform. Four compliance engines.<br /><em>Every Indian filing requirement.</em>
           </h2>
-          <p className="text-[17px] max-sm:text-[15px] text-[var(--fg-secondary)] leading-[1.6] m-0 max-w-[460px] justify-self-end max-md:justify-self-start max-md:max-w-full">
+          <p className="text-[14px] sm:text-[15px] md:text-[17px] text-[var(--fg-secondary)] leading-[1.6] m-0 md:max-w-[460px] md:justify-self-end">
             Built on a direct GSP license from GSTN. Each engine is a product on its own — together they cover every filing requirement in India, and a few outside.
           </p>
         </div>
 
-        <div className="grid grid-cols-3 gap-4 grid-flow-dense max-lg:grid-cols-2 max-sm:grid-cols-1">
+        {/* Card grid
+            mobile  (< 640):  1 column — cards stack cleanly
+            tablet  (640–1023): 2 columns — featured spans full width
+            desktop (1024+):  3 columns — featured spans 2 */}
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3 grid-flow-dense">
           <PillarCard
             tag="GST Software"
             title="GST filing that thinks before you click submit."
@@ -89,6 +96,7 @@ export function HubSection({ tab, setTab, navigate }: HubSectionProps) {
             cta="Explore e-Invoicing"
             tone="violet"
             mock={<MiniEinvoiceMock />}
+            onClick={() => navigate('einvoice-soft')}
           />
           <PillarCard
             tag="e-Way Bills"
@@ -97,6 +105,7 @@ export function HubSection({ tab, setTab, navigate }: HubSectionProps) {
             cta="Explore e-Way Bills"
             tone="blue"
             mock={<MiniEwayMock />}
+            onClick={() => navigate('eway-soft')}
           />
           <PillarCard
             tag="Accounting"
@@ -105,6 +114,7 @@ export function HubSection({ tab, setTab, navigate }: HubSectionProps) {
             cta="Explore Accounting"
             tone="cyan"
             mock={<MiniAccountingMock />}
+            onClick={() => navigate('accounting')}
           />
           <PillarCard
             tag="KSA e-Invoicing"
@@ -113,6 +123,7 @@ export function HubSection({ tab, setTab, navigate }: HubSectionProps) {
             cta="Explore KSA"
             tone="amber"
             mock={<MiniKSAMock />}
+            onClick={() => navigate('ksa-soft')}
           />
         </div>
 
@@ -134,19 +145,57 @@ export function ProductCard({ icon, name, desc, pill }: ProductCardProps) {
   return (
     <a
       href="#"
-      className="group relative flex flex-col p-[28px_26px_24px] bg-[var(--bg-2)] border border-[var(--brand-border)] rounded-[14px] min-h-[240px] transition-[transform,border-color,background,box-shadow] duration-[160ms] ease-[ease] no-underline text-inherit overflow-hidden hover:-translate-y-0.5 hover:border-[rgba(220,47,101,0.45)] hover:bg-[var(--bg-elev)] hover:shadow-[0_12px_40px_-16px_rgba(220,47,101,0.25)] before:content-[''] before:absolute before:inset-0 before:bg-[radial-gradient(ellipse_60%_80%_at_100%_0%,rgba(220,47,101,0.06),transparent_60%)] before:opacity-0 before:transition-opacity before:duration-200 before:pointer-events-none hover:before:opacity-100"
+      className={cn(
+        // Layout
+        'group relative flex flex-col no-underline text-inherit overflow-hidden',
+        // Padding: tight on mobile, full on desktop
+        'p-4 sm:p-5 lg:p-[28px_26px_24px]',
+        // Visual
+        'bg-[var(--bg-2)] border border-[var(--brand-border)] rounded-[12px] sm:rounded-[14px]',
+        // Transitions
+        'transition-[transform,border-color,background,box-shadow] duration-[160ms] ease-[ease]',
+        // Desktop hover (degrades on touch — no :hover on tap-only devices)
+        'hover:-translate-y-0.5 hover:border-[rgba(220,47,101,0.45)] hover:bg-[var(--bg-elev)]',
+        'hover:shadow-[0_12px_40px_-16px_rgba(220,47,101,0.25)]',
+        // Gradient overlay on hover
+        "before:content-[''] before:absolute before:inset-0 before:pointer-events-none",
+        'before:bg-[radial-gradient(ellipse_60%_80%_at_100%_0%,rgba(220,47,101,0.06),transparent_60%)]',
+        'before:opacity-0 before:transition-opacity before:duration-200 hover:before:opacity-100',
+      )}
     >
-      <span
-        className="w-11 h-11 inline-flex items-center justify-center rounded-[10px] bg-[var(--brand-soft)] text-[var(--brand)] mb-[18px] [&_svg]:w-[22px] [&_svg]:h-[22px]"
-        aria-hidden="true"
-      >
-        {icon}
+      {/* Icon + title: horizontal row on mobile saves significant vertical space */}
+      <div className="flex items-center gap-3 sm:block">
+        <span
+          className={cn(
+            'shrink-0 inline-flex items-center justify-center',
+            'w-9 h-9 sm:w-11 sm:h-11',
+            'rounded-[8px] sm:rounded-[10px]',
+            'bg-[var(--brand-soft)] text-[var(--brand)]',
+            'sm:mb-[18px]',
+            '[&_svg]:w-[18px] [&_svg]:h-[18px] sm:[&_svg]:w-[22px] sm:[&_svg]:h-[22px]',
+          )}
+          aria-hidden
+        >
+          {icon}
+        </span>
+        <h3 className="font-display font-semibold text-[15px] sm:text-[19px] leading-tight tracking-[-0.01em] text-[var(--text)] m-0">
+          {name}
+        </h3>
+      </div>
+
+      {/* Description */}
+      <p className="mt-2 text-[13px] sm:text-[14px] text-[var(--muted-2)] leading-[1.5] sm:leading-[1.55] flex-grow">
+        {desc}
+      </p>
+
+      {/* Pill badge */}
+      <span className="inline-flex mt-3 sm:mt-4 px-[10px] py-[3px] sm:py-1 rounded-[6px] bg-[var(--brand-soft)] text-[var(--brand)] font-mono text-[10px] sm:text-[11px] tracking-[0.02em] w-fit">
+        {pill}
       </span>
-      <h3 className="font-display font-semibold text-[19px] tracking-[-0.01em] text-[var(--text)]">{name}</h3>
-      <p className="mt-2 text-[14px] text-[var(--muted-2)] leading-[1.55] flex-grow">{desc}</p>
-      <span className="inline-flex mt-4 px-[10px] py-1 rounded-[6px] bg-[var(--brand-soft)] text-[var(--brand)] font-mono text-[11px] tracking-[0.02em] w-fit">{pill}</span>
-      <span className="mt-[18px] pt-4 border-t border-[var(--line)] text-[13px] font-medium text-[var(--muted-2)] flex items-center gap-[6px] transition-[color,gap] duration-[160ms] group-hover:text-[var(--brand)] group-hover:gap-[10px]">
-        Explore <Icon.ArrowRight width={13} height={13} />
+
+      {/* CTA row */}
+      <span className="mt-3 sm:mt-[18px] pt-3 sm:pt-4 border-t border-[var(--line)] text-[12px] sm:text-[13px] font-medium text-[var(--muted-2)] flex items-center gap-[6px] transition-[color,gap] duration-[160ms] group-hover:text-[var(--brand)] group-hover:gap-[10px]">
+        Explore <Icon.ArrowRight width={12} height={12} />
       </span>
     </a>
   );

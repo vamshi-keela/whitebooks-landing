@@ -1,4 +1,5 @@
 import React from 'react';
+import { ButtonLink } from '@/components/ui/Button';
 import type { RouteKey } from '@/hooks/useHashRoute';
 
 interface NavLinkDef {
@@ -63,9 +64,9 @@ export function SiteNav({ route, navigate }: SiteNavProps) {
           <a href="#" className="nav-link" onClick={(e) => e.preventDefault()}>
             Sign in
           </a>
-          <a href="#" className="btn btn-accent" onClick={(e) => e.preventDefault()}>
+          <ButtonLink href="#" onClick={(e) => e.preventDefault()}>
             Book a demo
-          </a>
+          </ButtonLink>
         </div>
       </div>
     </nav>

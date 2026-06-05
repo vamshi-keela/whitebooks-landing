@@ -1,3 +1,5 @@
+import { ButtonLink } from "@/components/ui/Button";
+
 export function KSASection() {
   return (
     <section className="relative overflow-hidden border-b border-[var(--hairline)] max-[700px]:py-[72px] py-24">
@@ -12,13 +14,14 @@ export function KSASection() {
               Whitebooks is one of the few GSPs operating ZATCA-approved e-invoicing infrastructure in Saudi Arabia. If your company files in India and the GCC, this is one platform, one contract, one team.
             </p>
             <div className="mt-8">
-              <a
+              <ButtonLink
                 href="#"
-                className="inline-flex items-center justify-center gap-2 py-[11px] px-[18px] rounded-lg font-body font-medium text-[14px] tracking-[0.005em] border border-[var(--hairline-strong)] bg-transparent text-[var(--fg-secondary)] transition-all duration-[160ms] ease-[ease] whitespace-nowrap no-underline cursor-pointer hover:bg-[rgba(255,255,255,0.04)] hover:border-[rgba(255,255,255,0.16)] hover:text-[var(--fg-primary)] after:content-['→']"
+                variant="ghost"
+                arrow
                 onClick={(e) => e.preventDefault()}
               >
                 Explore KSA e-Invoicing
-              </a>
+              </ButtonLink>
             </div>
           </div>
           <div className="p-10 border border-[var(--hairline-strong)] rounded-[16px] bg-[var(--bg-card)] max-[600px]:p-6">

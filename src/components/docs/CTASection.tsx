@@ -53,7 +53,7 @@ export default function CTASection(): React.ReactElement {
             position: 'relative',
           }}
         >
-          Get sandbox credentials in minutes. No contracts, no commitments — just working APIs.
+          Get sandbox credentials in minutes. No contracts, no commitments. Just working APIs.
         </p>
 
         {/* Buttons */}

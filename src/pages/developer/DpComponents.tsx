@@ -4,7 +4,7 @@ import DpIcon from './DpIcon';
 /* ─── Logo ─────────────────────────────────────────────────────────────────── */
 export function Logo(): React.ReactElement {
   return (
-    <a href="WhiteBooks Developer Portal.html" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
+    <a href="/developer" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="logo-grad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">

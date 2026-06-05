@@ -1,5 +1,5 @@
-import { ArrowRight } from 'lucide-react'
 import { ReactNode } from 'react'
+import { ButtonLink } from '@/components/ui/Button'
 
 
 export interface ClosingConfig {
@@ -30,20 +30,14 @@ export default function SharedAILayer({ h2, body, primaryCta, secondaryCta }: Cl
                 </p>
                 <div className="flex flex-wrap gap-3">
                     {primaryCta && (
-                        <a
-                            href={primaryCta.href || '#'}
-                            className="inline-flex items-center justify-center gap-2 px-[22px] py-[14px] rounded-lg font-medium text-[15px] bg-white text-[#dc2f65] transition-all duration-150 hover:bg-[#f3f3f5] hover:-translate-y-px"
-                        >
-                            {primaryCta.label} <ArrowRight className="w-3.5 h-3.5" />
-                        </a>
+                        <ButtonLink href={primaryCta.href || '#'} variant="white" size="lg" arrow>
+                            {primaryCta.label}
+                        </ButtonLink>
                     )}
                     {secondaryCta && (
-                        <a
-                            href={secondaryCta.href || '#'}
-                            className="inline-flex items-center justify-center gap-2 px-[22px] py-[14px] rounded-lg font-medium text-[15px] text-white border border-white/60 transition-all duration-150 hover:bg-white/10 hover:border-white"
-                        >
+                        <ButtonLink href={secondaryCta.href || '#'} variant="whiteOutline" size="lg">
                             {secondaryCta.label}
-                        </a>
+                        </ButtonLink>
                     )}
                 </div>
             </div>

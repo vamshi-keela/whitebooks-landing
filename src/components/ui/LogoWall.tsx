@@ -1,7 +1,7 @@
 const logoFiles = import.meta.glob('/src/assets/logos/*', { eager: true }) as Record<string, { default: string }>;
 
 function getLogoSrc(key: string): string | null {
-  for (const ext of ['svg', 'png', 'jpg']) {
+  for (const ext of ['svg', 'png', 'jpg', 'webp', 'jpeg', 'avif']) {
     const path = `/src/assets/logos/${key}.${ext}`;
     if (logoFiles[path]) return (logoFiles[path] as { default: string }).default;
   }
@@ -39,6 +39,11 @@ const LOGOS = [
   { name: 'WheelsEye', key: 'wheelseye' },
   { name: 'Jyothy Labs', key: 'jyothy-labs' },
   { name: 'Poorvika', key: 'poorvika' },
+  { name: 'NTC Group', key: 'ntc-group' },
+  { name: 'KJL Group', key: 'kjl-group' },
+  { name: 'Techno Paints', key: 'techno-paints' },
+  { name: 'J-Ark Logistics', key: 'j-ark-logistics' },
+
 ];
 
 function LogoItem({ l }: { l: { name: string; key: string } }) {

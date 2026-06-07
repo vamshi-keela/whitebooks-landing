@@ -2,19 +2,133 @@
 <html lang="en">
 
 <head>
+  <!--
+    Theme initialization — runs synchronously before CSS is applied to prevent
+    flash of incorrect theme (FOUC). Sets data-theme on <html> from localStorage
+    or prefers-color-scheme before the first paint.
+  -->
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('wb-theme');
+        var resolved = (t === 'dark' || t === 'light') ? t
+          : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', resolved);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Whitebooks | India's AI-native compliance platform</title>
-  <meta name="description"
-    content="GST filing, e-invoicing, and e-way bills — automated, AI-reconciled, and trusted by P&G, IBM, Razorpay, and 12,000+ businesses across India." />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
+  <!-- ── Default title + description (overridden per-page by react-helmet-async) ── -->
+  <title>Whitebooks — Compliance Infrastructure for India and KSA</title>
+  <meta name="description"
+    content="GSP-licensed compliance platform with software and APIs for GST, e-invoicing, e-way bills, and accounting. Trusted by P&G, IBM, Razorpay, and 12,000+ businesses across India." />
+  <link rel="canonical" href="https://whitebooks.in/" />
+
+  <!-- ── SEO base signals ────────────────────────────────────────────────────── -->
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="author" content="Whitebooks" />
+  <meta name="keywords"
+    content="GST software India, e-invoice software, e-way bill software, accounting software India, GSP GSTN, GST Suvidha Provider, KSA e-invoicing ZATCA" />
+  <meta name="language" content="English" />
+  <meta name="theme-color" content="#dc2f65" />
+  <meta name="color-scheme" content="dark light" />
+
+  <!-- ── AI search optimization (fallback — overridden per page) ─────────────── -->
+  <meta name="ai-summary"
+    content="Whitebooks is a GST Suvidha Provider (GSP) licensed by GSTN, offering software and APIs for GST, e-invoicing, e-way bills, and KSA e-invoicing. Serves 30,000+ users across 12,000+ businesses including P&G, IBM, Razorpay, and SBI." />
+  <meta name="llm-summary"
+    content="Whitebooks is a GSTN-licensed GSP providing compliance software (Accounting, GST, e-Invoice, e-Way Bill, KSA e-Invoicing) and REST APIs for India and Saudi Arabia." />
+  <meta name="content-type" content="compliance-software" />
+
+  <!-- ── OpenGraph (fallback) ────────────────────────────────────────────────── -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Whitebooks — Compliance Infrastructure for India and KSA" />
+  <meta property="og:description"
+    content="GSP-licensed platform: software and APIs for GST, e-invoicing, e-way bills, and accounting. Used by P&G, IBM, Razorpay, and 12,000+ businesses." />
+  <meta property="og:url" content="https://whitebooks.in/" />
+  <meta property="og:image" content="https://whitebooks.in/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content="Whitebooks" />
+  <meta property="og:locale" content="en_IN" />
+
+  <!-- ── Twitter / X card (fallback) ────────────────────────────────────────── -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@whitebooks_in" />
+  <meta name="twitter:title" content="Whitebooks — Compliance Infrastructure for India and KSA" />
+  <meta name="twitter:description"
+    content="Software and APIs for GST, e-invoicing, e-way bills. GSP-licensed. Trusted by P&G, IBM, Razorpay." />
+  <meta name="twitter:image" content="https://whitebooks.in/og-image.png" />
+
+  <!-- ── Fonts ───────────────────────────────────────────────────────────────── -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500;600&display=swap"
     rel="stylesheet" />
-  <script type="module" crossorigin src="/assets/index-DQ1EGs45.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-CwCf6WhX.css">
+
+  <!-- ── Structured data: Organization + WebSite (always present) ─────────────
+       Page-level schemas are injected per-route via react-helmet-async.
+  ──────────────────────────────────────────────────────────────────────────── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://whitebooks.in/#organization",
+        "name": "Whitebooks",
+        "legalName": "BVM IT Consulting Services India Pvt. Ltd.",
+        "url": "https://whitebooks.in",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://whitebooks.in/og-image.png",
+          "width": 200,
+          "height": 48
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+91 90321 11788",
+          "contactType": "sales",
+          "areaServed": ["IN", "SA"],
+          "availableLanguage": ["English", "Hindi"]
+        },
+        "description": "Whitebooks is a GST Suvidha Provider (GSP) licensed by GSTN, building AI-native compliance infrastructure for GST, e-invoicing, e-way bills, and KSA e-invoicing.",
+        "areaServed": ["India", "Saudi Arabia"],
+        "sameAs": [
+          "https://linkedin.com/company/whitebooks",
+          "https://twitter.com/whitebooks_in"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://whitebooks.in/#website",
+        "url": "https://whitebooks.in",
+        "name": "Whitebooks",
+        "description": "Whitebooks — Compliance Infrastructure for India and KSA",
+        "publisher": { "@id": "https://whitebooks.in/#organization" },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://whitebooks.in/search?q={search_term_string}"
+          },
+          "query-input": "required name=search_term_string"
+        }
+      }
+    ]
+  }
+  </script>
+  <script type="module" crossorigin src="/assets/index-RPKqc3p5.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/vendor-CVeyTZ8J.js">
+  <link rel="modulepreload" crossorigin href="/assets/ui-DqNPZkly.js">
+  <link rel="stylesheet" crossorigin href="/assets/index-CjsTwrbW.css">
 </head>
 
 <body>

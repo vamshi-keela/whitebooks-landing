@@ -1,5 +1,6 @@
 import DpIcon from "@/pages/developer/DpIcon.tsx";
-import { Breadcrumb, FluidBackground } from "../../layouts/SiteShell";
+import { FluidBackground } from "../../layouts/SiteShell";
+import { SeoBreadcrumb } from "@/seo/components/SeoBreadcrumb";
 import type { HeroConfig } from "../../types/pages.ts";
 import { Button } from "../ui/Button";
 import EyebrowPill from "../ui/EyebrowPill.tsx";
@@ -23,7 +24,7 @@ export default function SubHero({ eyebrow, title, sub, primaryCta, secondaryCta,
       {breadcrumb && (
         <section className="pt-[30px] pb-[70px]">
           <div className={wrap}>
-            <Breadcrumb items={breadcrumb} />
+            <SeoBreadcrumb items={breadcrumb} />
           </div>
         </section>
       )}

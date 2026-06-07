@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import type { SeoMeta } from '@/seo/types'
 
 export type HeaderMode = 'home' | 'softwares' | 'apis'
 
@@ -180,6 +181,8 @@ export interface IntegrationSection {
 export interface SubPageData {
     headerMode: HeaderMode;
     breadcrumb?: BreadcrumbItem[];
+    /** Page-level SEO metadata — title, description, canonical, schema hints. */
+    seo?: SeoMeta;
     hero: HeroProps;
     problem?: ProblemSection;
     features?: FeaturesSection;

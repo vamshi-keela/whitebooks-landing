@@ -20,6 +20,18 @@ import type { SubPageData } from '@/types/pages';
 import { useReveal } from '@/hooks/useReveal';
 import DevPortal from '@/pages/developer/DevPortal';
 import DpHome from '@/pages/developer/DpHome';
+import { SeoHead } from '@/seo/components/SeoHead';
+import { StructuredData } from '@/seo/components/StructuredData';
+import { getPageMeta } from '@/seo/metadata';
+import {
+  buildJsonLd,
+  buildOrganizationSchema,
+  buildWebSiteSchema,
+  buildWebPageSchema,
+  buildBreadcrumbSchema,
+  buildFAQSchema,
+} from '@/seo/schema/generators';
+import type { SchemaFaqItem } from '@/seo/types';
 
 const SOFT_SLUG_MAP: Record<string, string> = {
   accounting: 'accounting',
@@ -36,10 +48,38 @@ const API_SLUG_MAP: Record<string, string> = {
   ksa: 'ksa-e-invoice-api',
 };
 
+const HOME_FAQ_ITEMS: SchemaFaqItem[] = [
+  {
+    question: "What is Whitebooks?",
+    answer: "Whitebooks is a GST Suvidha Provider (GSP) licensed by GSTN, offering cloud software and REST APIs for GST filing, e-invoicing, e-way bills, and KSA e-invoicing. It serves 30,000+ users across 12,000+ businesses including P&G, IBM, and Razorpay.",
+  },
+  {
+    question: "Is Whitebooks a direct GSP or does it resell another GSP's capacity?",
+    answer: "Whitebooks holds its GSP license directly from GSTN under BVM IT Consulting Services India Pvt. Ltd. It does not resell capacity from another licensee, which means faster latency, better uptime, and an independent roadmap.",
+  },
+  {
+    question: "Which products does Whitebooks offer?",
+    answer: "Whitebooks offers two product stacks: Softwares (Accounting, GST, e-Invoice, e-Way Bill, KSA e-Invoicing) for finance teams and CA firms; and APIs (GST API, e-Invoice API, e-Way Bill API, KSA e-Invoice API) for developers.",
+  },
+  {
+    question: "Does Whitebooks support e-invoicing for Saudi Arabia?",
+    answer: "Yes. Whitebooks is ZATCA-approved for Phase 2 e-invoicing in Saudi Arabia (FATOORAH integration, cryptographic signing, bilingual Arabic+English invoices). It is one of the few platforms handling both India GST and KSA e-invoicing on one workspace.",
+  },
+];
+
 function HomeRoute() {
   const [tab, setTab] = useState<string>('softwares');
   const routerNav = useNavigate();
   useReveal();
+
+  const meta = getPageMeta('/');
+  const homeSchema = buildJsonLd(
+    buildOrganizationSchema(),
+    buildWebSiteSchema(),
+    buildWebPageSchema({ canonicalUrl: meta.canonical, title: meta.title, description: meta.description }),
+    buildBreadcrumbSchema([{ label: 'Home', href: '/' }]),
+    buildFAQSchema(meta.canonical, HOME_FAQ_ITEMS),
+  );
 
   const navigate = (route: string) => {
     const map: Record<string, string> = {
@@ -58,6 +98,8 @@ function HomeRoute() {
 
   return (
     <div className="min-h-screen bg-[var(--bg)]">
+      <SeoHead {...meta} />
+      <StructuredData schema={homeSchema} />
       <Header mode="home" />
       <main>
         <Hero />
@@ -127,18 +169,63 @@ function ApiSubPageRoute() {
   );
 }
 
+function SoftwaresHubRoute() {
+  const meta = getPageMeta('/softwares');
+  const schema = buildJsonLd(
+    buildWebPageSchema({ canonicalUrl: meta.canonical, title: meta.title, description: meta.description }),
+    buildBreadcrumbSchema([
+      { label: 'Home', href: '/' },
+      { label: 'Softwares' },
+    ]),
+  );
+  return (
+    <>
+      <SeoHead {...meta} />
+      <StructuredData schema={schema} />
+      <HubSoftwares />
+    </>
+  );
+}
+
+function ApisHubRoute() {
+  const meta = getPageMeta('/apis');
+  const schema = buildJsonLd(
+    buildWebPageSchema({ canonicalUrl: meta.canonical, title: meta.title, description: meta.description }),
+    buildBreadcrumbSchema([
+      { label: 'Home', href: '/' },
+      { label: 'APIs' },
+    ]),
+  );
+  return (
+    <>
+      <SeoHead {...meta} />
+      <StructuredData schema={schema} />
+      <DpHome />
+    </>
+  );
+}
+
+function DeveloperRoute() {
+  const meta = getPageMeta('/developer');
+  return (
+    <>
+      <SeoHead {...meta} />
+      <DevPortal />
+    </>
+  );
+}
+
 export function AppRouter() {
   return (
     <>
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<HomeRoute />} />
-        <Route path="/softwares" element={<HubSoftwares />} />
+        <Route path="/softwares" element={<SoftwaresHubRoute />} />
         <Route path="/softwares/:product" element={<SoftwareSubPageRoute />} />
-        <Route path="/apis" element={<DpHome />} />
+        <Route path="/apis" element={<ApisHubRoute />} />
         <Route path="/apis/:product" element={<ApiSubPageRoute />} />
-        <Route path="/developer/*" element={<DevPortal />} />
-        {/* <Route path="/whitebooks" element={<AppShell />} /> */}
+        <Route path="/developer/*" element={<DeveloperRoute />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </>

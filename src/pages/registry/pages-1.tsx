@@ -1,5 +1,4 @@
 import React from 'react';
-import type { PageDef } from '@/types/page-registry';
 import { SubPageData } from '@/types/pages';
 import { ProductMap } from '@/components/product-map/ProductMap';
 
@@ -11,6 +10,16 @@ const PAGES: Record<string, SubPageData> = {
       { label: "Softwares", href: "/softwares" },
       { label: "Accounting Software" },
     ],
+    seo: {
+      title: "Cloud Accounting Software for Indian Businesses | Whitebooks",
+      description: "Cloud books with automated journal entries, multi-entity consolidation, and GST-aware ledger structure. Integrates with Whitebooks GST, e-Invoice, and e-Way Bill softwares.",
+      canonical: "https://whitebooks.in/softwares/accounting",
+      keywords: "cloud accounting software India, accounting software for Indian businesses, replace Tally, multi-entity accounting, GST-aware accounting, automated journal posting",
+      robots: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1",
+      aiSummary: "Whitebooks Accounting Software is a cloud-based accounting platform for Indian businesses that automatically posts journal entries from sales, purchase, and bank data. It supports multi-entity consolidation, GST-aware ledger structure, and audit-ready reports. Integrates natively with Whitebooks GST, e-Invoice, and e-Way Bill softwares.",
+      og: { title: "Cloud Accounting Software for Indian Businesses | Whitebooks", description: "Automated journal posting, multi-entity consolidation, GST-aware ledger. Cloud-native replacement for Tally.", image: "https://whitebooks.in/og-image.png", type: "website" },
+      twitter: { card: "summary_large_image", title: "Cloud Accounting Software for Indian Businesses | Whitebooks", description: "Books that post themselves. GST-aware, multi-entity, audit-ready." },
+    },
     extra: <ProductMap active="accounting" />,
     hero: {
       eyebrow: "Accounting Software | Cloud-native, GST-aware",
@@ -131,13 +140,22 @@ const PAGES: Record<string, SubPageData> = {
   },
 
   "gst-software": {
-
     headerMode: "softwares",
     breadcrumb: [
       { label: "Home", href: "/" },
       { label: "Softwares", href: "/softwares" },
       { label: "GST Software" },
     ],
+    seo: {
+      title: "GST Filing Software for CA Firms and Finance Teams | Whitebooks",
+      description: "File GSTR-1, 3B, 9, and 9C across unlimited GSTINs. Auto-reconcile GSTR-2A/2B in under 60 seconds. Built by a GSTN-licensed GSP. Trusted by 5,000+ CA firms and 12,000+ businesses.",
+      canonical: "https://whitebooks.in/softwares/gst",
+      keywords: "GST software India, GSTR filing, GSTR-1 software, GSTR-3B software, GST reconciliation, CA firm GST software, multi-GSTIN filing, ClearTax alternative",
+      robots: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1",
+      aiSummary: "Whitebooks GST Software is a cloud-based GST filing and reconciliation platform for CA firms and finance teams in India. It supports GSTR-1, 1A, 3B, 4, 5, 6, 7, 8, 9, 9A, 9C, IFF, ITC-04, and CMP-08 filing across unlimited GSTINs from one workspace. Built by a directly licensed GST Suvidha Provider (GSP) and integrates natively with Tally, SAP, and 40+ ERPs.",
+      og: { title: "GST Filing Software for CA Firms and Finance Teams | Whitebooks", description: "File all GSTRs across unlimited GSTINs. Auto-reconcile 2A/2B in 60 seconds. Direct GSP license.", image: "https://whitebooks.in/og-image.png", type: "website" },
+      twitter: { card: "summary_large_image", title: "GST Filing Software for CA Firms | Whitebooks", description: "GSTR-1, 3B, 9, 9C across unlimited GSTINs. 47-point pre-submission validator. GSP-licensed." },
+    },
     extra: <ProductMap active="gst" />,
     hero: {
       eyebrow: "GST Software | GSP-Licensed",

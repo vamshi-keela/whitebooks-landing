@@ -1,0 +1,57 @@
+# Whitebooks — robots.txt
+# https://whitebooks.in
+
+User-agent: *
+Allow: /
+Allow: /softwares
+Allow: /softwares/
+Allow: /apis
+Allow: /apis/
+Allow: /developer
+
+# Block internal / system paths
+Disallow: /api/
+Disallow: /_/
+Disallow: /admin/
+Disallow: /internal/
+Disallow: /health
+Disallow: /metrics
+Disallow: *.json$
+
+# Allow important static assets
+Allow: /og-image.png
+Allow: /sitemap.xml
+Allow: /llms.txt
+
+# Sitemaps
+Sitemap: https://whitebooks.in/sitemap.xml
+
+# Crawl-delay for polite crawlers
+Crawl-delay: 1
+
+# AI / LLM crawler access
+User-agent: GPTBot
+Allow: /
+Allow: /softwares
+Allow: /apis
+Allow: /developer
+Disallow: /api/
+Disallow: /admin/
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: Bingbot
+Allow: /

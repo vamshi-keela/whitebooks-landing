@@ -11,6 +11,16 @@ const PAGES_3: Record<string, SubPageData> = {
       { label: "APIs", href: "/apis" },
       { label: "GST API" },
     ],
+    seo: {
+      title: "GST API for Developers — Direct GSP Pipe | Whitebooks",
+      description: "REST API for GST filing, GSTIN validation, GSTR-2A/2B retrieval, and HSN search. Built by a directly licensed GSP. Sandbox in 5 minutes. 99.95% uptime SLA.",
+      canonical: "https://whitebooks.in/apis/gst",
+      keywords: "GST API, GSTIN validation API, GSTR-2B API, GST filing API, IMS API, GST developer API, GSP API, GST REST API",
+      robots: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1",
+      aiSummary: "Whitebooks GST API is a REST API for GST filing, invoice retrieval, GSTIN validation, and HSN/SAC code search in India. Built by a directly licensed GST Suvidha Provider (GSP) and used by fintechs, ERPs, and enterprise IT teams. Production endpoints have a 99.95% uptime SLA and sub-200ms median response latency.",
+      og: { title: "GST API for Developers — Direct GSP Pipe | Whitebooks", description: "File returns, validate GSTINs, pull 2A/2B over REST. Direct GSP-licensed. Sandbox in 5 minutes.", image: "https://whitebooks.in/og-image.png", type: "website" },
+      twitter: { card: "summary_large_image", title: "GST API — Direct GSP Pipe | Whitebooks", description: "REST API for GST filing, GSTIN validation, 2A/2B retrieval. Used by Razorpay, Pharmeasy, Cars24." },
+    },
     hero: {
       eyebrow: "GST API | Direct GSP pipe to GSTN",
       title: (
@@ -119,6 +129,16 @@ const PAGES_3: Record<string, SubPageData> = {
       { label: "APIs", href: "/apis" },
       { label: "e-Invoice API" },
     ],
+    seo: {
+      title: "e-Invoice API — Generate IRNs at Scale | Whitebooks",
+      description: "REST API for generating IRNs on India's IRP. Sub-200ms latency. Direct GSP pipe. Bulk operations, webhook alerts. Used by Razorpay and 200+ developer teams.",
+      canonical: "https://whitebooks.in/apis/e-invoice",
+      keywords: "e-invoice API, IRN API, IRP integration API, bulk IRN generation, e-invoice REST API, GSP IRN API India",
+      robots: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1",
+      aiSummary: "Whitebooks e-Invoice API is a REST API for generating Invoice Reference Numbers (IRNs) on India's Invoice Registration Portal (IRP). It supports IRN creation, cancellation, amendment, credit note generation, and bulk operations — with sub-200ms p50 latency. Used by billing systems, ERPs, and B2B marketplaces serving the ₹5 crore+ AATO mandate.",
+      og: { title: "e-Invoice API — Generate IRNs at Scale | Whitebooks", description: "REST API for IRN generation. Sub-200ms latency. Bulk operations, 30-day window alerts.", image: "https://whitebooks.in/og-image.png", type: "website" },
+      twitter: { card: "summary_large_image", title: "e-Invoice API — IRN Generation | Whitebooks", description: "Sub-200ms IRN generation via REST. Bulk, cancel, credit note. Direct GSP pipe." },
+    },
     hero: {
       eyebrow: "e-Invoice API | Direct IRP integration",
       title: (
@@ -220,6 +240,16 @@ const PAGES_3: Record<string, SubPageData> = {
       { label: "APIs", href: "/apis" },
       { label: "e-Way Bill API" },
     ],
+    seo: {
+      title: "e-Way Bill API for Logistics and Fleet Platforms | Whitebooks",
+      description: "REST API for generating, extending, and cancelling e-way bills. Auto-populate from IRN. Bulk operations. 99.95% uptime SLA. Used by Pharmeasy and WheelsEye.",
+      canonical: "https://whitebooks.in/apis/e-way-bill",
+      keywords: "e-way bill API, e-way bill REST API, logistics compliance API, WMS API e-way bill, bulk e-way bill API, IRN to e-way bill",
+      robots: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1",
+      aiSummary: "Whitebooks e-Way Bill API is a REST API for generating, extending, and cancelling e-way bills for goods movement in India. It supports auto-population from existing IRNs, bulk operations, consolidated bills, and validity tracking. Used by logistics platforms, WMS providers, TMS systems, and freight brokers including Pharmeasy and WheelsEye.",
+      og: { title: "e-Way Bill API for Logistics Platforms | Whitebooks", description: "Generate, extend, cancel e-way bills via REST. Auto-populate from IRN. Used by Pharmeasy, WheelsEye.", image: "https://whitebooks.in/og-image.png", type: "website" },
+      twitter: { card: "summary_large_image", title: "e-Way Bill API | Whitebooks", description: "REST API for e-way bill generation, extension, cancellation. Bulk and consolidated bills." },
+    },
     hero: {
       eyebrow: "e-Way Bill API | GSP-Licensed",
       title: (
@@ -321,6 +351,16 @@ const PAGES_3: Record<string, SubPageData> = {
       { label: "APIs", href: "/apis" },
       { label: "KSA e-Invoice API" },
     ],
+    seo: {
+      title: "KSA e-Invoice API — ZATCA Phase 2 Integration | Whitebooks",
+      description: "REST API for ZATCA Phase 2 e-invoice generation. FATOORAH submission, CSID management, bilingual invoicing, QR code generation. Used by SaaS products operating in Saudi Arabia.",
+      canonical: "https://whitebooks.in/apis/ksa",
+      keywords: "KSA e-invoice API, ZATCA API, FATOORAH API, Saudi Arabia e-invoice API, CSID API, bilingual invoice API",
+      robots: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1",
+      aiSummary: "Whitebooks KSA e-Invoice API is a REST API for generating ZATCA Phase 2 compliant e-invoices in Saudi Arabia. It submits invoices to ZATCA's FATOORAH portal, manages cryptographic signing using ZATCA-issued certificates (CSID), and returns cleared invoices with embedded QR codes.",
+      og: { title: "KSA e-Invoice API — ZATCA Phase 2 | Whitebooks", description: "FATOORAH submission, CSID lifecycle management, QR generation. REST API for ZATCA Phase 2 compliance.", image: "https://whitebooks.in/og-image.png", type: "website" },
+      twitter: { card: "summary_large_image", title: "KSA e-Invoice API — ZATCA Phase 2 | Whitebooks", description: "ZATCA Phase 2 via REST. CSID managed, bilingual invoices, QR codes." },
+    },
     hero: {
       eyebrow: "KSA e-Invoice API | ZATCA Phase 2 Compliant",
       title: (

@@ -1,5 +1,4 @@
 import React from 'react';
-import type { PageDef } from '@/types/page-registry';
 import { SubPageData } from '@/types/pages';
 import { ProductMap } from "@/components/product-map/ProductMap";
 
@@ -13,6 +12,16 @@ const PAGES_2: Record<string, SubPageData> = {
       { label: "Softwares", href: "/softwares" },
       { label: "e-Invoice Software" },
     ],
+    seo: {
+      title: "e-Invoicing Software for B2B Invoices in India | Whitebooks",
+      description: "Generate IRNs at scale with sub-second latency. Direct IRP integration. Bulk upload, auto-retry, 30-day window enforcement. Built for businesses with AATO above ₹5 crore.",
+      canonical: "https://whitebooks.in/softwares/e-invoice",
+      keywords: "e-invoice software India, IRN generation, e-invoicing mandate, IRP integration, AATO 5 crore, bulk IRN, 30-day window, e-invoice for GST",
+      robots: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1",
+      aiSummary: "Whitebooks e-Invoice Software generates IRNs for B2B invoices in India via direct integration with the Invoice Registration Portal (IRP). It supports bulk generation, automatic 30-day window enforcement, cancellation, amendment, and credit/debit note flows. Used by businesses with AATO above ₹5 crore mandated to e-invoice from April 2026.",
+      og: { title: "e-Invoicing Software for B2B Invoices in India | Whitebooks", description: "Generate IRNs at scale. Sub-second latency, bulk operations, 30-day window enforcement.", image: "https://whitebooks.in/og-image.png", type: "website" },
+      twitter: { card: "summary_large_image", title: "e-Invoicing Software for B2B Invoices | Whitebooks", description: "Bulk IRN generation, 30-day window enforcement, auto-retry. Built for the April 2026 mandate." },
+    },
     extra: <ProductMap active="e-invoice" />,
     hero: {
       eyebrow: "e-Invoice Software | Direct IRP Integration",
@@ -130,6 +139,16 @@ const PAGES_2: Record<string, SubPageData> = {
       { label: "Softwares", href: "/softwares" },
       { label: "e-Way Bill Software" },
     ],
+    seo: {
+      title: "e-Way Bill Software for Goods Movement in India | Whitebooks",
+      description: "Generate, extend, and cancel e-way bills from one screen. Auto-populate from IRN. Bulk operations. Real-time vehicle and validity tracking. Used by Pharmeasy, WheelsEye, and 12,000+ businesses.",
+      canonical: "https://whitebooks.in/softwares/e-way-bill",
+      keywords: "e-way bill software, e-way bill generation, e-way bill validity, bulk e-way bill, auto-populate from IRN, multi-warehouse dispatch, transporter e-way bill",
+      robots: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1",
+      aiSummary: "Whitebooks e-Way Bill Software generates, extends, cancels, and tracks e-way bills for movement of goods in India. It auto-populates e-way bills from existing IRNs, supports bulk generation, and integrates natively with 40+ ERPs. Used by businesses moving goods across state lines from one or many warehouses.",
+      og: { title: "e-Way Bill Software for Goods Movement | Whitebooks", description: "Generate, extend, cancel e-way bills. Auto-populate from IRN. Bulk dispatch. Used by Pharmeasy, WheelsEye.", image: "https://whitebooks.in/og-image.png", type: "website" },
+      twitter: { card: "summary_large_image", title: "e-Way Bill Software | Whitebooks", description: "One-click generation from IRN, bulk operations, validity tracking. Multi-warehouse dispatch." },
+    },
     extra: <ProductMap active="e-way-bill" />,
     hero: {
       eyebrow: "e-Way Bill Software | GSP-Licensed",
@@ -244,6 +263,16 @@ const PAGES_2: Record<string, SubPageData> = {
       { label: "Softwares", href: "/softwares" },
       { label: "KSA e-Invoicing Software" },
     ],
+    seo: {
+      title: "ZATCA Phase 2 e-Invoicing Software for Saudi Arabia | Whitebooks",
+      description: "Generate ZATCA-compliant e-invoices for KSA. FATOORAH integration, Arabic + English invoicing, cryptographic signing. The only platform handling India and Saudi Arabia e-invoicing on one workspace.",
+      canonical: "https://whitebooks.in/softwares/ksa",
+      keywords: "ZATCA e-invoicing, KSA e-invoice software, FATOORAH integration, Saudi Arabia e-invoice, Phase 2 compliance, bilingual invoicing Arabic English, CSID certificate",
+      robots: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1",
+      aiSummary: "Whitebooks KSA e-Invoicing Software is a ZATCA Phase 2 compliant e-invoicing platform for businesses operating in Saudi Arabia. It generates e-invoices in required XML format, signs them cryptographically (CSID), submits to ZATCA's FATOORAH portal, and returns cleared invoices with QR codes. One of the few platforms offering integrated e-invoicing for both India (GSTN) and KSA (ZATCA) on the same workspace.",
+      og: { title: "ZATCA Phase 2 e-Invoicing Software for Saudi Arabia | Whitebooks", description: "FATOORAH integration, cryptographic signing, bilingual Arabic+English invoicing. India and KSA on one platform.", image: "https://whitebooks.in/og-image.png", type: "website" },
+      twitter: { card: "summary_large_image", title: "ZATCA e-Invoicing Software for Saudi Arabia | Whitebooks", description: "ZATCA Phase 2 compliant. FATOORAH clearance, CSID lifecycle, QR codes. One platform for India and KSA." },
+    },
     extra: <ProductMap active="ksa" />,
     hero: {
       eyebrow: "KSA e-Invoicing | ZATCA Phase 2 Compliant",

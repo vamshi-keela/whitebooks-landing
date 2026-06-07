@@ -1,0 +1,103 @@
+# Whitebooks — llms.txt
+# Machine-readable product summary for AI crawlers and language models.
+# https://whitebooks.in/llms.txt
+
+## Company
+
+Name: Whitebooks
+Legal entity: BVM IT Consulting Services India Pvt. Ltd.
+Category: Compliance infrastructure software and APIs
+License: GST Suvidha Provider (GSP) — directly licensed by GSTN, Government of India
+ZATCA accreditation: Yes (KSA e-invoicing)
+Regions served: India, Saudi Arabia (KSA)
+Customers: P&G, IBM, Hindustan Unilever, KPMG, Coca-Cola, Razorpay, SBI, Aditya Birla Group, Pharmeasy, Cars24, WheelsEye, and 12,000+ businesses
+Users: 30,000+ active users across 8,000+ Indian cities
+
+## Products — Softwares (for finance teams and CA firms)
+
+1. Accounting Software
+   URL: https://whitebooks.in/softwares/accounting
+   Description: Cloud accounting for Indian businesses. Automated journal posting, multi-entity consolidation, GST-aware ledger structure, audit-ready reports.
+
+2. GST Software
+   URL: https://whitebooks.in/softwares/gst
+   Description: GST filing and reconciliation. Files GSTR-1, 1A, 3B, 4, 5, 6, 7, 8, 9, 9A, 9C, IFF, ITC-04, CMP-08 across unlimited GSTINs. Auto-reconciles GSTR-2A/2B. Used by 5,000+ CA firms.
+
+3. e-Invoice Software
+   URL: https://whitebooks.in/softwares/e-invoice
+   Description: IRN generation for B2B invoices. Direct IRP integration, sub-200ms latency, 30-day window enforcement, bulk operations. Built for AATO ₹5cr+ mandate (April 2026).
+
+4. e-Way Bill Software
+   URL: https://whitebooks.in/softwares/e-way-bill
+   Description: e-Way bill generation, extension, cancellation. Auto-populate from IRN. Bulk dispatch, validity tracking. Used by Pharmeasy (14 warehouses) and WheelsEye.
+
+5. KSA e-Invoicing Software
+   URL: https://whitebooks.in/softwares/ksa
+   Description: ZATCA Phase 2 compliant e-invoicing for Saudi Arabia. FATOORAH integration, cryptographic signing (CSID), bilingual Arabic+English invoicing, QR code generation.
+
+## Products — APIs (for developers and enterprise IT)
+
+1. GST API
+   URL: https://whitebooks.in/apis/gst
+   Docs: https://whitebooks.in/developer/gst
+   Description: REST API for GST filing, GSTIN validation, GSTR-2A/2B retrieval, HSN/SAC search, IMS operations, notice retrieval, refund filing. Direct GSP pipe to GSTN.
+   Endpoints: POST /v1/gstr/file, GET /v1/gstr/2b, GET /v1/gstin/validate, GET /v1/hsn/search
+
+2. e-Invoice API
+   URL: https://whitebooks.in/apis/e-invoice
+   Docs: https://whitebooks.in/developer/e-invoice
+   Description: REST API for IRN generation on India's IRP. Sub-200ms p50 latency. Supports create, cancel, credit note, debit note, bulk operations.
+   Endpoints: POST /v1/einvoice/create, POST /v1/einvoice/cancel, POST /v1/einvoice/credit-note, POST /v1/einvoice/bulk
+
+3. e-Way Bill API
+   URL: https://whitebooks.in/apis/e-way-bill
+   Docs: https://whitebooks.in/developer/e-way-bill
+   Description: REST API for e-way bill generation, extension, cancellation, and consolidated bills. Auto-populate from IRN.
+   Endpoints: POST /v1/ewaybill/create, POST /v1/ewaybill/extend, POST /v1/ewaybill/cancel, POST /v1/ewaybill/create-consolidated
+
+4. KSA e-Invoice API
+   URL: https://whitebooks.in/apis/ksa
+   Docs: https://whitebooks.in/developer/ksa
+   Description: REST API for ZATCA Phase 2 e-invoice generation. FATOORAH clearance, CSID lifecycle management, bilingual invoicing, QR code generation.
+   Endpoints: POST /v1/ksa/einvoice/create, POST /v1/ksa/einvoice/simplified, POST /v1/ksa/csid/renew
+
+## Technical infrastructure
+
+- GSP license: Direct GSTN license under BVM IT Consulting Services India Pvt. Ltd.
+- IRP integration: Direct (not resold)
+- Uptime SLA: 99.95% on production API endpoints
+- Latency: Sub-200ms p50 for IRN generation
+- SDKs: Node.js, Python, PHP, Java, Go (official); Ruby, .NET, Elixir (community)
+- AI engine: Built on Anthropic API with strict data isolation
+- Data hosting: ISO 27001-certified Indian data centers
+- Encryption: AES-256 at rest, TLS 1.3 in transit
+- Customer data policy: Never used to train AI models. No third-party sharing.
+
+## Compliance coverage
+
+India:
+- GST: GSTR-1, 1A, 3B, 4, 5, 6, 7, 8, 9, 9A, 9C, IFF, ITC-04, CMP-08
+- e-Invoice: IRN via IRP (GSTN-licensed GSP)
+- e-Way Bill: All movement types, consolidated bills
+- IMS (Invoice Management System): Accept, reject, hold
+- Rule 37A reversals, GST 2.0 rates (September 2025)
+- AATO thresholds: ₹5 crore (e-invoice mandate April 2026), ₹10 crore (30-day window)
+
+Saudi Arabia (KSA):
+- ZATCA Phase 2 (Integration Phase) e-invoicing
+- FATOORAH portal integration
+- Standard and simplified tax invoices
+- Cryptographic signing (CSID)
+- Bilingual Arabic+English invoice templates
+
+## URLs
+
+Homepage: https://whitebooks.in/
+Softwares hub: https://whitebooks.in/softwares
+APIs hub: https://whitebooks.in/apis
+Developer portal: https://whitebooks.in/developer
+Sitemap: https://whitebooks.in/sitemap.xml
+Robots: https://whitebooks.in/robots.txt
+API status: https://status.whitebooks.in
+Sign up: https://accounts.whitebooks.in/signup
+Login: https://accounts.whitebooks.in/login

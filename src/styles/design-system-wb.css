@@ -1633,37 +1633,128 @@ img {
   }
 }
 
+/* ── BrandLogo container (shared base) ───────────────────────────────────── */
 .wb-logo {
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: 22px;
+  font-size: 18px;
   letter-spacing: -0.005em;
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(255, 255, 255, 0.4);
   white-space: nowrap;
-  transition: color 180ms ease;
+  transition: color 200ms ease;
   display: flex;
   align-items: center;
   gap: 10px;
+  flex-shrink: 0;
 }
 
+/* ── Logo image — sizing & transitions ───────────────────────────────────── */
 .wb-logo img {
-  height: 28px;
+  /* Height drives the size; width auto-follows to preserve aspect ratio.
+     clamp gives a gentle responsive range without media-query breakpoints. */
+  height: clamp(32px, 3.4vw, 40px);
   width: auto;
-  filter: grayscale(1) opacity(0.4);
-  transition: filter 220ms ease;
+  /* Guarantees narrow logos (icon-only marks) stay legible */
+  min-width: 30px;
+  /* Caps very wide wordmarks without squishing them */
+  max-width: 160px;
+  object-fit: contain;
+  display: block;
+  /* Prevent layout shift by reserving height before the image loads */
+  aspect-ratio: auto;
+  transition: filter 240ms ease, opacity 240ms ease;
 }
 
-.wb-logo:hover {
-  color: rgba(255, 255, 255, 1);
+/* ══════════════════════════════════════════════════════════════════════════
+   DARK THEME (default / :root)
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* 'dark' variant — logos whose fills are black/near-black.
+   brightness(0) collapses all colours to black, invert(1) flips to white,
+   giving a crisp light ghost that reads on the dark background.            */
+.wb-logo.wb-logo-v-dark img {
+  filter: brightness(0) invert(1) opacity(0.38);
 }
 
-.wb-logo:hover img {
+.wb-logo.wb-logo-v-dark:hover img {
+  filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.12));
+}
+
+/* 'light' variant — logos whose fills are white/near-white.
+   They are already bright on the dark background; just dim for consistency. */
+.wb-logo.wb-logo-v-light img {
+  filter: opacity(0.38);
+}
+
+.wb-logo.wb-logo-v-light:hover img {
   filter: none;
 }
 
+/* 'color' variant — brand-coloured logos.
+   Grayscale reduces them to a neutral mid-grey that sits equally on both
+   themes; full colours restore on hover.                                   */
+.wb-logo.wb-logo-v-color img {
+  filter: grayscale(1) opacity(0.45);
+}
+
+.wb-logo.wb-logo-v-color:hover img {
+  filter: none;
+}
+
+/* Hover text (text-fallback logos) */
+.wb-logo:hover {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   LIGHT THEME
+   ══════════════════════════════════════════════════════════════════════════ */
+
+[data-theme="light"] .wb-logo {
+  color: rgba(0, 0, 0, 0.42);
+}
+
+/* 'dark' variant in light mode — black logos naturally visible; just mute. */
+[data-theme="light"] .wb-logo.wb-logo-v-dark img {
+  filter: grayscale(1) opacity(0.42);
+}
+
+[data-theme="light"] .wb-logo.wb-logo-v-dark:hover img {
+  filter: none;
+}
+
+/* 'light' variant in light mode — white logos invisible on white bg.
+   brightness(0) makes everything black, giving a readable dark ghost.      */
+[data-theme="light"] .wb-logo.wb-logo-v-light img {
+  filter: brightness(0) opacity(0.32);
+}
+
+[data-theme="light"] .wb-logo.wb-logo-v-light:hover img {
+  filter: brightness(0) opacity(0.85);
+}
+
+/* 'color' variant in light mode */
+[data-theme="light"] .wb-logo.wb-logo-v-color img {
+  filter: grayscale(1) opacity(0.42);
+}
+
+[data-theme="light"] .wb-logo.wb-logo-v-color:hover img {
+  filter: none;
+}
+
+/* Hover text (text-fallback logos) in light mode */
+[data-theme="light"] .wb-logo:hover {
+  color: rgba(0, 0, 0, 0.85);
+}
+
+/* ── Separator dot (text-fallback) ───────────────────────────────────────── */
 .wb-logo-sep {
-  color: rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.16);
   font-size: 16px;
+}
+
+[data-theme="light"] .wb-logo-sep {
+  color: rgba(0, 0, 0, 0.15);
 }
 
 .wb-logo-wall {}

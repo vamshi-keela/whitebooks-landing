@@ -90,8 +90,8 @@
 
   /* ── Typography ──────────────────────────────────────────── */
   --font-display: "Poppins", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-body: "DM Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-body: "Poppins", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: "Poppins", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 

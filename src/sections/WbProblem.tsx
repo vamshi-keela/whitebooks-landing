@@ -14,7 +14,7 @@ export function ProblemSection() {
           {/* Left — headline */}
           <h2 className="font-serif font-semibold text-[clamp(30px,4vw,60px)] leading-[1.06] tracking-[-0.025em] m-0 text-balance">
             GST compliance wasn't designed for AI.{' '}
-            <em>We're rebuilding it</em> so it is.
+            We're rebuilding it so it is.
           </h2>
 
           {/* Right — body + stats */}

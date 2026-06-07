@@ -37,7 +37,7 @@
   /* ── Typography ───────────────────────── */
   --dp-font-display: 'Poppins', system-ui, sans-serif;
   --dp-font-body: 'Poppins', 'DM Sans', system-ui, sans-serif;
-  --dp-font-mono: 'JetBrains Mono', monospace;
+  --dp-font-mono: 'Poppins', 'JetBrains Mono', monospace;
 }
 
 /* ── Light theme overrides ──────────────────────────────────────────────── */

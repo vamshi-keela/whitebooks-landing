@@ -8,7 +8,7 @@ export function PricingSection() {
       <div className="container">
         <SectionLabel num="10">Pricing</SectionLabel>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'end', marginBottom: 56 }}>
-          <h2 className="h2">Transparent pricing.<br /><em>Annual subscriptions.</em> Volume that matters.</h2>
+          <h2 className="h2">Transparent pricing.<br />Annual subscriptions. Volume that matters.</h2>
         </div>
         <div className="grid-3">
           {[

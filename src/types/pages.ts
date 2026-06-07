@@ -20,6 +20,7 @@ export interface HeroConfig {
     secondaryCta?: CtaConfig
     micro?: string
     visual?: ReactNode
+    breadcrumb?: BreadcrumbItem[]
 }
 
 export interface ProblemItem {

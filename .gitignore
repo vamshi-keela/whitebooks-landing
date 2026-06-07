@@ -7,3 +7,4 @@ dist/
 !.env.example
 .tmp/
 node_modules/.tmp/
+.claude/

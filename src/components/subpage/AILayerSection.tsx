@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import type { AISection as AISectionData } from "../../types/pages.ts";
+import TickMark from "../ui/TickMark.tsx";
 
 interface Props {
   data: AISectionData;
@@ -124,7 +125,7 @@ export function AILayerSection({ data }: Props) {
             </p>
             {data.note && (
               <div className="wb-ail2-note">
-                <span className="wb-ail2-note-dot" />
+                <TickMark fillColor={"#dc2f65cc"} width={12} height={12} />
                 <div>{data.note}</div>
               </div>
             )}

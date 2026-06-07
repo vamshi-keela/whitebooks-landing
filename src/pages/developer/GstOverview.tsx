@@ -1516,7 +1516,7 @@ export function SdkLibrariesSection({ sdkItems }: { sdkItems: SdkType[] }) {
 export default function GstOverview(): React.ReactElement {
   return (
     <div className="min-h-screen" style={{ background: 'var(--dp-bg)' }}>
-      <HeroSection title='GST APIs' description='The WhiteBooks GST API gives developers programmatic access to GSTR-1 / GSTR-3B / GSTR-9 filing, GSTR-2B fetch, GSTIN verification, and HSN/SAC lookup through the certified GSP channel to the GSTN.' />
+      <HeroSection title='GST APIs for' description='The WhiteBooks GST API gives developers programmatic access to GSTR-1 / GSTR-3B / GSTR-9 filing, GSTR-2B fetch, GSTIN verification, and HSN/SAC lookup through the certified GSP channel to the GSTN.' />
       <Divider />
       <StatsSection />
       <Divider />

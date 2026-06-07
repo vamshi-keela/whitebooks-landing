@@ -33,7 +33,7 @@ export function PageGSTSoftware({ motion, intensity, navigate }: PageGSTSoftware
               </p>
               <div style={{ marginTop: 32, display: 'flex', gap: 12, flexWrap: 'wrap' }}>
                 <ButtonLink href="#" arrow onClick={(e) => e.preventDefault()}>Start 14-day free trial</ButtonLink>
-                <ButtonLink href="#" variant="ghost" onClick={(e) => e.preventDefault()}>Book a demo</ButtonLink>
+                <ButtonLink href="#" variant="ghost" onClick={(e) => e.preventDefault()}>Book a 20-min Demo</ButtonLink>
               </div>
               <div style={{ marginTop: 22, fontSize: 13, color: 'var(--fg-tertiary)' }}>
                 Migrating from ClearTax TaxCloud, Tally, or Zoho? We import your prior 36 months of returns.
@@ -328,7 +328,7 @@ export function PageGSTSoftware({ motion, intensity, navigate }: PageGSTSoftware
         title="File faster than your portal can keep up."
         body="14-day free trial. White-glove migration. Median 14 minutes per GSTIN per month."
         primary="Start free trial"
-        secondary="Book a demo"
+        secondary="Book a 20-min Demo"
       />
     </>
   );

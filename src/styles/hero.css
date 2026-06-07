@@ -57,7 +57,7 @@
 }
 .animate-fade-up { animation: fadeInUp 0.8s ease both; }
 
-/* Glass base — used via inline style to guarantee cross-browser support */
+/* Glass base — dark theme default */
 .glass {
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
@@ -74,4 +74,21 @@
     0 16px 48px rgba(0, 0, 0, 0.4),
     0 0 40px rgba(220, 47, 101, 0.12),
     inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+/* Glass — light theme: flip from dark-overlay to frosted white */
+[data-theme="light"] .glass {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+[data-theme="light"] .glass-hover:hover {
+  background: rgba(255, 255, 255, 0.88);
+  border-color: rgba(220, 47, 101, 0.28);
+  box-shadow:
+    0 16px 48px rgba(0, 0, 0, 0.1),
+    0 0 40px rgba(220, 47, 101, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
 }

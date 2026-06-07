@@ -13,10 +13,10 @@ const PAGES: Record<string, SubPageData> = {
     ],
     extra: <ProductMap active="accounting" />,
     hero: {
-      eyebrow: "Accounting Software · Cloud-native, GST-aware",
+      eyebrow: "Accounting Software | Cloud-native, GST-aware",
       title: (
         <>
-          Books that <span className="accent">post themselves.</span> From your invoices, your bank, your ERP.
+          Books that <span className="text-[var(--brand)]">post themselves.</span> From your invoices, your bank, your ERP.
         </>
       ),
       sub: (
@@ -24,14 +24,14 @@ const PAGES: Record<string, SubPageData> = {
           Whitebooks Accounting reads your sales, purchase, and bank data and posts journal entries automatically. Your accountant reviews and certifies — not enters. <strong>Multi-entity, GST-aware, audit-ready by design.</strong>
         </>
       ),
-      primaryCta: { label: "Start 14-day free trial" },
-      secondaryCta: { label: "Book a demo" },
-      micro: "Moving from Tally? <a href='#'>We import your 3 most recent years of books in under 2 hours →</a>",
+      primaryCta: { label: "Start Free Trail" },
+      secondaryCta: { label: "Book a 20-min Demo" },
+      // micro: "Moving from Tally? <a href='#'>We import your 3 most recent years of books in under 2 hours →</a>",
     },
     problem: {
       heading: (
         <>
-          Three reasons your books still cost <span className="accent">more than they should.</span>
+          Three reasons your books still cost <span className="text-[var(--brand)]">more than they should.</span>
         </>
       ),
       items: [
@@ -55,7 +55,7 @@ const PAGES: Record<string, SubPageData> = {
     features: {
       heading: (
         <>
-          What Whitebooks Accounting <span className="accent">does.</span>
+          What Whitebooks Accounting <span className="text-[var(--brand)]">does.</span>
         </>
       ),
       layout: "guide",
@@ -80,7 +80,7 @@ const PAGES: Record<string, SubPageData> = {
     ai: {
       heading: (
         <>
-          What the AI actually does <span className="accent">inside Whitebooks Accounting.</span>
+          What the AI actually does <span className="text-[var(--brand)]">inside Whitebooks Accounting.</span>
         </>
       ),
       items: [
@@ -99,8 +99,8 @@ const PAGES: Record<string, SubPageData> = {
       heading: "Pricing",
       body: "Each Whitebooks software is priced independently. Bundle discounts apply when you license two or more.",
       tiers: [
-        { name: "Solo / SMB", price: "₹ from 7,999", cycle: "/year", cta: "Start free", points: ["1 entity", "Unlimited transactions", "Bank feed for 2 accounts", "Email support"] },
-        { name: "Growth", price: "₹ from 29,999", cycle: "/year", featured: true, cta: "Start free trial", points: ["Up to 5 entities", "Multi-GSTIN", "Unlimited bank feeds", "Priority support", "Bundle discount with GST Software"] },
+        { name: "Solo / SMB", price: "₹7,999", cycle: "/year", cta: "Start free", points: ["1 entity", "Unlimited transactions", "Bank feed for 2 accounts", "Email support"] },
+        { name: "Growth", price: "₹29,999", cycle: "/year", featured: true, cta: "Start free trial", points: ["Up to 5 entities", "Multi-GSTIN", "Unlimited bank feeds", "Priority support", "Bundle discount with GST Software"] },
         { name: "Enterprise", price: "Custom", cta: "Talk to sales", points: ["Unlimited entities", "SAP/Oracle connectors", "SSO", "Audit log SIEM export", "Dedicated CSM"] },
       ],
       note: "[Pricing placeholders.]",
@@ -120,13 +120,13 @@ const PAGES: Record<string, SubPageData> = {
     closing: {
       h2: (
         <>
-          Stop typing. <span className="accent">Start reviewing.</span>
+          Stop typing. <span className="text-[var(--brand)]">Start reviewing.</span>
         </>
       ),
       body:
         "Most Whitebooks Accounting customers cut monthly bookkeeping time by 60% in their first quarter. Try it free for 14 days. Bring your last quarter's data — see what your books look like when they post themselves.",
-      primaryCta: { label: "Start 14-day free trial" },
-      secondaryCta: { label: "Book a demo" },
+      primaryCta: { label: "Book a 20-min Demo" },
+      secondaryCta: { label: "Start Free Trail", href: "https://accounts.whitebooks.in/login" },
     },
   },
 
@@ -140,10 +140,10 @@ const PAGES: Record<string, SubPageData> = {
     ],
     extra: <ProductMap active="gst" />,
     hero: {
-      eyebrow: "GST Software · GSP-Licensed",
+      eyebrow: "GST Software | GSP-Licensed",
       title: (
         <>
-          GST filing that <span className="accent">thinks before you click submit.</span>
+          GST filing that <span className="text-[var(--brand)]">thinks before you click submit.</span>
         </>
       ),
       sub: (
@@ -151,15 +151,15 @@ const PAGES: Record<string, SubPageData> = {
           File GSTR-1, 3B, 9, and 9C across unlimited GSTINs from one workspace. Auto-reconcile GSTR-2B against your purchase register in under 60 seconds. Built on a direct GSP license — <strong>no resold pipes.</strong>
         </>
       ),
-      primaryCta: { label: "Start 14-day free trial" },
-      secondaryCta: { label: "Book a demo" },
-      micro:
-        "Migrating from ClearTax TaxCloud, Tally, or Zoho? <a href='#'>We import your prior 36 months of returns →</a>",
+      primaryCta: { label: "Start Free Trail" },
+      secondaryCta: { label: "Book a 20-min Demo" },
+      // micro:
+      //   "Migrating from ClearTax TaxCloud, Tally, or Zoho? <a href='#'>We import your prior 36 months of returns →</a>",
     },
     problem: {
       heading: (
         <>
-          Three problems most GST software <span className="accent">still hasn&apos;t solved.</span>
+          Three problems most GST software <span className="text-[var(--brand)]">still hasn&apos;t solved.</span>
         </>
       ),
       items: [
@@ -171,7 +171,7 @@ const PAGES: Record<string, SubPageData> = {
     features: {
       heading: (
         <>
-          What Whitebooks GST <span className="accent">does.</span>
+          What Whitebooks GST <span className="text-[var(--brand)]">does.</span>
         </>
       ),
       layout: "guide",
@@ -196,7 +196,7 @@ const PAGES: Record<string, SubPageData> = {
     ai: {
       heading: (
         <>
-          What the AI actually does <span className="accent">inside Whitebooks GST.</span>
+          What the AI actually does <span className="text-[var(--brand)]">inside Whitebooks GST.</span>
         </>
       ),
       items: [
@@ -215,8 +215,8 @@ const PAGES: Record<string, SubPageData> = {
       heading: "Pricing",
       body: "Pricing scales with GSTIN count and partner seats. Bundle discounts apply on the CA Firm plan when combined with Accounting or e-Invoice.",
       tiers: [
-        { name: "Solo CA / SMB", price: "₹ from 4,999", cycle: "/year", cta: "Start free", points: ["1 GSTIN", "Unlimited GSTR filings", "2A/2B reconciliation", "Email support"] },
-        { name: "CA Firm", price: "₹ from 24,999", cycle: "/year, per partner", featured: true, cta: "Start free trial", points: ["Up to 50 client GSTINs", "Multi-user", "Working papers", "White-label client portal", "Priority support"] },
+        { name: "Solo CA / SMB", price: "₹4,999", cycle: "/year", cta: "Start free", points: ["1 GSTIN", "Unlimited GSTR filings", "2A/2B reconciliation", "Email support"] },
+        { name: "CA Firm", price: "₹24,999", cycle: "/year, per partner", featured: true, cta: "Start free trial", points: ["Up to 50 client GSTINs", "Multi-user", "Working papers", "White-label client portal", "Priority support"] },
         { name: "Enterprise", price: "Custom", cta: "Talk to sales", points: ["Unlimited GSTINs", "SAP/Tally connectors", "IMS bulk ops", "99.95% SLA", "Dedicated CSM"] },
       ],
       note: "[Pricing placeholders.]",
@@ -237,13 +237,13 @@ const PAGES: Record<string, SubPageData> = {
     closing: {
       h2: (
         <>
-          File faster. File cleaner. <span className="accent">File from one workspace.</span>
+          File faster. File cleaner. <span className="text-[var(--brand)]">File from one workspace.</span>
         </>
       ),
       body:
         "Median filing time per GSTIN per month, across 12,000+ Whitebooks customers: 14 minutes. Most CA firms switching from ClearTax or Tally hit that benchmark inside two filing cycles.",
-      primaryCta: { label: "Start 14-day free trial" },
-      secondaryCta: { label: "Book a demo" },
+      primaryCta: { label: "Book a 20-min Demo" },
+      secondaryCta: { label: "Start Free Trail", href: "https://accounts.whitebooks.in/login" },
     },
   }
 };

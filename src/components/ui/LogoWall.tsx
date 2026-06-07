@@ -41,39 +41,28 @@ const LOGOS = [
   { name: 'Poorvika', key: 'poorvika' },
 ];
 
+function LogoItem({ l }: { l: { name: string; key: string } }) {
+  const src = getLogoSrc(l.key);
+  if (src) {
+    return <img className="wb-logo" height={60} src={src} alt={l.name} loading="lazy" decoding="async" />;
+  }
+  return (
+    <span className="wb-logo">
+      {l.name}
+      <span className="wb-logo-sep">·</span>
+    </span>
+  );
+}
+
 export function LogoWallCarousel() {
   return (
-    <>
-      <div>
-        <div className="wb-logos-wrap">
-          <div className="wb-ticker" aria-hidden="false">
-            {[...LOGOS].map((l, i) => {
-              const src = getLogoSrc(l.key);
-              if (src) {
-                return (
-                  <img key={i} className="wb-logo" src={src} alt={l.name} />
-                )
-              } else {
-                return (
-                  <span key={i} className="wb-logo">
-                    {l.name}
-                    <span className="wb-logo-sep">·</span>
-                  </span>
-                )
-              }
-            })}
-          </div>
-          {/* <div className="wb-ticker reverse" aria-hidden="true">
-            {[...row2].map((l, i) => (
-              <span key={i} className="wb-logo">
-                {l}
-                <span className="wb-logo-sep">·</span>
-              </span>
-            ))}
-          </div> */}
-        </div>
+    <div className="wb-logos-wrap">
+      {/* Two identical copies so translateX(-50%) loops seamlessly with the CSS keyframe */}
+      <div className="wb-ticker" aria-label="Client logos">
+        {LOGOS.map((l) => <LogoItem key={`a-${l.key}`} l={l} />)}
+        {LOGOS.map((l) => <LogoItem key={`b-${l.key}`} l={l} />)}
       </div>
-    </>
+    </div>
   );
 }
 

@@ -1,6 +1,6 @@
+import { PlainSection } from "@/layouts/SubpageShell.tsx";
 import type { FeaturesSection as FeaturesSectionData, FeatureItem } from "../../types/pages.ts";
 import { FeatureGuide } from "@/components/feature-guide/FeatureGuide";
-import { PlainSection } from "./PlainSection";
 
 interface Props {
   data: FeaturesSectionData;
@@ -31,7 +31,7 @@ export function FeaturesSection({ data }: Props) {
     return <FeatureGuide heading={data.heading} items={data.items} navLabel={data.label || "What it does"} />;
   }
   return (
-    <PlainSection label={data.label || "What it does"} heading={data.heading}>
+    <PlainSection heading={data.heading}>
       <FeatureGrid items={data.items} />
     </PlainSection>
   );

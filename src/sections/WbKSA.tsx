@@ -1,6 +1,9 @@
 import { ButtonLink } from "@/components/ui/Button";
+import DpIcon from "@/pages/developer/DpIcon";
+import { useNavigate } from "react-router-dom";
 
 export function KSASection() {
+  const navigate = useNavigate();
   return (
     <section className="relative overflow-hidden border-b border-[var(--hairline)] max-[700px]:py-[72px] py-24">
       <div className="absolute inset-[-10%] pointer-events-none z-0 blur-[38px] saturate-[160%] opacity-[0.55] [animation:wb-mesh-drift_22s_ease-in-out_infinite_alternate] bg-[radial-gradient(ellipse_38%_50%_at_var(--m1x)_var(--m1y),rgba(220,47,101,0.5),transparent_65%),radial-gradient(ellipse_36%_42%_at_var(--m2x)_var(--m2y),rgba(255,110,156,0.42),transparent_70%),radial-gradient(ellipse_30%_36%_at_var(--m3x)_var(--m3y),rgba(255,168,120,0.22),transparent_72%),radial-gradient(ellipse_32%_38%_at_var(--m4x)_var(--m4y),rgba(155,22,68,0.55),transparent_65%)]" />
@@ -15,12 +18,11 @@ export function KSASection() {
             </p>
             <div className="mt-8">
               <ButtonLink
-                href="#"
-                variant="ghost"
-                arrow
-                onClick={(e) => e.preventDefault()}
+                variant="primary"
+                onClick={() => navigate('/apis/ksa')}
               >
                 Explore KSA e-Invoicing
+                <DpIcon name="arrow-right" size={14} />
               </ButtonLink>
             </div>
           </div>

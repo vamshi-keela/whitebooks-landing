@@ -1,5 +1,6 @@
 import React from "react";
 import { cn } from "@/lib/cn";
+import DpIcon from "@/pages/developer/DpIcon";
 
 type ButtonVariant =
     | "primary"
@@ -32,7 +33,7 @@ const variantClasses: Record<ButtonVariant, string> = {
     developerPrimary:
         "border border-[var(--dp-accent)] bg-[var(--dp-accent)] text-white hover:opacity-85",
     developerGhost:
-        "border border-[var(--dp-border)] bg-transparent text-[var(--dp-fg)] hover:bg-white/[0.04] hover:border-[var(--dp-border-strong)]",
+        "border border-[var(--dp-border)] bg-white/[0.06] text-[var(--dp-fg)] hover:bg-transparent hover:border-[var(--dp-border-strong)]",
 };
 
 const sizeClasses: Record<ButtonSize, string> = {
@@ -57,14 +58,12 @@ export type ButtonLinkProps = SharedButtonProps &
 function buttonClassName({
     variant = "primary",
     size = "md",
-    arrow = false,
     className,
-}: SharedButtonProps & { className?: string }) {
+}: Omit<SharedButtonProps, "arrow"> & { className?: string }) {
     return cn(
         baseClasses,
         variantClasses[variant],
         sizeClasses[size],
-        arrow && "after:content-['→']",
         className
     );
 }
@@ -74,15 +73,19 @@ export function Button({
     size = "md",
     arrow = false,
     className,
+    children,
     type = "button",
     ...props
 }: ButtonProps) {
     return (
         <button
             type={type}
-            className={buttonClassName({ variant, size, arrow, className })}
+            className={buttonClassName({ variant, size, className })}
             {...props}
-        />
+        >
+            {children}
+            {arrow && <DpIcon name="arrow-right" size={14} />}
+        </button>
     );
 }
 
@@ -90,13 +93,17 @@ export function ButtonLink({
     variant = "primary",
     size = "md",
     arrow = false,
-    className,
+    className = "cursor-pointer",
+    children,
     ...props
 }: ButtonLinkProps) {
     return (
         <a
-            className={buttonClassName({ variant, size, arrow, className })}
+            className={buttonClassName({ variant, size, className })}
             {...props}
-        />
+        >
+            {children}
+            {arrow && <DpIcon name="arrow-right" size={14} />}
+        </a>
     );
 }

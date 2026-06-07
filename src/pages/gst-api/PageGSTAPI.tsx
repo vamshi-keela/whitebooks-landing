@@ -768,7 +768,7 @@ $response = $wb->einvoice-><span class="fn">create</span>([
               variant="ghost"
               onClick={(e) => e.preventDefault()}
             >
-              Talk to a solutions engineer
+              Read Guides
             </ButtonLink>
           </div>
         </div>
@@ -1072,7 +1072,7 @@ $response = $wb->einvoice-><span class="fn">create</span>([
         title="Build your India compliance once."
         body="Whitebooks gives developer teams what they wish ClearTax and the others had built: a real API, real docs, real SLAs, and a real GSP license sitting underneath. Five minutes to your first sandbox call."
         primary="Get sandbox keys"
-        secondary="Talk to a solutions engineer"
+        secondary="Read Guides"
       />
     </>
   );

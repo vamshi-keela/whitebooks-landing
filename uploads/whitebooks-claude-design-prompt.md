@@ -33,7 +33,7 @@ A sticky header component with:
   - Active pill: #dc2f65 background, white text, no border
   - Inactive pill: transparent, muted text, 1px border at #dc2f65/30%, hover lifts to #dc2f65/10% bg
   - Clicking a pill scrolls to or reveals the corresponding hub section (or treat as tab state — Softwares content vs APIs content)
-- Right: "Book a demo" CTA button (outlined, #dc2f65 border and text, fills on hover)
+- Right: "Book a 20-min Demo" CTA button (outlined, #dc2f65 border and text, fills on hover)
 - Header background: #0a0a0f at 90% opacity, backdrop-filter blur(12px), 1px bottom border at white/5%
 - On brand homepage: neither pill is active by default. Both equal weight.
 
@@ -143,7 +143,7 @@ Each stat: Syne 48px #dc2f65 number, DM Sans 14px white label below. Animate cou
 Full-bleed section. Background: #dc2f65. Dark text on brand colour.
 H2 (Syne, white): "One license. One platform. Every Indian filing."
 Body (DM Sans, white/80%): "Whitebooks gives finance teams and developers a directly licensed GSP, an AI-native product, and a developer API that doesn't make you build the compliance yourself."
-Two CTAs: "Book a demo" (white bg, #dc2f65 text) + "Browse the product suite" (white outline, white text)
+Two CTAs: "Book a 20-min Demo" (white bg, #dc2f65 text) + "Browse the product suite" (white outline, white text)
 
 ---
 

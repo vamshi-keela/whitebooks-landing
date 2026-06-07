@@ -37,16 +37,7 @@ export function AILayerSection() {
             </div>
           ))}
         </div>
-        <div className="mt-10 flex items-center gap-4 flex-wrap">
-          <a
-            href="#"
-            className="inline-flex items-center gap-[6px] text-[14px] font-medium text-[var(--accent)] no-underline transition-[color,gap] duration-[160ms] cursor-pointer hover:text-[var(--accent-bright)] hover:gap-[10px] after:content-['→']"
-            onClick={(e) => e.preventDefault()}
-          >
-            See the AI in action (2-min demo)
-          </a>
-          <span className="font-mono text-[11px] text-[var(--fg-quaternary)]">⤷ models on the Anthropic API · data never used for training</span>
-        </div>
+
       </div>
     </section>
   );

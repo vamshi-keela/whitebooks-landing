@@ -114,14 +114,27 @@ export function FinalCTA({
     ],
 }: FinalCTAProps) {
     return (
-        <section className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-zinc-950 via-zinc-900 to-black px-6 py-16 sm:px-10 lg:px-16">
+        <section
+            className="relative overflow-hidden px-6 py-16 sm:px-10 lg:px-16"
+            style={{
+                background: 'var(--dp-surface)',
+            }}
+        >
             {/* Background Glow */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(220,47,101,0.22),transparent_30%),radial-gradient(circle_at_bottom_left,rgba(220,47,101,0.12),transparent_35%)]" />
+            <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                    background: 'radial-gradient(circle at top right, var(--dp-accent-line), transparent 30%), radial-gradient(circle at bottom left, var(--dp-accent-soft), transparent 35%)',
+                }}
+            />
 
             <div className="relative z-10 mx-auto max-w-4xl text-center">
                 <EyebrowPill label={eyebrowLabel} />
 
-                <h2 className="mx-auto max-w-3xl text-4xl font-bold tracking-tight text-white sm:text-5xl" style={{ fontFamily: 'var(--dp-font-display)' }}>
+                <h2
+                    className="mx-auto max-w-3xl text-4xl font-bold tracking-tight sm:text-5xl"
+                    style={{ fontFamily: 'var(--dp-font-display)', color: 'var(--dp-fg)' }}
+                >
                     {headingStart}{" "}
                     <span className="bg-gradient-to-r from-[#ff7aa5] to-[#dc2f65] bg-clip-text text-transparent">
                         {headingAccent}
@@ -129,7 +142,7 @@ export function FinalCTA({
                     {headingEnd}
                 </h2>
 
-                <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-zinc-300">
+                <p className="mx-auto mt-6 max-w-2xl text-lg leading-8" style={{ color: 'var(--dp-fg-muted)' }}>
                     {description}
                 </p>
 
@@ -137,10 +150,11 @@ export function FinalCTA({
                     <a
                         href={primaryButton.href}
                         onClick={primaryButton.onClick}
-                        className="inline-flex items-center gap-2 px-7 py-[13px] rounded-[10px] text-[14px] font-semibold text-white border-0 cursor-pointer no-underline"
+                        className="inline-flex items-center gap-2 px-7 py-[13px] rounded-[10px] text-[14px] font-semibold border-0 cursor-pointer no-underline"
                         style={{
                             background: 'var(--dp-accent)',
-                            boxShadow: '0 0 32px rgba(220,47,101,0.3), 0 4px 16px rgba(0,0,0,0.3)',
+                            color: '#fff',
+                            boxShadow: '0 0 24px var(--dp-accent-glow), 0 4px 16px rgba(0,0,0,0.2)',
                         }}
                     >
                         {primaryButton.label} {primaryButton.icon}
@@ -150,8 +164,8 @@ export function FinalCTA({
                         onClick={secondaryButton.onClick}
                         className="inline-flex items-center gap-2 px-7 py-[13px] rounded-[10px] text-[14px] font-semibold cursor-pointer no-underline"
                         style={{
-                            background: 'rgba(255,255,255,0.05)',
-                            border: '1px solid rgba(255,255,255,0.1)',
+                            background: 'var(--dp-surface-2)',
+                            border: '1px solid var(--dp-border-strong)',
                             color: 'var(--dp-fg)',
                         }}
                     >
@@ -159,7 +173,7 @@ export function FinalCTA({
                     </a>
                 </div>
 
-                <div className="mt-2 flex flex-wrap items-center justify-center gap-6 text-sm text-zinc-400">
+                <div className="mt-2 flex flex-wrap items-center justify-center gap-6 text-sm" style={{ color: 'var(--dp-fg-dim)' }}>
                     {trustItems.map((item) => (
                         <span key={item}>✓ {item}</span>
                     ))}
@@ -168,63 +182,6 @@ export function FinalCTA({
         </section>
     );
 }
-// export function FinalCTA() {
-//   return (
-//     <section className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-zinc-950 via-zinc-900 to-black px-6 py-16 sm:px-10 lg:px-16">
-//       {/* Background Glow */}
-//       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(220,47,101,0.22),transparent_30%),radial-gradient(circle_at_bottom_left,rgba(220,47,101,0.12),transparent_35%)]" />
-
-//       <div className="relative z-10 mx-auto max-w-4xl text-center">
-//         {/* Badge */}
-//         <div className="mb-6 inline-flex items-center rounded-full border border-[#dc2f65]/20 bg-[#dc2f65]/10 px-4 py-1.5 text-sm font-medium text-[#ff9fbc] backdrop-blur">
-//           GST Compliant • Real-Time APIs • Logistics Ready
-//         </div>
-
-//         {/* Heading */}
-//         <h2 className="mx-auto max-w-3xl text-4xl font-bold tracking-tight text-white sm:text-5xl">
-//           Automate{" "}
-//           <span className="bg-gradient-to-r from-[#ff8fb2] to-[#dc2f65] bg-clip-text text-transparent">
-//             e-Way Bill Generation
-//           </span>{" "}
-//           with Powerful APIs
-//         </h2>
-
-//         {/* Description */}
-//         <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-zinc-300">
-//           Integrate WhiteBooks e-Way Bill APIs into your ERP, logistics
-//           platform, accounting software, or supply chain system to automate
-//           e-Way Bill generation, updates, cancellations, and transportation
-//           compliance workflows in real time.
-//         </p>
-
-//         {/* CTA Buttons */}
-//         <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-//           <a
-//             href="/contact"
-//             className="inline-flex items-center justify-center rounded-xl bg-[#dc2f65] px-6 py-3 text-sm font-semibold text-white transition-all duration-200 hover:scale-[1.02] hover:bg-[#c52859]"
-//           >
-//             Get API Access
-//           </a>
-
-//           <a
-//             href="/demo"
-//             className="inline-flex items-center justify-center rounded-xl border border-[#dc2f65]/30 bg-[#dc2f65]/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur transition-all duration-200 hover:bg-[#dc2f65]/20"
-//           >
-//             Book a Live Demo
-//           </a>
-//         </div>
-
-//         {/* Trust Indicators */}
-//         <div className="mt-10 flex flex-wrap items-center justify-center gap-6 text-sm text-zinc-400">
-//           <span>✓ Real-Time e-Way Bill APIs</span>
-//           <span>✓ Vehicle & Transport Updates</span>
-//           <span>✓ Sandbox & Production Access</span>
-//           <span>✓ Enterprise-Grade Security</span>
-//         </div>
-//       </div>
-//     </section>
-//   );
-// }
 export default function InvoiceApiOverview() {
     return (
         <div className="min-h-screen" style={{ background: 'var(--dp-bg' }}>

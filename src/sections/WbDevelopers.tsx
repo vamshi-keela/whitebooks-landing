@@ -1,7 +1,10 @@
 import CodeBlock from "@/components/ui/CodeBlock";
 import { ButtonLink } from "@/components/ui/Button";
+import { useNavigate } from "react-router-dom";
+import DpIcon from "@/pages/developer/DpIcon";
 
 export function ForDevelopersSection() {
+    const navigate = useNavigate();
     return (
         <section className="relative overflow-hidden border-b border-white/[0.06] py-24 max-md:py-16 max-sm:py-12">
             <div
@@ -20,7 +23,7 @@ export function ForDevelopersSection() {
                 <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] gap-16 items-center max-lg:gap-10 max-md:grid-cols-1 max-md:gap-8">
                     <div>
                         <h2 className="[font-family:var(--font-serif)] font-semibold text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px] [text-wrap:balance]">
-                            The only India compliance API <em>written like a modern API</em> should be.
+                            The only India compliance API written like a modern API should be.
                         </h2>
                         <p className="text-[17px] max-sm:text-[15px] text-[var(--fg-secondary)] leading-[1.55] max-w-[600px] m-0 mt-[22px]">
                             REST, idempotent, retryable. Sandbox keys in 5 minutes. Production-grade SLAs. Direct GSTN-licensed pipe — no resold APIs.
@@ -38,13 +41,15 @@ export function ForDevelopersSection() {
                             ))}
                         </div>
                         <div className="mt-8 flex gap-[14px] flex-wrap">
-                            <ButtonLink href="/apis/gst" arrow>
+                            <ButtonLink
+                                onClick={() => navigate('/apis')}
+                            >
                                 Read the API docs
+                                <DpIcon name="arrow-right" size={14} />
                             </ButtonLink>
                             <ButtonLink
-                                href="#"
+                                href="https://accounts.whitebooks.in/signup?type=Developer&subscrid=&inviteId"
                                 variant="ghost"
-                                onClick={(e) => e.preventDefault()}
                             >
                                 Get sandbox keys
                             </ButtonLink>

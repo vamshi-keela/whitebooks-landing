@@ -144,6 +144,10 @@ export default function WhyCards() {
           The case for buying compliance{' '}
           <span className="text-[#dc2f65]">from one company.</span>
         </h2>
+        {/* <h2 className="font-[var(--font-display)] font-semibold text-[clamp(26px,3.5vw,40px)] tracking-[-0.02em] leading-[1.1] max-w-[760px] text-[#e8e8f0]">
+          The case for buying compliance{' '}
+          <span className="text-[#dc2f65]">from one company.</span>
+        </h2> */}
 
         <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-5">
           {CARDS.map((card, i) => (

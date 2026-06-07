@@ -1,5 +1,5 @@
 export type FontPairKey =
-  | 'syne_dmsans'
+  | 'poppins_dmsans'
   | 'newsreader_geist'
   | 'instrument_geist'
   | 'instrument_inter'

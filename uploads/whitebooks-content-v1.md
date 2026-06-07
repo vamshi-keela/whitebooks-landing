@@ -269,10 +269,10 @@ Transparent pricing. Annual subscriptions. Volume that matters.
 **3 tier cards (high-level only — full pricing on /pricing):**
 
 **Starter** — For SMBs and solo CAs
-₹ from 4,999/year · 1 GSTIN · Unlimited filings
+₹4,999/year · 1 GSTIN · Unlimited filings
 
 **Growth** — For CA firms and mid-market
-₹ from 24,999/year · Up to 50 GSTINs · SAP/Tally connectors included
+₹24,999/year · Up to 50 GSTINs · SAP/Tally connectors included
 
 **Enterprise** — For finance teams ₹100Cr+
 Custom · Unlimited GSTINs · Dedicated CSM · 99.95% SLA · SAP S/4HANA native
@@ -379,7 +379,7 @@ GST filing that thinks before you click submit.
 File GSTR-1, 3B, 9, and 9C across unlimited GSTINs from one workspace. Auto-reconcile GSTR-2B against your purchase register in under 60 seconds. Built on a direct GSP license — no resold pipes.
 
 **Primary CTA:** Start 14-day free trial
-**Secondary CTA:** Book a demo
+**Secondary CTA:** Book a 20-min Demo
 
 **Microcopy:** Migrating from ClearTax TaxCloud, Tally, or Zoho? We import your prior 36 months of returns →
 
@@ -529,10 +529,10 @@ GST Software pricing — annual, all-in.
 
 **3 tier cards:**
 
-**Solo CA / SMB** — ₹ from 4,999/year
+**Solo CA / SMB** — ₹4,999/year
 1 GSTIN · Unlimited GSTR filings · 2A/2B reconciliation · Email support
 
-**CA Firm** — ₹ from 24,999/year (per partner)
+**CA Firm** — ₹24,999/year (per partner)
 Up to 50 client GSTINs · Multi-user · Working papers · White-label client portal · Priority support
 
 **Enterprise** — Custom
@@ -772,7 +772,7 @@ Sandbox keys in 5 minutes. Production in 5 days.
 
 **CTAs:**
 - **Sign up — get sandbox keys** (primary)
-- **Talk to a solutions engineer** (secondary, for enterprise)
+- **Read Guides** (secondary, for enterprise)
 
 ---
 
@@ -786,7 +786,7 @@ API pricing — pay for calls, not seats.
 **Developer** — Free
 10,000 sandbox calls/month · Community Slack · No production access
 
-**Startup** — ₹ from 14,999/month
+**Startup** — ₹14,999/month
 50,000 production calls/month · Email support, <8hr response · Standard SLA
 
 **Scale** — Custom
@@ -850,7 +850,7 @@ A: Linear at startup tier, custom volume pricing above 500K calls/month. We don'
 Whitebooks gives developer teams what they wish ClearTax and the others had built: a real API, real docs, real SLAs, and a real GSP license sitting underneath. Five minutes to your first sandbox call.
 
 **CTA primary:** Get sandbox keys →
-**CTA secondary:** Talk to a solutions engineer →
+**CTA secondary:** Read Guides →
 
 ---
 

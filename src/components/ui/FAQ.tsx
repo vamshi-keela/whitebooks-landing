@@ -13,7 +13,8 @@ export function FAQ({ items }: FAQProps) {
       {items.map((it, i) => (
         <div key={i} className="border-t border-[var(--hairline)] last:border-b last:border-[var(--hairline)]">
           <div
-            className="flex justify-between items-center py-5 cursor-pointer font-display font-medium text-[17px] tracking-[-0.005em] text-[var(--fg-primary)] transition-colors duration-[160ms] gap-4 select-none bg-transparent border-none w-full text-left hover:text-[var(--accent)]"
+            className="flex justify-between items-center py-5 cursor-pointer font-display font-medium text-[17px] tracking-[-0.005em] text-[var(--fg-primary)] transition-colors duration-[160ms] gap-4 select-none bg-transparent border-none w-full text-left"
+            style={{ color: open == i ? 'var(--accent)' : 'var(--fg-primary)' }}
             onClick={() => setOpen(open === i ? -1 : i)}
           >
             <span>{it.q}</span>

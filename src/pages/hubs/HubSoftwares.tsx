@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Icon from '@/components/icons/Icon';
-import { ButtonLink } from '@/components/ui/Button';
+import { Button, ButtonLink } from '@/components/ui/Button';
 import { Header, Footer, FluidBackground, Breadcrumb } from '@/layouts/SiteShell';
-import { PlainSection, IntegrationStrip, SubClose } from '@/layouts/SubpageShell';
+import { PlainSection, IntegrationStrip } from '@/layouts/SubpageShell';
 import { useReveal } from '@/hooks/useReveal';
 import PhotoRoom from "@/assets/Photoroom.png";
 import EyebrowPill from '@/components/ui/EyebrowPill';
 import WhyCards from './WhyCards';
 import SharedAILayer from './SharedAILayer';
+import { BookDemoModal } from '@/components/modals/BookDemoModal';
+import DpIcon from '../developer/DpIcon';
+import { SubClose } from '@/components/subpage/SubClose';
 
 interface SoftwareProduct {
   icon: React.ReactNode;
@@ -108,110 +111,122 @@ function ProductRow({ p, index }: ProductRowProps) {
 const wrap = "w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4";
 
 export function HubSoftwares() {
+  const [demoOpen, setDemoOpen] = useState(false);
+
   useReveal();
 
-  return (
-    <div className="min-h-screen bg-[var(--bg)]">
-      <Header mode="softwares" />
-      <main>
-        <section style={{ paddingTop: 100, paddingBottom: 0 }}>
-          <div className={wrap}>
-            <Breadcrumb items={[
-              { label: "Home", href: "/" },
-              { label: "Softwares" },
-            ]} />
-          </div>
-        </section>
+  useEffect(() => {
+    if (demoOpen) document.body.style.overflow = 'hidden';
+    else document.body.style.overflow = '';
+    return () => { document.body.style.overflow = ''; };
+  }, [demoOpen]);
 
-        {/* Hero */}
-        <section className="pt-[70px] pb-[72px] relative overflow-hidden">
-          <FluidBackground />
-          <div className={`${wrap} relative z-[2]`}>
-            <div className="w-[60%] max-lg:w-[70%] max-md:w-[85%] max-sm:w-full">
-              <EyebrowPill label={'Whitebooks Softwares'} />
-              <h1
-                className="font-[var(--font-display)] font-semibold tracking-[-0.02em] leading-[1.04]"
-                style={{ fontSize: "clamp(38px, 5.4vw, 68px)" }}
-              >
-                Five compliance products. <span className="text-[var(--brand)]">Shared data. One source of truth.</span>
-              </h1>
-              <p className="mt-[22px] max-w-[720px] text-[17px] text-[var(--muted-2)] leading-[1.55]">
-                Accounting, GST, e-Invoice, and e-Way Bill software for India — plus KSA e-Invoicing for businesses operating in Saudi Arabia. All five share one data layer and one direct GSP pipe to GSTN.
-              </p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <ButtonLink href="#book-demo" size="lg" arrow>
-                  Start 14-day free trial
-                </ButtonLink>
-                <ButtonLink href="#book-demo" variant="ghost" size="lg">
-                  Book a demo
-                </ButtonLink>
+  return (
+    <>
+      <div className="min-h-screen bg-[var(--bg)]">
+        <Header mode="softwares" />
+        <main>
+          {/* Hero */}
+          <section className="pt-[70px] pb-[72px] relative overflow-hidden">
+            <FluidBackground />
+
+            <section style={{ paddingTop: 30, paddingBottom: 70 }}>
+              <div className={wrap}>
+                <Breadcrumb items={[
+                  { label: "Home", href: "/" },
+                  { label: "Softwares" },
+                ]} />
+              </div>
+            </section>
+            <div className={`${wrap} relative z-[2]`}>
+              <div className="w-[60%] max-lg:w-[70%] max-md:w-[85%] max-sm:w-full">
+                <EyebrowPill label={'Whitebooks Softwares'} />
+                <h1
+                  className="font-display font-semibold tracking-[-0.02em] leading-[1.04]"
+                  style={{ fontSize: "clamp(32px, 4.5vw, 68px)" }}
+                >
+                  Five compliance products. <span className="text-[var(--brand)]">Shared data. One source of truth.</span>
+                </h1>
+                <p className="mt-[22px] max-w-[720px] text-[17px] text-[var(--muted-2)] leading-[1.55]">
+                  Accounting, GST, e-Invoice, and e-Way Bill software for India — plus KSA e-Invoicing for businesses operating in Saudi Arabia. All five share one data layer and one direct GSP pipe to GSTN.
+                </p>
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <Button onClick={() => { setDemoOpen(true); }} size="lg">
+                    Book a 20-min Demo
+                    <DpIcon name="arrow-right" size={14} />
+                  </Button>
+                </div>
               </div>
             </div>
-          </div>
-          <img
-            src={PhotoRoom}
-            alt=""
-            aria-hidden="true"
-            className="absolute bottom-0 right-0 h-full w-auto max-w-[50%] object-contain object-[bottom_right] pointer-events-none z-0 max-[1024px]:max-w-[40%] max-[1024px]:opacity-70 max-[700px]:hidden"
-          />
-        </section>
+            <img
+              src={PhotoRoom}
+              alt=""
+              aria-hidden="true"
+              className="absolute bottom-0 right-0 h-full w-auto max-w-[50%] object-contain object-[bottom_right] pointer-events-none z-0 max-[1024px]:max-w-[40%] max-[1024px]:opacity-70 max-[700px]:hidden"
+            />
+          </section>
 
-        {/* Five products (stacked rows) */}
-        <section className="relative py-[120px] max-[700px]:py-[72px]" data-reveal>
-          <div className={wrap}>
-            <h2 className="font-[var(--font-display)] font-semibold text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px]">
-              Pick what you need. <span className="text-[var(--brand)]">They work together when you add more.</span>
-            </h2>
-            <p className="mt-4 text-[16.5px] text-[var(--muted-2)] max-w-[640px] leading-[1.55]">
-              Each product is licensed independently. Bundle discounts apply automatically when you take two or more.
-            </p>
-            <div className="mt-12 flex flex-col border-t border-[var(--line)]">
-              {SOFTWARE_PRODUCTS.map((p, i) => <ProductRow key={i} p={p} index={i} />)}
+          {/* Five products (stacked rows) */}
+          <section className="relative py-[120px] max-[700px]:py-[72px]" data-reveal>
+            <div className={wrap}>
+              <h2 className="font-display font-semibold text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px]">
+                Pick what you need. <span className="text-[var(--brand)]">They work together when you add more.</span>
+              </h2>
+              <p className="mt-4 text-[16.5px] text-[var(--muted-2)] max-w-[640px] leading-[1.55]">
+                Each product is licensed independently. Bundle discounts apply automatically when you take two or more.
+              </p>
+              <div className="mt-12 flex flex-col border-t border-[var(--line)]">
+                {SOFTWARE_PRODUCTS.map((p, i) => <ProductRow key={i} p={p} index={i} />)}
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        <WhyCards />
+          <WhyCards />
 
-        {/* Integrations */}
-        <PlainSection
-          label="Integrations"
-          heading="Connect to the tools your finance team already uses."
-          sub="Whitebooks Softwares integrate with 40+ ERPs and accounting systems via native connectors. Push data in, pull reports out, file to GSTN — no CSV uploads in between."
-        >
-          <IntegrationStrip logos={[
-            "SAP S/4HANA", "SAP ECC", "Tally Prime", "Oracle NetSuite", "Microsoft Dynamics 365",
-            "Zoho Books", "Odoo", "Sage", "QuickBooks", "Marg", "Busy", "30+ more",
-          ]} />
-        </PlainSection>
+          {/* Integrations */}
+          <PlainSection
+            label="Integrations"
+            heading="Connect to the tools your finance team already uses."
+            sub="Whitebooks Softwares integrate with 40+ ERPs and accounting systems via native connectors. Push data in, pull reports out, file to GSTN — no CSV uploads in between."
+          >
+            <IntegrationStrip logos={[
+              "SAP S/4HANA", "SAP ECC", "Tally Prime", "Oracle NetSuite", "Microsoft Dynamics 365",
+              "Zoho Books", "Odoo", "Sage", "QuickBooks", "Marg", "Busy", "30+ more",
+            ]} />
+          </PlainSection>
 
-        <SharedAILayer
-          h2={<>Every Whitebooks software ships with the <span className="text-[#DC2F65]">same AI engine.</span></>}
-          body="Invoice matching, anomaly detection, notice prediction, and the compliance copilot run across all five products — not as features per product but as a shared layer over your unified data. The longer your data lives in Whitebooks, the smarter each product gets."
-          primaryCta={{ label: 'Read more about Whitebooks AI' }}
-        // secondaryCta={{ label: 'Talk to sales' }}
-        />
+          <SharedAILayer
+            h2={<>Every Whitebooks software ships with the same AI engine.</>}
+            body="Invoice matching, anomaly detection, notice prediction, and the compliance copilot run across all five products — not as features per product but as a shared layer over your unified data. The longer your data lives in Whitebooks, the smarter each product gets."
+            primaryCta={{ label: 'Read more about Whitebooks AI' }}
+          // secondaryCta={{ label: 'Talk to sales' }}
+          />
 
-        {/* Pricing teaser */}
-        <PlainSection
-          label="Pricing"
-          heading="Buy what you need. Bundle pricing when you need more."
-          sub="Each Whitebooks software is priced independently — start with one, add others as you scale. Bundle discounts apply automatically when you license two or more softwares on the same contract."
-        >
-          <div className="mt-6">
-            <ButtonLink href="#" variant="ghost" arrow>See full pricing</ButtonLink>
-          </div>
-        </PlainSection>
+          {/* Pricing teaser */}
+          <PlainSection
+            label="Pricing"
+            heading="Buy what you need. Bundle pricing when you need more."
+            sub="Each Whitebooks software is priced independently — start with one, add others as you scale. Bundle discounts apply automatically when you license two or more softwares on the same contract."
+          >
+            <div className="mt-6">
+              <ButtonLink href="#" variant="ghost" arrow>See full pricing</ButtonLink>
+            </div>
+          </PlainSection>
 
-        {/* Closing */}
-        <SubClose
-          h2="Built as a suite. Bought as you need it."
-          body="Most finance teams start with GST Software and add e-Invoice or Accounting in the following quarter. Some start with KSA. Talk to us about where your stack is today."
-          primaryCta={{ label: "Book a demo", href: "#" }}
-          secondaryCta={{ label: "Talk to sales", href: "#" }}
-        />
-      </main>
-      <Footer />
-    </div>
+          {/* Closing */}
+          <SubClose
+            data={{
+              h2: "Built as a suite. Bought as you need it.",
+              body: "Most finance teams start with GST Software and add e-Invoice or Accounting in the following quarter. Some start with KSA. Talk to us about where your stack is today.",
+              primaryCta: { label: "Book a 20-min Demo", href: "#" },
+              secondaryCta: { label: "Talk to sales", href: "tel:+919032111788" }
+            }}
+          />
+        </main>
+        <Footer />
+      </div>
+      {demoOpen && <BookDemoModal onClose={() => setDemoOpen(false)} />}
+
+    </>
   );
 }

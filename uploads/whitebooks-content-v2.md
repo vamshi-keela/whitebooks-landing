@@ -43,7 +43,7 @@ KSA pages run a lighter version (skip section 6 if there's no India-specific AI 
 
 The following are deliberate placeholders. **Do not ship without verification:**
 
-- All pricing numbers (`₹ from X`)
+- All pricing numbers (`₹X`)
 - "Sub-200ms p50 IRN latency"
 - "99.95% uptime SLA"
 - "Median filing time per GSTIN per month: 14 minutes"
@@ -234,7 +234,7 @@ AI features run with strict data isolation. Your invoices, vendor data, and fili
 **Body:**
 India's compliance landscape changed more in 2025 than in the previous five years combined. Whitebooks is the only platform built from the ground up for what's next.
 
-**Primary CTA:** Book a demo
+**Primary CTA:** Book a 20-min Demo
 **Secondary CTA:** Talk to sales — +91 90321 11788
 
 ---
@@ -297,7 +297,7 @@ Five products. One workspace. Every filing your finance team owns.
 Accounting, GST, e-Invoice, and e-Way Bill software for India — plus KSA e-Invoicing for businesses operating in Saudi Arabia. All five share one data layer and one direct GSP pipe to GSTN.
 
 **Primary CTA:** Start 14-day free trial
-**Secondary CTA:** Book a demo
+**Secondary CTA:** Book a 20-min Demo
 
 ---
 
@@ -404,7 +404,7 @@ Each Whitebooks software is priced independently — start with one, add others 
 **Body:**
 Most finance teams start with GST Software and add e-Invoice or Accounting in the following quarter. Some start with KSA. Talk to us about where your stack is today.
 
-**Primary CTA:** Book a demo
+**Primary CTA:** Book a 20-min Demo
 **Secondary CTA:** Talk to sales
 
 ---
@@ -434,7 +434,7 @@ Books that post themselves. From your invoices, your bank, your ERP.
 Whitebooks Accounting reads your sales, purchase, and bank data and posts journal entries automatically. Your accountant reviews and certifies — not enters. Multi-entity, GST-aware, audit-ready by design.
 
 **Primary CTA:** Start 14-day free trial
-**Secondary CTA:** Book a demo
+**Secondary CTA:** Book a 20-min Demo
 
 **Microcopy:** Moving from Tally? We import your 3 most recent years of books in under 2 hours →
 
@@ -533,10 +533,10 @@ A fuzzy matching model reconciles bank narration to your books — handles UPI r
 
 **3 tier cards:**
 
-**Solo / SMB** — ₹ from 7,999/year
+**Solo / SMB** — ₹7,999/year
 1 entity · Unlimited transactions · Bank feed for 2 accounts · Email support
 
-**Growth** — ₹ from 29,999/year
+**Growth** — ₹29,999/year
 Up to 5 entities · Multi-GSTIN · Unlimited bank feeds · Priority support · Bundle discount with GST Software
 
 **Enterprise** — Custom
@@ -578,7 +578,7 @@ A: All data is hosted in ISO 27001-certified Indian data centers. AES-256 encryp
 Most Whitebooks Accounting customers cut monthly bookkeeping time by 60% in their first quarter. Try it free for 14 days. Bring your last quarter's data — see what your books look like when they post themselves.
 
 **Primary CTA:** Start 14-day free trial
-**Secondary CTA:** Book a demo
+**Secondary CTA:** Book a 20-min Demo
 
 ---
 ---
@@ -607,7 +607,7 @@ GST filing that thinks before you click submit.
 File GSTR-1, 3B, 9, and 9C across unlimited GSTINs from one workspace. Auto-reconcile GSTR-2B against your purchase register in under 60 seconds. Built on a direct GSP license — no resold pipes.
 
 **Primary CTA:** Start 14-day free trial
-**Secondary CTA:** Book a demo
+**Secondary CTA:** Book a 20-min Demo
 
 **Microcopy:** Migrating from ClearTax TaxCloud, Tally, or Zoho? We import your prior 36 months of returns →
 
@@ -704,10 +704,10 @@ Mismatches get auto-classified: vendor unfiled, invoice missing in PR, rate mism
 
 **3 tier cards:**
 
-**Solo CA / SMB** — ₹ from 4,999/year
+**Solo CA / SMB** — ₹4,999/year
 1 GSTIN · Unlimited GSTR filings · 2A/2B reconciliation · Email support
 
-**CA Firm** — ₹ from 24,999/year (per partner)
+**CA Firm** — ₹24,999/year (per partner)
 Up to 50 client GSTINs · Multi-user · Working papers · White-label client portal · Priority support
 
 **Enterprise** — Custom
@@ -752,7 +752,7 @@ A: All data is hosted in ISO 27001-certified Indian data centers. AES-256 at res
 Median filing time per GSTIN per month, across 12,000+ Whitebooks customers: 14 minutes. Most CA firms switching from ClearTax or Tally hit that benchmark inside two filing cycles.
 
 **Primary CTA:** Start 14-day free trial
-**Secondary CTA:** Book a demo
+**Secondary CTA:** Book a 20-min Demo
 
 ---
 ---
@@ -781,7 +781,7 @@ Generate IRNs for every B2B invoice. In bulk. Within the window.
 Whitebooks e-Invoice Software pushes invoices to the IRP and returns IRNs in under 200ms. Handles the 30-day reporting window, cancellation, amendment, and credit notes. Built for the April 2026 ₹5 crore mandate.
 
 **Primary CTA:** Start 14-day free trial
-**Secondary CTA:** Book a demo
+**Secondary CTA:** Book a 20-min Demo
 
 **Microcopy:** AATO above ₹10 crore? Whitebooks enforces the 30-day window automatically — never miss ITC eligibility →
 
@@ -879,10 +879,10 @@ Ask "show me all IRNs cancelled last month with reasons" or "which buyers have i
 
 **3 tier cards:**
 
-**Starter** — ₹ from 6,999/year
+**Starter** — ₹6,999/year
 Up to 1,000 IRNs/month · 1 GSTIN · Email support
 
-**Growth** — ₹ from 24,999/year
+**Growth** — ₹24,999/year
 Up to 25,000 IRNs/month · Up to 10 GSTINs · ERP connectors · Priority support
 
 **Enterprise** — Custom
@@ -924,7 +924,7 @@ A: e-Invoice Software is the finished UI product — your finance team uses the 
 The ₹5 crore AATO mandate goes live April 1, 2026. For ₹10 crore+ AATO, the 30-day reporting window means ITC at stake on every late invoice. Whitebooks customers move from "evaluating e-invoicing" to "live in production" in 2–6 weeks.
 
 **Primary CTA:** Start 14-day free trial
-**Secondary CTA:** Book a demo
+**Secondary CTA:** Book a 20-min Demo
 
 ---
 ---
@@ -953,7 +953,7 @@ Every dispatch needs an e-way bill. Generate it in one click.
 Auto-populate from your IRN or invoice. Bulk-generate for warehouse dispatch batches. Extend validity for in-transit delays. Cancel within 24 hours when needed. One screen, every workflow.
 
 **Primary CTA:** Start 14-day free trial
-**Secondary CTA:** Book a demo
+**Secondary CTA:** Book a 20-min Demo
 
 **Microcopy:** Dispatching from multiple warehouses? See how Pharmeasy generates e-way bills for 14 locations on Whitebooks →
 
@@ -1051,10 +1051,10 @@ Ask "show me all e-way bills that expired last week" or "which warehouses genera
 
 **3 tier cards:**
 
-**Starter** — ₹ from 5,999/year
+**Starter** — ₹5,999/year
 Up to 500 e-way bills/month · 1 GSTIN · Email support
 
-**Growth** — ₹ from 19,999/year
+**Growth** — ₹19,999/year
 Up to 10,000 bills/month · Up to 10 GSTINs · ERP connectors · Priority support
 
 **Enterprise** — Custom
@@ -1096,7 +1096,7 @@ A: Yes. When one vehicle carries multiple invoices, Whitebooks generates a singl
 Whitebooks customers generate millions of e-way bills annually — from single-warehouse SMBs to 14-warehouse Pharmeasy operations. Same software, same SLA, same direct GSP pipe.
 
 **Primary CTA:** Start 14-day free trial
-**Secondary CTA:** Book a demo
+**Secondary CTA:** Book a 20-min Demo
 
 ---
 ---
@@ -1124,7 +1124,7 @@ ZATCA-ready e-invoicing for businesses operating in Saudi Arabia.
 **Subhead:**
 Generate, sign, and submit e-invoices to ZATCA's FATOORAH portal in real time. Arabic and English invoicing, cryptographic signing, QR-coded outputs — and the same workspace handles your Indian GST filings.
 
-**Primary CTA:** Book a demo
+**Primary CTA:** Book a 20-min Demo
 **Secondary CTA:** Talk to KSA solutions team
 
 **Microcopy:** Operating in India and KSA? Whitebooks is one of the few platforms that handles both on one contract →
@@ -1238,7 +1238,7 @@ A: Yes — and this is a primary reason Indian-headquartered groups with KSA ope
 Whitebooks is one of the few platforms operating ZATCA-approved e-invoicing infrastructure alongside a GSTN GSP license. If your business files in both India and the GCC, talk to our KSA solutions team about a unified contract.
 
 **Primary CTA:** Talk to KSA solutions team
-**Secondary CTA:** Book a demo
+**Secondary CTA:** Book a 20-min Demo
 
 ---
 ---
@@ -1360,7 +1360,7 @@ Whitebooks API pricing scales with your call volume, not your team size. Free sa
 Sign up, get sandbox keys immediately, run the quickstart in 30 minutes, move to production within 5 business days after KYC.
 
 **Primary CTA:** Get sandbox keys
-**Secondary CTA:** Talk to a solutions engineer
+**Secondary CTA:** Read Guides
 
 ---
 ---
@@ -1488,7 +1488,7 @@ Combine the GST API with the Whitebooks reconciliation models to build your own 
 **Developer** — Free
 10,000 sandbox calls/month · Community Slack · No production access
 
-**Startup** — ₹ from 14,999/month
+**Startup** — ₹14,999/month
 50,000 production calls/month · Email support, <8hr response · Standard SLA
 
 **Scale** — Custom
@@ -1530,7 +1530,7 @@ A: Yes. HMAC-signed, replay-protected, with exponential backoff on delivery. Sub
 Sign up, get sandbox keys, run the quickstart. Production access in 5 business days after KYC. No procurement-cycle minimum — Startup tier starts at ₹14,999/month.
 
 **Primary CTA:** Get sandbox keys
-**Secondary CTA:** Talk to a solutions engineer
+**Secondary CTA:** Read Guides
 
 ---
 ---
@@ -1650,7 +1650,7 @@ Embed Whitebooks' compliance copilot in your product via the AI Q&A endpoint. Yo
 **Developer** — Free
 10,000 sandbox calls/month · Community Slack
 
-**Startup** — ₹ from 14,999/month
+**Startup** — ₹14,999/month
 50,000 production IRNs/month · Email support · Standard SLA
 
 **Scale** — Custom
@@ -1692,7 +1692,7 @@ A: Yes. One-click import from the API docs. Pre-configured for sandbox; swap the
 The ₹5 crore AATO mandate goes live April 1, 2026. Billing systems and ERPs serving Indian SMBs need e-invoicing capability — and most can't build it from scratch in time. Whitebooks ships the capability in a sprint.
 
 **Primary CTA:** Get sandbox keys
-**Secondary CTA:** Talk to a solutions engineer
+**Secondary CTA:** Read Guides
 
 ---
 ---
@@ -1806,7 +1806,7 @@ Given a list of consignments and available vehicles, the `/v1/ewaybill/optimize`
 **Developer** — Free
 10,000 sandbox calls/month
 
-**Startup** — ₹ from 9,999/month
+**Startup** — ₹9,999/month
 50,000 production bills/month · Email support · Standard SLA
 
 **Scale** — Custom
@@ -1848,7 +1848,7 @@ A: Yes. A `ewaybill.expiring_soon` event is emitted 4 hours before any active bi
 Pharmeasy generates e-way bills for 14 warehouses via the Whitebooks API. WheelsEye uses the API for fleet onboarding and transporter invoice reconciliation. Same SLA, same direct GSP pipe.
 
 **Primary CTA:** Get sandbox keys
-**Secondary CTA:** Talk to a solutions engineer
+**Secondary CTA:** Read Guides
 
 ---
 ---

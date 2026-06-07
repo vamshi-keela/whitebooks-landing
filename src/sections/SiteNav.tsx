@@ -65,7 +65,7 @@ export function SiteNav({ route, navigate }: SiteNavProps) {
             Sign in
           </a>
           <ButtonLink href="#" onClick={(e) => e.preventDefault()}>
-            Book a demo
+            Book a 20-min Demo
           </ButtonLink>
         </div>
       </div>

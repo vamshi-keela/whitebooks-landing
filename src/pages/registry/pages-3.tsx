@@ -12,10 +12,10 @@ const PAGES_3: Record<string, SubPageData> = {
       { label: "GST API" },
     ],
     hero: {
-      eyebrow: "GST API · Direct GSP pipe to GSTN",
+      eyebrow: "GST API | Direct GSP pipe to GSTN",
       title: (
         <>
-          File returns, pull 2A/2B, validate GSTINs — <span className="accent">over a real REST API.</span>
+          File returns, pull 2A/2B, validate GSTINs — <span className="text-[var(--brand)]">over a real REST API.</span>
         </>
       ),
       sub: (
@@ -25,12 +25,12 @@ const PAGES_3: Record<string, SubPageData> = {
       ),
       primaryCta: { label: "Get sandbox keys" },
       secondaryCta: { label: "Read the docs" },
-      micro: "Used in production by <a href='#'>Razorpay, Pharmeasy, Cars24, WheelsEye, and 200+ teams</a>.",
+      // micro: "Used in production by <a href='#'>Razorpay, Pharmeasy, Cars24, WheelsEye, and 200+ teams</a>.",
     },
     problem: {
       heading: (
         <>
-          Three reasons most &quot;GST APIs&quot; <span className="accent">disappoint developers.</span>
+          Three reasons most &quot;GST APIs&quot; <span className="text-[var(--brand)]">disappoint developers.</span>
         </>
       ),
       items: [
@@ -43,7 +43,7 @@ const PAGES_3: Record<string, SubPageData> = {
       label: "Endpoints",
       heading: (
         <>
-          The endpoints. <span className="accent">Documented like an API should be.</span>
+          The endpoints. <span className="text-[var(--brand)]">Documented like an API should be.</span>
         </>
       ),
       items: [
@@ -67,7 +67,7 @@ const PAGES_3: Record<string, SubPageData> = {
     ai: {
       heading: (
         <>
-          AI-friendly responses, <span className="accent">AI-friendly tooling.</span>
+          AI-friendly responses, <span className="text-[var(--brand)]">AI-friendly tooling.</span>
         </>
       ),
       items: [
@@ -81,7 +81,7 @@ const PAGES_3: Record<string, SubPageData> = {
       body: "Pay for calls, not for seats. Free sandbox for unlimited testing.",
       tiers: [
         { name: "Developer", price: "Free", cta: "Get sandbox keys", points: ["10,000 sandbox calls/month", "Community Slack", "No production access"] },
-        { name: "Startup", price: "₹ from 14,999", cycle: "/month", featured: true, cta: "Get started", points: ["50,000 production calls/month", "Email support, <8hr response", "Standard SLA"] },
+        { name: "Startup", price: "₹14,999", cycle: "/month", featured: true, cta: "Get started", points: ["50,000 production calls/month", "Email support, <8hr response", "Standard SLA"] },
         { name: "Scale", price: "Custom", cta: "Talk to sales", points: ["Unlimited production calls", "Dedicated infrastructure", "<2hr support", "99.95% SLA", "Account manager"] },
       ],
       note: "[Pricing placeholders.]",
@@ -101,13 +101,13 @@ const PAGES_3: Record<string, SubPageData> = {
     closing: {
       h2: (
         <>
-          Five minutes to <span className="accent">your first sandbox call.</span>
+          Five minutes to <span className="text-[var(--brand)]">your first sandbox call.</span>
         </>
       ),
       body:
         "Sign up, get sandbox keys, run the quickstart. Production access in 5 business days after KYC. No procurement-cycle minimum — Startup tier starts at ₹14,999/month.",
-      primaryCta: { label: "Get sandbox keys" },
-      secondaryCta: { label: "Talk to a solutions engineer" },
+      primaryCta: { label: "Get sandbox keys", href: "https://accounts.whitebooks.in/signup?type=Developer&subscrid=&inviteId" },
+      secondaryCta: { label: "Read Guides", href: "" },
     },
   },
 
@@ -120,10 +120,10 @@ const PAGES_3: Record<string, SubPageData> = {
       { label: "e-Invoice API" },
     ],
     hero: {
-      eyebrow: "e-Invoice API · Direct IRP integration",
+      eyebrow: "e-Invoice API | Direct IRP integration",
       title: (
         <>
-          Generate IRNs at scale. <span className="accent">In under 200 milliseconds.</span>
+          Generate IRNs at scale. <span className="text-[var(--brand)]">In under 200 milliseconds.</span>
         </>
       ),
       sub: (
@@ -137,7 +137,7 @@ const PAGES_3: Record<string, SubPageData> = {
     problem: {
       heading: (
         <>
-          Three reasons e-invoicing integrations <span className="accent">fail in production.</span>
+          Three reasons e-invoicing integrations <span className="text-[var(--brand)]">fail in production.</span>
         </>
       ),
       items: [
@@ -168,7 +168,7 @@ const PAGES_3: Record<string, SubPageData> = {
     ai: {
       heading: (
         <>
-          Smart features that <span className="accent">fit into your code.</span>
+          Smart features that <span className="text-[var(--brand)]">fit into your code.</span>
         </>
       ),
       items: [
@@ -182,7 +182,7 @@ const PAGES_3: Record<string, SubPageData> = {
       body: "Pay for calls, not seats. Free sandbox for unlimited testing.",
       tiers: [
         { name: "Developer", price: "Free", cta: "Get sandbox keys", points: ["10,000 sandbox calls/month", "Community Slack"] },
-        { name: "Startup", price: "₹ from 14,999", cycle: "/month", featured: true, cta: "Get started", points: ["50,000 production IRNs/month", "Email support", "Standard SLA"] },
+        { name: "Startup", price: "₹14,999", cycle: "/month", featured: true, cta: "Get started", points: ["50,000 production IRNs/month", "Email support", "Standard SLA"] },
         { name: "Scale", price: "Custom", cta: "Talk to sales", points: ["Unlimited IRNs", "Dedicated infrastructure", "99.95% SLA", "Account manager"] },
       ],
       note: "[Pricing placeholders.]",
@@ -202,13 +202,13 @@ const PAGES_3: Record<string, SubPageData> = {
     closing: {
       h2: (
         <>
-          April 2026 is closer than <span className="accent">your customers think.</span>
+          April 2026 is closer than <span className="text-[var(--brand)]">your customers think.</span>
         </>
       ),
       body:
         "The ₹5 crore AATO mandate goes live April 1, 2026. Billing systems and ERPs serving Indian SMBs need e-invoicing capability — and most can't build it from scratch in time. Whitebooks ships the capability in a sprint.",
       primaryCta: { label: "Get sandbox keys" },
-      secondaryCta: { label: "Talk to a solutions engineer" },
+      secondaryCta: { label: "Read Guides" },
     },
   },
 
@@ -221,10 +221,10 @@ const PAGES_3: Record<string, SubPageData> = {
       { label: "e-Way Bill API" },
     ],
     hero: {
-      eyebrow: "e-Way Bill API · GSP-Licensed",
+      eyebrow: "e-Way Bill API | GSP-Licensed",
       title: (
         <>
-          Every dispatch event triggers an e-way bill. <span className="accent">We make it one API call.</span>
+          Every dispatch event triggers an e-way bill. <span className="text-[var(--brand)]">We make it one API call.</span>
         </>
       ),
       sub: (
@@ -238,7 +238,7 @@ const PAGES_3: Record<string, SubPageData> = {
     problem: {
       heading: (
         <>
-          Three reasons e-way bill integrations <span className="accent">break at scale.</span>
+          Three reasons e-way bill integrations <span className="text-[var(--brand)]">break at scale.</span>
         </>
       ),
       items: [
@@ -269,7 +269,7 @@ const PAGES_3: Record<string, SubPageData> = {
     ai: {
       heading: (
         <>
-          What the AI <span className="accent">does inside the API.</span>
+          What the AI <span className="text-[var(--brand)]">does inside the API.</span>
         </>
       ),
       items: [
@@ -283,7 +283,7 @@ const PAGES_3: Record<string, SubPageData> = {
       body: "Pay for calls. Sandbox is free for unlimited testing.",
       tiers: [
         { name: "Developer", price: "Free", cta: "Get sandbox keys", points: ["10,000 sandbox calls/month"] },
-        { name: "Startup", price: "₹ from 9,999", cycle: "/month", featured: true, cta: "Get started", points: ["50,000 production bills/month", "Email support", "Standard SLA"] },
+        { name: "Startup", price: "₹9,999", cycle: "/month", featured: true, cta: "Get started", points: ["50,000 production bills/month", "Email support", "Standard SLA"] },
         { name: "Scale", price: "Custom", cta: "Talk to sales", points: ["Unlimited bills", "Dedicated infrastructure", "99.95% SLA", "Account manager"] },
       ],
       note: "[Pricing placeholders.]",
@@ -303,13 +303,13 @@ const PAGES_3: Record<string, SubPageData> = {
     closing: {
       h2: (
         <>
-          Logistics doesn&apos;t wait. <span className="accent">Your e-way bill integration shouldn&apos;t either.</span>
+          Logistics doesn&apos;t wait. <span className="text-[var(--brand)]">Your e-way bill integration shouldn&apos;t either.</span>
         </>
       ),
       body:
         "Pharmeasy generates e-way bills for 14 warehouses via the Whitebooks API. WheelsEye uses the API for fleet onboarding and transporter invoice reconciliation. Same SLA, same direct GSP pipe.",
       primaryCta: { label: "Get sandbox keys" },
-      secondaryCta: { label: "Talk to a solutions engineer" },
+      secondaryCta: { label: "Read Guides" },
     },
   },
 
@@ -322,10 +322,10 @@ const PAGES_3: Record<string, SubPageData> = {
       { label: "KSA e-Invoice API" },
     ],
     hero: {
-      eyebrow: "KSA e-Invoice API · ZATCA Phase 2 Compliant",
+      eyebrow: "KSA e-Invoice API | ZATCA Phase 2 Compliant",
       title: (
         <>
-          ZATCA Phase 2 integration. <span className="accent">Without becoming an integration specialist.</span>
+          ZATCA Phase 2 integration. <span className="text-[var(--brand)]">Without becoming an integration specialist.</span>
         </>
       ),
       sub: (
@@ -339,7 +339,7 @@ const PAGES_3: Record<string, SubPageData> = {
     problem: {
       heading: (
         <>
-          Three reasons ZATCA Phase 2 integrations are <span className="accent">painful to build alone.</span>
+          Three reasons ZATCA Phase 2 integrations are <span className="text-[var(--brand)]">painful to build alone.</span>
         </>
       ),
       items: [
@@ -392,7 +392,7 @@ const PAGES_3: Record<string, SubPageData> = {
     closing: {
       h2: (
         <>
-          ZATCA Phase 2, behind <span className="accent">six clean endpoints.</span>
+          ZATCA Phase 2, behind <span className="text-[var(--brand)]">six clean endpoints.</span>
         </>
       ),
       body:

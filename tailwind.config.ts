@@ -5,6 +5,13 @@ export default {
   corePlugins: {
     preflight: false,
   },
+  /*
+   * darkMode: ['class', '[data-theme="dark"]'] enables Tailwind's dark: utilities
+   * to activate when the data-theme="dark" attribute is present on any ancestor.
+   * The codebase is primarily CSS-variable-driven so dark: utilities are rarely
+   * needed, but this ensures they work correctly if added in the future.
+   */
+  darkMode: ['class', '[data-theme="dark"]'],
   theme: {
     extend: {
       colors: {
@@ -17,7 +24,7 @@ export default {
         primary:         'var(--fg-primary, var(--text))',
         secondary:       'var(--fg-secondary, var(--muted-2))',
         muted:           'var(--fg-tertiary, var(--muted))',
-        subtle:          'var(--fg-quaternary, rgba(255,255,255,0.3))',
+        subtle:          'var(--fg-quaternary)',
 
         // ── Brand / accent tokens ───────────────────────────────────
         brand:           'var(--brand)',
@@ -69,6 +76,20 @@ export default {
         glow:    '0 0 40px var(--brand-glow)',
         card:    '0 1px 3px rgba(0,0,0,0.4), 0 0 0 1px var(--line)',
         'card-hover': '0 4px 16px rgba(0,0,0,0.5), 0 0 0 1px var(--line-2)',
+      },
+      keyframes: {
+        'pmap-pulse': {
+          '0%, 100%': { boxShadow: '0 0 0 0 rgba(220,47,101,0.4)', opacity: '1' },
+          '50%':       { boxShadow: '0 0 0 6px rgba(220,47,101,0)', opacity: '0.6' },
+        },
+        'pmap-coredot': {
+          '0%, 100%': { boxShadow: '0 0 12px rgba(220,47,101,0.8), 0 0 0 3px rgba(220,47,101,0.18)' },
+          '50%':       { boxShadow: '0 0 18px rgba(220,47,101,1), 0 0 0 5px rgba(220,47,101,0.08)' },
+        },
+      },
+      animation: {
+        'pmap-pulse':   'pmap-pulse 2.6s ease-in-out infinite',
+        'pmap-coredot': 'pmap-coredot 1.8s ease-in-out infinite',
       },
     },
   },

@@ -15,10 +15,10 @@ const PAGES_2: Record<string, SubPageData> = {
     ],
     extra: <ProductMap active="e-invoice" />,
     hero: {
-      eyebrow: "e-Invoice Software · Direct IRP Integration",
+      eyebrow: "e-Invoice Software | Direct IRP Integration",
       title: (
         <>
-          Generate IRNs for every B2B invoice. <span className="accent">In bulk. Within the window.</span>
+          Generate IRNs for every B2B invoice. <span className="text-[var(--brand)]">In bulk. Within the window.</span>
         </>
       ),
       sub: (
@@ -26,15 +26,15 @@ const PAGES_2: Record<string, SubPageData> = {
           Whitebooks e-Invoice Software pushes invoices to the IRP and returns IRNs in under 200ms. Handles the 30-day reporting window, cancellation, amendment, and credit notes. <strong>Built for the April 2026 ₹5 crore mandate.</strong>
         </>
       ),
-      primaryCta: { label: "Start 14-day free trial" },
-      secondaryCta: { label: "Book a demo" },
-      micro:
-        "AATO above ₹10 crore? <a href='#'>Whitebooks enforces the 30-day window automatically — never miss ITC eligibility →</a>",
+      primaryCta: { label: "Start Free Trail" },
+      secondaryCta: { label: "Book a 20-min Demo" },
+      // micro:
+      //   "AATO above ₹10 crore? <a href='#'>Whitebooks enforces the 30-day window automatically — never miss ITC eligibility →</a>",
     },
     problem: {
       heading: (
         <>
-          Three things that go wrong with e-invoicing — <span className="accent">and shouldn&apos;t.</span>
+          Three things that go wrong with e-invoicing — <span className="text-[var(--brand)]">and shouldn&apos;t.</span>
         </>
       ),
       items: [
@@ -46,7 +46,7 @@ const PAGES_2: Record<string, SubPageData> = {
     features: {
       heading: (
         <>
-          What Whitebooks e-Invoice <span className="accent">does.</span>
+          What Whitebooks e-Invoice <span className="text-[var(--brand)]">does.</span>
         </>
       ),
       layout: "guide",
@@ -72,14 +72,14 @@ const PAGES_2: Record<string, SubPageData> = {
     ai: {
       heading: (
         <>
-          What the AI actually does <span className="accent">inside Whitebooks e-Invoice.</span>
+          What the AI actually does <span className="text-[var(--brand)]">inside Whitebooks e-Invoice.</span>
         </>
       ),
       items: [
         { title: "HSN auto-suggestion", body: "Type the product name, get the right HSN code and current GST 2.0 rate. Trained on 10 crore+ invoices across every Indian industry." },
+        { title: "Compliance copilot", body: <>Ask <code>&quot;show me all IRNs cancelled last month with reasons&quot;</code> or <code>&quot;which buyers have invoices nearing the 30-day deadline?&quot;</code> — answers from live data, source rows linked.</> },
         { title: "Place-of-supply auto-resolution", body: "Whitebooks reads the buyer GSTIN and shipping address, resolves the place of supply, and applies IGST vs CGST/SGST automatically. Handles bill-to/ship-to splits, third-party movements, and SEZ transactions." },
         { title: "Anomaly flagging", body: "Invoice values 3× higher than the buyer's historical pattern? Flagged. Buyer GSTIN inactive in the GSTN registry? Flagged before IRN request. New HSN never used by your business before? Flagged for human review." },
-        { title: "Compliance copilot", body: <>Ask <code>&quot;show me all IRNs cancelled last month with reasons&quot;</code> or <code>&quot;which buyers have invoices nearing the 30-day deadline?&quot;</code> — answers from live data, source rows linked.</> },
       ],
       note: (
         <>
@@ -91,8 +91,8 @@ const PAGES_2: Record<string, SubPageData> = {
       heading: "Pricing",
       body: "Pricing scales with IRN volume per month. Bundle discounts available with GST Software and Accounting.",
       tiers: [
-        { name: "Starter", price: "₹ from 6,999", cycle: "/year", cta: "Start free", points: ["Up to 1,000 IRNs/month", "1 GSTIN", "Email support"] },
-        { name: "Growth", price: "₹ from 24,999", cycle: "/year", featured: true, cta: "Start free trial", points: ["Up to 25,000 IRNs/month", "Up to 10 GSTINs", "ERP connectors", "Priority support"] },
+        { name: "Starter", price: "₹6,999", cycle: "/year", cta: "Start free", points: ["Up to 1,000 IRNs/month", "1 GSTIN", "Email support"] },
+        { name: "Growth", price: "₹24,999", cycle: "/year", featured: true, cta: "Start free trial", points: ["Up to 25,000 IRNs/month", "Up to 10 GSTINs", "ERP connectors", "Priority support"] },
         { name: "Enterprise", price: "Custom", cta: "Talk to sales", points: ["Unlimited IRNs", "SAP-native", "Dedicated infrastructure", "99.95% SLA"] },
       ],
       note: "[Pricing placeholders.]",
@@ -112,13 +112,13 @@ const PAGES_2: Record<string, SubPageData> = {
     closing: {
       h2: (
         <>
-          April 2026 is closer than <span className="accent">your AP team thinks.</span>
+          April 2026 is closer than <span className="text-[var(--brand)]">your AP team thinks.</span>
         </>
       ),
       body:
         "The ₹5 crore AATO mandate goes live April 1, 2026. For ₹10 crore+ AATO, the 30-day reporting window means ITC at stake on every late invoice. Whitebooks customers move from 'evaluating e-invoicing' to 'live in production' in 2–6 weeks.",
-      primaryCta: { label: "Start 14-day free trial" },
-      secondaryCta: { label: "Book a demo" },
+      primaryCta: { label: "Book a 20-min Demo" },
+      secondaryCta: { label: "Start Free Trail", href: "https://accounts.whitebooks.in/login" },
     },
   },
 
@@ -132,23 +132,23 @@ const PAGES_2: Record<string, SubPageData> = {
     ],
     extra: <ProductMap active="e-way-bill" />,
     hero: {
-      eyebrow: "e-Way Bill Software · GSP-Licensed",
+      eyebrow: "e-Way Bill Software | GSP-Licensed",
       title: (
         <>
-          Every dispatch needs an e-way bill. <span className="accent">Generate it in one click.</span>
+          Every dispatch needs an e-way bill. <span className="text-[var(--brand)]">Generate it in one click.</span>
         </>
       ),
       sub:
         "Auto-populate from your IRN or invoice. Bulk-generate for warehouse dispatch batches. Extend validity for in-transit delays. Cancel within 24 hours when needed. One screen, every workflow.",
-      primaryCta: { label: "Start 14-day free trial" },
-      secondaryCta: { label: "Book a demo" },
-      micro:
-        "Dispatching from multiple warehouses? <a href='#'>See how Pharmeasy generates e-way bills for 14 locations on Whitebooks →</a>",
+      primaryCta: { label: "Start Free Trail" },
+      secondaryCta: { label: "Book a 20-min Demo" },
+      // micro:
+      //   "Dispatching from multiple warehouses? <a href='#'>See how Pharmeasy generates e-way bills for 14 locations on Whitebooks →</a>",
     },
     problem: {
       heading: (
         <>
-          Three things that slow down e-way bill operations — <span className="accent">and shouldn&apos;t.</span>
+          Three things that slow down e-way bill operations — <span className="text-[var(--brand)]">and shouldn&apos;t.</span>
         </>
       ),
       items: [
@@ -160,7 +160,7 @@ const PAGES_2: Record<string, SubPageData> = {
     features: {
       heading: (
         <>
-          What Whitebooks e-Way Bill <span className="accent">does.</span>
+          What Whitebooks e-Way Bill <span className="text-[var(--brand)]">does.</span>
         </>
       ),
       layout: "guide",
@@ -186,7 +186,7 @@ const PAGES_2: Record<string, SubPageData> = {
     ai: {
       heading: (
         <>
-          What the AI actually does <span className="accent">inside Whitebooks e-Way Bill.</span>
+          What the AI actually does <span className="text-[var(--brand)]">inside Whitebooks e-Way Bill.</span>
         </>
       ),
       items: [
@@ -205,8 +205,8 @@ const PAGES_2: Record<string, SubPageData> = {
       heading: "Pricing",
       body: "Pricing scales with monthly bill volume. Bundle discounts apply with e-Invoice and GST Software.",
       tiers: [
-        { name: "Starter", price: "₹ from 5,999", cycle: "/year", cta: "Start free", points: ["Up to 500 e-way bills/month", "1 GSTIN", "Email support"] },
-        { name: "Growth", price: "₹ from 19,999", cycle: "/year", featured: true, cta: "Start free trial", points: ["Up to 10,000 bills/month", "Up to 10 GSTINs", "ERP connectors", "Priority support"] },
+        { name: "Starter", price: "₹5,999", cycle: "/year", cta: "Start free", points: ["Up to 500 e-way bills/month", "1 GSTIN", "Email support"] },
+        { name: "Growth", price: "₹19,999", cycle: "/year", featured: true, cta: "Start free trial", points: ["Up to 10,000 bills/month", "Up to 10 GSTINs", "ERP connectors", "Priority support"] },
         { name: "Enterprise", price: "Custom", cta: "Talk to sales", points: ["Unlimited bills", "Multi-warehouse dispatch console", "99.95% SLA", "Dedicated CSM"] },
       ],
       note: "[Pricing placeholders.]",
@@ -226,13 +226,13 @@ const PAGES_2: Record<string, SubPageData> = {
     closing: {
       h2: (
         <>
-          Dispatches don&apos;t wait. <span className="accent">Your e-way bill software shouldn&apos;t either.</span>
+          Dispatches don&apos;t wait. <span className="text-[var(--brand)]">Your e-way bill software shouldn&apos;t either.</span>
         </>
       ),
       body:
         "Whitebooks customers generate millions of e-way bills annually — from single-warehouse SMBs to 14-warehouse Pharmeasy operations. Same software, same SLA, same direct GSP pipe.",
-      primaryCta: { label: "Start 14-day free trial" },
-      secondaryCta: { label: "Book a demo" },
+      primaryCta: { label: "Book a 20-min Demo" },
+      secondaryCta: { label: "Start Free Trail", href: "https://accounts.whitebooks.in/login" },
     },
   },
 
@@ -246,10 +246,10 @@ const PAGES_2: Record<string, SubPageData> = {
     ],
     extra: <ProductMap active="ksa" />,
     hero: {
-      eyebrow: "KSA e-Invoicing · ZATCA Phase 2 Compliant",
+      eyebrow: "KSA e-Invoicing | ZATCA Phase 2 Compliant",
       title: (
         <>
-          ZATCA-ready e-invoicing for <span className="accent">businesses operating in Saudi Arabia.</span>
+          ZATCA-ready e-invoicing for <span className="text-[var(--brand)]">businesses operating in Saudi Arabia.</span>
         </>
       ),
       sub: (
@@ -257,15 +257,15 @@ const PAGES_2: Record<string, SubPageData> = {
           Generate, sign, and submit e-invoices to ZATCA&apos;s FATOORAH portal in real time. Arabic and English invoicing, cryptographic signing, QR-coded outputs — <strong>and the same workspace handles your Indian GST filings.</strong>
         </>
       ),
-      primaryCta: { label: "Book a demo" },
-      secondaryCta: { label: "Talk to KSA solutions team" },
-      micro:
-        "Operating in India and KSA? <a href='#'>Whitebooks is one of the few platforms that handles both on one contract →</a>",
+      primaryCta: { label: "Book a 20-min Demo" },
+      secondaryCta: { label: "Talk to KSA solutions team", href: "https://accounts.whitebooks.in/login" },
+      // micro:
+      //   "Operating in India and KSA? <a href='#'>Whitebooks is one of the few platforms that handles both on one contract →</a>",
     },
     problem: {
       heading: (
         <>
-          Three reasons KSA e-invoicing is <span className="accent">harder than it looks.</span>
+          Three reasons KSA e-invoicing is <span className="text-[var(--brand)]">harder than it looks.</span>
         </>
       ),
       items: [
@@ -277,7 +277,7 @@ const PAGES_2: Record<string, SubPageData> = {
     features: {
       heading: (
         <>
-          What Whitebooks KSA e-Invoicing <span className="accent">does.</span>
+          What Whitebooks KSA e-Invoicing <span className="text-[var(--brand)]">does.</span>
         </>
       ),
       layout: "guide",
@@ -323,13 +323,13 @@ const PAGES_2: Record<string, SubPageData> = {
     closing: {
       h2: (
         <>
-          India compliance is hard. KSA compliance is harder. <span className="accent">We do both.</span>
+          India compliance is hard. KSA compliance is harder. <span className="text-[var(--brand)]">We do both.</span>
         </>
       ),
       body:
         "Whitebooks is one of the few platforms operating ZATCA-approved e-invoicing infrastructure alongside a GSTN GSP license. If your business files in both India and the GCC, talk to our KSA solutions team about a unified contract.",
       primaryCta: { label: "Talk to KSA solutions team" },
-      secondaryCta: { label: "Book a demo" },
+      secondaryCta: { label: "Book a 20-min Demo" },
     },
   },
 };

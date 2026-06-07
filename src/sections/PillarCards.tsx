@@ -464,14 +464,14 @@ export function PillarCard({
         'relative overflow-hidden flex flex-col',
         // Featured: switch to side-by-side only from lg (1024px+) where there's enough room
         featured && 'lg:flex-row',
+        // Mobile: always 1 column to prevent implicit column creation; sm+: span 2
+        featured ? 'col-span-1 sm:col-span-2' : 'col-span-1',
         onClick ? 'cursor-pointer' : 'cursor-default',
       )}
       style={{
         background: 'var(--bg-card)',
         border: `1px solid ${hovered ? 'var(--hairline-bright)' : 'var(--hairline)'}`,
         borderRadius: 16,
-        // span-2 works on 2-col and 3-col grids; on 1-col it's ignored
-        gridColumn: featured ? 'span 2' : 'auto',
         transition: 'border-color 180ms ease, transform 220ms ease',
         transform: hovered ? 'translateY(-2px)' : 'none',
       }}

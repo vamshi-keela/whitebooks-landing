@@ -2,16 +2,40 @@
 <html lang="en">
 
 <head>
+  <!--
+    Theme initialization — runs synchronously before CSS is applied to prevent
+    flash of incorrect theme (FOUC). Sets data-theme on <html> from localStorage
+    or prefers-color-scheme before the first paint.
+  -->
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('wb-theme');
+        var resolved = (t === 'dark' || t === 'light') ? t
+          : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', resolved);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Whitebooks | India's AI-native compliance platform</title>
+  <title>GST Software, e-Invoice & Accounting for Indian Businesses | Whitebooks</title>
   <meta name="description"
     content="GST filing, e-invoicing, and e-way bills — automated, AI-reconciled, and trusted by P&G, IBM, Razorpay, and 12,000+ businesses across India." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!--
+    Poppins replaces Syne as the display/heading font.
+    DM Sans remains for body copy. JetBrains Mono for code.
+    &display=swap ensures text is shown in fallback font immediately,
+    avoiding render-blocking while still getting the web font on load.
+  -->
   <link
-    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500;600&display=swap"
     rel="stylesheet" />
 </head>
 

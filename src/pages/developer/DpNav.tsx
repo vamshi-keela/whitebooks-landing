@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Logo } from './DpComponents';
 import DpIcon, { type IconName } from './DpIcon';
 import { SiteLogo } from '@/layouts/SiteShell';
+import { ThemeToggle } from '@/components/ui/ThemeToggle';
 
 type ViewName = 'gst-api' | 'e-invoice-api' | 'e-way-api' | 'ksa-api';//'guide'|
 
@@ -284,7 +285,7 @@ export default function DpNav({ activeView, setView, onOpenPalette }: DpNavProps
               );
             })}
           </div>
-
+          <ThemeToggle size={24} />
           {/* Mobile spacer */}
           <div className="flex-1 sm:hidden" />
 

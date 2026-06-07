@@ -81,7 +81,7 @@ export default function Header({ mode = 'home' }: HeaderProps) {
         {/* Right side */}
         <div className="flex items-center gap-3.5">
           <ButtonLink href="#book-demo" variant="outline" className="hidden xs:inline-flex">
-            Book a demo
+            Book a 20-min Demo
           </ButtonLink>
 
           {/* Hamburger — mobile only */}
@@ -107,7 +107,7 @@ export default function Header({ mode = 'home' }: HeaderProps) {
             className="mt-1"
             onClick={() => setMenuOpen(false)}
           >
-            Book a demo
+            Book a 20-min Demo
           </ButtonLink>
         </div>
       )}

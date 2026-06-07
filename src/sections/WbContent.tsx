@@ -217,7 +217,7 @@ export function ClosingCTA() {
           Whitebooks gives finance teams and developers a directly licensed GSP, an AI-native product, and a developer API that doesn't make you build the compliance yourself.
         </p>
         <div className="wb-closing-cta-row">
-          <ButtonLink href="#" variant="white" size="lg" arrow>Book a demo</ButtonLink>
+          <ButtonLink href="#" variant="white" size="lg" arrow>Book a 20-min Demo</ButtonLink>
           <ButtonLink href="#hub" variant="whiteOutline" size="lg">Browse the product suite</ButtonLink>
         </div>
       </div>

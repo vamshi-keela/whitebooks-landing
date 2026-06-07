@@ -19,4 +19,7 @@ export const CANONICAL_ROUTES = {
   apis: () => `${SITE.baseUrl}/apis`,
   apiProduct: (slug: string) => `${SITE.baseUrl}/apis/${slug}`,
   developer: () => `${SITE.baseUrl}/developer`,
+  developerApi: (apiSlug: string) => `${SITE.baseUrl}/developer/${apiSlug}`,
+  developerEndpoint: (apiSlug: string, opSlug: string) =>
+    `${SITE.baseUrl}/developer/${apiSlug}/${opSlug}`,
 } as const;

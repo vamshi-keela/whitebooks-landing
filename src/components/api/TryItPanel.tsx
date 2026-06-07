@@ -29,14 +29,15 @@ function statusColors(code: number): { text: string; bg: string; border: string 
 
 /* Shared class strings */
 const inputCls = [
-  'w-full bg-white/[0.04] border border-white/10 rounded-[7px]',
-  'px-2.5 py-[7px]',
-  'font-[family-name:var(--dp-font-mono)] text-[12px] text-[var(--dp-fg)]',
-  'outline-none',
+  'w-full bg-[var(--dp-surface-2)] border border-[var(--dp-border-strong)] rounded-[7px]',
+  'px-3 py-2',
+  'font-[family-name:var(--dp-font-mono)] text-[13px] text-[var(--dp-fg)]',
+  'outline-none focus:border-[var(--dp-accent-line)] transition-colors duration-150',
+  'placeholder:text-[var(--dp-fg-faint)]',
 ].join(' ');
 
-const sectionHead = 'text-[10px] font-bold uppercase tracking-[0.1em] text-[var(--dp-fg-faint)] mt-[18px] mb-2';
-const fieldLabel = 'block text-[11px] font-[family-name:var(--dp-font-mono)] text-[var(--dp-fg-muted)] mb-1';
+const sectionHead = 'text-[11px] font-bold uppercase tracking-[0.1em] text-[var(--dp-fg-dim)] mt-[18px] mb-2';
+const fieldLabel = 'block text-[12px] font-[family-name:var(--dp-font-mono)] text-[var(--dp-fg-muted)] mb-1.5';
 
 export default function TryItPanel({ operation, fullUrl }: Props): React.ReactElement {
   const { spec } = useSpec();
@@ -122,7 +123,7 @@ export default function TryItPanel({ operation, fullUrl }: Props): React.ReactEl
       <div className="flex flex-wrap items-center gap-2.5 mb-[18px]">
         <MethodBadge method={operation.method} />
 
-        <code className="font-[family-name:var(--dp-font-mono)] text-xs sm:xs text-[var(--dp-fg)] bg-white/[0.04] border border-[var(--dp-border)] rounded-[7px] px-3 py-1 tracking-[0.01em] break-all">
+        <code className="font-[family-name:var(--dp-font-mono)] text-[13px] text-[var(--dp-fg)] bg-[var(--dp-surface-2)] border border-[var(--dp-border-strong)] rounded-[7px] px-3 py-1.5 tracking-[0.01em] break-all">
           {operation.path}
         </code>
 
@@ -137,7 +138,7 @@ export default function TryItPanel({ operation, fullUrl }: Props): React.ReactEl
         </div> */}
       </div>
       {/* Authorization */}
-      <div className={sectionHead}>Authorization</div>
+      {/* <div className={sectionHead}>Authorization</div>
       <div className="relative">
         <span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-[11px] font-[family-name:var(--dp-font-mono)] text-[var(--dp-fg-faint)] pointer-events-none select-none">
           Bearer
@@ -149,7 +150,7 @@ export default function TryItPanel({ operation, fullUrl }: Props): React.ReactEl
           onChange={e => setAuthToken(e.target.value)}
           className={`${inputCls} pl-14`}
         />
-      </div>
+      </div> */}
 
       {/* Path params */}
       {pathParams.length > 0 && (
@@ -265,23 +266,23 @@ export default function TryItPanel({ operation, fullUrl }: Props): React.ReactEl
         return (
           <div className="mt-5">
             <div className="flex items-center gap-2 mb-2.5">
-              <span className="text-[10px] uppercase tracking-[0.1em] text-[var(--dp-fg-faint)] font-bold">
+              <span className="text-[11px] uppercase tracking-[0.1em] text-[var(--dp-fg-dim)] font-bold">
                 Response
               </span>
               <span
-                className="text-[12px] font-[family-name:var(--dp-font-mono)] font-bold rounded-[6px] px-2 py-px"
+                className="text-[12px] font-[family-name:var(--dp-font-mono)] font-bold rounded-[6px] px-2.5 py-0.5"
                 style={{ color: col.text, background: col.bg, border: `1px solid ${col.border}` }}
               >
                 {response.status} {response.statusText}
               </span>
-              <span className="ml-auto text-[11px] text-[var(--dp-fg-faint)] font-[family-name:var(--dp-font-mono)]">
+              <span className="ml-auto text-[12px] text-[var(--dp-fg-dim)] font-[family-name:var(--dp-font-mono)]">
                 {response.durationMs}ms
               </span>
             </div>
 
-            <div className="bg-[#080810] border border-[var(--dp-border)] rounded-[8px] overflow-hidden">
-              <div className="px-2.5 py-1 border-b border-[var(--dp-border)] bg-white/[0.02]">
-                <span className="text-[10px] text-[var(--dp-fg-faint)] font-[family-name:var(--dp-font-mono)] uppercase tracking-[0.06em]">
+            <div className="bg-[var(--dp-surface)] border border-[var(--dp-border-strong)] rounded-[8px] overflow-hidden">
+              <div className="px-3 py-1.5 border-b border-[var(--dp-border-strong)] bg-[var(--dp-surface-2)]">
+                <span className="text-[11px] text-[var(--dp-fg-dim)] font-[family-name:var(--dp-font-mono)] uppercase tracking-[0.06em] font-semibold">
                   Body
                 </span>
               </div>

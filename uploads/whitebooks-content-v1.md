@@ -69,7 +69,7 @@ EaseMyTrip · Pigeon · Landmark · NCC · Odoo · Protiviti
 IIT Hyderabad · NHDC · OPGC · WheelsEye · Jyothy Labs · Poorvika
 
 **Caption under wall:**
-30,000+ businesses · 8,000+ cities · 10 crore+ invoices processed
+25,000+ businesses · 8,000 CAs · 9 crore INRs processed
 
 ---
 
@@ -223,10 +223,9 @@ Ask "Why did my ITC drop ₹4.2L in October?" or "Which vendors are unfiled for 
 
 ## Section 9 — Proof: numbers + customer quote
 
-**Stat strip (4 stats, horizontal):**
-- **10 cr+** invoices filed via Whitebooks
-- **12,000+** businesses, 5,000+ CA firms
-- **30,000+** active users across 8,000+ Indian cities
+**Stat strip (3 stats, horizontal):**
+- **9 cr+** INRs Proccessed via Whitebooks
+- **25,000+** active clients, 8,000+ CAs
 - **₹0** customer data ever shared with third parties
 
 **Customer quote (lead with the most recognizable name):**

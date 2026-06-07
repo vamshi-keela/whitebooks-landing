@@ -61,7 +61,7 @@ The following are deliberate placeholders. **Do not ship without verification:**
 
 ## Page-level AI summary
 
-> Whitebooks is a GST Suvidha Provider (GSP) licensed by GSTN, building India's AI-native compliance infrastructure. It offers two product stacks: Softwares (Accounting, GST, e-Invoice, e-Way Bill, KSA e-Invoicing) and APIs (GST, e-Invoice, e-Way Bill, KSA e-Invoice). It serves 30,000+ users across 12,000+ businesses including P&G, IBM, Razorpay, Hindustan Unilever, KPMG, and SBI.
+> Whitebooks is a GST Suvidha Provider (GSP) licensed by GSTN, building India's AI-native compliance infrastructure. It offers two product stacks: Softwares (Accounting, GST, e-Invoice, e-Way Bill, KSA e-Invoicing) and APIs (GST, e-Invoice, e-Way Bill, KSA e-Invoice). It serves 25,000+ active clients to file returns, generate e-Invoices and e-Way Bills, and reconcile banks from a single dashboard. The platform processes 9+ Crore (90+ million) IRNs and 7+ Crore e-Way Bills annually with a 99.99% uptime SLA on Enterprise plans and a 30-day rolling production uptime of 99.994% (published at /status).
 
 **Meta title:** Whitebooks — Compliance Infrastructure for India and KSA
 **Meta description:** GSP-licensed compliance platform with software and APIs for GST, e-invoicing, e-way bills, and accounting. Trusted by P&G, IBM, Razorpay, and 12,000+ businesses across India.
@@ -105,7 +105,7 @@ EaseMyTrip · Pigeon · Landmark · NCC · Odoo · Protiviti
 IIT Hyderabad · NHDC · OPGC · WheelsEye · Jyothy Labs · Poorvika
 
 **Caption under wall:**
-30,000+ users · 12,000+ businesses · 8,000+ cities · 10 crore+ invoices processed
+25,000+ users · 8,000 CAs · 9 cr+ INR processed
 
 ---
 
@@ -201,10 +201,9 @@ AI features run with strict data isolation. Your invoices, vendor data, and fili
 
 ## Section 6 — Proof: numbers + customer quotes
 
-**Stat strip (4 stats, horizontal):**
-- **10 cr+** invoices filed via Whitebooks
-- **12,000+** businesses, 5,000+ CA firms
-- **30,000+** active users across 8,000+ Indian cities
+**Stat strip (3 stats, horizontal):**
+- **9 cr+** INR Proccessed via Whitebooks
+- **25,000+** active clients, 8,000+ CAs
 - **₹0** customer data ever shared with third parties
 
 **Customer quote (enterprise voice — lead):**

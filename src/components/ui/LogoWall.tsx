@@ -40,41 +40,41 @@ function getLogoSrc(key: string): string | null {
 //   color → logo uses brand colors             → survives grayscale in both modes
 
 const LOGOS: LogoEntry[] = [
-  { name: 'P&G',               key: 'pg',              variant: 'color' },
-  { name: 'IBM',               key: 'ibm',             variant: 'color' },
-  { name: 'Hindustan Unilever',key: 'hul',             variant: 'color' },
-  { name: 'KPMG',              key: 'kpmg',            variant: 'color' },
-  { name: 'Coca-Cola',         key: 'coca-cola',       variant: 'color' },
-  { name: 'Razorpay',          key: 'razorpay',        variant: 'color' },
-  { name: 'SBI',               key: 'sbi',             variant: 'color' },
-  { name: 'Aditya Birla',      key: 'aditya-birla',    variant: 'color' },
-  { name: 'Accenture',         key: 'accenture',       variant: 'dark'  }, // implicit black text paths
-  { name: 'KIA',               key: 'kia',             variant: 'dark'  }, // black/dark brand mark
-  { name: 'Philips',           key: 'philips',         variant: 'color' },
-  { name: 'Yamaha',            key: 'yamaha',          variant: 'color' },
-  { name: 'TVS',               key: 'tvs',             variant: 'color' },
-  { name: 'PepsiCo',           key: 'pepsico',         variant: 'color' },
-  { name: 'Pharmeasy',         key: 'pharmeasy',       variant: 'color' },
-  { name: 'Cars24',            key: 'cars24',          variant: 'color' },
-  { name: 'INOX',              key: 'inox',            variant: 'color' },
-  { name: 'Grant Thornton',    key: 'grant-thornton',  variant: 'color' },
-  { name: 'EaseMyTrip',        key: 'easemytrip',      variant: 'color' },
-  { name: 'Pigeon',            key: 'pigeon',          variant: 'color' },
-  { name: 'Landmark',          key: 'landmark',        variant: 'color' },
-  { name: 'NCC',               key: 'ncc',             variant: 'color' },
-  { name: 'Odoo',              key: 'odoo',            variant: 'color' },
-  { name: 'Protiviti',         key: 'protiviti',       variant: 'color' },
-  { name: 'IIT Hyderabad',     key: 'iit-hyderabad',   variant: 'color' },
-  { name: 'NHDC',              key: 'nhdc',            variant: 'color' },
-  { name: 'OPGC',              key: 'opgc',            variant: 'color' },
-  { name: 'WheelsEye',         key: 'wheelseye',       variant: 'dark'  }, // fill="black" on all text paths
-  { name: 'Jyothy Labs',       key: 'jyothy-labs',     variant: 'color' },
-  { name: 'NTC Group',         key: 'ntc-group',       variant: 'color' },
-  { name: 'KJL Group',         key: 'kjl-group',       variant: 'color' },
-  { name: 'Techno Paints',     key: 'techno-paints',   variant: 'color' },
-  { name: 'J-Ark Logistics',   key: 'j-ark-logistics', variant: 'color' },
-  { name: 'Poorvika',          key: 'poorvika',        variant: 'light' }, // fill:#FFFFFF throughout
-  { name: 'Vikran',            key: 'vikran',          variant: 'color' },
+  { name: 'P&G', key: 'pg', variant: 'color' },
+  { name: 'IBM', key: 'ibm', variant: 'color' },
+  { name: 'Hindustan Unilever', key: 'hul', variant: 'color' },
+  { name: 'KPMG', key: 'kpmg', variant: 'color' },
+  { name: 'Coca-Cola', key: 'coca-cola', variant: 'color' },
+  { name: 'Razorpay', key: 'razorpay', variant: 'color' },
+  { name: 'SBI', key: 'sbi', variant: 'color' },
+  { name: 'Aditya Birla', key: 'aditya-birla', variant: 'color' },
+  { name: 'Accenture', key: 'accenture', variant: 'dark' }, // implicit black text paths
+  { name: 'KIA', key: 'kia', variant: 'dark' }, // black/dark brand mark
+  { name: 'Philips', key: 'philips', variant: 'color' },
+  { name: 'Yamaha', key: 'yamaha', variant: 'color' },
+  { name: 'TVS', key: 'tvs', variant: 'color' },
+  { name: 'PepsiCo', key: 'pepsico', variant: 'color' },
+  { name: 'Pharmeasy', key: 'pharmeasy', variant: 'color' },
+  { name: 'Cars24', key: 'cars24', variant: 'color' },
+  { name: 'INOX', key: 'inox', variant: 'color' },
+  { name: 'Grant Thornton', key: 'grant-thornton', variant: 'color' },
+  { name: 'EaseMyTrip', key: 'easemytrip', variant: 'color' },
+  { name: 'Pigeon', key: 'pigeon', variant: 'color' },
+  { name: 'Landmark', key: 'landmark', variant: 'color' },
+  { name: 'NCC', key: 'ncc', variant: 'color' },
+  { name: 'Odoo', key: 'odoo', variant: 'color' },
+  { name: 'Protiviti', key: 'protiviti', variant: 'color' },
+  { name: 'IIT Hyderabad', key: 'iit-hyderabad', variant: 'color' },
+  { name: 'NHDC', key: 'nhdc', variant: 'color' },
+  { name: 'OPGC', key: 'opgc', variant: 'color' },
+  { name: 'WheelsEye', key: 'wheelseye', variant: 'dark' }, // fill="black" on all text paths
+  { name: 'Jyothy Labs', key: 'jyothy-labs', variant: 'color' },
+  { name: 'NTC Group', key: 'ntc-group', variant: 'color' },
+  { name: 'KJL Group', key: 'kjl-group', variant: 'color' },
+  { name: 'Techno Paints', key: 'techno-paints', variant: 'color' },
+  { name: 'J-Ark Logistics', key: 'j-ark-logistics', variant: 'color' },
+  { name: 'Poorvika', key: 'poorvika', variant: 'light' }, // fill:#FFFFFF throughout
+  { name: 'Vikran', key: 'vikran', variant: 'color' },
 ];
 
 // ─── BrandLogo component ──────────────────────────────────────────────────────

@@ -24,7 +24,7 @@ interface Props {
 
 function SectionLabel({ children }: { children: React.ReactNode }): React.ReactElement {
   return (
-    <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.09em] text-[var(--dp-fg-muted)] mb-[14px]">
+    <div className="flex items-center gap-2 text-[12px] font-bold uppercase tracking-[0.09em] text-[var(--dp-fg-muted)] mb-[14px]">
       <span className="inline-block w-[3px] h-[13px] bg-[var(--dp-accent)] rounded-[2px] shrink-0" />
       {children}
     </div>
@@ -126,21 +126,21 @@ export default function OperationDetail({
         </div> */}
 
         {/* Title */}
-        <h1 className="font-[family-name:var(--dp-font-display)] text-[20px] sm:text-[24px] lg:text-[26px] font-bold text-[var(--dp-fg)] mt-0 mb-2.5 leading-[1.2] tracking-[-0.02em]">
+        <h1 className="font-[family-name:var(--dp-font-display)] text-lg sm:text-lg lg:text-xl font-bold text-[var(--dp-fg)] mt-0 mb-2.5 leading-[1.2] tracking-[-0.02em]">
           {operation.summary}
         </h1>
 
         {/* Description */}
         {operation.description && (
-          <p className="text-[14px] leading-[1.75] text-[var(--dp-fg-muted)] mt-0 mb-[22px]">
+          <p className="text-base leading-[1.75] text-[var(--dp-fg-muted)] mt-0 mb-[22px]">
             {operation.description}
           </p>
         )}
 
         {/* Base URL pill */}
-        <div className="flex items-center gap-2.5 mb-8 bg-white/[0.025] border border-[var(--dp-border)] rounded-[8px] px-3.5 py-2">
+        <div className="flex items-center gap-2.5 mb-8 bg-[var(--dp-surface)] border border-[var(--dp-border)] rounded-[8px] px-3.5 py-2">
           <MethodBadge method={operation.method} />
-          <code className="font-[family-name:var(--dp-font-mono)] text-[0.75rem] sm:text-[0.875rem] text-[var(--dp-fg-muted)] flex-1 min-w-0 overflow-x-auto leading-none self-center flex items-center flex-nowrap gap-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <code className="py-1 font-[family-name:var(--dp-font-mono)] text-[0.75rem] sm:text-[0.875rem] text-[var(--dp-fg-muted)] flex-1 min-w-0 overflow-x-auto leading-none self-center flex items-center flex-nowrap gap-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             <span className="text-[var(--dp-fg-faint)] whitespace-nowrap shrink-0">{baseUrl}</span>
             <span className="whitespace-nowrap shrink-0">{operation.path}</span>
           </code>

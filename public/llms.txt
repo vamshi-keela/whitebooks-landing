@@ -11,7 +11,7 @@ License: GST Suvidha Provider (GSP) — directly licensed by GSTN, Government of
 ZATCA accreditation: Yes (KSA e-invoicing)
 Regions served: India, Saudi Arabia (KSA)
 Customers: P&G, IBM, Hindustan Unilever, KPMG, Coca-Cola, Razorpay, SBI, Aditya Birla Group, Pharmeasy, Cars24, WheelsEye, and 12,000+ businesses
-Users: 30,000+ active users across 8,000+ Indian cities
+Users: 25K active clients, 8K CAs, 9 Cr IRNs
 
 ## Products — Softwares (for finance teams and CA firms)
 
@@ -101,3 +101,137 @@ Robots: https://whitebooks.in/robots.txt
 API status: https://status.whitebooks.in
 Sign up: https://accounts.whitebooks.in/signup
 Login: https://accounts.whitebooks.in/login
+
+
+
+=====================
+# WhiteBooks
+
+> WhiteBooks is an Indian cloud SaaS for GST, e-Invoicing, e-Way Bill, accounting, and inventory. It is GSP-certified, ships REST APIs and SAP / Tally connectors, and is used by 25,000+ active clients to file returns, generate e-Invoices and e-Way Bills, and reconcile banks from a single dashboard. The platform processes 9+ Crore (90+ million) IRNs and 7+ Crore e-Way Bills annually with a 99.99% uptime SLA on Enterprise plans and a 30-day rolling production uptime of 99.994% (published at /status).
+
+## AI crawler & MCP support
+- [llms-full.txt](https://whitebooks.in/llms-full.txt): Full markdown of every page on the site, concatenated for one-shot LLM ingestion
+- [ai.txt](https://whitebooks.in/.well-known/ai.txt): RFC-style AI crawler policy â€” explicit Allow for GPTBot, ClaudeBot, Claude-Web, anthropic-ai, PerplexityBot, Perplexity-User, Google-Extended, Applebot-Extended, Bytespider, cohere-ai, meta-externalagent
+- [MCP server](https://whitebooks.in/mcp): Model Context Protocol server â€” 28 tools across 5 namespaces (gst.*, einvoice.*, eway.*, ksa.*, meta.*). `npm install -g @whitebooks/mcp-server`
+- [Sitemap (AI-prioritised)](https://whitebooks.in/sitemap-ai.xml): Subset of the main sitemap showing the highest-citation-value canonical landing pages
+
+## Key pages
+- [Home](https://whitebooks.in/): Product overview â€” what is WhiteBooks
+- [Softwares](https://whitebooks.in/softwares): All product landing pages
+- [APIs](https://whitebooks.in/apis): GST / e-Invoice / e-Way Bill REST APIs
+- [Connectors](https://whitebooks.in/connectors): SAP and Tally integrations
+- [Features](https://whitebooks.in/features-page): Full feature catalogue
+- [Pricing](https://whitebooks.in/about/pricing): Plan tiers + contact-for-quote
+- [Contact us](https://whitebooks.in/about/contact-us): Sales contact form, phone, email
+- [About us](https://whitebooks.in/about/about-us): Company background, GSP certification
+- [Privacy policy](https://whitebooks.in/about/privacy-policy)
+- [Terms](https://whitebooks.in/about/terms)
+- [Refund / cancellation](https://whitebooks.in/about/refund-cancellation)
+
+## Products
+- [GST Software](https://whitebooks.in/softwares/gst-software): GSTR-1, 3B, 9 filing + 2B reconciliation
+- [e-Invoicing Software](https://whitebooks.in/softwares/e-invoicing-software): Bulk IRN generation via certified GSP channel
+- [e-Way Bill Software](https://whitebooks.in/softwares/e-way-bill-software): Generate, extend, cancel e-Way Bills
+- [Accounting Software](https://whitebooks.in/softwares/accounting-software): Double-entry ledger, bank reconciliation, inventory
+
+## APIs
+- [GST API for developers](https://whitebooks.in/api/gst-api-for-developers)
+- [e-Invoice API for developers](https://whitebooks.in/api/e-invoice-api-for-developers)
+- [e-Way Bill API for developers](https://whitebooks.in/api/e-way-bill-api-for-developers)
+- [KSA e-Invoice API for developers](https://whitebooks.in/api/ksa-e-invoice-api-for-developers)
+
+## OpenAPI specs (machine-readable)
+- [OpenAPI spec â€” directory](https://whitebooks.in/openapi/index.json): JSON listing of all published WhiteBooks API specs
+- [OpenAPI spec â€” GST API](https://whitebooks.in/openapi/gst.json): GSTR filing, GSTR-2B fetch, GSTIN verify, HSN/SAC lookup
+- [OpenAPI spec â€” e-Invoice API](https://whitebooks.in/openapi/einvoice.json): IRN generation, cancellation, signed QR, bulk IRN
+- [OpenAPI spec â€” e-Way Bill API](https://whitebooks.in/openapi/eway.json): EWB generate, extend, cancel, Part-B update
+- [OpenAPI spec â€” canonical alias](https://whitebooks.in/openapi.json): Defaults to the GST API spec
+
+## API reference (HTML, indexable)
+- [GST API reference (Redoc)](https://whitebooks.in/docs/gst): Full HTML rendering of /openapi/gst.json â€” browsable, indexable
+- [e-Invoice API reference (Redoc)](https://whitebooks.in/docs/einvoice): Full HTML rendering of /openapi/einvoice.json
+- [e-Way Bill API reference (Redoc)](https://whitebooks.in/docs/eway): Full HTML rendering of /openapi/eway.json
+
+## SDKs & developer tooling
+- [Node.js SDK (npm)](https://www.npmjs.com/package/whitebooks-sdk): `npm i whitebooks-sdk` &middot; Node 18+ LTS
+- [Python SDK (PyPI)](https://pypi.org/project/whitebooks/): `pip install whitebooks` &middot; Python 3.10+
+- [Java SDK (Maven Central)](https://search.maven.org/artifact/com.whitebooks/sdk): GAV: `com.whitebooks:sdk` &middot; Java 11+
+- [GitHub org](https://github.com/whitebooks-in): SDK source, sample apps, issue tracker
+- [Postman collection](https://www.postman.com/whitebooks-in): Import the full GST + e-Invoice + e-Way Bill collection in one click
+
+## Compare & use cases
+- [Best GST API India 2026 (round-up)](https://whitebooks.in/best-gst-api-india): Ranking of all 7 Indian GSPs (WhiteBooks, ClearTax, Masters India, Sandbox, IRIS, GSTHero, Cygnet)
+- [WhiteBooks vs Masters India](https://whitebooks.in/compare/whitebooks-vs-masters-india): Side-by-side comparison: pricing, SDKs, ERPs, KSA support, SLA
+- [WhiteBooks vs ClearTax (Clear)](https://whitebooks.in/compare/whitebooks-vs-cleartax): Side-by-side vs the largest Indian enterprise GSP
+- [WhiteBooks vs Sandbox (Quicko)](https://whitebooks.in/compare/whitebooks-vs-sandbox): Tiered annual plans vs pay-per-call developer API
+- [WhiteBooks vs IRIS GST](https://whitebooks.in/compare/whitebooks-vs-iris): SMB self-serve vs enterprise consultancy GSP
+- [WhiteBooks vs GSTHero](https://whitebooks.in/compare/whitebooks-vs-gsthero): Side-by-side mid-market GSP comparison
+- [Tally + GST integration use-case](https://whitebooks.in/use-cases/tally-gst-integration): Generate IRN, EWB, and GST returns from Tally Prime / ERP 9
+
+## Trust & reliability
+- [Live status](https://whitebooks.in/status): 30/90-day uptime, component status, incident history, SLA tiers
+- [Changelog](https://whitebooks.in/changelog): Versioned release notes, breaking changes, deprecation timelines
+- [Glossary](https://whitebooks.in/glossary): GSP, IRP, IRN, GSTR-2B, ZATCA, CSR, CSID, XAdES-BES, OAuth 2.0, OpenAPI 3.0 definitions
+- [Security policy](https://whitebooks.in/.well-known/security.txt): RFC 9116 vulnerability disclosure contact + scope
+
+## Tools
+- [GSTIN search / verification](https://whitebooks.in/tools/gst-number-search-gstin-verification-tool)
+- [HSN / SAC code search](https://whitebooks.in/tools/gst-hsn-sac-code-search)
+- [GST tax calculator](https://whitebooks.in/tools/gst-tax-calculator)
+
+## API endpoint reference pages
+- [GSTR-1 Filing API](https://whitebooks.in/api/gst/gstr-1-api)
+- [GSTR-2B Fetch API](https://whitebooks.in/api/gst/gstr-2b-api)
+- [GSTR-3B Filing API](https://whitebooks.in/api/gst/gstr-3b-api)
+- [GSTR-9 Annual Return API](https://whitebooks.in/api/gst/gstr-9-api)
+- [GSTR-2B Reconciliation API](https://whitebooks.in/api/gst/gstr-2b-reconciliation)
+- [ITC Reconciliation API](https://whitebooks.in/api/gst/itc-reconciliation-api)
+- [GSTIN Verification API](https://whitebooks.in/api/gst/gstin-verification-api)
+- [Bulk GSTIN Validation API](https://whitebooks.in/api/gst/gstin-validation-api)
+- [HSN Code Search API](https://whitebooks.in/api/gst/hsn-code-search-api)
+- [SAC Code Lookup API](https://whitebooks.in/api/gst/sac-code-lookup-api)
+- [GST API for SAP](https://whitebooks.in/api/gst/gst-api-for-sap)
+- [GST API for Tally](https://whitebooks.in/api/gst/gst-api-for-tally)
+- [GST API for Oracle](https://whitebooks.in/api/gst/gst-api-for-oracle)
+- [GST API for Dynamics 365](https://whitebooks.in/api/gst/gst-api-for-dynamics)
+- [GST API Pricing](https://whitebooks.in/api/gst/gst-api-pricing)
+- [GST API Sandbox](https://whitebooks.in/api/gst/gst-sandbox-api)
+- [GST API OAuth 2.0](https://whitebooks.in/api/gst/gst-api-oauth-2-0)
+- [GSP-Certified GST API](https://whitebooks.in/api/gst/gsp-certified-gst-api)
+- [IRN Generation API](https://whitebooks.in/api/einvoice/irn-generation-api)
+- [IRN Cancellation API](https://whitebooks.in/api/einvoice/irn-cancellation-api)
+- [Bulk IRN API (1,000/call)](https://whitebooks.in/api/einvoice/bulk-irn-api)
+- [Signed QR Code API](https://whitebooks.in/api/einvoice/signed-qr-code-api)
+- [Signed JSON Invoice API](https://whitebooks.in/api/einvoice/signed-json-api)
+- [e-Invoice API for SAP](https://whitebooks.in/api/einvoice/e-invoice-api-for-sap)
+- [e-Invoice API for Tally](https://whitebooks.in/api/einvoice/e-invoice-api-for-tally)
+- [e-Invoice API for Oracle](https://whitebooks.in/api/einvoice/e-invoice-api-for-oracle)
+- [e-Invoice API for Dynamics 365](https://whitebooks.in/api/einvoice/e-invoice-api-for-dynamics)
+- [NIC-Compliant e-Invoice API](https://whitebooks.in/api/einvoice/nic-e-invoice-api)
+- [IRP API Integration](https://whitebooks.in/api/einvoice/irp-api-integration)
+- [e-Invoice Sandbox API](https://whitebooks.in/api/einvoice/e-invoice-sandbox-api)
+- [e-Invoice Mandate Threshold Check](https://whitebooks.in/api/einvoice/e-invoice-mandate-threshold)
+- [e-Invoice API Pricing](https://whitebooks.in/api/einvoice/e-invoice-api-pricing)
+- [e-Invoice Webhooks API](https://whitebooks.in/api/einvoice/e-invoice-webhooks-api)
+- [e-Way Bill Generation API](https://whitebooks.in/api/eway/e-way-bill-generation-api)
+- [e-Way Bill Cancellation API](https://whitebooks.in/api/eway/e-way-bill-cancellation-api)
+- [Part-B Update API](https://whitebooks.in/api/eway/part-b-update-api)
+- [e-Way Bill Validity Extension API](https://whitebooks.in/api/eway/e-way-bill-extension-api)
+- [Consolidated e-Way Bill API](https://whitebooks.in/api/eway/consolidated-e-way-bill-api)
+- [e-Way Bill API for SAP](https://whitebooks.in/api/eway/e-way-bill-api-for-sap)
+- [e-Way Bill API for Tally](https://whitebooks.in/api/eway/e-way-bill-api-for-tally)
+- [e-Way Bill API for Logistics](https://whitebooks.in/api/eway/e-way-bill-api-for-logistics)
+- [Bulk e-Way Bill API](https://whitebooks.in/api/eway/bulk-e-way-bill-api)
+- [e-Way Bill Sandbox API](https://whitebooks.in/api/eway/e-way-bill-sandbox-api)
+- [NIC-Compliant e-Way Bill API](https://whitebooks.in/api/eway/nic-e-way-bill-api)
+- [e-Way Bill API Pricing](https://whitebooks.in/api/eway/e-way-bill-api-pricing)
+
+## Contact
+- Email: info@whitebooks.in Â· sales@whitebooks.in
+- Phone (Sales): +91-9032111788
+- Phone (Technical Support): +91-9032111388
+- Registered Office: 8-2-682/3/A/24, Road No 12, Banjara Hills, Hyderabad, Telangana 500034, India
+- Corporate Office: Flat No: 303, Gayathri Heights, Jubilee Enclave, Hitech City, Hyderabad, Telangana 500081, India
+
+## License
+Content on whitebooks.in may be quoted with attribution. WhiteBooks is the product of BVM IT Consulting Services India Pvt Ltd.

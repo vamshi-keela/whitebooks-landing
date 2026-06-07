@@ -19,6 +19,7 @@ import { pagesRegistry } from '@/pages/registry/index';
 import type { SubPageData } from '@/types/pages';
 import { useReveal } from '@/hooks/useReveal';
 import DevPortal from '@/pages/developer/DevPortal';
+import ApiDocPage from '@/pages/developer/ApiDocPage';
 import DpHome from '@/pages/developer/DpHome';
 import { SeoHead } from '@/seo/components/SeoHead';
 import { StructuredData } from '@/seo/components/StructuredData';
@@ -32,6 +33,8 @@ import {
   buildFAQSchema,
 } from '@/seo/schema/generators';
 import type { SchemaFaqItem } from '@/seo/types';
+
+/* ─── Slug maps ─────────────────────────────────────────────────────────── */
 
 const SOFT_SLUG_MAP: Record<string, string> = {
   accounting: 'accounting',
@@ -48,24 +51,32 @@ const API_SLUG_MAP: Record<string, string> = {
   ksa: 'ksa-e-invoice-api',
 };
 
+/* ─── Home FAQ schema items ──────────────────────────────────────────────── */
+
 const HOME_FAQ_ITEMS: SchemaFaqItem[] = [
   {
-    question: "What is Whitebooks?",
-    answer: "Whitebooks is a GST Suvidha Provider (GSP) licensed by GSTN, offering cloud software and REST APIs for GST filing, e-invoicing, e-way bills, and KSA e-invoicing. It serves 30,000+ users across 12,000+ businesses including P&G, IBM, and Razorpay.",
+    question: 'What is Whitebooks?',
+    answer:
+      'Whitebooks is a GST Suvidha Provider (GSP) licensed by GSTN, offering cloud software and REST APIs for GST filing, e-invoicing, e-way bills, and KSA e-invoicing. It serves 25,000+ active clients, 8K CAs, 9Cr IRNs, and 12,000+ businesses including P&G, IBM, and Razorpay.',
   },
   {
-    question: "Is Whitebooks a direct GSP or does it resell another GSP's capacity?",
-    answer: "Whitebooks holds its GSP license directly from GSTN under BVM IT Consulting Services India Pvt. Ltd. It does not resell capacity from another licensee, which means faster latency, better uptime, and an independent roadmap.",
+    question: 'Is Whitebooks a direct GSP or does it resell another GSP\'s capacity?',
+    answer:
+      'Whitebooks holds its GSP license directly from GSTN under BVM IT Consulting Services India Pvt. Ltd. It does not resell capacity from another licensee, which means faster latency, better uptime, and an independent roadmap.',
   },
   {
-    question: "Which products does Whitebooks offer?",
-    answer: "Whitebooks offers two product stacks: Softwares (Accounting, GST, e-Invoice, e-Way Bill, KSA e-Invoicing) for finance teams and CA firms; and APIs (GST API, e-Invoice API, e-Way Bill API, KSA e-Invoice API) for developers.",
+    question: 'Which products does Whitebooks offer?',
+    answer:
+      'Whitebooks offers two product stacks: Softwares (Accounting, GST, e-Invoice, e-Way Bill, KSA e-Invoicing) for finance teams and CA firms; and APIs (GST API, e-Invoice API, e-Way Bill API, KSA e-Invoice API) for developers.',
   },
   {
-    question: "Does Whitebooks support e-invoicing for Saudi Arabia?",
-    answer: "Yes. Whitebooks is ZATCA-approved for Phase 2 e-invoicing in Saudi Arabia (FATOORAH integration, cryptographic signing, bilingual Arabic+English invoices). It is one of the few platforms handling both India GST and KSA e-invoicing on one workspace.",
+    question: 'Does Whitebooks support e-invoicing for Saudi Arabia?',
+    answer:
+      'Yes. Whitebooks is ZATCA-approved for Phase 2 e-invoicing in Saudi Arabia (FATOORAH integration, cryptographic signing, bilingual Arabic+English invoices). It is one of the few platforms handling both India GST and KSA e-invoicing on one workspace.',
   },
 ];
+
+/* ─── Route components ───────────────────────────────────────────────────── */
 
 function HomeRoute() {
   const [tab, setTab] = useState<string>('softwares');
@@ -205,27 +216,49 @@ function ApisHubRoute() {
   );
 }
 
-function DeveloperRoute() {
-  const meta = getPageMeta('/developer');
-  return (
-    <>
-      <SeoHead {...meta} />
-      <DevPortal />
-    </>
-  );
+/* ─── Developer portal index (redirects to GST API docs) ────────────────── */
+
+function DevPortalIndex() {
+  return <Navigate to="/developer/gst-api" replace />;
 }
+
+/* ─── AppRouter ──────────────────────────────────────────────────────────── */
 
 export function AppRouter() {
   return (
     <>
       <ScrollToTop />
       <Routes>
+        {/* ── Marketing / product routes ────────────────────────────── */}
         <Route path="/" element={<HomeRoute />} />
         <Route path="/softwares" element={<SoftwaresHubRoute />} />
         <Route path="/softwares/:product" element={<SoftwareSubPageRoute />} />
         <Route path="/apis" element={<ApisHubRoute />} />
         <Route path="/apis/:product" element={<ApiSubPageRoute />} />
-        <Route path="/developer/*" element={<DeveloperRoute />} />
+
+        {/* ── Developer portal (nested layout) ─────────────────────── */}
+        <Route path="/developer" element={<DevPortal />}>
+          {/* /developer → redirect to first API */}
+          <Route index element={<DevPortalIndex />} />
+
+          {/* GST API */}
+          <Route path="gst-api" element={<ApiDocPage apiType="gst-api" />} />
+          <Route path="gst-api/:opSlug" element={<ApiDocPage apiType="gst-api" />} />
+
+          {/* e-Invoice API */}
+          <Route path="e-invoice-api" element={<ApiDocPage apiType="e-invoice-api" />} />
+          <Route path="e-invoice-api/:opSlug" element={<ApiDocPage apiType="e-invoice-api" />} />
+
+          {/* e-Way Bill API */}
+          <Route path="e-way-bill-api" element={<ApiDocPage apiType="e-way-bill-api" />} />
+          <Route path="e-way-bill-api/:opSlug" element={<ApiDocPage apiType="e-way-bill-api" />} />
+
+          {/* KSA e-Invoice API */}
+          <Route path="ksa-e-invoice-api" element={<ApiDocPage apiType="ksa-e-invoice-api" />} />
+          <Route path="ksa-e-invoice-api/:opSlug" element={<ApiDocPage apiType="ksa-e-invoice-api" />} />
+        </Route>
+
+        {/* ── Fallback ──────────────────────────────────────────────── */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </>

@@ -327,8 +327,9 @@ function OnboardingSection(): React.ReactElement {
                   {step.snippet}
                 </div>
                 <span
-                  className="text-[0.6875rem] font-[var(--font-mono)] text-[var(--dp-fg-dim)] px-2 py-[2px] rounded-full border border-[var(--dp-border)]"
-                  style={{ background: 'rgba(255,255,255,0.04)' }}
+                  className='mono-tag accent'
+                // className="text-[0.6875rem] font-[var(--font-mono)] text-[var(--dp-fg-dim)] px-2 py-[2px] rounded-full border border-[var(--dp-border)]"
+                // style={{ background: 'rgba(255,255,255,0.04)' }}
                 >
                   {step.time}
                 </span>

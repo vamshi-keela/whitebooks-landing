@@ -10,9 +10,12 @@ interface FeatureGuideProps {
 }
 
 const STEP_VH = 60;
+// Tablet-height: laptop-width screen with short viewport (iPad landscape, small laptop, etc.)
+const isTabletHeight = () => window.innerWidth > 1000 && window.innerHeight <= 850;
 
 export function FeatureGuide({ heading, items, navLabel = "What it does" }: FeatureGuideProps) {
   const [active, setActive] = useState(0);
+  const [compact, setCompact] = useState(false);
   const outerRef = useRef<HTMLElement>(null);
   const STEPS = items.length;
 
@@ -50,6 +53,14 @@ export function FeatureGuide({ heading, items, navLabel = "What it does" }: Feat
     };
   }, [STEPS]);
 
+  // Separate effect for compact/tablet-height detection — runs on mount + every resize
+  useEffect(() => {
+    const check = () => setCompact(isTabletHeight());
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
   const onNavClick = (i: number) => {
     setActive(i);
     if (window.innerWidth <= 1000) return;
@@ -70,6 +81,11 @@ export function FeatureGuide({ heading, items, navLabel = "What it does" }: Feat
     "--idx": active,
   } as CSSProperties;
 
+  // c = compact (tablet-height) variant values; only affects the sticky laptop layout
+  const c = compact
+    ? { sticky: "pt-5 pb-5 top-[0px]", grid: "mt-5", panel: "pt-4", h3: "text-[22px] mb-1", vis: "mt-3 min-h-[180px]" }
+    : { sticky: "pt-12 pb-[60px]", grid: "mt-14", panel: "pt-9", h3: "text-[30px] mb-4", vis: "mt-10 min-h-[320px]" };
+
   return (
     <section
       ref={outerRef}
@@ -84,7 +100,7 @@ export function FeatureGuide({ heading, items, navLabel = "What it does" }: Feat
       <div aria-hidden="true" className="h-[60px]" />
 
       {/* wb-fg-sticky */}
-      <div className="sticky top-[88px] pt-12 pb-[60px] px-0 min-h-[calc(100vh-88px)] flex flex-col justify-center max-[1000px]:static max-[1000px]:min-h-0 max-[1000px]:py-14 max-[1000px]:px-0">
+      <div className={`sticky top-[88px] ${c.sticky} px-0 min-h-[calc(100vh-88px)] flex flex-col justify-center max-[1000px]:static max-[1000px]:min-h-0 max-[1000px]:py-14 max-[1000px]:px-0`}>
 
         {/* wb-wrap */}
         <div className="w-full max-w-[1280px] mx-auto px-16 max-[1024px]:px-10 max-[768px]:px-6 max-[640px]:px-4">
@@ -95,7 +111,7 @@ export function FeatureGuide({ heading, items, navLabel = "What it does" }: Feat
           </h2>
 
           {/* wb-fg-grid */}
-          <div className="grid grid-cols-[280px_1fr] gap-12 mt-14 items-start max-[1000px]:grid-cols-1 max-[1000px]:gap-6 max-[1000px]:mt-9 max-[700px]:mt-6 max-[700px]:gap-4">
+          <div className={`grid grid-cols-[280px_1fr] gap-12 ${c.grid} items-start max-[1000px]:grid-cols-1 max-[1000px]:gap-6 max-[1000px]:mt-9 max-[700px]:mt-6 max-[700px]:gap-4`}>
 
             {/* wb-fg-nav: position:relative overrides the earlier sticky rule */}
             <nav
@@ -167,7 +183,7 @@ export function FeatureGuide({ heading, items, navLabel = "What it does" }: Feat
             {/* wb-fg-panel */}
             <div
               key={active}
-              className="flex flex-col gap-0 border-t border-hairline pt-9 [animation:wb-fg-pop_480ms_cubic-bezier(0.2,0.7,0.2,1)_both] max-[700px]:pt-6 max-[700px]:gap-6"
+              className={`flex flex-col gap-0 border-t border-hairline ${c.panel} [animation:wb-fg-pop_480ms_cubic-bezier(0.2,0.7,0.2,1)_both] max-[700px]:pt-6 max-[700px]:gap-6`}
             >
               {/* wb-fg-panel-text */}
               <div className="flex-[1_1_0] pr-12 max-[900px]:pr-0">
@@ -177,7 +193,7 @@ export function FeatureGuide({ heading, items, navLabel = "What it does" }: Feat
                 </p>
 
                 {/* wb-fg-panel-title */}
-                <h3 className="font-display font-semibold text-[30px] tracking-[-0.02em] leading-[1.15] m-0 mb-4 [text-wrap:balance] max-[700px]:text-[22px]">
+                <h3 className={`font-display font-semibold tracking-[-0.02em] leading-[1.15] m-0 [text-wrap:balance] max-[700px]:!text-[22px] max-[700px]:!mb-4 ${c.h3}`}>
                   {item.title}
                 </h3>
 
@@ -188,7 +204,7 @@ export function FeatureGuide({ heading, items, navLabel = "What it does" }: Feat
               </div>
 
               {/* wb-fg-panel-visual */}
-              <div className="mt-10 flex-[1_1_0] relative min-h-[320px] max-[700px]:min-h-[220px]">
+              <div className={`${c.vis} flex-[1_1_0] relative max-[700px]:!mt-10 max-[700px]:!min-h-[220px]`}>
                 {/* wb-fg-panel-visual::before — radial glow (replaced with real div) */}
                 <div
                   aria-hidden="true"

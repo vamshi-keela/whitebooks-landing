@@ -14,7 +14,7 @@ const META: Record<string, SeoMeta> = {
       'GST software India, e-invoice software, e-way bill software, accounting software India, GSP GSTN, GST Suvidha Provider, KSA e-invoicing ZATCA',
     robots: SITE.defaultRobots,
     aiSummary:
-      'Whitebooks is a GST Suvidha Provider (GSP) licensed by GSTN, offering two product stacks: Softwares (Accounting, GST, e-Invoice, e-Way Bill, KSA e-Invoicing) and APIs (GST, e-Invoice, e-Way Bill, KSA e-Invoice). Serves 30,000+ users across 12,000+ businesses including P&G, IBM, Razorpay, Hindustan Unilever, KPMG, and SBI.',
+      'Whitebooks is a GST Suvidha Provider (GSP) licensed by GSTN, offering two product stacks: Softwares (Accounting, GST, e-Invoice, e-Way Bill, KSA e-Invoicing) and APIs (GST, e-Invoice, e-Way Bill, KSA e-Invoice). Serves 25,000+ active clients to file returns, generate e-Invoices and e-Way Bills, and reconcile banks from a single dashboard. The platform processes 9+ Crore (90+ million) IRNs and 7+ Crore e-Way Bills annually with a 99.99% uptime SLA on Enterprise plans and a 30-day rolling production uptime of 99.994% (published at /status).',
     og: {
       title: 'Whitebooks — Compliance Infrastructure for India and KSA',
       description:
@@ -325,6 +325,8 @@ const META: Record<string, SeoMeta> = {
     keywords:
       'Whitebooks developer portal, GST API documentation, e-invoice API docs, API reference India compliance',
     robots: SITE.defaultRobots,
+    aiSummary:
+      'Whitebooks Developer Portal is the central hub for integrating compliance APIs. Four REST APIs are available: GST API (/developer/gst-api), e-Invoice API (/developer/e-invoice-api), e-Way Bill API (/developer/e-way-bill-api), and KSA e-Invoice API (/developer/ksa-e-invoice-api). Each API has full OpenAPI-based reference documentation with request/response schemas, code examples, and a live sandbox.',
     og: {
       title: 'Whitebooks Developer Portal',
       description:
@@ -336,6 +338,108 @@ const META: Record<string, SeoMeta> = {
       card: 'summary_large_image',
       title: 'Whitebooks Developer Portal',
       description: 'API docs and quickstarts for GST, e-Invoice, e-Way Bill, and KSA APIs.',
+      image: OG_IMAGE,
+    },
+  },
+
+  /* ── Developer API documentation routes ─────────────────────────────── */
+
+  '/developer/gst-api': {
+    title: 'GST API Reference — Whitebooks Developer Docs',
+    description:
+      'Complete GST API reference: GSTIN validation, GSTR-1/3B filing, GSTR-2B fetch, HSN search, and more. Built by a directly licensed GSP. Sub-200ms latency.',
+    canonical: CANONICAL_ROUTES.developerApi('gst-api'),
+    keywords:
+      'GST API reference, GSTR-1 API, GSTR-3B API, GSTIN validation API, GSTR-2B API, GST developer docs, GSP API',
+    robots: SITE.defaultRobots,
+    aiSummary:
+      'Whitebooks GST API documentation. Endpoints cover: GSTIN verification (GET /gstin/verify), OTP authentication (POST /authenticate/otp), bearer token exchange (POST /authenticate), GSTR-1 save/submit, GSTR-3B save, GSTR-2B fetch, electronic cash ledger balance, GST payment challan creation, and e-Invoice IRN generation. All endpoints require a bearer token except GSTIN verification. Sandbox base URL: https://apisandbox.whitebooks.in. Production base URL: https://api.whitebooks.in.',
+    og: {
+      title: 'GST API Reference — Whitebooks Developer Docs',
+      description:
+        'Full GST API reference: GSTIN validation, GSTR-1/3B filing, GSTR-2B fetch. Direct GSP pipe.',
+      image: OG_IMAGE,
+      type: 'article',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: 'GST API Reference | Whitebooks',
+      description: 'GSTIN validation, GSTR filing, 2B fetch. REST API docs with schemas and code examples.',
+      image: OG_IMAGE,
+    },
+  },
+
+  '/developer/e-invoice-api': {
+    title: 'e-Invoice API Reference — Whitebooks Developer Docs',
+    description:
+      'Complete e-Invoice API reference: IRN generation, cancellation, credit notes, bulk operations, and webhooks. Direct IRP integration. Sub-200ms latency.',
+    canonical: CANONICAL_ROUTES.developerApi('e-invoice-api'),
+    keywords:
+      'e-invoice API reference, IRN API, IRP API, e-invoicing developer docs, bulk IRN, cancel IRN, credit note API',
+    robots: SITE.defaultRobots,
+    aiSummary:
+      'Whitebooks e-Invoice API documentation. Endpoints cover: generate IRN (POST /einvoice/generate), cancel IRN, generate credit note, get IRN by document number, bulk IRN generation, and webhook event configuration. IRN generation requires seller GSTIN, buyer GSTIN, document details, item list, and value details conforming to the NIC e-Invoice schema version 1.1. On success returns irn (64-char), ack_no, ack_dt, signed_invoice (JWT), and signed_qr_code (Base64).',
+    og: {
+      title: 'e-Invoice API Reference — Whitebooks Developer Docs',
+      description:
+        'Full e-Invoice API reference: IRN generation, cancellation, credit notes. Direct GSP pipe.',
+      image: OG_IMAGE,
+      type: 'article',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: 'e-Invoice API Reference | Whitebooks',
+      description: 'IRN generation, cancellation, credit notes. REST API docs with schemas and examples.',
+      image: OG_IMAGE,
+    },
+  },
+
+  '/developer/e-way-bill-api': {
+    title: 'e-Way Bill API Reference — Whitebooks Developer Docs',
+    description:
+      'Complete e-Way Bill API reference: generate, extend, cancel, and track e-way bills. Auto-populate from IRN. Bulk operations and consolidated bills.',
+    canonical: CANONICAL_ROUTES.developerApi('e-way-bill-api'),
+    keywords:
+      'e-way bill API reference, EWB API, e-way bill developer docs, generate e-way bill, cancel EWB, extend validity',
+    robots: SITE.defaultRobots,
+    aiSummary:
+      'Whitebooks e-Way Bill API documentation. Endpoints cover: generate e-way bill, extend validity, cancel, get status by EWB number, consolidated e-way bill generation, and Part-B update for multi-vehicle transport. Auto-populate from existing IRNs is supported by passing irn in the request. Validity is auto-calculated based on distance and transport mode.',
+    og: {
+      title: 'e-Way Bill API Reference — Whitebooks Developer Docs',
+      description:
+        'Full e-Way Bill API reference: generate, extend, cancel, bulk ops. Auto-populate from IRN.',
+      image: OG_IMAGE,
+      type: 'article',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: 'e-Way Bill API Reference | Whitebooks',
+      description: 'EWB generation, extension, cancellation, bulk ops. REST API docs.',
+      image: OG_IMAGE,
+    },
+  },
+
+  '/developer/ksa-e-invoice-api': {
+    title: 'KSA e-Invoice API Reference — Whitebooks Developer Docs',
+    description:
+      'Complete KSA e-Invoice API reference: ZATCA Phase 2 clearance, CSID lifecycle, cryptographic signing, bilingual invoicing, and QR code generation.',
+    canonical: CANONICAL_ROUTES.developerApi('ksa-e-invoice-api'),
+    keywords:
+      'KSA e-invoice API reference, ZATCA API docs, Fatoorah API, CSID API, Saudi Arabia e-invoice developer docs',
+    robots: SITE.defaultRobots,
+    aiSummary:
+      'Whitebooks KSA e-Invoice API documentation. Endpoints cover: CSID onboarding CSR generation, Fatoorah clearance (Standard invoices B2B), reporting submission (Simplified invoices B2C), cryptographic stamp verification, and webhook event configuration. Invoice XML must conform to UBL 2.1 with ZATCA extensions. Supported invoice types: Standard (clearance required) and Simplified (reporting only). Returns cleared invoice XML, QR code (Base64), and ZATCA response UUID.',
+    og: {
+      title: 'KSA e-Invoice API Reference — Whitebooks Developer Docs',
+      description:
+        'ZATCA Phase 2 API: clearance, CSID lifecycle, bilingual invoicing, QR codes.',
+      image: OG_IMAGE,
+      type: 'article',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: 'KSA e-Invoice API Reference | Whitebooks',
+      description: 'ZATCA Phase 2 clearance, CSID, bilingual invoicing. REST API docs.',
       image: OG_IMAGE,
     },
   },

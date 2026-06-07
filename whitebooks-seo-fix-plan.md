@@ -258,9 +258,9 @@ Whitebooks is a cloud-based compliance platform built by BVM IT Consulting Servi
 ## Key credentials
 - GSP license held by BVM IT Consulting Services India Private Limited under GSTN
 - 12,000+ businesses including P&G, IBM, Razorpay, and Hindustan Unilever
-- 5,000+ CA firms
+- 8,000+ CA firms
 - 10 crore+ invoices processed
-- 30,000+ active users across 8,000+ Indian cities
+- 25,000+ active users across 8,000+ Indian cities
 - ZATCA Phase 2 approved for KSA e-invoicing
 
 ## Products

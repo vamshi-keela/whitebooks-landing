@@ -22,6 +22,12 @@
   --dp-border: rgba(255, 255, 255, 0.06);
   --dp-border-strong: rgba(255, 255, 255, 0.1);
 
+  /* ── Input fields ─────────────────────── */
+  --dp-input-bg: #1e1e2a;
+  --dp-input-border: rgba(255, 255, 255, 0.18);
+  --dp-input-border-focus: rgba(220, 47, 101, 0.5);
+  --dp-input-placeholder: #44445a;
+
   /* ── Text ─────────────────────────────── */
   --dp-fg: #e8e8f0;
   --dp-fg-muted: #9a9aae;
@@ -54,6 +60,12 @@
 
   --dp-border: rgba(0, 0, 0, 0.08);
   --dp-border-strong: rgba(0, 0, 0, 0.13);
+
+  /* ── Input fields (light) ─────────────── */
+  --dp-input-bg: #ffffff;
+  --dp-input-border: rgba(0, 0, 0, 0.22);
+  --dp-input-border-focus: rgba(220, 47, 101, 0.45);
+  --dp-input-placeholder: #9a9ab8;
 
   --dp-fg: #0d0d14;
   --dp-fg-muted: #4e4e65;

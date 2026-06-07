@@ -62,7 +62,7 @@
 
 :root {
   /* ── Backgrounds ─────────────────────────────────────────── */
-  --bg: #000000be;
+  --bg: #000000;
   --bg-2: #111118;
   --bg-3: #13131a;
   --bg-elev: #16161f;
@@ -91,7 +91,8 @@
   /* ── Typography ──────────────────────────────────────────── */
   --font-display: "Poppins", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-body: "Poppins", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-mono: "Poppins", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-mono: "Poppins", "JetBrains Mono";
+
 }
 
 
@@ -2459,6 +2460,30 @@ img {
 @media (max-width: 900px) {
   .wb-footer-grid {
     grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .wb-footer {
+    padding-top: 48px;
+  }
+}
+
+@media (max-width: 480px) {
+  .wb-footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px 20px;
+    padding-bottom: 40px;
+  }
+  .wb-footer-grid > :first-child {
+    grid-column: 1 / -1;
+  }
+  .wb-footer-brand-blurb {
+    max-width: 100%;
+  }
+  .wb-footer-legal {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 

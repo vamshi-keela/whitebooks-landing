@@ -26,7 +26,7 @@ const ParameterTable: React.FC<Props> = ({ parameters }) => {
       {Object.entries(byLocation).map(([loc, params]) => (
         <div key={loc}>
           <div
-            className="text-[11px] font-[family-name:var(--dp-font-mono)] uppercase tracking-[0.08em] mb-1.5"
+            className="text-xs font-[family-name:var(--dp-font-mono)] uppercase tracking-[0.08em] mb-1.5"
             style={{ color: inColors[loc]?.color ?? 'var(--dp-fg-dim)' }}
           >
             {loc} parameters
@@ -70,7 +70,7 @@ const ParameterTable: React.FC<Props> = ({ parameters }) => {
                   {/* Required */}
                   <span
                     className={[
-                      'text-[10px] font-[family-name:var(--dp-font-mono)] rounded-[4px] px-[5px] py-px self-center w-fit',
+                      'text-[12px] font-medium  rounded-[4px] px-[5px] py-px w-fit',
                       param.required
                         ? 'text-[#f87171] bg-[rgba(239,68,68,0.08)] border border-[rgba(239,68,68,0.2)]'
                         : 'text-[var(--dp-fg-faint)]',

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Outlet } from 'react-router-dom';
 import DpNav, { CommandPalette } from './DpNav';
+import { MobileNavContext } from '../../contexts/MobileNavContext';
 
 /**
  * DevPortal is the persistent layout shell for all /developer/* routes.
@@ -12,8 +13,12 @@ import DpNav, { CommandPalette } from './DpNav';
  */
 export default function DevPortal(): React.ReactElement {
   const [paletteOpen, setPaletteOpen] = useState(false);
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
+
   const openPalette = useCallback(() => setPaletteOpen(true), []);
   const closePalette = useCallback(() => setPaletteOpen(false), []);
+  const openNav = useCallback(() => setMobileNavOpen(true), []);
+  const closeNav = useCallback(() => setMobileNavOpen(false), []);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -27,10 +32,12 @@ export default function DevPortal(): React.ReactElement {
   }, []);
 
   return (
-    <div className="dp-root">
-      <DpNav onOpenPalette={openPalette} />
-      <CommandPalette open={paletteOpen} onClose={closePalette} />
-      <Outlet />
-    </div>
+    <MobileNavContext.Provider value={{ open: mobileNavOpen, openNav, closeNav }}>
+      <div className="dp-root">
+        <DpNav onOpenPalette={openPalette} />
+        <CommandPalette open={paletteOpen} onClose={closePalette} />
+        <Outlet />
+      </div>
+    </MobileNavContext.Provider>
   );
 }

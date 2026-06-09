@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { SiteLogo } from '@/layouts/SiteShell';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import DpIcon, { type IconName } from './DpIcon';
+import { useMobileNav } from '../../contexts/MobileNavContext';
 
 /* ─── Route map ─────────────────────────────────────────────────────────── */
 
@@ -145,89 +146,6 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps): React.Re
   );
 }
 
-/* ─── Mobile Nav Drawer ──────────────────────────────────────────────────── */
-
-interface NavDrawerProps {
-  open: boolean;
-  onClose: () => void;
-}
-
-function NavDrawer({ open, onClose }: NavDrawerProps): React.ReactElement {
-  const navigate = useNavigate();
-  const { pathname } = useLocation();
-
-  useEffect(() => {
-    document.body.style.overflow = open ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
-  }, [open]);
-
-  useEffect(() => {
-    const handle = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
-    if (open) document.addEventListener('keydown', handle);
-    return () => document.removeEventListener('keydown', handle);
-  }, [open, onClose]);
-
-  return (
-    <>
-      <div
-        onClick={onClose}
-        className="fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm transition-opacity duration-300"
-        style={{ opacity: open ? 1 : 0, pointerEvents: open ? 'auto' : 'none' }}
-      />
-      <div
-        className="fixed top-0 right-0 z-[70] h-full w-[72vw] max-w-[300px] flex flex-col"
-        style={{
-          background: 'rgba(12,12,18,0.97)',
-          borderLeft: '1px solid var(--dp-border-strong)',
-          backdropFilter: 'blur(24px)',
-          transform: open ? 'translateX(0)' : 'translateX(100%)',
-          transition: 'transform 0.28s cubic-bezier(0.4,0,0.2,1)',
-          boxShadow: open ? '-24px 0 80px rgba(0,0,0,0.6)' : 'none',
-        }}
-      >
-        <div
-          className="flex items-center justify-between px-5 h-[60px] shrink-0"
-          style={{ borderBottom: '1px solid var(--dp-border)' }}
-        >
-          <span className="text-[13px] font-mono text-[var(--dp-fg-dim)] tracking-[0.08em] uppercase">
-            Navigation
-          </span>
-          <button
-            onClick={onClose}
-            className="w-8 h-8 flex items-center justify-center rounded-[7px] cursor-pointer border-0 transition-colors duration-150"
-            style={{ background: 'rgba(255,255,255,0.05)', color: 'var(--dp-fg-muted)' }}
-          >
-            <DpIcon name="close" size={15} />
-          </button>
-        </div>
-
-        <nav className="flex-1 overflow-y-auto py-3 px-3">
-          {NAV_ITEMS.map(item => {
-            const isActive = pathname.startsWith(item.path);
-            return (
-              <button
-                key={item.path}
-                onClick={() => { navigate(item.path); onClose(); }}
-                className="w-full flex items-center gap-3 px-3 py-3 rounded-[9px] mb-1 cursor-pointer border-0 text-left transition-all duration-150"
-                style={{
-                  background: isActive ? 'rgba(220,47,101,0.1)' : 'transparent',
-                  color: isActive ? 'var(--dp-fg)' : 'var(--dp-fg-muted)',
-                }}
-              >
-                <span
-                  className="w-[3px] h-5 rounded-full shrink-0 transition-all duration-150"
-                  style={{ background: isActive ? 'var(--dp-accent)' : 'transparent' }}
-                />
-                <span className="text-[14px] font-body">{item.label}</span>
-              </button>
-            );
-          })}
-        </nav>
-      </div>
-    </>
-  );
-}
-
 /* ─── DpNav ─────────────────────────────────────────────────────────────── */
 
 interface DpNavProps {
@@ -235,68 +153,64 @@ interface DpNavProps {
 }
 
 export default function DpNav({ onOpenPalette }: DpNavProps): React.ReactElement {
-  const [drawerOpen, setDrawerOpen] = useState(false);
+  const { openNav } = useMobileNav();
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
   return (
-    <>
-      <nav className="sticky top-0 z-50 backdrop-blur-xl bg-[rgba(10,10,15,0.85)] border-b border-[var(--dp-border)]">
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 h-[60px] flex items-center gap-2">
-          <SiteLogo />
+    <nav className="sticky top-0 z-50 backdrop-blur-xl bg-[rgba(10,10,15,0.85)] border-b border-[var(--dp-border)]">
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 h-[60px] flex items-center gap-2">
+        <SiteLogo />
 
-          <div className="w-px h-5 bg-[var(--dp-border)] mx-3 hidden sm:block shrink-0" />
+        <div className="w-px h-5 bg-[var(--dp-border)] mx-3 hidden lg:block shrink-0" />
 
-          {/* Desktop nav items */}
-          <div className="hidden sm:flex items-center gap-0.5 flex-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden min-w-0">
-            {NAV_ITEMS.map(item => {
-              const isActive = pathname.startsWith(item.path);
-              return (
-                <button
-                  key={item.path}
-                  onClick={() => navigate(item.path)}
-                  className={[
-                    'whitespace-nowrap bg-transparent border-x-0 border-t-0 px-3 py-1.5 text-sm font-body cursor-pointer flex items-center gap-1 transition-colors duration-150',
-                    'border-b-2',
-                    isActive
-                      ? 'text-[var(--dp-fg)] border-[var(--dp-accent)]'
-                      : 'text-[var(--dp-fg-muted)] border-transparent hover:text-[var(--dp-fg)]',
-                  ].join(' ')}
-                >
-                  {item.label}
-                </button>
-              );
-            })}
-          </div>
-
-          {/* ⌘K shortcut button — desktop only */}
-          <button
-            onClick={onOpenPalette}
-            className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-[7px] cursor-pointer border border-[var(--dp-border)] text-[11px] font-mono text-[var(--dp-fg-dim)] hover:border-[var(--dp-accent)] transition-colors duration-150"
-            style={{ background: 'rgba(255,255,255,0.03)' }}
-          >
-            <DpIcon name="search" size={11} />
-            Search
-            <kbd className="ml-1 text-[10px]">⌘K</kbd>
-          </button>
-
-          <ThemeToggle size={24} />
-
-          <div className="flex-1 sm:hidden" />
-
-          {/* Mobile menu */}
-          <button
-            onClick={() => setDrawerOpen(true)}
-            className="sm:hidden w-9 h-9 flex items-center justify-center rounded-[8px] cursor-pointer border-0 transition-colors duration-150"
-            style={{ background: 'rgba(255,255,255,0.05)', color: 'var(--dp-fg-muted)' }}
-            aria-label="Open navigation"
-          >
-            <DpIcon name="menu" size={17} />
-          </button>
+        {/* Desktop nav items */}
+        <div className="hidden lg:flex items-center gap-0.5 flex-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden min-w-0">
+          {NAV_ITEMS.map(item => {
+            const isActive = pathname.startsWith(item.path);
+            return (
+              <button
+                key={item.path}
+                onClick={() => navigate(item.path)}
+                className={[
+                  'whitespace-nowrap bg-transparent border-x-0 border-t-0 px-3 py-1.5 text-sm font-body cursor-pointer flex items-center gap-1 transition-colors duration-150',
+                  'border-b-2',
+                  isActive
+                    ? 'text-[var(--dp-fg)] border-[var(--dp-accent)]'
+                    : 'text-[var(--dp-fg-muted)] border-transparent hover:text-[var(--dp-fg)]',
+                ].join(' ')}
+              >
+                {item.label}
+              </button>
+            );
+          })}
         </div>
-      </nav>
 
-      <NavDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
-    </>
+        {/* ⌘K shortcut button — desktop only */}
+        <button
+          onClick={onOpenPalette}
+          className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-[7px] cursor-pointer border border-[var(--dp-border)] text-[11px] font-mono text-[var(--dp-fg-dim)] hover:border-[var(--dp-accent)] transition-colors duration-150"
+          style={{ background: 'rgba(255,255,255,0.03)' }}
+        >
+          <DpIcon name="search" size={11} />
+          Search
+          <kbd className="ml-1 text-[10px]">⌘K</kbd>
+        </button>
+
+        <ThemeToggle size={24} />
+
+        <div className="flex-1 lg:hidden" />
+
+        {/* Mobile menu — opens unified nav drawer */}
+        <button
+          onClick={openNav}
+          className="lg:hidden w-9 h-9 flex items-center justify-center rounded-[8px] cursor-pointer border-0 transition-colors duration-150"
+          style={{ background: 'rgba(255,255,255,0.05)', color: 'var(--dp-fg-muted)' }}
+          aria-label="Open navigation"
+        >
+          <DpIcon name="menu" size={17} />
+        </button>
+      </div>
+    </nav>
   );
 }

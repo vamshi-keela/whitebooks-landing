@@ -24,6 +24,7 @@ import GstOverview from './GstOverview';
 import InvoiceApiOverview from './EinvoiceApiOverview';
 import EWayBillApiOverview from './EWayBillApiOverview';
 import KsaApiOverview from './KsaApiOverview';
+import MobileBreadcrumb from './MobileBreadcrumb';
 
 /* ─── Constants ───────────────────────────────────────────────────────────── */
 
@@ -165,42 +166,42 @@ export default function ApiDocPage({ apiType }: Props): React.ReactElement {
 
   const pageDesc = selectedOp
     ? (selectedOp.description
-        ? `${selectedOp.description.slice(0, 220).replace(/\n/g, ' ')}`
-        : `${selectedOp.method} ${selectedOp.path} — ${apiLabel} endpoint. Request parameters, response schemas, and code examples.`)
+      ? `${selectedOp.description.slice(0, 220).replace(/\n/g, ' ')}`
+      : `${selectedOp.method} ${selectedOp.path} — ${apiLabel} endpoint. Request parameters, response schemas, and code examples.`)
     : apiDesc;
 
   const schema = selectedOp
     ? buildJsonLd(
-        buildTechArticleSchema({
-          canonicalUrl,
-          title: pageTitle,
-          description: pageDesc,
-          keywords: `${apiLabel}, ${selectedOp.summary}, ${selectedOp.path}, API reference, Whitebooks developer docs`,
-        }),
-        buildBreadcrumbSchema([
-          { label: 'Home', href: '/' },
-          { label: 'Developer', href: '/developer' },
-          { label: apiLabel, href: `/developer/${apiSlug}` },
-          { label: selectedOp.summary },
-        ]),
-      )
+      buildTechArticleSchema({
+        canonicalUrl,
+        title: pageTitle,
+        description: pageDesc,
+        keywords: `${apiLabel}, ${selectedOp.summary}, ${selectedOp.path}, API reference, Whitebooks developer docs`,
+      }),
+      buildBreadcrumbSchema([
+        { label: 'Home', href: '/' },
+        { label: 'Developer', href: '/developer' },
+        { label: apiLabel, href: `/developer/${apiSlug}` },
+        { label: selectedOp.summary },
+      ]),
+    )
     : buildJsonLd(
-        buildWebPageSchema({ canonicalUrl, title: pageTitle, description: pageDesc }),
-        buildBreadcrumbSchema([
-          { label: 'Home', href: '/' },
-          { label: 'Developer', href: '/developer' },
-          { label: apiLabel },
-        ]),
-      );
+      buildWebPageSchema({ canonicalUrl, title: pageTitle, description: pageDesc }),
+      buildBreadcrumbSchema([
+        { label: 'Home', href: '/' },
+        { label: 'Developer', href: '/developer' },
+        { label: apiLabel },
+      ]),
+    );
 
   /* ── Main content ─────────────────────────────────────────────────────── */
 
   function renderMain() {
     if (isOverview) {
       switch (apiType) {
-        case 'gst-api':           return <GstOverview />;
-        case 'e-invoice-api':     return <InvoiceApiOverview />;
-        case 'e-way-bill-api':    return <EWayBillApiOverview />;
+        case 'gst-api': return <GstOverview />;
+        case 'e-invoice-api': return <InvoiceApiOverview />;
+        case 'e-way-bill-api': return <EWayBillApiOverview />;
         case 'ksa-e-invoice-api': return <KsaApiOverview />;
       }
     }
@@ -259,6 +260,10 @@ export default function ApiDocPage({ apiType }: Props): React.ReactElement {
       <StructuredData schema={schema} />
 
       <div className="min-h-screen bg-[var(--dp-bg)]">
+        <MobileBreadcrumb
+          sectionLabel={isOverview ? apiLabel : (selectedOp?.tag ?? apiLabel)}
+          pageLabel={isOverview ? 'Overview' : (selectedOp?.summary ?? '')}
+        />
         {!isOverview && (
           <EnvironmentBar
             environments={environments}
@@ -275,6 +280,8 @@ export default function ApiDocPage({ apiType }: Props): React.ReactElement {
             selectedOpId={selectedOpId}
             onSelect={handleSelect}
             staticGroups={staticGroups}
+            currentApiType={apiType}
+            onApiSwitch={(path) => navigate(path)}
           />
 
           <main className="flex-1 min-w-0">{renderMain()}</main>

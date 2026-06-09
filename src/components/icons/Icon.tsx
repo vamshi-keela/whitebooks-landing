@@ -30,6 +30,11 @@ export const Send = (p: SvgProps) => (
   </svg>
 );
 
+export const Phone = (p: SvgProps) => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.86 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.77 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.18 6.18l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+  </svg>
+);
 export const Box = (p: SvgProps) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="wb-toggle-icon" {...p}>
     <rect x="3.5" y="3.5" width="17" height="17" rx="2.5" />
@@ -134,12 +139,20 @@ export const Close = (p: SvgProps) => (
     <line x1="6" y1="6" x2="18" y2="18" />
   </svg>
 )
+export const SupportAgent = (p: SvgProps) => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+    <path d="M9.09 9.26a3 3 0 0 0 5.83 1l.01-.02a3 3 0 0 0-2.5-2.75 3.5 3.5 0 0 0-3.32 2.73z" />
+  </svg>
+)
 
 export const Icon = {
   Chevron,
   ArrowRight,
   ArrowDown,
   Send,
+  Phone,
+  SupportAgent,
   Box,
   Code,
   Accounting,

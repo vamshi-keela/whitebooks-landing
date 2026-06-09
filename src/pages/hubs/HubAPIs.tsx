@@ -134,7 +134,7 @@ export function HubAPIs() {
                 </p>
                 <div className="wb-subhero-cta">
                   <ButtonLink href="#" size="lg" arrow>Get sandbox keys</ButtonLink>
-                  <ButtonLink href="#" variant="ghost" size="lg">Read the docs</ButtonLink>
+                  <ButtonLink href="#" variant="ghost" size="lg">Read API docs</ButtonLink>
                 </div>
               </div>
               <div className="wb-subhero-visual">
@@ -219,7 +219,7 @@ export function HubAPIs() {
           h2="Sandbox in 5 minutes. Production in 5 days."
           body="Sign up, get sandbox keys immediately, run the quickstart in 30 minutes, move to production within 5 business days after KYC."
           primaryCta={{ label: "Get sandbox keys", href: "#" }}
-          secondaryCta={{ label: "Read Guides", href: "#" }}
+          secondaryCta={{ label: "Read API Docs", href: "#" }}
         />
       </main>
       <Footer />

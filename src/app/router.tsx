@@ -3,7 +3,7 @@ import { Routes, Route, useParams, useNavigate, Navigate } from 'react-router-do
 import { BookDemoModal } from '@/components/modals/BookDemoModal';
 import { Header, Footer } from '@/layouts/SiteShell';
 import { Hero, LogoWall } from '@/sections/WbHero';
-import { HubSection } from '@/sections/WbHubs';
+import { HubAPIsSection, HubSection } from '@/sections/WbHubs';
 import { ProblemSection } from '@/sections/WbProblem';
 import { FinanceTeamsSection } from '@/sections/WbFinanaceTeams';
 import ClosingCTA from '@/components/ui/ClosingCTA';
@@ -124,6 +124,7 @@ function HomeRoute() {
         <Hero />
         <LogoWall />
         <HubSection tab={tab} setTab={setTab} navigate={navigate} />
+        <HubAPIsSection />
         <ProblemSection />
         <FinanceTeamsSection />
         <ForDevelopersSection />
@@ -183,7 +184,6 @@ function ApiSubPageRoute() {
     <APISubPage
       data={pageDef as SubPageData}
       onPrimaryClick={() => { window.location.href = 'https://accounts.whitebooks.in/signup?type=Developer&subscrid=&inviteId'; }}
-      onSecondaryClick={() => navigate('/developer')}
     />
   );
 }

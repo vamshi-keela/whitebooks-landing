@@ -106,7 +106,7 @@ function GstinFormatDiagram() {
 
   return (
     <div className="rounded-2xl border border-[var(--line-2)] bg-[var(--bg-2)] p-6 lg:p-8">
-      <p className="wb-section-label mb-6">GSTIN Format</p>
+      <p className="text-[12px] font-medium tracking-[0.18em] uppercase text-[var(--muted)] mb-6">GSTIN Format</p>
       <div className="flex flex-wrap gap-1.5 mb-8">
         {segments.map((seg, i) => (
           <div key={i} className="flex flex-col items-center gap-1.5">
@@ -283,7 +283,7 @@ export function GstNumberSearch() {
 
         {/* Breadcrumb */}
         <section className="pt-[100px] pb-0">
-          <div className="wb-wrap">
+          <div className="w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4">
             <Breadcrumb items={[
               { label: 'Home', href: '/' },
               { label: 'Tools', href: '/tools/gst-number-search' },
@@ -293,12 +293,12 @@ export function GstNumberSearch() {
         </section>
 
         {/* Hero — search tool */}
-        <section className="wb-subhero !pb-10">
-          <div className="wb-wrap">
+        <section className="pt-[70px] pb-10 relative overflow-hidden">
+          <div className="w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4">
             <div className="max-w-[760px] mx-auto text-center">
               <EyebrowPill label="Free Tool" subtitle="GSTIN Verification" />
-              <h1 className="wb-display text-[clamp(32px,5vw,60px)] mt-5 mb-4">
-                GST Number Search &amp; <span className="accent">GSTIN Verification</span>
+              <h1 className="font-display font-medium tracking-[-0.025em] leading-[1.04] text-[clamp(32px,5vw,60px)] mt-5 mb-4">
+                GST Number Search &amp; <span className="text-[var(--brand)]">GSTIN Verification</span>
               </h1>
               <p className="text-[var(--muted-2)] text-[16px] leading-relaxed mb-8 max-w-[560px] mx-auto">
                 Instantly verify any GSTIN against the official GSTN database. Get taxpayer details, registration status, jurisdiction, and more — free.
@@ -320,7 +320,7 @@ export function GstNumberSearch() {
                     maxLength={15}
                     spellCheck={false}
                     autoComplete="off"
-                    className="w-full pl-10 pr-4 py-3.5 rounded-xl text-[14px] font-mono uppercase outline-none transition-all"
+                    className="w-full pl-10 pr-4 py-3.5 rounded-xl text-base font-mono uppercase outline-none transition-all"
                     style={{
                       background: 'var(--bg-elev)',
                       border: error ? '1.5px solid var(--danger)' : '1.5px solid var(--line-2)',
@@ -333,7 +333,7 @@ export function GstNumberSearch() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="shrink-0 inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-[14px] transition-all"
+                  className="shrink-0 inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-[14px] transition-all border-0 outline-none"
                   style={{
                     background: loading ? 'rgba(220,47,101,0.5)' : 'var(--brand)',
                     color: '#fff',
@@ -350,11 +350,11 @@ export function GstNumberSearch() {
                 <div className="mt-4 flex items-start gap-2.5 max-w-[580px] mx-auto px-4 py-3 rounded-xl text-left"
                   style={{ background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.25)' }}>
                   <AlertCircle size={15} className="shrink-0 mt-0.5" style={{ color: 'var(--danger)' }} />
-                  <p className="text-[13px]" style={{ color: 'var(--danger)' }}>{error}</p>
+                  <p className="text-[14px]" style={{ color: 'var(--danger)' }}>{error}</p>
                 </div>
               )}
 
-              <p className="mt-4 text-[12px] text-[var(--muted)]">
+              <p className="mt-4 text-[14px] text-[var(--muted)]">
                 Example: <span className="font-mono text-[var(--muted-2)]">27AAPFU0939F1ZV</span>
               </p>
             </div>
@@ -363,8 +363,8 @@ export function GstNumberSearch() {
 
         {/* Search results */}
         {result && (
-          <section className="wb-section !pt-0" ref={resultRef}>
-            <div className="wb-wrap">
+          <section className="relative pt-0 pb-[120px] max-[700px]:pb-[72px]" ref={resultRef}>
+            <div className="w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4">
               <div className="flex items-center gap-2 mb-6">
                 <CheckCircle size={18} style={{ color: 'var(--success)' }} />
                 <p className="font-semibold text-[var(--text)]">GSTIN verified successfully</p>
@@ -375,12 +375,16 @@ export function GstNumberSearch() {
         )}
 
         {/* What is GSTIN */}
-        <section className="wb-section wb-reveal" data-reveal>
-          <div className="wb-wrap">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+        <section
+          className="relative py-[120px] max-[700px]:py-[72px] transition-[opacity,transform] duration-[600ms] ease-in-out"
+          data-reveal
+        >
+          <div className="w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4">
+            <div className="grid grid-cols-1 gap-12 lg:gap-16 items-start">
               <div>
-                <p className="wb-section-label">Understanding GSTIN</p>
-                <h2 className="wb-h2 mt-3 mb-5">What is <span className="accent">GSTIN?</span></h2>
+                <h2 className="font-display font-medium text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px] text-balance mt-3 mb-5">
+                  What is <span className="text-[var(--brand)]">GSTIN?</span>
+                </h2>
                 <p className="text-[var(--muted-2)] leading-relaxed mb-4">
                   GSTIN stands for <strong className="text-[var(--text)]">Goods and Services Tax Identification Number</strong>. It is a unique 15-digit alphanumeric code assigned by the Government of India to every business registered under the GST regime.
                 </p>
@@ -397,29 +401,35 @@ export function GstNumberSearch() {
         </section>
 
         {/* Why verify */}
-        <section className="wb-section wb-reveal" data-reveal>
-          <div className="wb-wrap">
-            <p className="wb-section-label">Why it matters</p>
-            <h2 className="wb-h2 mt-3 mb-10">
-              Five reasons to verify a <span className="accent">GST Number.</span>
+        <section
+          className="relative py-[120px] max-[700px]:py-[72px] transition-[opacity,transform] duration-[600ms] ease-in-out"
+          data-reveal
+        >
+          <div className="w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4">
+            <h2 className="font-display font-medium text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px] text-balance mt-3 mb-10">
+              Five reasons to verify a <span className="text-[var(--brand)]">GST Number.</span>
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {WHY_VERIFY.map((item, i) => (
-                <article key={i} className="wb-block" data-reveal>
+                <article
+                  key={i}
+                  className="px-7 pt-7 pb-[26px] max-sm:px-[18px] max-sm:py-5 bg-[var(--bg-2)] border border-[var(--line)] rounded-[14px] transition-[border-color,background] duration-150 ease-out hover:border-[var(--brand-border)] hover:bg-[var(--bg-elev)]"
+                  data-reveal
+                >
                   <div
                     className="w-10 h-10 rounded-[10px] flex items-center justify-center mb-4"
                     style={{ background: 'var(--brand-soft)', border: '1px solid var(--brand-border)', color: 'var(--brand)' }}
                   >
                     {item.icon}
                   </div>
-                  <h3 className="mb-2">{item.title}</h3>
-                  <p>{item.body}</p>
+                  <h3 className="font-display font-medium text-[18px] max-sm:text-[16px] tracking-[-0.005em] m-0 mb-[10px]">{item.title}</h3>
+                  <p className="m-0 text-[14px] text-[var(--muted-2)] leading-[1.6]">{item.body}</p>
                 </article>
               ))}
 
               {/* Extra CTA card */}
               <article
-                className="wb-block flex flex-col justify-between"
+                className="px-7 pt-7 pb-[26px] max-sm:px-[18px] max-sm:py-5 bg-[var(--bg-2)] border border-[var(--line)] rounded-[14px] transition-[border-color,background] duration-150 ease-out hover:border-[var(--brand-border)] hover:bg-[var(--bg-elev)] flex flex-col justify-between"
                 style={{ background: 'var(--brand-softer)', borderColor: 'var(--brand-border)' }}
                 data-reveal
               >
@@ -427,8 +437,8 @@ export function GstNumberSearch() {
                   <p className="text-[12px] font-semibold uppercase tracking-wider mb-3" style={{ color: 'var(--brand)' }}>
                     WhiteBooks GSP
                   </p>
-                  <h3 className="mb-2">Need bulk GSTIN verification?</h3>
-                  <p>Verify thousands of GSTINs at once with WhiteBooks' GST API — built for developers and finance teams.</p>
+                  <h3 className="font-display font-medium text-[18px] max-sm:text-[16px] tracking-[-0.005em] m-0 mb-[10px]">Need bulk GSTIN verification?</h3>
+                  <p className="m-0 text-[14px] text-[var(--muted-2)] leading-[1.6]">Verify thousands of GSTINs at once with WhiteBooks' GST API — built for developers and finance teams.</p>
                 </div>
                 <a
                   href="/apis/gst"
@@ -443,11 +453,13 @@ export function GstNumberSearch() {
         </section>
 
         {/* FAQ */}
-        <section className="wb-section wb-reveal" data-reveal>
-          <div className="wb-wrap">
-            <p className="wb-section-label">FAQs</p>
-            <h2 className="wb-h2 mt-3 mb-8">
-              Frequently asked <span className="accent">questions.</span>
+        <section
+          className="relative py-[120px] max-[700px]:py-[72px] transition-[opacity,transform] duration-[600ms] ease-in-out"
+          data-reveal
+        >
+          <div className="w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4">
+            <h2 className="font-display font-medium text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px] text-balance mt-3 mb-8">
+              Frequently asked questions.<span className="text-[var(--brand)]">questions.</span>
             </h2>
             <div className="max-w-[800px]">
               <FaqList items={FAQS} />

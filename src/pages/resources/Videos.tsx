@@ -79,9 +79,9 @@ function VideoCard({ video, onPlay }: VideoCardProps) {
         </div>
 
         {/* Category tag */}
-        <span className={`absolute top-3 left-3 px-2.5 py-1 rounded-md text-[11px] font-semibold tracking-wide border backdrop-blur-sm ${video.tagColor}`}>
+        {/* <span className={`absolute top-3 left-3 px-2.5 py-1 rounded-md text-[11px] font-semibold tracking-wide border backdrop-blur-sm ${video.tagColor}`}>
           {video.tag}
-        </span>
+        </span> */}
       </div>
 
       {/* Text */}
@@ -179,8 +179,8 @@ export function VideosPage() {
       <Header mode="resources" />
       <main>
         {/* Breadcrumb */}
-        <section className="pt-[100px] pb-0">
-          <div className="wb-wrap">
+        <section className="pt-[100px] max-sm:pt-[80px] pb-0">
+          <div className="w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4">
             <Breadcrumb items={[
               { label: 'Home', href: '/' },
               { label: 'Resources', href: '/resources/videos' },
@@ -190,16 +190,16 @@ export function VideosPage() {
         </section>
 
         {/* Hero */}
-        <section className="wb-subhero">
+        <section className="relative overflow-hidden pt-[70px] pb-[72px] max-md:pt-12 max-md:pb-14 max-sm:pt-10 max-sm:pb-12">
           <FluidBackground />
-          <div className="wb-wrap">
+          <div className="w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4">
             <div className="max-w-[760px]">
               <EyebrowPill label="Resources | Product Videos" />
-              <h1 className="wb-display text-[clamp(38px,5.2vw,68px)]">
+              <h1 className="font-display font-medium text-[clamp(38px,5.2vw,68px)] leading-[1.05] tracking-[-0.025em] mt-[18px] text-balance">
                 Explore WhiteBooks Features —{' '}
-                <span className="accent">Watch & Learn.</span>
+                <span className="text-[var(--brand)]">Watch & Learn.</span>
               </h1>
-              <p className="wb-subhero-sub max-w-[600px]">
+              <p className="mt-[22px] max-w-[600px] text-[17px] max-sm:text-[15px] text-[var(--muted-2)] leading-[1.55]">
                 In-depth demo videos covering GST API, e-Way Bill API, and e-Invoice API. See exactly how these powerful APIs streamline compliance and integrate into your stack.
               </p>
             </div>
@@ -207,14 +207,14 @@ export function VideosPage() {
         </section>
 
         {/* Video grid */}
-        <section className="wb-section wb-reveal" data-reveal>
-          <div className="wb-wrap">
-            <p className="wb-section-label">API integration demos</p>
-            <h2 className="wb-h2">
-              Three APIs. <span className="accent">Three complete walkthroughs.</span>
+        <section className="relative py-[120px] max-[700px]:py-[72px] wb-reveal" data-reveal>
+          <div className="w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4">
+            <p className="text-[12px] font-medium tracking-[0.18em] uppercase text-[var(--muted)] mb-4">API integration demos</p>
+            <h2 className="font-display font-medium text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] max-w-[780px] text-balance">
+              Three APIs. <span className="text-[var(--brand)]">Three complete walkthroughs.</span>
             </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
               {VIDEOS.map(v => (
                 <VideoCard key={v.id} video={v} onPlay={handlePlay} />
               ))}

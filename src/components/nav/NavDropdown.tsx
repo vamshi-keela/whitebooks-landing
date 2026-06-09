@@ -77,7 +77,7 @@ export function NavDropdown({ label, triggerIcon, hubHref, items, isActive, seco
         <div
           className={`relative transition-transform duration-150 ease-out ${open ? 'translate-y-0' : '-translate-y-1'}`}
           style={{
-            width: twoColumn ? 520 : 236,
+            width: twoColumn ? 540 : 236,
             background: 'var(--bg-3)',
             border: '1px solid var(--line-2)',
             borderRadius: '12px',
@@ -122,15 +122,15 @@ export function NavDropdown({ label, triggerIcon, hubHref, items, isActive, seco
               {/* Secondary column — Tools */}
               <div className="flex-1 min-w-0">
                 <p className="px-3 pt-[10px] pb-[6px] text-[10px] font-semibold uppercase tracking-[0.12em]"
-                  style={{ color: '#22d3ee' }}>
+                  style={{ color: '#dc2f65' }}>
                   {secondaryGroup.label}
                 </p>
                 {secondaryGroup.items.map(item => (
                   <NavItemLink
                     key={item.href}
                     item={item}
-                    accentColor="#22d3ee"
-                    hoverBg="rgba(34,211,238,0.08)"
+                    accentColor="#dc2f65"
+                    hoverBg="rgba(220,47,101,0.08)"
                     onClose={close}
                   />
                 ))}

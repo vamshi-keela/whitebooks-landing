@@ -71,6 +71,10 @@ function buildApiPageSchema(data: SubPageData) {
 export function SubPage({ data, onPrimaryClick, onSecondaryClick }: SubPageProps) {
   useReveal();
   const schema = buildSoftwareSchema(data);
+  const handleSecondaryClick = onSecondaryClick ?? (() => {
+    const href = data.hero.secondaryCta?.href;
+    if (href) window.open(href, '_blank', 'noopener,noreferrer');
+  });
 
   return (
     <div className="min-h-screen bg-[var(--bg)]">
@@ -82,7 +86,7 @@ export function SubPage({ data, onPrimaryClick, onSecondaryClick }: SubPageProps
           {...data.hero}
           breadcrumb={data.breadcrumb}
           onPrimaryClick={onPrimaryClick}
-          onSecondaryClick={onSecondaryClick}
+          onSecondaryClick={handleSecondaryClick}
         />
         {data.problem && <ProblemSection data={data.problem} />}
         {data.features && <FeaturesSection data={data.features} />}
@@ -100,6 +104,11 @@ export function SubPage({ data, onPrimaryClick, onSecondaryClick }: SubPageProps
 export function APISubPage({ data, onPrimaryClick, onSecondaryClick }: SubPageProps) {
   useReveal();
   const schema = buildApiPageSchema(data);
+  const handleSecondaryClick = onSecondaryClick ?? (() => {
+    const href = data.hero.secondaryCta?.href;
+    console.log("handleSecondaryClick", href)
+    if (href) window.open(href, '_blank', 'noopener,noreferrer');
+  });
 
   return (
     <div className="min-h-screen bg-[var(--bg)]">
@@ -111,7 +120,7 @@ export function APISubPage({ data, onPrimaryClick, onSecondaryClick }: SubPagePr
           {...data.hero}
           breadcrumb={data.breadcrumb}
           onPrimaryClick={onPrimaryClick}
-          onSecondaryClick={onSecondaryClick}
+          onSecondaryClick={handleSecondaryClick}
         />
         {data.problem && <ProblemSection data={data.problem} />}
         {data.features && <FeaturesSection data={data.features} />}

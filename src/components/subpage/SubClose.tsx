@@ -2,7 +2,7 @@ import { Button, ButtonLink } from "../ui/Button";
 import type { ClosingSection } from "../../types/pages.ts";
 import { useEffect, useState } from "react";
 import { BookDemoModal } from "../modals/BookDemoModal.tsx";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface Props {
   data: ClosingSection;
@@ -91,9 +91,11 @@ export function APISubClose({ data }: Props) {
               </ButtonLink>
             )}
             {data.secondaryCta && (
-              <Button onClick={() => navigate('/developer')} variant="secondary" size="lg" arrow>
-                {data.secondaryCta.label}
-              </Button>
+              <Link to={data.secondaryCta.href || "#"} target={data.secondaryCta.target || "_self"}>
+                <Button variant="secondary" size="lg" arrow>
+                  {data.secondaryCta.label}
+                </Button>
+              </Link>
             )}
           </div>
         </div>

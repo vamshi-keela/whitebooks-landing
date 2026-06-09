@@ -118,39 +118,25 @@ const FAQS = [
   },
 ];
 
+/* ─── Shared layout token ────────────────────────────────────────────────── */
+
+const wrap = 'w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4';
+
 /* ─── Formula Block ──────────────────────────────────────────────────────── */
 
 function FormulaBlock() {
   return (
     <div className="rounded-2xl border border-[var(--line-2)] bg-[var(--bg-2)] p-6 lg:p-8">
-      <p className="wb-section-label mb-6">Calculation Formula</p>
+      <p className="text-[12px] font-medium tracking-[0.18em] uppercase text-[var(--muted)] mb-6">
+        Calculation Formula
+      </p>
       <div className="flex flex-col gap-4">
         {[
-          {
-            label: 'GST Amount',
-            formula: '( Original Cost  ×  GST% )  ÷  100',
-            color: '#dc2f65',
-          },
-          {
-            label: 'Total Amount',
-            formula: 'Original Cost  +  GST Amount',
-            color: '#22d3ee',
-          },
-          {
-            label: 'CGST (Intra-state)',
-            formula: 'GST Amount  ÷  2',
-            color: '#a78bfa',
-          },
-          {
-            label: 'SGST (Intra-state)',
-            formula: 'GST Amount  ÷  2',
-            color: '#a78bfa',
-          },
-          {
-            label: 'IGST (Inter-state)',
-            formula: 'Full GST Amount',
-            color: '#f59e0b',
-          },
+          { label: 'GST Amount',        formula: '( Original Cost  ×  GST% )  ÷  100', color: '#dc2f65' },
+          { label: 'Total Amount',      formula: 'Original Cost  +  GST Amount',        color: '#22d3ee' },
+          { label: 'CGST (Intra-state)',formula: 'GST Amount  ÷  2',                    color: '#a78bfa' },
+          { label: 'SGST (Intra-state)',formula: 'GST Amount  ÷  2',                    color: '#a78bfa' },
+          { label: 'IGST (Inter-state)',formula: 'Full GST Amount',                     color: '#f59e0b' },
         ].map((row) => (
           <div
             key={row.label}
@@ -183,22 +169,16 @@ function OutputRow({
 }) {
   return (
     <div
-      className="flex items-center justify-between px-5 py-4 rounded-xl border"
-      style={{
-        background: highlight ? 'var(--brand-soft)' : 'var(--bg-elev)',
-        borderColor: highlight ? 'var(--brand-border)' : 'var(--line)',
-      }}
+      className={`flex items-center justify-between px-5 py-4 rounded-xl border ${
+        highlight
+          ? 'bg-[var(--brand-soft)] border-[var(--brand-border)]'
+          : 'bg-[var(--bg-elev)] border-[var(--line)]'
+      }`}
     >
-      <span
-        className="text-[13px] font-medium"
-        style={{ color: muted ? 'var(--muted-2)' : 'var(--text)' }}
-      >
+      <span className={`text-[13px] font-medium ${muted ? 'text-[var(--muted-2)]' : 'text-[var(--text)]'}`}>
         {label}
       </span>
-      <span
-        className="text-[15px] font-bold font-[var(--font-display)]"
-        style={{ color: highlight ? 'var(--brand)' : 'var(--text)' }}
-      >
+      <span className={`text-[15px] font-bold font-display ${highlight ? 'text-[var(--brand)]' : 'text-[var(--text)]'}`}>
         {value}
       </span>
     </div>
@@ -243,11 +223,8 @@ function GstCalculatorWidget() {
     <div className="rounded-2xl border border-[var(--line-2)] bg-[var(--bg-2)] overflow-hidden">
       {/* Header */}
       <div className="flex items-center gap-3 px-6 py-5 border-b border-[var(--line-2)]">
-        <div
-          className="w-9 h-9 rounded-[10px] flex items-center justify-center shrink-0"
-          style={{ background: 'var(--brand-soft)', border: '1px solid var(--brand-border)' }}
-        >
-          <Calculator size={16} style={{ color: 'var(--brand)' }} />
+        <div className="w-9 h-9 rounded-[10px] flex items-center justify-center shrink-0 bg-[var(--brand-soft)] [border:1px_solid_var(--brand-border)]">
+          <Calculator size={16} className="text-[var(--brand)]" />
         </div>
         <div>
           <p className="text-[14px] font-semibold text-[var(--text)]">GST Tax Calculator</p>
@@ -271,16 +248,13 @@ function GstCalculatorWidget() {
                 key={opt.id}
                 type="button"
                 onClick={() => { setSupplyType(opt.id as 'intra' | 'inter'); setCalculated(false); }}
-                className="flex flex-col items-start px-4 py-3 rounded-xl border text-left transition-all"
-                style={{
-                  background: supplyType === opt.id ? 'var(--brand-soft)' : 'var(--bg-elev)',
-                  borderColor: supplyType === opt.id ? 'var(--brand-border)' : 'var(--line)',
-                }}
+                className={`flex flex-col items-start px-4 py-3 rounded-xl border text-left transition-all ${
+                  supplyType === opt.id
+                    ? 'bg-[var(--brand-soft)] border-[var(--brand-border)]'
+                    : 'bg-[var(--bg-elev)] border-[var(--line)]'
+                }`}
               >
-                <span
-                  className="text-[13px] font-semibold"
-                  style={{ color: supplyType === opt.id ? 'var(--brand)' : 'var(--text)' }}
-                >
+                <span className={`text-[13px] font-semibold ${supplyType === opt.id ? 'text-[var(--brand)]' : 'text-[var(--text)]'}`}>
                   {opt.label}
                 </span>
                 <span className="text-[11px] text-[var(--muted)] mt-0.5">{opt.sub}</span>
@@ -301,14 +275,7 @@ function GstCalculatorWidget() {
             value={amount}
             onChange={(e) => { setAmount(e.target.value); setCalculated(false); }}
             placeholder="e.g. 10000"
-            className="w-full px-4 py-3.5 rounded-xl text-[14px] outline-none transition-all"
-            style={{
-              background: 'var(--bg-elev)',
-              border: '1.5px solid var(--line-2)',
-              color: 'var(--text)',
-            }}
-            onFocus={(e) => (e.currentTarget.style.borderColor = 'var(--brand)')}
-            onBlur={(e) => (e.currentTarget.style.borderColor = 'var(--line-2)')}
+            className="w-full px-4 py-3.5 rounded-xl text-[14px] outline-none transition-all bg-[var(--bg-elev)] [border:1.5px_solid_var(--line-2)] text-[var(--text)] focus:[border-color:var(--brand)]"
           />
         </div>
 
@@ -321,26 +288,18 @@ function GstCalculatorWidget() {
             <select
               value={rateIdx ?? ''}
               onChange={(e) => { setRateIdx(e.target.value === '' ? null : Number(e.target.value)); setCalculated(false); }}
-              className="w-full appearance-none px-4 py-3.5 rounded-xl text-[14px] outline-none transition-all cursor-pointer"
-              style={{
-                background: 'var(--bg-elev)',
-                border: '1.5px solid var(--line-2)',
-                color: rateIdx === null ? 'var(--muted)' : 'var(--text)',
-              }}
-              onFocus={(e) => (e.currentTarget.style.borderColor = 'var(--brand)')}
-              onBlur={(e) => (e.currentTarget.style.borderColor = 'var(--line-2)')}
+              className={`w-full appearance-none px-4 py-3.5 rounded-xl text-[14px] outline-none transition-all cursor-pointer bg-[var(--bg-elev)] [border:1.5px_solid_var(--line-2)] focus:[border-color:var(--brand)] ${
+                rateIdx === null ? 'text-[var(--muted)]' : 'text-[var(--text)]'
+              }`}
             >
               <option value="">— Select Tax Rate —</option>
               {TAX_RATES.map((r, i) => (
-                <option key={i} value={i}>
-                  {r.label}
-                </option>
+                <option key={i} value={i}>{r.label}</option>
               ))}
             </select>
             <ChevronDown
               size={15}
-              className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none"
-              style={{ color: 'var(--muted)' }}
+              className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-[var(--muted)]"
             />
           </div>
         </div>
@@ -351,13 +310,11 @@ function GstCalculatorWidget() {
             type="button"
             onClick={handleCalculate}
             disabled={!canCalculate}
-            className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-semibold text-[14px] transition-all"
-            style={{
-              background: canCalculate ? 'var(--brand)' : 'var(--bg-elev)',
-              color: canCalculate ? '#fff' : 'var(--muted)',
-              cursor: canCalculate ? 'pointer' : 'not-allowed',
-              border: canCalculate ? 'none' : '1.5px solid var(--line)',
-            }}
+            className={`flex-1 inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-semibold text-[14px] transition-all ${
+              canCalculate
+                ? 'bg-[var(--brand)] text-white cursor-pointer'
+                : 'bg-[var(--bg-elev)] text-[var(--muted)] cursor-not-allowed [border:1.5px_solid_var(--line)]'
+            }`}
           >
             <Calculator size={16} />
             Calculate GST
@@ -365,12 +322,7 @@ function GstCalculatorWidget() {
           <button
             type="button"
             onClick={handleReset}
-            className="inline-flex items-center justify-center gap-1.5 px-4 py-3.5 rounded-xl text-[14px] font-medium transition-all"
-            style={{
-              background: 'var(--bg-elev)',
-              border: '1.5px solid var(--line)',
-              color: 'var(--muted-2)',
-            }}
+            className="inline-flex items-center justify-center gap-1.5 px-4 py-3.5 rounded-xl text-[14px] font-medium transition-all bg-[var(--bg-elev)] [border:1.5px_solid_var(--line)] text-[var(--muted-2)]"
             title="Reset"
           >
             <RefreshCw size={15} />
@@ -379,10 +331,9 @@ function GstCalculatorWidget() {
       </div>
 
       {/* Results */}
-      <div
-        className="border-t border-[var(--line-2)] px-6 py-5 flex flex-col gap-3 transition-all"
-        style={{ opacity: calculated ? 1 : 0.38, pointerEvents: calculated ? 'auto' : 'none' }}
-      >
+      <div className={`border-t border-[var(--line-2)] px-6 py-5 flex flex-col gap-3 transition-all ${
+        calculated ? 'opacity-100 pointer-events-auto' : 'opacity-[0.38] pointer-events-none'
+      }`}>
         <p className="text-[11px] font-semibold uppercase tracking-wider text-[var(--muted)] mb-1">
           Tax Breakdown
         </p>
@@ -427,7 +378,7 @@ export function GstTaxCalculator() {
 
         {/* Breadcrumb */}
         <section className="pt-[100px] pb-0">
-          <div className="wb-wrap">
+          <div className={wrap}>
             <Breadcrumb
               items={[
                 { label: 'Home', href: '/' },
@@ -439,15 +390,15 @@ export function GstTaxCalculator() {
         </section>
 
         {/* Hero — two-column */}
-        <section className="wb-subhero !pb-10">
-          <div className="wb-wrap">
+        <section className="pt-[70px] pb-10 relative overflow-hidden">
+          <div className={wrap}>
             <div className="flex flex-col lg:flex-row items-start gap-12 lg:gap-16 w-full">
 
               {/* Left: copy */}
               <div className="flex-1 min-w-0 pt-2">
                 <EyebrowPill label="Free Tool" subtitle="GST Calculator" />
-                <h1 className="wb-display text-[clamp(36px,5vw,64px)] mt-5 mb-4">
-                  GST Tax Calculator — <span className="accent">Calculate Indian GST</span> in Seconds
+                <h1 className="font-display font-medium tracking-[-0.025em] leading-[1.04] text-[clamp(36px,5vw,64px)] mt-5 mb-4">
+                  GST Tax Calculator — <span className="text-[var(--brand)]">Calculate Indian GST</span> in Seconds
                 </h1>
                 <p className="text-[var(--muted-2)] text-[16px] leading-relaxed mb-6 max-w-[520px]">
                   Instantly compute CGST, SGST, or IGST for any invoice amount. Select your supply type and GST slab — get a full tax breakdown in one click.
@@ -457,10 +408,7 @@ export function GstTaxCalculator() {
                 <div className="flex flex-col gap-3">
                   {HOW_IT_WORKS.map((step) => (
                     <div key={step.step} className="flex items-start gap-4">
-                      <div
-                        className="shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-[11px] font-bold mt-0.5"
-                        style={{ background: 'var(--brand-soft)', border: '1px solid var(--brand-border)', color: 'var(--brand)' }}
-                      >
+                      <div className="shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-[11px] font-bold mt-0.5 bg-[var(--brand-soft)] [border:1px_solid_var(--brand-border)] text-[var(--brand)]">
                         {step.step}
                       </div>
                       <div>
@@ -481,43 +429,46 @@ export function GstTaxCalculator() {
         </section>
 
         {/* Benefits */}
-        <section className="wb-section wb-reveal" data-reveal>
-          <div className="wb-wrap">
-            <p className="wb-section-label">Why use this tool</p>
-            <h2 className="wb-h2 mt-3 mb-10">
-              Benefits of the <span className="accent">GST Calculator.</span>
+        <section className="relative py-[120px] max-[700px]:py-[72px] wb-reveal" data-reveal>
+          <div className={wrap}>
+            <p className="text-[12px] font-medium tracking-[0.18em] uppercase text-[var(--muted)]">Why use this tool</p>
+            <h2 className="font-display font-medium text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px] mt-3 mb-10">
+              Benefits of the <span className="text-[var(--brand)]">GST Calculator.</span>
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {WHY_USE.map((item, i) => (
-                <article key={i} className="wb-block" data-reveal>
-                  <div
-                    className="w-10 h-10 rounded-[10px] flex items-center justify-center mb-4"
-                    style={{ background: 'var(--brand-soft)', border: '1px solid var(--brand-border)' }}
-                  >
+                <article
+                  key={i}
+                  className="p-7 pb-[26px] bg-[var(--bg-2)] border border-[var(--line)] rounded-[14px] transition-[border-color,background] duration-[180ms] hover:border-[var(--brand-border)] hover:bg-[var(--bg-elev)] max-[700px]:px-[18px] max-[700px]:py-5"
+                  data-reveal
+                >
+                  <div className="w-10 h-10 rounded-[10px] flex items-center justify-center mb-4 bg-[var(--brand-soft)] [border:1px_solid_var(--brand-border)]">
                     {item.icon}
                   </div>
-                  <h3 className="mb-2">{item.title}</h3>
-                  <p>{item.body}</p>
+                  <h3 className="font-display font-medium text-[18px] tracking-[-0.005em] m-0 mb-[10px] max-[700px]:text-[16px]">{item.title}</h3>
+                  <p className="m-0 text-[14px] text-[var(--muted-2)] leading-[1.6]">{item.body}</p>
                 </article>
               ))}
 
               {/* CTA card */}
               <article
-                className="wb-block flex flex-col justify-between"
-                style={{ background: 'var(--brand-softer)', borderColor: 'var(--brand-border)' }}
+                className="p-7 pb-[26px] rounded-[14px] border flex flex-col justify-between bg-[var(--brand-softer)] border-[var(--brand-border)] max-[700px]:px-[18px] max-[700px]:py-5"
                 data-reveal
               >
                 <div>
-                  <p className="text-[12px] font-semibold uppercase tracking-wider mb-3" style={{ color: 'var(--brand)' }}>
+                  <p className="text-[12px] font-semibold uppercase tracking-wider text-[var(--brand)] mb-3">
                     WhiteBooks GSP
                   </p>
-                  <h3 className="mb-2">Need full GST filing automation?</h3>
-                  <p>Go beyond calculations — file returns, reconcile ITC, and generate e-Invoices with WhiteBooks GST Software.</p>
+                  <h3 className="font-display font-medium text-[18px] tracking-[-0.005em] m-0 mb-[10px] max-[700px]:text-[16px]">
+                    Need full GST filing automation?
+                  </h3>
+                  <p className="m-0 text-[14px] text-[var(--muted-2)] leading-[1.6]">
+                    Go beyond calculations — file returns, reconcile ITC, and generate e-Invoices with WhiteBooks GST Software.
+                  </p>
                 </div>
                 <a
                   href="/softwares/gst"
-                  className="mt-5 inline-flex items-center gap-1.5 text-[13px] font-semibold transition-opacity hover:opacity-70"
-                  style={{ color: 'var(--brand)' }}
+                  className="mt-5 inline-flex items-center gap-1.5 text-[13px] font-semibold transition-opacity hover:opacity-70 text-[var(--brand)]"
                 >
                   Explore GST Software <ArrowRight size={13} />
                 </a>
@@ -527,13 +478,13 @@ export function GstTaxCalculator() {
         </section>
 
         {/* Formula + What is GST */}
-        <section className="wb-section wb-reveal" data-reveal>
-          <div className="wb-wrap">
+        <section className="relative py-[120px] max-[700px]:py-[72px] wb-reveal" data-reveal>
+          <div className={wrap}>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
               <div>
-                <p className="wb-section-label">Understanding GST</p>
-                <h2 className="wb-h2 mt-3 mb-5">
-                  What is a <span className="accent">GST Tax Calculator?</span>
+                <p className="text-[12px] font-medium tracking-[0.18em] uppercase text-[var(--muted)]">Understanding GST</p>
+                <h2 className="font-display font-medium text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px] mt-3 mb-5">
+                  What is a <span className="text-[var(--brand)]">GST Tax Calculator?</span>
                 </h2>
                 <p className="text-[var(--muted-2)] leading-relaxed mb-4">
                   A GST Tax Calculator is a free online tool that computes the Goods and Services Tax payable on any transaction in India. Depending on whether a sale is intra-state or inter-state, GST is split into CGST + SGST or charged as IGST.
@@ -551,11 +502,11 @@ export function GstTaxCalculator() {
         </section>
 
         {/* FAQ */}
-        <section className="wb-section wb-reveal" data-reveal>
-          <div className="wb-wrap">
-            <p className="wb-section-label">FAQs</p>
-            <h2 className="wb-h2 mt-3 mb-8">
-              Frequently asked <span className="accent">questions.</span>
+        <section className="relative py-[120px] max-[700px]:py-[72px] wb-reveal" data-reveal>
+          <div className={wrap}>
+            <p className="text-[12px] font-medium tracking-[0.18em] uppercase text-[var(--muted)]">FAQs</p>
+            <h2 className="font-display font-medium text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px] mt-3 mb-8">
+              Frequently asked <span className="text-[var(--brand)]">questions.</span>
             </h2>
             <div className="max-w-[800px]">
               <FaqList items={FAQS} />

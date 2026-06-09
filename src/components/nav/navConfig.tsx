@@ -29,10 +29,10 @@ export const API_ITEMS: NavItem[] = [
 
 export const SERVICES_ITEMS: NavItem[] = [
   { label: 'Overview', href: '/services', icon: <Home size={14} /> },
-  { label: 'Registration', href: '/services/#registration', icon: <FileText size={14} /> },
-  { label: 'Compliance', href: '/services/#compliance', icon: <ShieldCheck size={14} /> },
-  { label: 'Audit Service', href: '/services/#audit', icon: <Search size={14} /> },
-  { label: 'Managed Services', href: '/services/#managed', icon: <Briefcase size={14} /> },
+  // { label: 'Registration', href: '/services/#registration', icon: <FileText size={14} /> },
+  // { label: 'Compliance', href: '/services/#compliance', icon: <ShieldCheck size={14} /> },
+  // { label: 'Audit Service', href: '/services/#audit', icon: <Search size={14} /> },
+  // { label: 'Managed Services', href: '/services/#managed', icon: <Briefcase size={14} /> },
 ];
 
 

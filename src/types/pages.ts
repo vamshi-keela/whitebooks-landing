@@ -168,6 +168,7 @@ export interface FeaturesSection {
 export interface CtaLink {
     label: string;
     href?: string;
+    target?: '_blank' | '_self' | '_parent' | '_top';
 }
 export interface IntegrationSection {
     heading: string;

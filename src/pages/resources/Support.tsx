@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ButtonLink } from '@/components/ui/Button';
 import { Header, Footer, FluidBackground, Breadcrumb } from '@/layouts/SiteShell';
 import { PlainSection, SubClose, FaqList } from '@/layouts/SubpageShell';
 import { useReveal } from '@/hooks/useReveal';
 import EyebrowPill from '@/components/ui/EyebrowPill';
 import { ProofSection } from '@/sections/WbProof';
+import Icon from '@/components/icons/Icon';
 
 const SUPPORT_CHANNELS = [
   {
@@ -106,12 +107,15 @@ const FAQ_ITEMS = [
 
 function SupportChannelCard({ icon, title, body }: { icon: React.ReactNode; title: string; body: string }) {
   return (
-    <article className="wb-block" data-reveal>
+    <article
+      className="p-7 max-sm:p-5 bg-[var(--bg-2)] border border-[var(--line)] rounded-[14px] transition-[border-color,background] duration-[180ms] ease hover:border-[var(--brand-border)] hover:bg-[var(--bg-elev)]"
+      data-reveal
+    >
       <div className="w-10 h-10 rounded-[10px] bg-[var(--brand-soft)] border border-[var(--brand-border)] flex items-center justify-center mb-4">
         {icon}
       </div>
-      <h3 className="mb-2">{title}</h3>
-      <p>{body}</p>
+      <h3 className="font-display font-medium text-[18px] tracking-[-0.005em] text-[var(--text)] mb-2">{title}</h3>
+      <p className="text-[14px] text-[var(--muted-2)] leading-[1.6]">{body}</p>
     </article>
   );
 }
@@ -152,33 +156,33 @@ export function SupportPage() {
     <div className="min-h-screen bg-[var(--bg)]">
       <Header mode="resources" />
       <main>
-        {/* Breadcrumb */}
-        <section className="pt-[100px] pb-0">
-          <div className="wb-wrap">
-            <Breadcrumb
-              items={[
-                { label: 'Home', href: '/' },
-                { label: 'Resources', href: '/resources/partners' },
-                { label: 'Support' },
-              ]}
-            />
-          </div>
-        </section>
 
         {/* Hero */}
-        <section className="wb-subhero">
+        <section className="pt-[70px] pb-[72px] relative overflow-hidden">
           <FluidBackground />
-          <div className="wb-wrap">
+          {/* Breadcrumb */}
+          <section className="pt-[100px] pb-0">
+            <div className="max-w-[1240px] mx-auto px-8 max-sm:px-5">
+              <Breadcrumb
+                items={[
+                  { label: 'Home', href: '/' },
+                  { label: 'Resources', href: '/resources/partners' },
+                  { label: 'Support' },
+                ]}
+              />
+            </div>
+          </section>
+          <div className="max-w-[1240px] mx-auto px-8 max-sm:px-5">
             <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16 w-full">
               <div className="flex-1 min-w-0">
                 <EyebrowPill label="Resources | Support" />
-                <h1 className="wb-display text-[clamp(42px,5.8vw,72px)] max-w-[820px]">
-                  WhiteBooks <span className="accent">Support</span> and Resources
+                <h1 className="font-display font-medium tracking-[-0.025em] leading-[1.04] text-[clamp(42px,5.8vw,72px)] max-w-[820px]">
+                  WhiteBooks <span className="text-[var(--brand)]">Support</span> and Resources
                 </h1>
-                <p className="wb-subhero-sub max-w-[600px]">
+                <p className="mt-[22px] max-w-[620px] text-[17px] text-[var(--muted-2)] leading-[1.55]">
                   Get expert support for WhiteBooks GST accounting software. Our support team is available 24/7 to help you with any issues or questions.
                 </p>
-                <div className="wb-subhero-cta">
+                <div className="mt-8 flex flex-wrap gap-3">
                   <ButtonLink href="tel:+919032111388" size="lg" arrow>
                     Call Support
                   </ButtonLink>
@@ -197,7 +201,7 @@ export function SupportPage() {
                     { value: 'GSP', label: 'Certified Platform', sub: 'Licensed by GSTN' },
                   ].map((stat) => (
                     <div key={stat.label} className="flex items-center gap-4">
-                      <div className="text-[36px] font-bold text-[var(--brand)] leading-none font-[var(--font-display)] min-w-[100px]">
+                      <div className="text-[36px] font-bold text-[var(--brand)] leading-none font-display min-w-[100px]">
                         {stat.value}
                       </div>
                       <div>
@@ -214,14 +218,14 @@ export function SupportPage() {
 
         {/* Support channels */}
         <PlainSection
-          label="How we support you"
+          label=""
           heading={
             <>
               Seven ways we have <span className="accent">got you covered.</span>
             </>
           }
         >
-          <div className="wb-col-3 mt-10" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))' }}>
+          <div className="grid gap-[22px] mt-10" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))' }}>
             {SUPPORT_CHANNELS.map((ch, i) => (
               <SupportChannelCard key={i} {...ch} />
             ))}
@@ -230,10 +234,10 @@ export function SupportPage() {
 
         {/* FAQ */}
         <PlainSection
-          label="Frequently asked questions"
+          label=""
           heading={
             <>
-              Answers to <span className="accent">common questions.</span>
+              Frequently asked questions.<span className="text-[var(--brand)]">questions.</span>
             </>
           }
         >
@@ -243,11 +247,10 @@ export function SupportPage() {
         </PlainSection>
 
         {/* Contact info */}
-        <section className="wb-section wb-reveal" data-reveal>
-          <div className="wb-wrap">
-            <p className="wb-section-label">Get in touch</p>
-            <h2 className="wb-h2">
-              Reach our team <span className="accent">directly.</span>
+        <section className="relative pb-[120px] max-sm:py-[72px] transition-[opacity,transform] duration-[600ms] ease-in-out" data-reveal>
+          <div className="max-w-[1240px] mx-auto px-8 max-sm:px-5">
+            <h2 className="font-display font-medium text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] text-[var(--text)]">
+              Reach our team <span className="text-[var(--brand)]">directly.</span>
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-10 max-w-[860px]">
               <ContactCard

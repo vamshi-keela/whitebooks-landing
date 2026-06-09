@@ -89,6 +89,8 @@ const GST_SLABS = [
   { rate: '28%', label: 'Luxury', desc: 'Automobiles, tobacco, luxury goods + cess', color: '#dc2f65' },
 ];
 
+const wrap = 'w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4';
+
 /* ─── HSN Format Diagram ──────────────────────────────────────────────────── */
 
 function HsnFormatDiagram() {
@@ -101,7 +103,7 @@ function HsnFormatDiagram() {
 
   return (
     <div className="rounded-2xl border border-[var(--line-2)] bg-[var(--bg-2)] p-6 lg:p-8 h-full">
-      <p className="wb-section-label mb-2">HSN Code</p>
+      <p className="text-[12px] font-medium tracking-[0.18em] uppercase text-[var(--muted)] mb-2">HSN Code</p>
       <p className="text-[13px] text-[var(--muted)] mb-6">8-digit structure for goods</p>
       <div className="flex flex-wrap items-end gap-2 mb-8">
         {segments.map((seg, i) => (
@@ -150,7 +152,7 @@ function SacFormatDiagram() {
 
   return (
     <div className="rounded-2xl border border-[var(--line-2)] bg-[var(--bg-2)] p-6 lg:p-8 h-full">
-      <p className="wb-section-label mb-2">SAC Code</p>
+      <p className="text-[12px] font-medium tracking-[0.18em] uppercase text-[var(--muted)] mb-2">SAC Code</p>
       <p className="text-[13px] text-[var(--muted)] mb-6">6-digit structure for services</p>
       <div className="flex flex-wrap items-end gap-2 mb-8">
         {segments.map((seg, i) => (
@@ -298,7 +300,7 @@ export function GstHsnSacSearch() {
 
         {/* Breadcrumb */}
         <section className="pt-[100px] pb-0">
-          <div className="wb-wrap">
+          <div className={wrap}>
             <Breadcrumb items={[
               { label: 'Home', href: '/' },
               { label: 'Tools', href: '/tools/gst-number-search' },
@@ -308,12 +310,12 @@ export function GstHsnSacSearch() {
         </section>
 
         {/* Hero — search tool */}
-        <section className="wb-subhero !pb-10">
-          <div className="wb-wrap">
+        <section className="pt-[70px] pb-10 relative overflow-hidden">
+          <div className={wrap}>
             <div className="max-w-[800px] mx-auto text-center">
               <EyebrowPill label="Free Tool" subtitle="HSN & SAC Code Search" />
-              <h1 className="wb-display text-[clamp(32px,5vw,58px)] mt-5 mb-4">
-                GST HSN &amp; SAC <span className="accent">Code Search</span>
+              <h1 className="font-display font-medium tracking-[-0.025em] leading-[1.04] text-[clamp(32px,5vw,58px)] mt-5 mb-4">
+                GST HSN &amp; SAC <span className="text-[var(--brand)]">Code Search</span>
               </h1>
               <p className="text-[var(--muted-2)] text-[16px] leading-relaxed mb-8 max-w-[580px] mx-auto">
                 Search for GST HSN and SAC codes for your products and services. Get GST rates, descriptions, and classifications — free, instant, no login required.
@@ -402,8 +404,8 @@ export function GstHsnSacSearch() {
 
         {/* Search results */}
         {results && (
-          <section className="wb-section !pt-0" ref={resultRef}>
-            <div className="wb-wrap">
+          <section className="relative py-[120px] max-[700px]:py-[72px] !pt-0" ref={resultRef}>
+            <div className={wrap}>
               <div className="flex items-center gap-2 mb-6">
                 <p className="font-semibold text-[var(--text)]">
                   {results.length} result{results.length !== 1 ? 's' : ''} found
@@ -415,11 +417,10 @@ export function GstHsnSacSearch() {
         )}
 
         {/* Code structure diagrams */}
-        <section className="wb-section wb-reveal" data-reveal>
-          <div className="wb-wrap">
-            <p className="wb-section-label">Code Structure</p>
-            <h2 className="wb-h2 mt-3 mb-10">
-              How HSN &amp; SAC codes are <span className="accent">structured.</span>
+        <section className="relative py-[120px] max-[700px]:py-[72px] transition-[opacity,transform] duration-[600ms] ease-in-out" data-reveal>
+          <div className={wrap}>
+            <h2 className="font-display font-medium text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] max-w-[780px] text-balance mt-3 mb-10">
+              How HSN &amp; SAC codes are <span className="text-[var(--brand)]">structured.</span>
             </h2>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <HsnFormatDiagram />
@@ -429,13 +430,12 @@ export function GstHsnSacSearch() {
         </section>
 
         {/* What is HSN / SAC */}
-        <section className="wb-section wb-reveal" data-reveal>
-          <div className="wb-wrap">
+        <section className="relative py-[120px] max-[700px]:py-[72px] transition-[opacity,transform] duration-[600ms] ease-in-out" data-reveal>
+          <div className={wrap}>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
               {/* HSN */}
               <div>
-                <p className="wb-section-label">Understanding HSN</p>
-                <h2 className="wb-h2 mt-3 mb-5">What is an <span className="accent">HSN Code?</span></h2>
+                <h2 className="font-display font-medium text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] max-w-[780px] text-balance mt-3 mb-5">What is an <span className="text-[var(--brand)]">HSN Code?</span></h2>
                 <p className="text-[var(--muted-2)] leading-relaxed mb-4">
                   <strong className="text-[var(--text)]">HSN stands for Harmonized System of Nomenclature</strong> — a standardized international system of names and numbers used to classify goods in trade. Developed by the World Customs Organization (WCO), it is recognized in over 200 countries.
                 </p>
@@ -449,8 +449,7 @@ export function GstHsnSacSearch() {
 
               {/* SAC */}
               <div>
-                <p className="wb-section-label">Understanding SAC</p>
-                <h2 className="wb-h2 mt-3 mb-5">What is a <span className="accent">SAC Code?</span></h2>
+                <h2 className="font-display font-medium text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] max-w-[780px] text-balance mt-3 mb-5">What is a <span className="text-[var(--brand)]">SAC Code?</span></h2>
                 <p className="text-[var(--muted-2)] leading-relaxed mb-4">
                   <strong className="text-[var(--text)]">SAC stands for Service Accounting Code</strong> — a unique 6-digit numerical code used to classify services under India's GST regime. While HSN applies to goods, SAC is its equivalent for services.
                 </p>
@@ -466,11 +465,10 @@ export function GstHsnSacSearch() {
         </section>
 
         {/* Compliance thresholds */}
-        <section className="wb-section wb-reveal" data-reveal>
-          <div className="wb-wrap">
-            <p className="wb-section-label">Compliance requirements</p>
-            <h2 className="wb-h2 mt-3 mb-8">
-              When do you need to quote <span className="accent">HSN codes?</span>
+        <section className="relative py-[120px] max-[700px]:py-[72px] transition-[opacity,transform] duration-[600ms] ease-in-out" data-reveal>
+          <div className={wrap}>
+            <h2 className="font-display font-medium text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] max-w-[780px] text-balance mt-3 mb-8">
+              When do you need to quote <span className="text-[var(--brand)]">HSN codes?</span>
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
               {GST_THRESHOLDS.map((t, i) => (
@@ -499,11 +497,10 @@ export function GstHsnSacSearch() {
         </section>
 
         {/* GST rate slabs */}
-        <section className="wb-section wb-reveal" data-reveal>
-          <div className="wb-wrap">
-            <p className="wb-section-label">Tax Rates</p>
-            <h2 className="wb-h2 mt-3 mb-8">
-              Five GST rate slabs — determined by <span className="accent">HSN / SAC code.</span>
+        <section className="relative py-[120px] max-[700px]:py-[72px] transition-[opacity,transform] duration-[600ms] ease-in-out" data-reveal>
+          <div className={wrap}>
+            <h2 className="font-display font-medium text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] max-w-[780px] text-balance mt-3 mb-8">
+              Five GST rate slabs — determined by <span className="text-[var(--brand)]">HSN / SAC code.</span>
             </h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
               {GST_SLABS.map((slab, i) => (
@@ -532,23 +529,26 @@ export function GstHsnSacSearch() {
         </section>
 
         {/* Why HSN matters */}
-        <section className="wb-section wb-reveal" data-reveal>
-          <div className="wb-wrap">
-            <p className="wb-section-label">Why it matters</p>
-            <h2 className="wb-h2 mt-3 mb-10">
-              Four reasons accurate HSN codes <span className="accent">matter for your business.</span>
+        <section className="relative py-[120px] max-[700px]:py-[72px] transition-[opacity,transform] duration-[600ms] ease-in-out" data-reveal>
+          <div className={wrap}>
+            <h2 className="font-display font-medium text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] max-w-[780px] text-balance mt-3 mb-10">
+              Four reasons accurate HSN codes <span className="text-[var(--brand)]">matter for your business.</span>
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {WHY_HSN.map((item, i) => (
-                <article key={i} className="wb-block" data-reveal>
+                <article
+                  key={i}
+                  className="px-7 pt-7 pb-[26px] bg-[var(--bg-2)] border border-[var(--line)] rounded-[14px] transition-[border-color,background] duration-[180ms] ease-linear hover:border-[var(--brand-border)] hover:bg-[var(--bg-elev)]"
+                  data-reveal
+                >
                   <div
                     className="w-10 h-10 rounded-[10px] flex items-center justify-center mb-4"
                     style={{ background: 'var(--brand-soft)', border: '1px solid var(--brand-border)', color: 'var(--brand)' }}
                   >
                     {item.icon}
                   </div>
-                  <h3 className="mb-2">{item.title}</h3>
-                  <p>{item.body}</p>
+                  <h3 className="font-display font-medium text-[18px] tracking-[-0.005em] mb-2.5">{item.title}</h3>
+                  <p className="m-0 text-[14px] text-[var(--muted-2)] leading-[1.6]">{item.body}</p>
                 </article>
               ))}
             </div>
@@ -556,11 +556,10 @@ export function GstHsnSacSearch() {
         </section>
 
         {/* FAQ */}
-        <section className="wb-section wb-reveal" data-reveal>
-          <div className="wb-wrap">
-            <p className="wb-section-label">FAQs</p>
-            <h2 className="wb-h2 mt-3 mb-8">
-              Frequently asked <span className="accent">questions.</span>
+        <section className="relative py-[120px] max-[700px]:py-[72px] transition-[opacity,transform] duration-[600ms] ease-in-out" data-reveal>
+          <div className={wrap}>
+            <h2 className="font-display font-medium text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] max-w-[780px] text-balance mt-3 mb-8">
+              Frequently asked <span className="text-[var(--brand)]">questions.</span>
             </h2>
             <div className="max-w-[800px]">
               <FaqList items={FAQS} />

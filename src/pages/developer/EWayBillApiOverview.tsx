@@ -99,7 +99,7 @@ export default function EWayBillApiOverview() {
                 description='Integrate WhiteBooks e-Way Bill APIs into your ERP, logistics platform, accounting software, or supply chain system to automate e-Way Bill generation, updates, cancellations, and transportation compliance workflows in real time.'
                 trustItems={['GST Return Filing APIs', 'GSTIN Verification', 'Sandbox & Production Access']}
                 primaryButton={{ label: 'Get API Access', href: SIGNUP_URL }}
-                secondaryButton={{ label: 'Read the Docs', href: '#' }} />
+                secondaryButton={{ label: 'Read API Docs', href: '#' }} />
         </div>
     );
 }

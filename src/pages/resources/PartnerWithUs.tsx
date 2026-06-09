@@ -1,11 +1,13 @@
 import React from 'react';
 import { ButtonLink } from '@/components/ui/Button';
-import { Header, Footer, FluidBackground, Breadcrumb } from '@/layouts/SiteShell';
+import { Header, Footer, Breadcrumb } from '@/layouts/SiteShell';
 import { PlainSection, SubClose } from '@/layouts/SubpageShell';
 import { useReveal } from '@/hooks/useReveal';
 import EyebrowPill from '@/components/ui/EyebrowPill';
 import { ProofSection } from '@/sections/WbProof';
 import partnerImg from '@/assets/resources/partner.webp';
+
+const wrap = "w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4";
 
 const GUARANTEES = [
   {
@@ -78,12 +80,17 @@ const GUARANTEES = [
 
 function GuaranteeCard({ icon, title, body }: { icon: React.ReactNode; title: string; body: string }) {
   return (
-    <article className="wb-block" data-reveal>
+    <article
+      data-reveal
+      className="p-7 max-[700px]:p-5 bg-[var(--bg-2)] border border-[var(--line)] rounded-[14px] transition-[border-color,background] duration-[180ms] hover:border-[var(--brand-border)] hover:bg-[var(--bg-elev)]"
+    >
       <div className="w-10 h-10 rounded-[10px] bg-[var(--brand-soft)] border border-[var(--brand-border)] flex items-center justify-center mb-4">
         {icon}
       </div>
-      <h3 className="mb-2">{title}</h3>
-      <p>{body}</p>
+      <h3 className="[font-family:var(--font-display)] font-medium text-[18px] max-[700px]:text-[16px] tracking-[-0.005em] m-0 mb-[10px] text-[var(--text)]">
+        {title}
+      </h3>
+      <p className="m-0 text-sm text-[var(--muted-2)] leading-[1.6]">{body}</p>
     </article>
   );
 }
@@ -95,9 +102,10 @@ export function PartnerWithUs() {
     <div className="min-h-screen bg-[var(--bg)]">
       <Header mode="resources" />
       <main>
-        {/* Breadcrumb */}
+
+        {/* ── Breadcrumb ───────────────────────────────────────────────── */}
         <section className="pt-[100px] pb-0">
-          <div className="wb-wrap">
+          <div className={wrap}>
             <Breadcrumb items={[
               { label: "Home", href: "/" },
               { label: "Resources", href: "/resources/partners" },
@@ -106,20 +114,24 @@ export function PartnerWithUs() {
           </div>
         </section>
 
-        {/* Hero — two-column row with image */}
-        <section className="wb-subhero">
-          {/* <FluidBackground /> */}
-          <div className="wb-wrap">
+        {/* ── Hero ─────────────────────────────────────────────────────── */}
+        <section className="relative overflow-hidden pt-[70px] pb-[72px]">
+          <div className={wrap}>
             <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16 w-full">
+
               <div className="flex-1 min-w-0">
                 <EyebrowPill label="Resources | Partner Program" />
-                <h1 className="wb-display text-[clamp(42px,5.8vw,72px)] max-w-[820px]">
-                  Partner With <span className="accent">WhiteBooks.</span>
+                <h1
+                  className="[font-family:var(--font-display)] font-medium leading-[1.05] tracking-[-0.025em] mt-[18px] max-w-[820px] [text-wrap:balance] text-[var(--text)]"
+                  style={{ fontSize: 'clamp(42px, 5.8vw, 72px)' }}
+                >
+                  Partner With{' '}
+                  <span className="text-[var(--brand)]">WhiteBooks.</span>
                 </h1>
-                <p className="wb-subhero-sub max-w-[600px]">
+                <p className="mt-[22px] max-w-[600px] text-[17px] text-[var(--muted-2)] leading-[1.55]">
                   Are you an individual or an agency looking to partner with us? Join India's leading GSP-licensed compliance platform and build a rewarding partnership.
                 </p>
-                <div className="wb-subhero-cta">
+                <div className="mt-8 flex flex-wrap gap-3">
                   <ButtonLink href="mailto:sales@whitebooks.in" size="lg" arrow>
                     Let's Talk
                   </ButtonLink>
@@ -136,34 +148,43 @@ export function PartnerWithUs() {
                   className="w-full rounded-2xl object-cover shadow-[0_24px_80px_-16px_rgba(0,0,0,0.5)]"
                 />
               </div>
+
             </div>
           </div>
         </section>
 
-        {/* CEO Quote */}
-        <section className="wb-section wb-reveal" data-reveal>
-          <div className="wb-wrap">
-            <p className="wb-section-label">From our CEO</p>
-            <div className="max-w-[860px] mt-8">
-              <div className="wb-quote-card">
-                <span className="wb-quote-mark">"</span>
-                <p className="wb-quote-text">
+        {/* ── CEO Quote ────────────────────────────────────────────────── */}
+        <section className="relative py-[120px] max-[700px]:py-[72px]" data-reveal>
+          <div className={wrap}>
+            <p className="block sm:text-xs lg:text-base font-medium tracking-[0.18em] uppercase text-[var(--muted)] mb-4">
+              From our CEO
+            </p>
+            <div className="w-full mt-8">
+              <div className="relative pt-[44px] px-[38px] pb-[36px] bg-[var(--bg-2)] border border-[var(--line)] border-l-[3px] border-l-[var(--brand)] rounded-r-[14px]">
+                <span
+                  aria-hidden="true"
+                  className="absolute top-[14px] left-[28px] [font-family:var(--font-display)] font-bold text-[88px] leading-[0.7] text-[var(--brand)] select-none"
+                >
+                  "
+                </span>
+                <p className="relative [font-family:var(--font-display)] font-medium text-[23px] leading-[1.4] tracking-[-0.01em] text-[var(--text)] mt-6 m-0">
                   I Think That Everything And Everyone Has A Unique Talent That No Other Person Or Thing Possesses. This Is Something That We Never Understand, But We Use It And Get Benefits. Partnership, To Me, Is The Similar Thing That Helps Two Individuals, Companies, Business Enterprises, And Entrepreneurs Fill The Gap.
                 </p>
-                <div className="wb-quote-attr">
-                  <strong>Mallikharjuna Rao Chittabathina</strong> — CEO, WhiteBooks
+                <div className="mt-6 pt-[18px] border-t border-[var(--line)] text-sm lg:text-base text-[var(--muted-2)]">
+                  <strong className="text-[var(--text)] font-medium">Mallikharjuna Rao Chittabathina</strong>
+                  {' '}— CEO, WhiteBooks
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Stats strip */}
-        <section className="wb-section wb-reveal !pt-0" data-reveal>
-          <div className="wb-wrap">
+        {/* ── Stats strip ──────────────────────────────────────────────── */}
+        <section className="relative pb-[120px] max-[700px]:pb-[72px]" data-reveal>
+          <div className={wrap}>
             <div className="flex flex-wrap items-center gap-8 lg:gap-12 px-8 lg:px-10 py-8 bg-[var(--bg-2)] border border-[var(--line)] border-l-[3px] border-l-[var(--brand)] rounded-r-[14px]">
               <div>
-                <div className="text-[48px] font-bold text-[var(--brand)] leading-none font-[var(--font-display)]">
+                <div className="text-[48px] font-bold text-[var(--brand)] leading-none [font-family:var(--font-display)]">
                   25,000+
                 </div>
                 <div className="text-sm text-[var(--muted-2)] mt-1.5">Customers across India</div>
@@ -177,12 +198,12 @@ export function PartnerWithUs() {
           </div>
         </section>
 
-        {/* Why Partner — 6 guarantees */}
+        {/* ── Why Partner — 6 guarantees ───────────────────────────────── */}
         <PlainSection
-          label="Why partner with us"
-          heading={<>Six reasons partners <span className="accent">choose WhiteBooks.</span></>}
+          label=""
+          heading={<>Six reasons our partners <span className="text-[var(--brand)]">choose WhiteBooks.</span></>}
         >
-          <div className="wb-col-3 mt-10">
+          <div className="grid grid-cols-3 max-[900px]:grid-cols-1 gap-[22px] max-[900px]:gap-[14px] mt-5 max-[900px]:mt-8">
             {GUARANTEES.map((g, i) => (
               <GuaranteeCard key={i} {...g} />
             ))}
@@ -191,13 +212,14 @@ export function PartnerWithUs() {
 
         <ProofSection />
 
-        {/* Closing */}
+        {/* ── Closing ──────────────────────────────────────────────────── */}
         <SubClose
           h2="Ready to grow together?"
           body="Reach out to our partnerships team and let's explore how we can build a rewarding relationship. Email us at sales@whitebooks.in or call us at +91 90321 11788."
           primaryCta={{ label: "Email Us", href: "mailto:sales@whitebooks.in" }}
           secondaryCta={{ label: "Call Sales: +91 90321 11788", href: "tel:+919032111788" }}
         />
+
       </main>
       <Footer />
     </div>

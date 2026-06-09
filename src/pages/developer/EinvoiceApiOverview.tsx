@@ -105,7 +105,7 @@ export function FinalCTA({
     headingEnd = 'in Your Platform?',
     description = 'Integrate WhiteBooks e-Invoice APIs with your ERP, accounting software, or SaaS platform to automate IRN generation, invoice validation, and GST compliance — with secure APIs, sandbox access, and expert integration support.',
     primaryButton = { label: 'Get API Access', icon: <ArrowRight size={15} /> },
-    secondaryButton = { label: 'Read the Docs', icon: <BookOpen size={15} /> },
+    secondaryButton = { label: 'Read API Docs', icon: <BookOpen size={15} /> },
     trustItems = [
         'Sandbox Environment',
         'Fast API Integration',
@@ -212,7 +212,7 @@ export default function InvoiceApiOverview() {
             <GstResources resources={INV_RESOURCE_ITEMS} faqs={INV_FAQS} />
             <Divider />
             <FinalCTA primaryButton={{ label: 'Get API Access', href: SIGNUP_URL }}
-                secondaryButton={{ label: 'Read the Docs', href: '#' }} />
+                secondaryButton={{ label: 'Read API Docs', href: '#' }} />
         </div>
     );
 }

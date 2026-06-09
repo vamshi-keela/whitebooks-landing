@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Icon } from '@/components/icons/Icon';
 import { SectionLabel } from '@/components/ui/SectionLabel';
 import { cn } from '@/lib/cn';
@@ -9,6 +10,8 @@ import {
   MiniEwayMock,
   MiniAccountingMock,
   MiniKSAMock,
+  MiniGstApiMock,
+  MiniEwayApiMock,
 } from '@/sections/PillarCards';
 import type { RouteKey } from '@/hooks/useHashRoute';
 
@@ -58,7 +61,6 @@ export function HubSection({ tab, setTab, navigate }: HubSectionProps) {
     return () => clearTimeout(t);
   }, [tab]);
 
-  const onTabClick = (v: string) => setTab(v);
 
   return (
     <section className="relative border-b border-[var(--hairline)] py-10 sm:py-14 md:py-16 lg:py-24">
@@ -124,6 +126,71 @@ export function HubSection({ tab, setTab, navigate }: HubSectionProps) {
             tone="amber"
             mock={<MiniKSAMock />}
             onClick={() => navigate('ksa-soft')}
+          />
+        </div>
+
+      </div>
+    </section>
+  );
+}
+
+// ─── HubAPIsSection ───────────────────────────────────────────────────────────
+
+export function HubAPIsSection() {
+  const navigate = useNavigate();
+
+  return (
+    <section className="relative border-b border-[var(--hairline)] py-10 sm:py-14 md:py-16 lg:py-24">
+      <div className="w-full max-w-[1280px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-16">
+
+        {/* Heading row */}
+        <div className="grid grid-cols-1 gap-3 items-end mb-7 sm:mb-9 md:grid-cols-[1.3fr_0.7fr] md:gap-10 md:mb-10 lg:gap-16 lg:mb-14">
+          <h2 className="font-serif font-semibold text-[clamp(24px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 text-balance">
+            Four REST APIs. Every compliance operation in India and KSA.
+          </h2>
+          <p className="text-[14px] sm:text-[15px] md:text-[17px] text-[var(--fg-secondary)] leading-[1.6] m-0 md:max-w-[460px] md:justify-self-end">
+            Built on a direct GSP license from GSTN. Sandbox in 5 minutes. Production in 5 days. No resold pipes.
+          </p>
+        </div>
+
+        {/* Card grid — same asymmetric 3-column layout as software hub */}
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3 grid-flow-dense">
+          <PillarCard
+            tag="GST API"
+            title="File returns. Pull 2A/2B. Validate GSTINs."
+            body="JSON in, ARN out. GSTR-1, 3B, 9, 9C — all supported. GSTIN validation, HSN search, IMS bulk ops, and notice tracking over clean REST endpoints."
+            cta="Explore GST API"
+            tone="pink"
+            featured
+            mock={<MiniGstApiMock />}
+            onClick={() => navigate('/apis/gst')}
+          />
+          <PillarCard
+            tag="e-Invoice API"
+            title="IRNs in under 200ms. Direct IRP pipe."
+            body="Generate IRNs at scale with sub-200ms p50 latency. Bulk endpoints, auto-retry on IRP outages, webhook on success. Built for billing systems serving the ₹5cr AATO mandate."
+            cta="Explore e-Invoice API"
+            tone="violet"
+            mock={<MiniEinvoiceMock />}
+            onClick={() => navigate('/apis/e-invoice')}
+          />
+          <PillarCard
+            tag="e-Way Bill API"
+            title="One call per dispatch."
+            body="Generate, extend, and cancel e-way bills programmatically. Auto-populate 90% of fields from an existing IRN. Webhooks 4h before expiry."
+            cta="Explore e-Way Bill API"
+            tone="blue"
+            mock={<MiniEwayApiMock />}
+            onClick={() => navigate('/apis/e-way-bill')}
+          />
+          <PillarCard
+            tag="KSA e-Invoice API"
+            title="ZATCA Phase 2, without the integration pain."
+            body="FATOORAH submission, cryptographic signing, CSID lifecycle managed for you. Bilingual Arabic-English invoice rendering. One account covers India and KSA."
+            cta="Explore KSA e-Invoice API"
+            tone="amber"
+            mock={<MiniKSAMock />}
+            onClick={() => navigate('/apis/ksa')}
           />
         </div>
 

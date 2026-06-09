@@ -95,9 +95,7 @@ function ContactUsDropdown() {
         onClick={() => setOpen(v => !v)}
         className="hidden min-[1100px]:inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-sm font-medium text-[var(--muted-2)] hover:text-[var(--text)] hover:bg-white/[0.05] border border-transparent hover:border-white/10 transition-all duration-150"
       >
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.86 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.77 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.18 6.18l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
-        </svg>
+        <Icon.Phone />
         Contact Us
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={`transition-transform duration-150 ${open ? 'rotate-180' : ''}`}>
           <polyline points="6 9 12 15 18 9" />

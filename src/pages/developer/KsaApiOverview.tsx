@@ -170,7 +170,7 @@ export default function KsaApiOverview(): React.ReactElement {
         description="Whitebooks KSA e-Invoice API handles ZATCA Phase 2 clearance, CSID lifecycle, bilingual invoice generation, and QR code embedding — so you can focus on building, not compliance."
         trustItems={['ZATCA Phase 2 Certified', 'Fatoorah Clearance', 'Sandbox Included']}
         primaryButton={{ label: 'Get API Access', href: SIGNUP_URL }}
-        secondaryButton={{ label: 'Read the Docs', href: '/developer/ksa-e-invoice-api' }}
+        secondaryButton={{ label: 'Read API Docs', href: '/developer/ksa-e-invoice-api' }}
       />
     </div>
   );

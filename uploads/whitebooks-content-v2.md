@@ -1266,7 +1266,7 @@ Compliance APIs that don't make you build the compliance.
 Four REST APIs for India and KSA — GST, e-Invoice, e-Way Bill, and KSA e-Invoice. Built by a directly licensed GSP, used in production by Razorpay, Pharmeasy, and 200+ teams.
 
 **Primary CTA:** Get sandbox keys
-**Secondary CTA:** Read the docs
+**Secondary CTA:** Read API docs
 
 ---
 
@@ -1359,7 +1359,7 @@ Whitebooks API pricing scales with your call volume, not your team size. Free sa
 Sign up, get sandbox keys immediately, run the quickstart in 30 minutes, move to production within 5 business days after KYC.
 
 **Primary CTA:** Get sandbox keys
-**Secondary CTA:** Read Guides
+**Secondary CTA:** Read API Docs
 
 ---
 ---
@@ -1388,7 +1388,7 @@ File returns, pull 2A/2B, validate GSTINs — over a real REST API.
 The GST API for developers who actually have to ship. Direct GSP-licensed connection to GSTN. SDKs in 5 languages. 99.95% uptime SLA.
 
 **Primary CTA:** Get sandbox keys
-**Secondary CTA:** Read the docs
+**Secondary CTA:** Read API docs
 
 **Microcopy:** Used in production by Razorpay, Pharmeasy, Cars24, WheelsEye, and 200+ teams.
 
@@ -1529,7 +1529,7 @@ A: Yes. HMAC-signed, replay-protected, with exponential backoff on delivery. Sub
 Sign up, get sandbox keys, run the quickstart. Production access in 5 business days after KYC. No procurement-cycle minimum — Startup tier starts at ₹14,999/month.
 
 **Primary CTA:** Get sandbox keys
-**Secondary CTA:** Read Guides
+**Secondary CTA:** Read API Docs
 
 ---
 ---
@@ -1558,7 +1558,7 @@ Generate IRNs at scale. In under 200 milliseconds.
 The e-Invoice API for billing systems, ERPs, and B2B marketplaces. Sub-200ms p50 latency. Direct GSP-licensed pipe to the IRP. Used by Razorpay to generate IRNs for 100,000+ merchants.
 
 **Primary CTA:** Get sandbox keys
-**Secondary CTA:** Read the docs
+**Secondary CTA:** Read API docs
 
 ---
 
@@ -1691,7 +1691,7 @@ A: Yes. One-click import from the API docs. Pre-configured for sandbox; swap the
 The ₹5 crore AATO mandate goes live April 1, 2026. Billing systems and ERPs serving Indian SMBs need e-invoicing capability — and most can't build it from scratch in time. Whitebooks ships the capability in a sprint.
 
 **Primary CTA:** Get sandbox keys
-**Secondary CTA:** Read Guides
+**Secondary CTA:** Read API Docs
 
 ---
 ---
@@ -1720,7 +1720,7 @@ Every dispatch event triggers an e-way bill. We make it one API call.
 Generate, extend, and cancel e-way bills programmatically. Auto-populate from existing IRNs. Handle bulk dispatch from warehouses. Used in production by Pharmeasy (14 warehouses) and WheelsEye.
 
 **Primary CTA:** Get sandbox keys
-**Secondary CTA:** Read the docs
+**Secondary CTA:** Read API docs
 
 ---
 
@@ -1847,7 +1847,7 @@ A: Yes. A `ewaybill.expiring_soon` event is emitted 4 hours before any active bi
 Pharmeasy generates e-way bills for 14 warehouses via the Whitebooks API. WheelsEye uses the API for fleet onboarding and transporter invoice reconciliation. Same SLA, same direct GSP pipe.
 
 **Primary CTA:** Get sandbox keys
-**Secondary CTA:** Read Guides
+**Secondary CTA:** Read API Docs
 
 ---
 ---

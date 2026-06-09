@@ -178,20 +178,20 @@ export function HubServices() {
       <Header mode="services" />
       <main>
 
-        {/* Breadcrumb */}
-        <section className="pt-[100px] pb-0">
-          <div className="w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-16">
-            <Breadcrumb items={[
-              { label: "Home", href: "/" },
-              { label: "Services" },
-            ]} />
-          </div>
-        </section>
-
         {/* ── Hero ─────────────────────────────────────────────────────── */}
         <section className="relative overflow-hidden pt-[70px] pb-[72px] max-sm:pt-12 max-sm:pb-12">
           <FluidBackground />
-          <div className="w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-16 relative z-[2]">
+
+          {/* Breadcrumb */}
+          <section className="pt-[30px] pb-[70px]">
+            <div className="w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4">
+              <Breadcrumb items={[
+                { label: "Home", href: "/" },
+                { label: "Services" },
+              ]} />
+            </div>
+          </section>
+          <div className="w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4 relative z-[2]">
             <div className="grid grid-cols-1 gap-8 items-end min-[1000px]:grid-cols-[1.05fr_1fr] min-[1000px]:gap-10">
 
               {/* Left: copy */}
@@ -223,9 +223,9 @@ export function HubServices() {
                   </p>
                   {[
                     { stat: "25,000+", label: "Active clients on the platform" },
-                    { stat: "9 Cr+",   label: "e-Invoices generated" },
-                    { stat: "8,000+",  label: "CA firms and finance teams" },
-                    { stat: "99.99%",  label: "Uptime SLA" },
+                    { stat: "9 Cr+", label: "e-Invoices generated" },
+                    { stat: "8,000+", label: "CA firms and finance teams" },
+                    { stat: "99.99%", label: "Uptime SLA" },
                   ].map(({ stat, label }) => (
                     <div
                       key={stat}
@@ -245,7 +245,7 @@ export function HubServices() {
 
         {/* ── Four services grid ────────────────────────────────────────── */}
         <section className="relative py-[120px] max-[700px]:py-[72px]" data-reveal>
-          <div className="w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-16">
+          <div className="w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4">
             <p className="block text-xs font-medium tracking-[0.18em] uppercase text-[var(--muted)] mb-4">
               Our services
             </p>
@@ -264,7 +264,7 @@ export function HubServices() {
 
         {/* ── Why Whitebooks Services ───────────────────────────────────── */}
         <section className="relative py-[120px] max-[700px]:py-[72px]" data-reveal>
-          <div className="w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-16">
+          <div className="w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4">
             <p className="block text-xs font-medium tracking-[0.18em] uppercase text-[var(--muted)] mb-4">
               Why Whitebooks Services
             </p>
@@ -314,7 +314,7 @@ export function HubServices() {
               backgroundSize: '28px 28px',
             }}
           />
-          <div className="w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-16 relative z-[1]">
+          <div className="w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4 relative z-[1]">
             <p className="block text-xs font-medium tracking-[0.18em] uppercase text-[var(--muted)] mb-4">
               Who we serve
             </p>
@@ -356,7 +356,7 @@ export function HubServices() {
 
         {/* ── Get started CTA ──────────────────────────────────────────── */}
         <section className="relative py-[120px] max-[700px]:py-[72px]" data-reveal>
-          <div className="w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-16">
+          <div className="w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4">
             <p className="block text-xs font-medium tracking-[0.18em] uppercase text-[var(--muted)] mb-4">
               Get started
             </p>
@@ -385,7 +385,7 @@ export function HubServices() {
             className="pointer-events-none absolute top-[-20%] left-1/2 -translate-x-1/2 w-[800px] h-[600px]"
             style={{ background: 'radial-gradient(ellipse at center, rgba(220,47,101,0.12), transparent 60%)' }}
           />
-          <div className="w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-16 relative z-[1] text-center">
+          <div className="w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4 relative z-[1] text-center">
             <h2
               className="[font-family:var(--font-display)] font-medium leading-[1.1] tracking-[-0.02em] m-0 mx-auto max-w-[720px] text-[var(--text)]"
               style={{ fontSize: 'clamp(28px, 4vw, 44px)' }}

@@ -34,7 +34,7 @@ const PAGES_3: Record<string, SubPageData> = {
         </>
       ),
       primaryCta: { label: "Get sandbox keys" },
-      secondaryCta: { label: "Read the docs" },
+      secondaryCta: { label: "Read API docs", href: '/developer/gst-api', target: '_blank' },
       // micro: "Used in production by <a href='#'>Razorpay, Pharmeasy, Cars24, WheelsEye, and 200+ teams</a>.",
     },
     problem: {
@@ -117,7 +117,7 @@ const PAGES_3: Record<string, SubPageData> = {
       body:
         "Sign up, get sandbox keys, run the quickstart. Production access in 5 business days after KYC. No procurement-cycle minimum — Startup tier starts at ₹14,999/month.",
       primaryCta: { label: "Get sandbox keys", href: "https://accounts.whitebooks.in/signup?type=Developer&subscrid=&inviteId" },
-      secondaryCta: { label: "Read Guides", href: "" },
+      secondaryCta: { label: "Read API Docs", href: '/developer/e-invoice-api', target: '_blank' },
     },
   },
 
@@ -152,7 +152,7 @@ const PAGES_3: Record<string, SubPageData> = {
         </>
       ),
       primaryCta: { label: "Get sandbox keys" },
-      secondaryCta: { label: "Read the docs" },
+      secondaryCta: { label: "Read API docs", href: "/developer/e-invoice-api", target: "_blank" },
     },
     problem: {
       heading: (
@@ -183,7 +183,7 @@ const PAGES_3: Record<string, SubPageData> = {
       body:
         "Official SDKs in Node.js, Python, PHP, Java, Go. Working integrations for Stripe-style billing platforms, Razorpay merchant flows, custom ERPs, and bulk dispatch workflows. HMAC-signed webhooks for every state transition.",
       logos: ["Node.js", "Python", "PHP", "Java", "Go", "Webhooks", "Postman", "OpenAPI 3.1"],
-      cta: { label: "Read integration guide" },
+      cta: { label: "Read API Docs", href: '/developer/e-invoice-api', target: '_blank' },
     },
     ai: {
       heading: (
@@ -228,7 +228,7 @@ const PAGES_3: Record<string, SubPageData> = {
       body:
         "The ₹5 crore AATO mandate goes live April 1, 2026. Billing systems and ERPs serving Indian SMBs need e-invoicing capability — and most can't build it from scratch in time. Whitebooks ships the capability in a sprint.",
       primaryCta: { label: "Get sandbox keys" },
-      secondaryCta: { label: "Read Guides" },
+      secondaryCta: { label: "Read API Docs", href: '/developer/e-invoice-api', target: '_blank' },
     },
   },
 
@@ -263,7 +263,7 @@ const PAGES_3: Record<string, SubPageData> = {
         </>
       ),
       primaryCta: { label: "Get sandbox keys" },
-      secondaryCta: { label: "Read the docs" },
+      secondaryCta: { label: "Read API docs", href: '/developer/e-way-api', target: '_blank' },
     },
     problem: {
       heading: (
@@ -339,7 +339,7 @@ const PAGES_3: Record<string, SubPageData> = {
       body:
         "Pharmeasy generates e-way bills for 14 warehouses via the Whitebooks API. WheelsEye uses the API for fleet onboarding and transporter invoice reconciliation. Same SLA, same direct GSP pipe.",
       primaryCta: { label: "Get sandbox keys" },
-      secondaryCta: { label: "Read Guides" },
+      secondaryCta: { label: "Read API Docs", href: '/developer/e-way-bill-api', target: '_blank' },
     },
   },
 
@@ -374,7 +374,7 @@ const PAGES_3: Record<string, SubPageData> = {
         </>
       ),
       primaryCta: { label: "Get sandbox keys" },
-      secondaryCta: { label: "Talk to KSA solutions team" },
+      secondaryCta: { label: "Talk to KSA solutions team", href: '/developer/ksa-e-invoice-api', target: '_blank' },
     },
     problem: {
       heading: (

@@ -1390,7 +1390,7 @@ export function CtaSection() {
             Get API Access <ArrowRight size={15} />
           </Button>
           <Button variant="developerGhost" size="lg">
-            <BookOpen size={15} /> Read the Docs
+            <BookOpen size={15} /> Read API Docs
           </Button>
         </div>
 
@@ -1560,7 +1560,7 @@ export default function GstOverview(): React.ReactElement {
         description='Integrate WhiteBooks GST APIs into your ERP, accounting software, fintech platform, or SaaS application to automate GST filing, GSTIN verification, reconciliation, invoicing, and tax compliance workflows with scalable production-ready APIs.'
         trustItems={['GST Return Filing APIs', 'GSTIN Verification', 'Sandbox & Production Access']}
         primaryButton={{ label: 'Get API Access', href: SIGNUP_URL }}
-        secondaryButton={{ label: 'Read the Docs', href: '#' }}
+        secondaryButton={{ label: 'Read API Docs', href: '#' }}
       />
     </div>
   );

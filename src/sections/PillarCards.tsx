@@ -23,44 +23,83 @@ export interface PillarCardProps {
   mockSide?: 'right' | 'left';
 }
 
+// ─── Theme hook ───────────────────────────────────────────────────────────────
+
+function useTheme(): 'dark' | 'light' {
+  const [theme, setTheme] = useState<'dark' | 'light'>(() => {
+    if (typeof document === 'undefined') return 'dark';
+    return (document.documentElement.dataset.theme as 'dark' | 'light') || 'dark';
+  });
+  useEffect(() => {
+    const el = document.documentElement;
+    const obs = new MutationObserver(() =>
+      setTheme((el.dataset.theme as 'dark' | 'light') || 'dark')
+    );
+    obs.observe(el, { attributes: true, attributeFilter: ['data-theme'] });
+    return () => obs.disconnect();
+  }, []);
+  return theme;
+}
+
 // ─── Shared mini-panel style helpers ─────────────────────────────────────────
 
-function miniPanel(): React.CSSProperties {
+function miniPanel(theme: 'dark' | 'light'): React.CSSProperties {
+  const isDark = theme === 'dark';
   return {
-    background: 'linear-gradient(180deg, rgba(20,20,28,0.7) 0%, rgba(15,15,22,0.85) 100%)',
+    background: isDark
+      ? 'linear-gradient(180deg, rgba(20,20,28,0.7) 0%, rgba(15,15,22,0.85) 100%)'
+      : 'linear-gradient(180deg, #ffffff 0%, #f8f8fc 100%)',
     border: '1px solid var(--hairline-strong)',
     borderRadius: 10,
     overflow: 'hidden',
     backdropFilter: 'blur(10px)',
     WebkitBackdropFilter: 'blur(10px)',
-    boxShadow: '0 1px 0 rgba(255,255,255,0.04) inset, 0 20px 50px -20px rgba(0,0,0,0.5)',
+    boxShadow: isDark
+      ? '0 1px 0 rgba(255,255,255,0.04) inset, 0 20px 50px -20px rgba(0,0,0,0.5)'
+      : '0 2px 16px rgba(0,0,0,0.07), 0 1px 3px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.9)',
     position: 'relative',
     zIndex: 1,
   };
 }
 
-function miniHeader(): React.CSSProperties {
+function miniHeader(theme: 'dark' | 'light'): React.CSSProperties {
+  const isDark = theme === 'dark';
   return {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: '10px 14px',
     borderBottom: '1px solid var(--hairline)',
-    background: 'rgba(255,255,255,0.015)',
+    background: isDark ? 'rgba(255,255,255,0.015)' : 'rgba(0,0,0,0.025)',
   };
 }
 
 // ─── CardWash ─────────────────────────────────────────────────────────────────
 
 export function CardWash({ tone, intensity = 1 }: CardWashProps) {
-  const tones: Record<CardWashProps['tone'], { c1: string; c2: string }> = {
+  const theme = useTheme();
+  const isDark = theme === 'dark';
+
+  const darkTones: Record<CardWashProps['tone'], { c1: string; c2: string }> = {
     pink: { c1: 'rgba(220,47,101,0.22)', c2: 'rgba(139,92,246,0.16)' },
     violet: { c1: 'rgba(139,92,246,0.22)', c2: 'rgba(59,130,246,0.16)' },
     blue: { c1: 'rgba(59,130,246,0.22)', c2: 'rgba(6,182,212,0.16)' },
     cyan: { c1: 'rgba(6,182,212,0.22)', c2: 'rgba(34,197,94,0.14)' },
     amber: { c1: 'rgba(245,158,11,0.22)', c2: 'rgba(220,47,101,0.18)' },
   };
-  const t = tones[tone];
+
+  // Lighter, softer washes for white-card backgrounds
+  const lightTones: Record<CardWashProps['tone'], { c1: string; c2: string }> = {
+    pink: { c1: 'rgba(220,47,101,0.18)', c2: 'rgba(139,92,246,0.12)' },
+    violet: { c1: 'rgba(139,92,246,0.16)', c2: 'rgba(59,130,246,0.12)' },
+    blue: { c1: 'rgba(59,130,246,0.16)', c2: 'rgba(6,182,212,0.12)' },
+    cyan: { c1: 'rgba(6,182,212,0.16)', c2: 'rgba(34,197,94,0.10)' },
+    amber: { c1: 'rgba(245,158,11,0.18)', c2: 'rgba(220,47,101,0.14)' },
+  };
+
+  const t = isDark ? darkTones[tone] : lightTones[tone];
+  // Slightly reduce intensity in light mode so washes read as elegant tints
+  const effectiveIntensity = isDark ? intensity : intensity * 0.7;
 
   return (
     <div style={{
@@ -69,7 +108,7 @@ export function CardWash({ tone, intensity = 1 }: CardWashProps) {
       pointerEvents: 'none',
       borderRadius: 'inherit',
       overflow: 'hidden',
-      opacity: intensity,
+      opacity: effectiveIntensity,
       zIndex: 0,
     }}>
       <div style={{
@@ -97,6 +136,8 @@ export function CardWash({ tone, intensity = 1 }: CardWashProps) {
 // ─── MiniReconMock ────────────────────────────────────────────────────────────
 
 export function MiniReconMock() {
+  const theme = useTheme();
+  const isDark = theme === 'dark';
   const [matched, setMatched] = useState(0);
 
   useEffect(() => {
@@ -113,8 +154,8 @@ export function MiniReconMock() {
   }, []);
 
   return (
-    <div style={miniPanel()}>
-      <div style={miniHeader()}>
+    <div style={miniPanel(theme)}>
+      <div style={miniHeader(theme)}>
         <span style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
           <span style={{
             width: 6, height: 6, borderRadius: '50%',
@@ -153,7 +194,11 @@ export function MiniReconMock() {
           <span>match rate</span>
           <span style={{ color: 'var(--ok)' } as React.CSSProperties}>99.6%</span>
         </div>
-        <div style={{ marginTop: 8, height: 5, borderRadius: 3, background: 'rgba(255,255,255,0.04)', overflow: 'hidden' }}>
+        <div style={{
+          marginTop: 8, height: 5, borderRadius: 3,
+          background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.06)',
+          overflow: 'hidden',
+        }}>
           <div style={{
             width: '99.6%',
             height: '100%',
@@ -208,9 +253,17 @@ export function MiniReconMock() {
 // ─── MiniEinvoiceMock ─────────────────────────────────────────────────────────
 
 export function MiniEinvoiceMock() {
+  const theme = useTheme();
+  const isDark = theme === 'dark';
+
+  // Syntax highlight colors — pastel for dark bg, deep saturated for light bg
+  const syn = isDark
+    ? { key: '#f0a8c3', str: '#a8e6a3', num: '#e9d28a' }
+    : { key: '#b91c7a', str: '#15803d', num: '#b45309' };
+
   return (
-    <div style={miniPanel()}>
-      <div style={miniHeader()}>
+    <div style={miniPanel(theme)}>
+      <div style={miniHeader(theme)}>
         <span style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
           <span style={{
             width: 6, height: 6, borderRadius: '50%',
@@ -227,10 +280,10 @@ export function MiniEinvoiceMock() {
       <div style={{ padding: '18px 16px', fontFamily: 'var(--font-mono)', fontSize: 11, lineHeight: 1.55, color: 'var(--fg-secondary)' } as React.CSSProperties}>
         <div style={{ color: 'var(--fg-quaternary)' } as React.CSSProperties}>{'{'}</div>
         <div style={{ paddingLeft: 14 }}>
-          <div><span style={{ color: '#f0a8c3' }}>"irn"</span>: <span style={{ color: '#a8e6a3' }}>"a4f2c91e8b7d3..."</span>,</div>
-          <div><span style={{ color: '#f0a8c3' }}>"ack_no"</span>: <span style={{ color: '#e9d28a' }}>112510144782611</span>,</div>
-          <div><span style={{ color: '#f0a8c3' }}>"qr_code"</span>: <span style={{ color: '#a8e6a3' }}>"eyJ0eXAi..."</span>,</div>
-          <div><span style={{ color: '#f0a8c3' }}>"signed_at"</span>: <span style={{ color: '#a8e6a3' }}>"2026-05-16T11:08:42Z"</span></div>
+          <div><span style={{ color: syn.key }}>"irn"</span>: <span style={{ color: syn.str }}>"a4f2c91e8b7d3..."</span>,</div>
+          <div><span style={{ color: syn.key }}>"ack_no"</span>: <span style={{ color: syn.num }}>112510144782611</span>,</div>
+          <div><span style={{ color: syn.key }}>"qr_code"</span>: <span style={{ color: syn.str }}>"eyJ0eXAi..."</span>,</div>
+          <div><span style={{ color: syn.key }}>"signed_at"</span>: <span style={{ color: syn.str }}>"2026-05-16T11:08:42Z"</span></div>
         </div>
         <div style={{ color: 'var(--fg-quaternary)' } as React.CSSProperties}>{'}'}</div>
       </div>
@@ -256,9 +309,12 @@ export function MiniEinvoiceMock() {
 // ─── MiniEwayMock ─────────────────────────────────────────────────────────────
 
 export function MiniEwayMock() {
+  const theme = useTheme();
+  const isDark = theme === 'dark';
+
   return (
-    <div style={miniPanel()}>
-      <div style={miniHeader()}>
+    <div style={miniPanel(theme)}>
+      <div style={miniHeader(theme)}>
         <span style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
           <span style={{
             width: 6, height: 6, borderRadius: '50%',
@@ -296,7 +352,12 @@ export function MiniEwayMock() {
             />
             <path d="M 8 38 Q 60 8 120 25" stroke="url(#routeGrad)" strokeWidth="2" fill="none" />
             <circle cx="8" cy="38" r="4" fill="var(--accent)" />
-            <circle cx="232" cy="18" r="4" fill="rgba(255,255,255,0.15)" stroke="var(--fg-tertiary)" strokeWidth="1" />
+            <circle
+              cx="232" cy="18" r="4"
+              fill={isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.10)'}
+              stroke="var(--fg-tertiary)"
+              strokeWidth="1"
+            />
             <circle cx="120" cy="25" r="3" fill="var(--fg-primary)" />
           </svg>
         </div>
@@ -332,11 +393,13 @@ export function MiniEwayMock() {
 // ─── MiniAccountingMock ───────────────────────────────────────────────────────
 
 export function MiniAccountingMock() {
+  const theme = useTheme();
+  const isDark = theme === 'dark';
   const bars = [22, 38, 28, 52, 34, 60, 48, 72, 55, 80, 68, 92, 78, 95];
 
   return (
-    <div style={miniPanel()}>
-      <div style={miniHeader()}>
+    <div style={miniPanel(theme)}>
+      <div style={miniHeader(theme)}>
         <span style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
           <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--ok)' } as React.CSSProperties}></span>
           <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10.5, letterSpacing: '0.05em', color: 'var(--fg-tertiary)' } as React.CSSProperties}>
@@ -363,7 +426,9 @@ export function MiniAccountingMock() {
               height: `${h}%`,
               background: i === bars.length - 1
                 ? 'linear-gradient(180deg, var(--accent), var(--gradient-2))'
-                : `rgba(139,92,246,${0.25 + (i / bars.length) * 0.45})`,
+                : isDark
+                  ? `rgba(139,92,246,${0.25 + (i / bars.length) * 0.45})`
+                  : `rgba(139,92,246,${0.18 + (i / bars.length) * 0.55})`,
               borderRadius: '2px 2px 0 0',
               transition: 'height 600ms ease',
             } as React.CSSProperties} />
@@ -390,9 +455,11 @@ export function MiniAccountingMock() {
 // ─── MiniKSAMock ──────────────────────────────────────────────────────────────
 
 export function MiniKSAMock() {
+  const theme = useTheme();
+
   return (
-    <div style={miniPanel()}>
-      <div style={miniHeader()}>
+    <div style={miniPanel(theme)}>
+      <div style={miniHeader(theme)}>
         <span style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
           <span style={{
             width: 6, height: 6, borderRadius: '50%',
@@ -441,6 +508,111 @@ export function MiniKSAMock() {
   );
 }
 
+// ─── MiniGstApiMock ──────────────────────────────────────────────────────────
+
+export function MiniGstApiMock() {
+  const theme = useTheme();
+  const isDark = theme === 'dark';
+
+  // Syntax highlight colors — pastel for dark bg, deep saturated for light bg
+  const syn = isDark
+    ? { key: '#f0a8c3', str: '#a8e6a3', num: '#e9d28a' }
+    : { key: '#b91c7a', str: '#15803d', num: '#b45309' };
+
+  return (
+    <div style={miniPanel(theme)}>
+      <div style={miniHeader(theme)}>
+        <span style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
+          <span style={{
+            width: 6, height: 6, borderRadius: '50%',
+            background: 'var(--ok)', boxShadow: '0 0 8px rgba(34,197,94,0.5)',
+          } as React.CSSProperties}></span>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10.5, letterSpacing: '0.05em', color: 'var(--fg-tertiary)' } as React.CSSProperties}>
+            GET /v1/gstin/validate
+          </span>
+        </span>
+        <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--ok)' } as React.CSSProperties}>
+          200 · 61ms
+        </span>
+      </div>
+      <div style={{ padding: '16px', fontFamily: 'var(--font-mono)', fontSize: 11, lineHeight: 1.6, color: 'var(--fg-secondary)' } as React.CSSProperties}>
+        <div style={{ color: 'var(--fg-quaternary)' }}>{'{'}</div>
+        <div style={{ paddingLeft: 14 }}>
+          <div><span style={{ color: syn.key }}>"gstin"</span>: <span style={{ color: syn.str }}>"27AAABM0035D1ZK"</span>,</div>
+          <div><span style={{ color: syn.key }}>"legal_name"</span>: <span style={{ color: syn.str }}>"IBM India Pvt Ltd"</span>,</div>
+          <div><span style={{ color: syn.key }}>"status"</span>: <span style={{ color: syn.str }}>"Active"</span>,</div>
+          <div><span style={{ color: syn.key }}>"last_filed"</span>: <span style={{ color: syn.num }}>"2026-04"</span></div>
+        </div>
+        <div style={{ color: 'var(--fg-quaternary)' }}>{'}'}</div>
+      </div>
+      <div style={{
+        borderTop: '1px solid var(--hairline)',
+        padding: '10px 16px',
+        display: 'flex',
+        justifyContent: 'space-between',
+        fontFamily: 'var(--font-mono)',
+        fontSize: 10,
+        color: 'var(--fg-tertiary)',
+      } as React.CSSProperties}>
+        <span>GSTR-1, 3B, 9, 9C · all returns</span>
+        <span style={{ color: 'var(--accent-bright)' } as React.CSSProperties}>Direct GSP</span>
+      </div>
+    </div>
+  );
+}
+
+// ─── MiniEwayApiMock ──────────────────────────────────────────────────────────
+
+export function MiniEwayApiMock() {
+  const theme = useTheme();
+  const isDark = theme === 'dark';
+
+  // Syntax highlight colors — pastel for dark bg, deep saturated for light bg
+  const syn = isDark
+    ? { key: '#f0a8c3', str: '#a8e6a3', num: '#e9d28a' }
+    : { key: '#b91c7a', str: '#15803d', num: '#b45309' };
+  return (
+    <div style={miniPanel(theme)}>
+      <div style={miniHeader(theme)}>
+        <span style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
+          <span style={{
+            width: 6, height: 6, borderRadius: '50%',
+            background: 'var(--ok)', boxShadow: '0 0 8px rgba(34,197,94,0.5)',
+          } as React.CSSProperties}></span>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10.5, letterSpacing: '0.05em', color: 'var(--fg-tertiary)' } as React.CSSProperties}>
+            POST /v1/ewaybill/create
+          </span>
+        </span>
+        <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--ok)' } as React.CSSProperties}>
+          200 · 194ms
+        </span>
+      </div>
+      <div style={{ padding: '16px', fontFamily: 'var(--font-mono)', fontSize: 11, lineHeight: 1.6, color: 'var(--fg-secondary)' } as React.CSSProperties}>
+        <div style={{ color: 'var(--fg-quaternary)' }}>{'{'}</div>
+        <div style={{ paddingLeft: 14 }}>
+          <div><span style={{ color: syn.key }}>"ewb_no"</span>: <span style={{ color: syn.str }}>"871-2026-044719"</span>,</div>
+          <div><span style={{ color: syn.key }}>"valid_until"</span>: <span style={{ color: syn.num }}>"2026-06-11T18:00Z"</span>,</div>
+          <div><span style={{ color: syn.key }}>"distance_km"</span>: <span style={{ color: syn.num }}>842</span>,</div>
+          <div><span style={{ color: syn.key }}>"status"</span>: <span style={{ color: syn.str }}>"active"</span></div>
+        </div>
+        <div style={{ color: 'var(--fg-quaternary)' }}>{'}'}</div>
+      </div>
+      <div style={{
+        borderTop: '1px solid var(--hairline)',
+        padding: '10px 16px',
+        display: 'flex',
+        justifyContent: 'space-between',
+        fontFamily: 'var(--font-mono)',
+        fontSize: 10,
+        color: 'var(--fg-tertiary)',
+      } as React.CSSProperties}>
+        <span>auto-populates from IRN</span>
+        <span style={{ color: 'var(--ok)' } as React.CSSProperties}>● active</span>
+      </div>
+    </div>
+  );
+}
+
 // ─── PillarCard ───────────────────────────────────────────────────────────────
 
 export function PillarCard({
@@ -454,6 +626,14 @@ export function PillarCard({
   featured = false,
 }: PillarCardProps) {
   const [hovered, setHovered] = useState(false);
+  const theme = useTheme();
+  const isDark = theme === 'dark';
+
+  const cardShadow = isDark
+    ? 'none'
+    : hovered
+      ? '0 8px 32px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.06)'
+      : '0 1px 4px rgba(0,0,0,0.06), 0 2px 12px rgba(0,0,0,0.04)';
 
   return (
     <div
@@ -472,8 +652,9 @@ export function PillarCard({
         background: 'var(--bg-card)',
         border: `1px solid ${hovered ? 'var(--hairline-bright)' : 'var(--hairline)'}`,
         borderRadius: 16,
-        transition: 'border-color 180ms ease, transform 220ms ease',
+        transition: 'border-color 180ms ease, transform 220ms ease, box-shadow 220ms ease',
         transform: hovered ? 'translateY(-2px)' : 'none',
+        boxShadow: cardShadow,
       }}
     >
       <CardWash tone={tone} />

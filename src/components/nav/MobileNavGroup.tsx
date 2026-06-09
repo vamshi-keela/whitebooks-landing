@@ -73,13 +73,12 @@ export function MobileNavGroup({ label, icon, items, onNavigate, secondaryGroup 
           <MobileNavItemList items={items} onNavigate={onNavigate} />
           {secondaryGroup && (
             <>
-              <p className="px-2 pt-2 pb-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#22d3ee]">
+              <p className="px-2 pt-2 pb-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#dc2f65]">
                 {secondaryGroup.label}
               </p>
               <MobileNavItemList
                 items={secondaryGroup.items}
                 onNavigate={onNavigate}
-                accentColor="#22d3ee"
                 hoverBg="rgba(34,211,238,0.08)"
               />
             </>

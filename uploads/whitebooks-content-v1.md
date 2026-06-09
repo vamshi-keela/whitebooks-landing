@@ -593,7 +593,7 @@ File returns, generate IRNs, validate GSTINs, and pull GSTR-2A/2B — over a RES
 
 **Two CTAs side by side:**
 - **Get sandbox keys** (5 minutes, no card)
-- **Read the docs** → docs.whitebooks.in
+- **Read API docs** → docs.whitebooks.in
 
 **Microcopy:**
 Used in production by Razorpay, Pharmeasy, Cars24, WheelsEye, and 200+ developer teams.
@@ -771,7 +771,7 @@ Sandbox keys in 5 minutes. Production in 5 days.
 
 **CTAs:**
 - **Sign up — get sandbox keys** (primary)
-- **Read Guides** (secondary, for enterprise)
+- **Read API Docs** (secondary, for enterprise)
 
 ---
 
@@ -849,7 +849,7 @@ A: Linear at startup tier, custom volume pricing above 500K calls/month. We don'
 Whitebooks gives developer teams what they wish ClearTax and the others had built: a real API, real docs, real SLAs, and a real GSP license sitting underneath. Five minutes to your first sandbox call.
 
 **CTA primary:** Get sandbox keys →
-**CTA secondary:** Read Guides →
+**CTA secondary:** Read API Docs →
 
 ---
 

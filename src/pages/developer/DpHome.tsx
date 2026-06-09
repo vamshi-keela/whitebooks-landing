@@ -11,7 +11,6 @@ const wrap = "w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-s
 
 /* ─── Hero Section ───────────────────────────────────────────────────────────── */
 function HeroSection(): React.ReactElement {
-  const navigate = useNavigate();
   return (
     <section className="relative pt-12 pb-16 md:pt-20 md:pb-[100px] max-w-[1280px] mx-auto overflow-hidden px-16 max-lg:px-10 max-md:px-6 max-sm:px-4">
       {/* Grid background */}
@@ -62,13 +61,15 @@ function HeroSection(): React.ReactElement {
               Get API keys
               <DpIcon name="arrow-right" size={14} />
             </Button>
-            <Button
-              variant="developerGhost"
-              onClick={() => navigate('/developer')}
-            >
-              <DpIcon name="book" size={14} />
-              Read guides
-            </Button>
+            <Link to="/developer" target="_blank">
+              <Button
+                variant="developerGhost"
+              >
+                <DpIcon name="book" size={14} />
+                Read API Docs
+              </Button>
+
+            </Link>
             <button
               className="bg-transparent border-none px-[14px] py-[10px] text-[0.875rem] text-[var(--dp-fg-muted)] cursor-pointer hidden sm:flex items-center gap-[6px]"
               onClick={() => window.location.href = 'https://whitebooks.in/resources/product-videos/'}
@@ -733,7 +734,7 @@ function CTASection(): React.ReactElement {
           </Button>
           <Button variant="developerGhost" size="lg">
             <DpIcon name="book" size={15} />
-            Read the docs
+            Read API docs
           </Button> */}
           <Button
             variant="developerPrimary"
@@ -742,13 +743,14 @@ function CTASection(): React.ReactElement {
             Get API keys
             <DpIcon name="arrow-right" size={14} />
           </Button>
-          <Button
-            variant="developerGhost"
-            onClick={() => navigate('/developer')}
-          >
-            <DpIcon name="book" size={14} />
-            Read guides
-          </Button>
+          <Link to="/developer" target='_blank'>
+            <Button
+              variant="developerGhost"
+            >
+              <DpIcon name="book" size={14} />
+              Read API Docs
+            </Button>
+          </Link>
         </div>
       </div>
     </section>

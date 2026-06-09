@@ -68,6 +68,7 @@
   --bg-3: #13131a;
   --bg-elev: #16161f;
   --header-bg: rgba(10, 10, 15, 0.78);
+  --bg-inverted: #f1f1f8;
 
   /* ── Borders / lines ─────────────────────────────────────── */
   --line: rgba(255, 255, 255, 0.06);
@@ -111,7 +112,7 @@
   --bg-3: #e8e8f2;
   --bg-elev: #ffffff;
   --header-bg: rgba(249, 249, 253, 0.88);
-
+  --bg-inverted: #000000;
   /* Borders — flip from white-on-dark to black-on-light */
   --line: rgba(0, 0, 0, 0.07);
   --line-2: rgba(0, 0, 0, 0.12);
@@ -1574,6 +1575,7 @@ img {
   padding-right: 32px;
   position: relative;
   overflow: hidden;
+  background-color: var(--bg-2);
   contain: layout style;
 }
 
@@ -1586,16 +1588,6 @@ img {
   width: 140px;
   z-index: 2;
   pointer-events: none;
-}
-
-.wb-logos-wrap::before {
-  left: 0;
-  background: linear-gradient(to right, var(--bg), transparent);
-}
-
-.wb-logos-wrap::after {
-  right: 0;
-  background: linear-gradient(to left, var(--bg), transparent);
 }
 
 .wb-ticker {
@@ -1643,7 +1635,7 @@ img {
   font-weight: 500;
   font-size: 18px;
   letter-spacing: -0.005em;
-  color: rgba(255, 255, 255, 0.4);
+  color: #fff;
   white-space: nowrap;
   transition: color 200ms ease;
   display: flex;

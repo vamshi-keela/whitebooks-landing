@@ -43,4 +43,4 @@ export interface BreadcrumbItem {
   href?: string;
 }
 
-export type HeaderMode = 'home' | 'softwares' | 'apis';
+export type HeaderMode = 'home' | 'softwares' | 'apis' | 'services' | 'resources';

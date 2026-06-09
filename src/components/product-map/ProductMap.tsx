@@ -28,13 +28,13 @@ const cardBase = [
 const cardActive = [
   "border-brand before:opacity-100",
   "[background:radial-gradient(ellipse_90%_70%_at_50%_0%,rgba(220,47,101,0.16),transparent_70%),var(--bg-2)]",
-  "shadow-[0_0_0_1px_var(--brand)_inset,0_0_70px_-10px_rgba(220,47,101,0.55),0_12px_32px_-14px_rgba(220,47,101,0.45)]",
+  "shadow-[0_0_0_1px_var(--brand)_inset,0_0_70px_-10px_rgba(220,47,101,0.38),0_12px_32px_-14px_rgba(220,47,101,0.32)]",
 ].join(" ");
 
 const cardInactive = [
   "bg-[var(--bg-2)] border-[var(--line-2)] before:opacity-0",
   "hover:-translate-y-[3px] hover:border-[var(--brand-border)] hover:bg-[var(--bg-elev)]",
-  "hover:shadow-[0_12px_32px_-14px_rgba(220,47,101,0.35)] hover:before:opacity-100",
+  "hover:shadow-[0_12px_32px_-14px_rgba(220,47,101,0.25)] hover:before:opacity-100",
 ].join(" ");
 
 export function ProductMap({ active }: ProductMapProps) {
@@ -83,7 +83,7 @@ export function ProductMap({ active }: ProductMapProps) {
                           "max-[900px]:[&>svg]:w-8 max-[900px]:[&>svg]:h-8",
                           "max-[600px]:[&>svg]:w-6 max-[600px]:[&>svg]:h-6",
                           isActive
-                            ? "opacity-100 drop-shadow-[0_0_14px_rgba(220,47,101,0.6)]"
+                            ? "opacity-100 drop-shadow-[0_0_14px_rgba(220,47,101,0.42)]"
                             : "opacity-[0.78] group-hover/card:opacity-100 group-hover/card:-translate-y-[2px]",
                         ].join(" ")}
                       >
@@ -97,11 +97,11 @@ export function ProductMap({ active }: ProductMapProps) {
                             "max-[900px]:w-[56px] max-[900px]:h-[56px] max-[900px]:rounded-[12px]",
                             "max-[600px]:w-[44px] max-[600px]:h-[44px] max-[600px]:rounded-[10px]",
                             isActive
-                              ? "opacity-100 bg-brand border-brand shadow-[0_0_24px_rgba(220,47,101,0.5)]"
+                              ? "opacity-100 bg-brand border-brand shadow-[0_0_24px_rgba(220,47,101,0.35)]"
                               : [
                                 "bg-[var(--brand-soft)] border-[var(--brand-border)] opacity-[0.55]",
                                 "group-hover/card:opacity-100",
-                                "group-hover/card:shadow-[0_0_0_1px_var(--brand-border),0_6px_20px_-6px_rgba(220,47,101,0.4)]",
+                                "group-hover/card:shadow-[0_0_0_1px_var(--brand-border),0_6px_20px_-6px_rgba(220,47,101,0.28)]",
                               ].join(" "),
                           ].join(" ")}
                         />
@@ -166,14 +166,14 @@ export function ProductMap({ active }: ProductMapProps) {
             <div className={[
               "inline-flex items-center gap-[14px] py-[14px] pr-[22px] pl-[18px]",
               "bg-[var(--bg-2)] border border-solid border-brand rounded-[12px] relative",
-              "shadow-[0_0_0_1px_rgba(255,255,255,0.02)_inset,0_14px_36px_-14px_rgba(220,47,101,0.45)]",
+              "shadow-[0_0_0_1px_rgba(255,255,255,0.02)_inset,0_8px_20px_-8px_rgba(220,47,101,0.32)]",
               "before:content-[''] before:absolute before:inset-[-1px] before:rounded-[13px] before:-z-[1]",
               "before:[background:linear-gradient(180deg,rgba(220,47,101,0.35),transparent_60%)]",
               "before:blur-[6px] before:opacity-70",
             ].join(" ")}>
               <span
                 aria-hidden="true"
-                className="w-[9px] h-[9px] rounded-full bg-brand shrink-0 shadow-[0_0_12px_rgba(220,47,101,0.8),0_0_0_3px_rgba(220,47,101,0.18)] animate-pmap-coredot"
+                className="w-[9px] h-[9px] rounded-full bg-brand shrink-0 shadow-[0_0_12px_rgba(220,47,101,0.56),0_0_0_3px_rgba(220,47,101,0.13)] animate-pmap-coredot"
               />
               <div>
                 <div className="font-display font-semibold text-[16px] text-primary tracking-[-0.005em] leading-[1.1]">

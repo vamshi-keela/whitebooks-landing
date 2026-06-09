@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import heroImage from "../assets/hero-image.png";
 import heroImageMobile from "../assets/hero-image-mobile.png";
 import { useIsMobile } from "@/hooks/useIsMobile";
-import { HeroFluidBackground } from "@/layouts/SiteShell";
+import { FluidBackground, HeroFluidBackground } from "@/layouts/SiteShell";
 import { Button } from "@/components/ui/Button";
 import EyebrowPill from "@/components/ui/EyebrowPill";
 import LogoWallCarousel from "@/components/ui/LogoWall";

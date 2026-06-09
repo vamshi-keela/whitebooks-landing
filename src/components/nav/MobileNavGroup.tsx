@@ -3,22 +3,57 @@ import { Link } from 'react-router-dom';
 import type { NavItem } from './navConfig';
 import { Button } from '../ui/Button';
 
+interface SecondaryGroup {
+  label: string;
+  items: NavItem[];
+}
+
 interface MobileNavGroupProps {
   label: string;
   icon: ReactNode;
   items: NavItem[];
   onNavigate: () => void;
+  secondaryGroup?: SecondaryGroup;
 }
 
-export function MobileNavGroup({ label, icon, items, onNavigate }: MobileNavGroupProps) {
+function MobileNavItemList({ items, onNavigate, accentColor = '#dc2f65', hoverBg = 'rgba(220,47,101,0.08)' }: {
+  items: NavItem[];
+  onNavigate: () => void;
+  accentColor?: string;
+  hoverBg?: string;
+}) {
+  return (
+    <>
+      {items.map(item => (
+        <Link
+          key={item.href}
+          to={item.href}
+          onClick={onNavigate}
+          className="flex items-center gap-2.5 px-2 py-2 rounded-[6px] text-[var(--muted-2)] hover:text-[var(--text)] transition-colors duration-100 group"
+          style={{ ['--hover-bg' as string]: hoverBg }}
+          onMouseEnter={e => (e.currentTarget.style.background = hoverBg)}
+          onMouseLeave={e => (e.currentTarget.style.background = '')}
+        >
+          <span className="opacity-60 group-hover:opacity-100 transition-opacity shrink-0" style={{ color: accentColor }}>
+            {item.icon}
+          </span>
+          <span className="text-[13px] font-medium leading-none">
+            {item.label}
+          </span>
+        </Link>
+      ))}
+    </>
+  );
+}
+
+export function MobileNavGroup({ label, icon, items, onNavigate, secondaryGroup }: MobileNavGroupProps) {
   const [open, setOpen] = useState(false);
 
   return (
     <div>
       <Button
         onClick={() => setOpen(v => !v)}
-        className="w-full flex items-center justify-between px-3 py-2.5 rounded-lg
-          text-sm font-medium text-[#9a9ab0] bg-black"
+        className="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium text-[var(--muted-2)] bg-[var(--bg-elev)]"
         aria-expanded={open}
       >
         <span className="flex items-center gap-2">
@@ -34,24 +69,21 @@ export function MobileNavGroup({ label, icon, items, onNavigate }: MobileNavGrou
       </Button>
 
       {open && (
-        <div className="mt-1 ml-3 pl-3 border-l border-white/[0.08] flex flex-col gap-0.5">
-          {items.map(item => (
-            <Link
-              key={item.href}
-              to={item.href}
-              onClick={onNavigate}
-              className="flex items-center gap-2.5 px-2 py-2 rounded-[6px]
-                text-[#9a9ab0] hover:text-[#e8e8f0] hover:bg-[rgba(220,47,101,0.08)]
-                transition-colors duration-100 group"
-            >
-              <span className="text-[#dc2f65] opacity-60 group-hover:opacity-100 transition-opacity shrink-0">
-                {item.icon}
-              </span>
-              <span className="text-[13px] font-medium leading-none whitespace-nowrap">
-                {item.label}
-              </span>
-            </Link>
-          ))}
+        <div className="mt-1 ml-3 pl-3 border-l border-[var(--line-2)] flex flex-col gap-0.5">
+          <MobileNavItemList items={items} onNavigate={onNavigate} />
+          {secondaryGroup && (
+            <>
+              <p className="px-2 pt-2 pb-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#22d3ee]">
+                {secondaryGroup.label}
+              </p>
+              <MobileNavItemList
+                items={secondaryGroup.items}
+                onNavigate={onNavigate}
+                accentColor="#22d3ee"
+                hoverBg="rgba(34,211,238,0.08)"
+              />
+            </>
+          )}
         </div>
       )}
     </div>

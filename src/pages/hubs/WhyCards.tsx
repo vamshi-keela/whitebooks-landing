@@ -10,18 +10,18 @@ function DataFlowVisual() {
     <div className="w-full h-full flex flex-col justify-center gap-2 p-5">
       {nodes.map((node, i) => (
         <div key={i} className="flex flex-col gap-1.5">
-          <div className="flex items-center gap-3 p-3 bg-[#111118] border border-white/[0.08] rounded-xl">
-            <span className="w-2 h-2 rounded-full bg-[#dc2f65] shadow-[0_0_6px_rgba(220,47,101,0.6)] shrink-0" />
+          <div className="flex items-center gap-3 p-3 bg-[var(--bg-elev)] border border-[var(--line-2)] rounded-xl">
+            <span className="w-2 h-2 rounded-full bg-[var(--brand)] shadow-[0_0_6px_rgba(220,47,101,0.6)] shrink-0" />
             <div className="flex-1 min-w-0">
-              <div className="font-display font-semibold text-[13px] text-[#e8e8f0]">{node.label}</div>
-              <div className="font-mono text-[10.5px] text-[#6b6b80] mt-0.5">{node.meta}</div>
+              <div className="font-display font-semibold text-[13px] text-[var(--text)]">{node.label}</div>
+              <div className="font-mono text-[10.5px] text-[var(--muted)] mt-0.5">{node.meta}</div>
             </div>
-            <span className="font-mono text-[10px] text-[#6b6b80] shrink-0">{node.time}</span>
+            <span className="font-mono text-[10px] text-[var(--muted)] shrink-0">{node.time}</span>
           </div>
           {i < nodes.length - 1 && (
             <div className="flex items-center gap-2 pl-4">
-              <div className="w-px h-3 bg-[rgba(220,47,101,0.4)]" />
-              <span className="font-mono text-[10px] text-[#dc2f65]">auto·{i === 0 ? 'pushed' : 'triggered'}</span>
+              <div className="w-px h-3 bg-[var(--brand-border)]" />
+              <span className="font-mono text-[10px] text-[var(--brand)]">auto·{i === 0 ? 'pushed' : 'triggered'}</span>
             </div>
           )}
         </div>
@@ -33,31 +33,31 @@ function DataFlowVisual() {
 function OneContractVisual() {
   return (
     <div className="w-full h-full flex items-center justify-center p-5">
-      <div className="w-full max-w-[280px] bg-[#111118] border border-white/[0.08] rounded-xl overflow-hidden">
-        <div className="flex items-center justify-between px-4 py-3 border-b border-white/[0.06] bg-white/[0.02]">
-          <span className="font-mono text-[9.5px] tracking-[0.12em] uppercase text-[#dc2f65]">Master Services Agreement</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" className="w-4 h-4 text-[#dc2f65]">
+      <div className="w-full max-w-[280px] bg-[var(--bg-elev)] border border-[var(--line-2)] rounded-xl overflow-hidden">
+        <div className="flex items-center justify-between px-4 py-3 border-b border-[var(--line)] bg-[var(--bg-3)]">
+          <span className="font-mono text-[9.5px] tracking-[0.12em] uppercase text-[var(--brand)]">Master Services Agreement</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" className="w-4 h-4 text-[var(--brand)]">
             <circle cx="12" cy="12" r="9" />
             <path d="M8.5 12.5l2.5 2.5L15.5 9.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </div>
-        <div className="px-4 py-3 border-b border-white/[0.06]">
-          <div className="font-display font-medium text-[12.5px] text-[#e8e8f0]">Whitebooks & Acme Industries Pvt Ltd</div>
+        <div className="px-4 py-3 border-b border-[var(--line)]">
+          <div className="font-display font-medium text-[12.5px] text-[var(--text)]">Whitebooks & Acme Industries Pvt Ltd</div>
         </div>
         <ul className="px-4 py-2.5 flex flex-col gap-1.5">
           {['Accounting', 'GST', 'e-Invoice', 'e-Way Bill', 'KSA e-Invoicing'].map((item, i) => (
-            <li key={i} className="flex items-center gap-2 text-[12.5px] text-[#9a9ab0]">
+            <li key={i} className="flex items-center gap-2 text-[12.5px] text-[var(--muted-2)]">
               <span className="text-[#22c55e] font-bold text-[11px]">✓</span>
               {item}
             </li>
           ))}
         </ul>
-        <div className="flex items-center justify-between px-4 py-3 border-t border-white/[0.06] bg-white/[0.02]">
+        <div className="flex items-center justify-between px-4 py-3 border-t border-[var(--line)] bg-[var(--bg-3)]">
           <div>
-            <div className="font-display font-semibold text-[13px] text-[#dc2f65]">1 contract</div>
-            <div className="font-mono text-[10px] text-[#6b6b80]">1 login · 1 SLA · 1 support</div>
+            <div className="font-display font-semibold text-[13px] text-[var(--brand)]">1 contract</div>
+            <div className="font-mono text-[10px] text-[var(--muted)]">1 login · 1 SLA · 1 support</div>
           </div>
-          <svg viewBox="0 0 80 22" preserveAspectRatio="none" className="w-16 h-5 text-[#9a9ab0]" aria-hidden="true">
+          <svg viewBox="0 0 80 22" preserveAspectRatio="none" className="w-16 h-5 text-[var(--muted-2)]" aria-hidden="true">
             <path d="M2 16 C 8 4, 14 22, 22 10 S 36 18, 44 8 S 58 18, 78 12"
               fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
           </svg>
@@ -70,32 +70,32 @@ function OneContractVisual() {
 function AuditTruthVisual() {
   return (
     <div className="w-full h-full flex flex-col justify-center gap-3 p-5">
-      <div className="p-3.5 bg-[#111118] border border-white/[0.08] rounded-xl">
-        <div className="font-mono text-[9.5px] tracking-[0.12em] uppercase text-[#6b6b80] mb-2">Auditor Query</div>
+      <div className="p-3.5 bg-[var(--bg-elev)] border border-[var(--line-2)] rounded-xl">
+        <div className="font-mono text-[9.5px] tracking-[0.12em] uppercase text-[var(--muted)] mb-2">Auditor Query</div>
         <div className="flex items-center gap-2">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 text-[#9a9ab0] shrink-0">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 text-[var(--muted-2)] shrink-0">
             <circle cx="11" cy="11" r="6.5" />
             <line x1="16.5" y1="16.5" x2="21" y2="21" />
           </svg>
-          <span className="font-body text-[13px] text-[#e8e8f0]">
-            What was ITC position on <em className="text-[#dc2f65] not-italic">Aug 12 · 14:30</em>?
+          <span className="font-body text-[13px] text-[var(--text)]">
+            What was ITC position on <em className="text-[var(--brand)] not-italic">Aug 12 · 14:30</em>?
           </span>
         </div>
       </div>
-      <div className="p-3.5 bg-[rgba(220,47,101,0.06)] border border-[rgba(220,47,101,0.2)] rounded-xl">
+      <div className="p-3.5 bg-[var(--brand-softer)] border border-[var(--brand-border)] rounded-xl">
         <div className="flex items-center gap-2 mb-2">
           <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e] shadow-[0_0_6px_rgba(34,197,94,0.6)]" />
           <span className="font-mono text-[9.5px] tracking-[0.1em] uppercase text-[#22c55e]">Live · One System</span>
         </div>
-        <div className="font-display font-semibold text-[24px] text-[#dc2f65] tracking-[-0.02em]">₹4,82,310</div>
-        <div className="flex flex-wrap gap-x-2 mt-1.5 font-mono text-[10.5px] text-[#6b6b80]">
+        <div className="font-display font-semibold text-[24px] text-[var(--brand)] tracking-[-0.02em]">₹4,82,310</div>
+        <div className="flex flex-wrap gap-x-2 mt-1.5 font-mono text-[10.5px] text-[var(--muted)]">
           <span>1,247 invoices</span>
           <span>·</span>
           <span>12 GSTINs</span>
           <span>·</span>
           <span>3 entities</span>
         </div>
-        <div className="mt-2 font-mono text-[11px] text-[#dc2f65] hover:underline cursor-pointer">
+        <div className="mt-2 font-mono text-[11px] text-[var(--brand)] hover:underline cursor-pointer">
           View 1,247 source rows →
         </div>
       </div>
@@ -140,9 +140,9 @@ export default function WhyCards() {
   return (
     <section ref={ref} data-reveal className="max-sm:py-[64px]">
       <div className="w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4">
-        <h2 className="font-display font-semibold text-[clamp(26px,3.5vw,40px)] tracking-[-0.02em] leading-[1.1] max-w-[760px] text-[#e8e8f0]">
+        <h2 className="font-display font-semibold text-[clamp(26px,3.5vw,40px)] tracking-[-0.02em] leading-[1.1] max-w-[760px] text-[var(--text)]">
           The case for buying compliance{' '}
-          <span className="text-[#dc2f65]">from one company.</span>
+          <span className="text-[var(--brand)]">from one company.</span>
         </h2>
         {/* <h2 className="font-[var(--font-display)] font-semibold text-[clamp(26px,3.5vw,40px)] tracking-[-0.02em] leading-[1.1] max-w-[760px] text-[#e8e8f0]">
           The case for buying compliance{' '}
@@ -151,8 +151,8 @@ export default function WhyCards() {
 
         <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-5">
           {CARDS.map((card, i) => (
-            <article key={i} className="flex flex-col bg-[#111118] border border-white/[0.07] rounded-2xl overflow-hidden">
-              <div className="relative h-[220px] bg-[#0d0d14] border-b border-white/[0.06] overflow-hidden">
+            <article key={i} className="flex flex-col bg-[var(--bg-2)] border border-[var(--line)] rounded-2xl overflow-hidden">
+              <div className="relative h-[220px] bg-[var(--bg-2)] border-b border-[var(--line)] overflow-hidden">
                 <div
                   className="absolute inset-0 opacity-30 pointer-events-none"
                   style={{ background: 'radial-gradient(circle at 50% 100%, rgba(220,47,101,0.3) 0%, transparent 70%)' }}
@@ -161,11 +161,11 @@ export default function WhyCards() {
                 <card.Visual />
               </div>
               <div className="p-6 flex flex-col flex-1">
-                <p className="font-mono text-[10.5px] tracking-[0.12em] uppercase text-[#dc2f65] mb-2">{card.eyebrow}</p>
-                <h3 className="font-display font-semibold text-[17px] tracking-[-0.01em] text-[#e8e8f0] mb-3 leading-[1.3]">
+                <p className="font-mono text-[10.5px] tracking-[0.12em] uppercase text-[var(--brand)] mb-2">{card.eyebrow}</p>
+                <h3 className="font-display font-semibold text-[17px] tracking-[-0.01em] text-[var(--text)] mb-3 leading-[1.3]">
                   {card.title}
                 </h3>
-                <p className="text-sm text-[#9a9ab0] leading-[1.65]">{card.body}</p>
+                <p className="text-sm text-[var(--muted-2)] leading-[1.65]">{card.body}</p>
               </div>
             </article>
           ))}

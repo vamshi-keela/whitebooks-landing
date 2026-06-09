@@ -13,6 +13,7 @@ import { ProofSection } from '@/sections/WbProof';
 import { KSASection } from '@/sections/WbKSA';
 import { FAQSection } from '@/sections/WbFAQ';
 import { HubSoftwares } from '@/pages/hubs/HubSoftwares';
+import { HubServices } from '@/pages/services/HubServices';
 import { APISubPage, SubPage } from '@/components/subpage/SubPage';
 import { ScrollToTop } from '@/components/ScrollToTop';
 import { pagesRegistry } from '@/pages/registry/index';
@@ -21,6 +22,13 @@ import { useReveal } from '@/hooks/useReveal';
 import DevPortal from '@/pages/developer/DevPortal';
 import ApiDocPage from '@/pages/developer/ApiDocPage';
 import DpHome from '@/pages/developer/DpHome';
+import { PartnerWithUs } from '@/pages/resources/PartnerWithUs';
+import { SupportPage } from '@/pages/resources/Support';
+import { VideosPage } from '@/pages/resources/Videos';
+import { GstNumberSearch } from '@/pages/tools/GstNumberSearch';
+import { GstTaxCalculator } from '@/pages/tools/GstTaxCalculator';
+import { MultiGstSearch } from '@/pages/tools/MultiGstSearch';
+import { GstHsnSacSearch } from '@/pages/tools/GstHsnSacSearch';
 import { SeoHead } from '@/seo/components/SeoHead';
 import { StructuredData } from '@/seo/components/StructuredData';
 import { getPageMeta } from '@/seo/metadata';
@@ -218,6 +226,10 @@ function ApisHubRoute() {
 
 /* ─── Developer portal index (redirects to GST API docs) ────────────────── */
 
+function ServicesHubRoute() {
+  return <HubServices />;
+}
+
 function DevPortalIndex() {
   return <Navigate to="/developer/gst-api" replace />;
 }
@@ -235,6 +247,14 @@ export function AppRouter() {
         <Route path="/softwares/:product" element={<SoftwareSubPageRoute />} />
         <Route path="/apis" element={<ApisHubRoute />} />
         <Route path="/apis/:product" element={<ApiSubPageRoute />} />
+        <Route path="/services" element={<ServicesHubRoute />} />
+        <Route path="/resources/partners" element={<PartnerWithUs />} />
+        <Route path="/resources/support" element={<SupportPage />} />
+        <Route path="/resources/videos" element={<VideosPage />} />
+        <Route path="/tools/gst-number-search" element={<GstNumberSearch />} />
+        <Route path="/tools/gst-tax-calculator" element={<GstTaxCalculator />} />
+        <Route path="/tools/multiple-gst-search" element={<MultiGstSearch />} />
+        <Route path="/tools/gst-hsn-sac-search" element={<GstHsnSacSearch />} />
 
         {/* ── Developer portal (nested layout) ─────────────────────── */}
         <Route path="/developer" element={<DevPortal />}>

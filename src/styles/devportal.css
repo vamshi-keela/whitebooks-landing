@@ -5,11 +5,12 @@
  */
 :root {
   /* ── Backgrounds ──────────────────────── */
-  --dp-bg: #0a0a0f;
-  --dp-bg-2: #0d0d13;
+  --dp-bg: #161616;
+  --dp-bg-2: #000000;
   --dp-surface: #111118;
   --dp-surface-2: #15151d;
   --dp-surface-3: #1b1b25;
+  --header-bg: rgba(10, 10, 15, 0.78);
 
   /* ── Brand ────────────────────────────── */
   --dp-accent: #dc2f65;
@@ -53,6 +54,7 @@
   --dp-surface: #ffffff;
   --dp-surface-2: #f5f5fb;
   --dp-surface-3: #ebebf2;
+  --header-bg: rgba(249, 249, 253, 0.88);
 
   /* Slightly darker accent-2 for sufficient contrast on white */
   --dp-accent-2: #c4264f;

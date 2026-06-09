@@ -2,20 +2,54 @@ import { useState, useRef, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import type { NavItem } from './navConfig';
 
+interface SecondaryGroup {
+  label: string;
+  items: NavItem[];
+}
+
 interface NavDropdownProps {
   label: string;
   triggerIcon: ReactNode;
   hubHref: string;
   items: NavItem[];
   isActive: boolean;
+  secondaryGroup?: SecondaryGroup;
 }
 
-export function NavDropdown({ label, triggerIcon, hubHref, items, isActive }: NavDropdownProps) {
+function NavItemLink({ item, accentColor, hoverBg, onClose }: {
+  item: NavItem;
+  accentColor: string;
+  hoverBg: string;
+  onClose: () => void;
+}) {
+  return (
+    <Link
+      to={item.href}
+      onClick={onClose}
+      className="flex items-center gap-[10px] px-3 py-[9px] rounded-[8px] transition-colors duration-100 group"
+      style={{ color: 'var(--muted-2)' }}
+      onMouseEnter={e => (e.currentTarget.style.background = hoverBg)}
+      onMouseLeave={e => (e.currentTarget.style.background = '')}
+    >
+      <span className="opacity-60 group-hover:opacity-100 transition-opacity shrink-0" style={{ color: accentColor }}>
+        {item.icon}
+      </span>
+      <span className="text-[13px] font-medium leading-none whitespace-nowrap group-hover:text-[var(--text)] transition-colors">
+        {item.label}
+      </span>
+    </Link>
+  );
+}
+
+export function NavDropdown({ label, triggerIcon, hubHref, items, isActive, secondaryGroup }: NavDropdownProps) {
   const [open, setOpen] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout>>();
 
   const show = () => { clearTimeout(timer.current); setOpen(true); };
   const hide = () => { timer.current = setTimeout(() => setOpen(false), 150); };
+  const close = () => setOpen(false);
+
+  const twoColumn = !!secondaryGroup;
 
   return (
     <div className="relative" onMouseEnter={show} onMouseLeave={hide}>
@@ -35,51 +69,86 @@ export function NavDropdown({ label, triggerIcon, hubHref, items, isActive }: Na
         </svg>
       </Link>
 
-      {/* pt-[6px] bridges the gap between trigger and panel so hover stays active */}
+      {/* pt-[6px] bridges the gap between trigger and panel */}
       <div
         className={`absolute top-full left-1/2 -translate-x-1/2 pt-[6px] z-50 transition-all duration-150 ease-out
           ${open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
       >
         <div
-          className={`relative w-[236px] transition-transform duration-150 ease-out ${open ? 'translate-y-0' : '-translate-y-1'}`}
+          className={`relative transition-transform duration-150 ease-out ${open ? 'translate-y-0' : '-translate-y-1'}`}
           style={{
-            background: 'rgba(8, 8, 14, 0.97)',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
+            width: twoColumn ? 520 : 236,
+            background: 'var(--bg-3)',
+            border: '1px solid var(--line-2)',
             borderRadius: '12px',
-            boxShadow: '0 24px 64px rgba(0,0,0,0.7), 0 4px 16px rgba(0,0,0,0.4)',
+            boxShadow: '0 24px 64px rgba(0,0,0,0.4), 0 4px 16px rgba(0,0,0,0.2)',
             backdropFilter: 'blur(24px)',
             WebkitBackdropFilter: 'blur(24px)',
           }}
         >
+          {/* Arrow tip */}
           <div
             className="absolute -top-[5px] left-1/2 -translate-x-1/2 w-[10px] h-[10px] rotate-45"
             style={{
-              background: 'rgba(8, 8, 14, 0.97)',
-              borderTop: '1px solid rgba(255,255,255,0.08)',
-              borderLeft: '1px solid rgba(255,255,255,0.08)',
+              background: 'var(--bg-3)',
+              borderTop: '1px solid var(--line-2)',
+              borderLeft: '1px solid var(--line-2)',
               borderRadius: '2px 0 0 0',
             }}
           />
 
-          <div className="p-1.5">
-            {items.map(item => (
-              <Link
-                key={item.href}
-                to={item.href}
-                onClick={() => setOpen(false)}
-                className="flex items-center gap-[10px] px-3 py-[9px] rounded-[8px]
-                  text-[#9a9ab0] hover:text-[#e8e8f0] hover:bg-[rgba(220,47,101,0.08)]
-                  transition-colors duration-100 group"
-              >
-                <span className="text-[#dc2f65] opacity-60 group-hover:opacity-100 transition-opacity shrink-0">
-                  {item.icon}
-                </span>
-                <span className="text-[13px] font-medium leading-none whitespace-nowrap">
-                  {item.label}
-                </span>
-              </Link>
-            ))}
-          </div>
+          {twoColumn ? (
+            <div className="flex p-1.5 gap-0">
+              {/* Primary column — Resources */}
+              <div className="flex-1 min-w-0">
+                <p className="px-3 pt-[10px] pb-[6px] text-[10px] font-semibold uppercase tracking-[0.12em]"
+                  style={{ color: 'var(--brand)' }}>
+                  {label}
+                </p>
+                {items.map(item => (
+                  <NavItemLink
+                    key={item.href}
+                    item={item}
+                    accentColor="#dc2f65"
+                    hoverBg="rgba(220,47,101,0.08)"
+                    onClose={close}
+                  />
+                ))}
+              </div>
+
+              {/* Divider */}
+              <div className="w-px my-2 shrink-0" style={{ background: 'var(--line-2)' }} />
+
+              {/* Secondary column — Tools */}
+              <div className="flex-1 min-w-0">
+                <p className="px-3 pt-[10px] pb-[6px] text-[10px] font-semibold uppercase tracking-[0.12em]"
+                  style={{ color: '#22d3ee' }}>
+                  {secondaryGroup.label}
+                </p>
+                {secondaryGroup.items.map(item => (
+                  <NavItemLink
+                    key={item.href}
+                    item={item}
+                    accentColor="#22d3ee"
+                    hoverBg="rgba(34,211,238,0.08)"
+                    onClose={close}
+                  />
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div className="p-1.5">
+              {items.map(item => (
+                <NavItemLink
+                  key={item.href}
+                  item={item}
+                  accentColor="#dc2f65"
+                  hoverBg="rgba(220,47,101,0.08)"
+                  onClose={close}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>

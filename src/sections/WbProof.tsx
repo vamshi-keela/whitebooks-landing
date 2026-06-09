@@ -27,72 +27,63 @@ const testimonials = [
   },
 ];
 
-const CARD_STYLE: React.CSSProperties = {
-  background: 'rgba(255,255,255,0.04)',
-  border: '1px solid rgba(255,255,255,0.09)',
-  borderRadius: 24,
-  padding: '40px',
-  backdropFilter: 'blur(12px)',
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'space-between',
-};
+function Stars() {
+  return (
+    <div className="flex gap-[3px] mb-5" aria-label="5 out of 5 stars">
+      {[...Array(5)].map((_, i) => (
+        <svg key={i} width="13" height="13" viewBox="0 0 24 24" fill="var(--brand)" aria-hidden="true">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+        </svg>
+      ))}
+    </div>
+  );
+}
 
 function TestimonialCard({ quote, name, role, photo }: (typeof testimonials)[0]) {
   return (
-    <div style={CARD_STYLE}>
-      <p
-        style={{
-          fontFamily: 'var(--font-serif)',
-          fontSize: 18,
-          lineHeight: 1.65,
-          color: 'var(--fg-primary)',
-          fontStyle: 'italic',
-          marginBottom: 32,
-        }}
+    <div className="group relative flex flex-col rounded-[20px] p-9 bg-[var(--bg-elev)] border border-[var(--line-2)] overflow-hidden transition-[border-color,box-shadow] duration-300 hover:border-[var(--brand-border)] hover:shadow-[0_8px_32px_-12px_rgba(220,47,101,0.18)]">
+
+      {/* Hover radial glow */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse 75% 55% at 100% 0%, rgba(220,47,101,0.06), transparent 65%)' }}
+      />
+
+      {/* Decorative quote watermark */}
+      <span
+        aria-hidden="true"
+        className="absolute top-4 right-7 font-display leading-none text-brand select-none pointer-events-none"
+        style={{ fontSize: 96, opacity: 0.065 }}
       >
-        "{quote}"
-      </p>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+        &ldquo;
+      </span>
+
+      <div className="relative z-[1] flex flex-col flex-1">
+        <Stars />
+        <p className="font-display text-[16px] leading-[1.75] text-primary flex-1">
+          &ldquo;{quote}&rdquo;
+        </p>
+      </div>
+
+      {/* Author row */}
+      <div className="relative z-[1] flex items-center gap-3 mt-7 pt-6 border-t border-[var(--line)]">
         <img
           src={photo}
           alt={name}
-          style={{
-            width: 52,
-            height: 52,
-            borderRadius: '50%',
-            objectFit: 'cover',
-            flexShrink: 0,
-            border: '2px solid rgba(255,255,255,0.15)',
-          }}
+          className="w-[44px] h-[44px] rounded-full object-cover flex-shrink-0 border border-[var(--line-2)]"
         />
-        <div>
-          <div style={{ fontSize: 15, fontWeight: 600, color: 'var(--fg-primary)', marginBottom: 3 }}>
-            {name}
-          </div>
-          <div style={{ fontSize: 15, color: 'var(--fg-tertiary)', fontFamily: 'var(--font-mono)' }}>
-            {role}
-          </div>
+        <div className="flex-1 min-w-0">
+          <div className="text-[13.5px] font-semibold text-primary leading-tight">{name}</div>
+          <div className="text-[12px] text-muted font-mono mt-[3px] truncate">{role}</div>
         </div>
       </div>
     </div>
   );
 }
 
-const NAV_BTN_STYLE: React.CSSProperties = {
-  width: 48,
-  height: 48,
-  borderRadius: '50%',
-  border: '1px solid rgba(255,255,255,0.15)',
-  background: 'transparent',
-  color: 'var(--fg-primary)',
-  fontSize: 18,
-  cursor: 'pointer',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  transition: 'background 0.2s',
-};
+const navBtnClass =
+  'w-11 h-11 rounded-full border border-[var(--line-2)] bg-transparent text-primary text-[16px] cursor-pointer flex items-center justify-center transition-[background,border-color,color] duration-200 hover:border-[var(--brand-border)] hover:text-brand hover:bg-[var(--brand-soft)]';
 
 export function ProofSection() {
   const [startIndex, setStartIndex] = useState(0);
@@ -104,77 +95,76 @@ export function ProofSection() {
   const visible = [testimonials[startIndex], testimonials[(startIndex + 1) % total]];
 
   return (
-    <section style={{ background: 'var(--bg-2)', padding: '96px 0' }}>
-      <div className="w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4">
-        <div className="flex items-end justify-between mb-16 max-sm:flex-col max-sm:items-start max-sm:gap-6">
+    <section className="relative bg-[var(--bg-2)] py-24 overflow-hidden">
+
+      {/* Top hairline — brand gradient */}
+      <div
+        aria-hidden="true"
+        className="absolute top-0 left-0 right-0 h-px pointer-events-none z-[1]"
+        style={{ background: 'linear-gradient(90deg, transparent 8%, rgba(220,47,101,0.45) 50%, transparent 92%)' }}
+      />
+
+      {/* Ambient glow — top center */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 pointer-events-none z-0"
+        style={{ background: 'radial-gradient(ellipse 60% 38% at 50% 0%, rgba(220,47,101,0.07), transparent 70%)' }}
+      />
+
+      {/* Dot grid — masked to center */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 pointer-events-none z-0"
+        style={{
+          backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(220,47,101,0.13) 1px, transparent 0)',
+          backgroundSize: '28px 28px',
+          maskImage: 'radial-gradient(ellipse 75% 65% at 50% 50%, #000 10%, transparent 80%)',
+          WebkitMaskImage: 'radial-gradient(ellipse 75% 65% at 50% 50%, #000 10%, transparent 80%)',
+        }}
+      />
+
+      <div className="relative z-[2] w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4">
+
+        {/* Header */}
+        <div className="flex items-end justify-between mb-14 max-sm:flex-col max-sm:items-start max-sm:gap-6">
           <div>
-            <h2
-              style={{
-                fontFamily: 'var(--font-serif)',
-                fontSize: 'clamp(28px, 3vw, 42px)',
-                lineHeight: 1.2,
-                letterSpacing: '-0.02em',
-                color: 'var(--fg-primary)',
-                marginBottom: 16,
-              }}
-            >
+            <h2 className="font-display text-[clamp(28px,3vw,42px)] leading-[1.2] tracking-[-0.02em] text-primary mb-3">
               What Our Customers Say
             </h2>
-            <p style={{ fontSize: 16, color: 'var(--fg-secondary)', maxWidth: 400, lineHeight: 1.6 }}>
+            <p className="text-[15.5px] text-secondary max-w-[400px] leading-[1.6]">
               Trusted by finance controllers and IT heads across the country.
             </p>
           </div>
 
           <div className="flex gap-3 flex-shrink-0">
-            <button
-              style={NAV_BTN_STYLE}
-              onClick={prev}
-              onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.08)')}
-              onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
-              aria-label="Previous testimonial"
-            >
-              ←
-            </button>
-            <button
-              style={NAV_BTN_STYLE}
-              onClick={next}
-              onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.08)')}
-              onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
-              aria-label="Next testimonial"
-            >
-              →
-            </button>
+            <button className={navBtnClass} onClick={prev} aria-label="Previous testimonial">←</button>
+            <button className={navBtnClass} onClick={next} aria-label="Next testimonial">→</button>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {visible.map((t) => (
             <TestimonialCard key={t.name} {...t} />
           ))}
         </div>
 
-        <div style={{ display: 'flex', justifyContent: 'center', gap: 8, marginTop: 32 }}>
+        {/* Pagination */}
+        <div className="flex justify-center gap-2 mt-10">
           {testimonials.map((_, i) => (
             <button
               key={i}
               onClick={() => setStartIndex(i)}
               aria-label={`Go to testimonial ${i + 1}`}
+              className="h-[7px] rounded-full border-none p-0 cursor-pointer transition-[width,background] duration-[250ms]"
               style={{
-                width: i === startIndex ? 24 : 8,
-                height: 8,
-                borderRadius: 4,
-                border: 'none',
-                background:
-                  i === startIndex
-                    ? 'linear-gradient(90deg, var(--gradient-1), var(--gradient-2))'
-                    : 'rgba(255,255,255,0.2)',
-                cursor: 'pointer',
-                padding: 0,
-                transition: 'width 0.25s, background 0.25s',
+                width: i === startIndex ? 24 : 7,
+                background: i === startIndex ? 'var(--brand)' : 'var(--line-2)',
               }}
             />
           ))}
         </div>
+
       </div>
     </section>
   );

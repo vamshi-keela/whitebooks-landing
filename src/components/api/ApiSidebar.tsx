@@ -97,7 +97,7 @@ const SidebarGroup = memo(function SidebarGroup({
                 className={[
                   'flex items-center gap-[7px] px-2 py-[5px] rounded-[6px] cursor-pointer',
                   'border-l-2 transition-[background] duration-[120ms]',
-                  isActive ? 'bg-[var(--dp-accent-soft)]' : 'hover:bg-white/[0.04]',
+                  isActive ? 'bg-[var(--dp-accent-soft)]' : 'hover:bg-[var(--dp-sidebar-hover)]',
                 ].join(' ')}
                 style={{ borderLeftColor: isActive ? 'var(--dp-accent)' : 'transparent' }}
               >
@@ -169,7 +169,7 @@ const StaticGroup = memo(function StaticGroup({
                 className={[
                   'flex items-center gap-[7px] px-2 py-[5px] rounded-[6px] cursor-pointer',
                   'border-l-2 transition-[background] duration-[120ms]',
-                  isActive ? 'bg-[var(--dp-accent-soft)]' : 'hover:bg-white/[0.04]',
+                  isActive ? 'bg-[var(--dp-accent-soft)]' : 'hover:bg-[var(--dp-sidebar-hover)]',
                 ].join(' ')}
                 style={{ borderLeftColor: isActive ? 'var(--dp-accent)' : 'transparent' }}
               >
@@ -351,7 +351,7 @@ export default function ApiSidebar({
           <button
             onClick={closeNav}
             className="w-8 h-8 flex items-center justify-center rounded-[7px] cursor-pointer border-0 transition-colors duration-150"
-            style={{ background: 'rgba(255,255,255,0.05)', color: 'var(--dp-fg-muted)' }}
+            style={{ background: 'var(--dp-sidebar-hover)', color: 'var(--dp-fg-muted)' }}
           >
             <X size={15} />
           </button>

@@ -11,9 +11,9 @@ interface Props {
 
 function statusColor(code: string): { text: string; bg: string } {
   const n = parseInt(code);
-  if (n >= 200 && n < 300) return { text: '#4ade80', bg: 'rgba(34,197,94,0.1)' };
-  if (n >= 400 && n < 500) return { text: '#fbbf24', bg: 'rgba(251,191,36,0.1)' };
-  if (n >= 500) return { text: '#f87171', bg: 'rgba(239,68,68,0.1)' };
+  if (n >= 200 && n < 300) return { text: 'var(--dp-status-2xx)', bg: 'var(--dp-status-2xx-bg)' };
+  if (n >= 400 && n < 500) return { text: 'var(--dp-status-4xx)', bg: 'var(--dp-status-4xx-bg)' };
+  if (n >= 500) return { text: 'var(--dp-status-5xx)', bg: 'var(--dp-status-5xx-bg)' };
   return { text: 'var(--dp-fg-muted)', bg: 'var(--dp-surface)' };
 }
 
@@ -62,7 +62,7 @@ export default memo(function ResponseViewer({ operation }: Props): React.ReactEl
 
       {/* Response description */}
       {resp?.description && (
-        <div style={{ fontSize: 13, color: 'var(--dp-fg-muted)', marginBottom: 10 }}>
+        <div style={{ fontSize: 13.5, color: 'var(--dp-fg-muted)', marginBottom: 10, lineHeight: 1.6 }}>
           {resp.description}
         </div>
       )}

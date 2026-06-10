@@ -19,20 +19,20 @@
   --dp-accent-glow: rgba(220, 47, 101, 0.35);
 
   /* ── Borders ──────────────────────────── */
-  --dp-border: rgba(255, 255, 255, 0.06);
-  --dp-border-strong: rgba(255, 255, 255, 0.1);
+  --dp-border: rgba(255, 255, 255, 0.07);
+  --dp-border-strong: rgba(255, 255, 255, 0.12);
 
   /* ── Input fields ─────────────────────── */
   --dp-input-bg: #1e1e2a;
   --dp-input-border: rgba(255, 255, 255, 0.18);
   --dp-input-border-focus: rgba(220, 47, 101, 0.5);
-  --dp-input-placeholder: #44445a;
+  --dp-input-placeholder: #4a4a62;
 
   /* ── Text ─────────────────────────────── */
-  --dp-fg: #e8e8f0;
-  --dp-fg-muted: #9a9aae;
-  --dp-fg-dim: #6b6b80;
-  --dp-fg-faint: #44445a;
+  --dp-fg: #eaeaf4;
+  --dp-fg-muted: #b2b2cc;
+  --dp-fg-dim: #7c7c96;
+  --dp-fg-faint: #50506a;
 
   /* ── Status ───────────────────────────── */
   --dp-success: #22c55e;
@@ -44,6 +44,51 @@
   --dp-font-display: 'Poppins', system-ui, sans-serif;
   --dp-font-body: 'Poppins', 'DM Sans', system-ui, sans-serif;
   --dp-font-mono: 'Poppins', 'JetBrains Mono', monospace;
+
+  /* ── Navigation & chrome ──────────────── */
+  --dp-nav-bg: rgba(10, 10, 15, 0.90);
+  --dp-code-bg: #080810;
+  --dp-sidebar-hover: rgba(255, 255, 255, 0.05);
+
+  /* ── Parameter location colors ────────── */
+  --dp-param-path-fg: #dda060;
+  --dp-param-path-bg: rgba(221, 160, 96, 0.09);
+  --dp-param-query-fg: #62bce8;
+  --dp-param-query-bg: rgba(98, 188, 232, 0.09);
+  --dp-param-header-fg: #b280f0;
+  --dp-param-header-bg: rgba(178, 128, 240, 0.09);
+  --dp-param-cookie-fg: #62c88a;
+  --dp-param-cookie-bg: rgba(98, 200, 138, 0.09);
+
+  /* ── Syntax tokens ────────────────────── */
+  --dp-type-fg: #62bce8;
+  --dp-str-fg: #62c88a;
+  --dp-kw-fg: #b280f0;
+
+  /* ── HTTP status colors ───────────────── */
+  --dp-status-2xx: #4ade80;
+  --dp-status-2xx-bg: rgba(74, 222, 128, 0.10);
+  --dp-status-4xx: #fbbf24;
+  --dp-status-4xx-bg: rgba(251, 191, 36, 0.10);
+  --dp-status-5xx: #f87171;
+  --dp-status-5xx-bg: rgba(248, 113, 113, 0.10);
+
+  /* ── HTTP method badge colors ─────────── */
+  --dp-method-get-fg: #4ade80;
+  --dp-method-get-bg: rgba(74, 222, 128, 0.10);
+  --dp-method-get-border: rgba(74, 222, 128, 0.22);
+  --dp-method-post-fg: #60a5fa;
+  --dp-method-post-bg: rgba(96, 165, 250, 0.10);
+  --dp-method-post-border: rgba(96, 165, 250, 0.22);
+  --dp-method-put-fg: #fbbf24;
+  --dp-method-put-bg: rgba(251, 191, 36, 0.10);
+  --dp-method-put-border: rgba(251, 191, 36, 0.22);
+  --dp-method-delete-fg: #f87171;
+  --dp-method-delete-bg: rgba(248, 113, 113, 0.10);
+  --dp-method-delete-border: rgba(248, 113, 113, 0.22);
+  --dp-method-patch-fg: #a78bfa;
+  --dp-method-patch-bg: rgba(167, 139, 250, 0.10);
+  --dp-method-patch-border: rgba(167, 139, 250, 0.22);
 }
 
 /* ── Light theme overrides ──────────────────────────────────────────────── */
@@ -51,26 +96,73 @@
   --dp-bg: #f9f9fd;
   --dp-bg-2: #f1f1f8;
   --dp-surface: #ffffff;
-  --dp-surface-2: #f5f5fb;
+  --dp-surface-2: #f4f4fa;
   --dp-surface-3: #ebebf2;
 
   /* Slightly darker accent-2 for sufficient contrast on white */
   --dp-accent-2: #c4264f;
+  --dp-accent-soft: rgba(220, 47, 101, 0.08);
   --dp-accent-glow: rgba(220, 47, 101, 0.18);
 
   --dp-border: rgba(0, 0, 0, 0.08);
-  --dp-border-strong: rgba(0, 0, 0, 0.13);
+  --dp-border-strong: rgba(0, 0, 0, 0.14);
 
   /* ── Input fields (light) ─────────────── */
   --dp-input-bg: #ffffff;
-  --dp-input-border: rgba(0, 0, 0, 0.22);
+  --dp-input-border: rgba(0, 0, 0, 0.20);
   --dp-input-border-focus: rgba(220, 47, 101, 0.45);
-  --dp-input-placeholder: #9a9ab8;
+  --dp-input-placeholder: #9090a8;
 
-  --dp-fg: #0d0d14;
-  --dp-fg-muted: #4e4e65;
-  --dp-fg-dim: #6b6b80;
-  --dp-fg-faint: #9a9ab8;
+  /* ── Text (high contrast on white) ───── */
+  --dp-fg: #0d0d18;
+  --dp-fg-muted: #35355a;
+  --dp-fg-dim: #5a5a78;
+  --dp-fg-faint: #8888a8;
+
+  /* ── Navigation & chrome ──────────────── */
+  --dp-nav-bg: rgba(249, 249, 253, 0.95);
+  --dp-code-bg: #ededf5;
+  --dp-sidebar-hover: rgba(0, 0, 0, 0.05);
+
+  /* ── Parameter location colors (darkened for light bg) */
+  --dp-param-path-fg: #7a4800;
+  --dp-param-path-bg: rgba(122, 72, 0, 0.08);
+  --dp-param-query-fg: #0a5a9c;
+  --dp-param-query-bg: rgba(10, 90, 156, 0.08);
+  --dp-param-header-fg: #6820aa;
+  --dp-param-header-bg: rgba(104, 32, 170, 0.08);
+  --dp-param-cookie-fg: #165c34;
+  --dp-param-cookie-bg: rgba(22, 92, 52, 0.08);
+
+  /* ── Syntax tokens (darkened) ─────────── */
+  --dp-type-fg: #0a5a9c;
+  --dp-str-fg: #165c34;
+  --dp-kw-fg: #6820aa;
+
+  /* ── HTTP status colors (darkened) ───── */
+  --dp-status-2xx: #15803d;
+  --dp-status-2xx-bg: rgba(21, 128, 61, 0.09);
+  --dp-status-4xx: #92400e;
+  --dp-status-4xx-bg: rgba(146, 64, 14, 0.09);
+  --dp-status-5xx: #b91c1c;
+  --dp-status-5xx-bg: rgba(185, 28, 28, 0.09);
+
+  /* ── HTTP method badge colors (darkened) */
+  --dp-method-get-fg: #15803d;
+  --dp-method-get-bg: rgba(21, 128, 61, 0.08);
+  --dp-method-get-border: rgba(21, 128, 61, 0.22);
+  --dp-method-post-fg: #1d4ed8;
+  --dp-method-post-bg: rgba(29, 78, 216, 0.08);
+  --dp-method-post-border: rgba(29, 78, 216, 0.22);
+  --dp-method-put-fg: #92400e;
+  --dp-method-put-bg: rgba(146, 64, 14, 0.08);
+  --dp-method-put-border: rgba(146, 64, 14, 0.22);
+  --dp-method-delete-fg: #b91c1c;
+  --dp-method-delete-bg: rgba(185, 28, 28, 0.08);
+  --dp-method-delete-border: rgba(185, 28, 28, 0.22);
+  --dp-method-patch-fg: #5b21b6;
+  --dp-method-patch-bg: rgba(91, 33, 182, 0.08);
+  --dp-method-patch-border: rgba(91, 33, 182, 0.22);
 }
 
 body {
@@ -83,12 +175,18 @@ body {
   color: var(--dp-fg);
   font-family: var(--dp-font-body);
   font-size: 15px;
-  line-height: 1.55;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
   background-image:
     radial-gradient(1200px 600px at 70% -10%, rgba(220, 47, 101, 0.08), transparent 60%),
     radial-gradient(900px 500px at 10% 30%, rgba(220, 47, 101, 0.04), transparent 60%);
+}
+
+[data-theme="light"] .dp-root {
+  background-image:
+    radial-gradient(1200px 600px at 70% -10%, rgba(220, 47, 101, 0.05), transparent 60%),
+    radial-gradient(900px 500px at 10% 30%, rgba(220, 47, 101, 0.03), transparent 60%);
 }
 
 .dp-root * {
@@ -112,16 +210,24 @@ body {
 
 /* Scrollbar */
 .dp-root ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 
 .dp-root ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.07);
   border-radius: 999px;
 }
 
 .dp-root ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.13);
+}
+
+[data-theme="light"] .dp-root ::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.10);
+}
+
+[data-theme="light"] .dp-root ::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.18);
 }
 
 /* ─── DpGSTAPI responsive helpers ─────────────────────────────────────────── */

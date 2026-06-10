@@ -37,10 +37,10 @@ function ApiPanel() {
         transition={{ duration: 3.2, repeat: Infinity, ease: 'easeInOut' }}
         className="absolute top-[-18px] right-[-14px] z-10 rounded-[10px] px-3 py-2"
         style={{
-          background: 'rgba(21,21,29,0.97)',
-          border: '1px solid rgba(255,255,255,0.09)',
+          background: 'var(--dp-surface-2)',
+          border: '1px solid var(--dp-border-strong)',
           backdropFilter: 'blur(20px)',
-          boxShadow: '0 8px 32px rgba(0,0,0,0.5)',
+          boxShadow: '0 8px 32px rgba(0,0,0,0.18)',
         }}
       >
         <div className="text-lg font-bold leading-none" style={{ color: '#22c55e', fontFamily: 'var(--dp-font-mono)' }}>99.9%</div>
@@ -53,10 +53,10 @@ function ApiPanel() {
         transition={{ duration: 3.8, repeat: Infinity, ease: 'easeInOut', delay: 0.6 }}
         className="absolute bottom-[-14px] left-[-14px] z-10 rounded-[10px] px-3 py-2"
         style={{
-          background: 'rgba(21,21,29,0.97)',
-          border: '1px solid rgba(255,255,255,0.09)',
+          background: 'var(--dp-surface-2)',
+          border: '1px solid var(--dp-border-strong)',
           backdropFilter: 'blur(20px)',
-          boxShadow: '0 8px 32px rgba(0,0,0,0.5)',
+          boxShadow: '0 8px 32px rgba(0,0,0,0.18)',
         }}
       >
         <div className="text-lg font-bold leading-none" style={{ color: 'var(--dp-accent-2)', fontFamily: 'var(--dp-font-mono)' }}>&lt;150ms</div>
@@ -67,16 +67,16 @@ function ApiPanel() {
       <div
         className="rounded-2xl overflow-hidden"
         style={{
-          background: 'rgba(10,10,15,0.94)',
+          background: 'var(--dp-surface)',
           border: '1px solid rgba(220,47,101,0.18)',
           backdropFilter: 'blur(24px)',
-          boxShadow: '0 0 0 1px rgba(255,255,255,0.03), 0 0 80px rgba(220,47,101,0.07), 0 32px 64px rgba(0,0,0,0.55)',
+          boxShadow: '0 0 80px rgba(220,47,101,0.07), 0 32px 64px rgba(0,0,0,0.25)',
         }}
       >
         {/* Titlebar */}
         <div
           className="px-3.5 py-2.5 flex items-center justify-between"
-          style={{ background: 'rgba(0,0,0,0.25)', borderBottom: '1px solid rgba(255,255,255,0.05)' }}
+          style={{ background: 'var(--dp-surface-2)', borderBottom: '1px solid var(--dp-border)' }}
         >
           <div className="flex items-center gap-[9px]">
             <div className="flex gap-[5px]">
@@ -104,7 +104,7 @@ function ApiPanel() {
           </div>
           <div
             className="rounded-lg px-3 py-2.5"
-            style={{ background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(255,255,255,0.04)' }}
+            style={{ background: 'var(--dp-code-bg)', border: '1px solid var(--dp-border)' }}
           >
             <div className="flex items-center gap-2 mb-2">
               <span
@@ -144,7 +144,7 @@ function ApiPanel() {
           </div>
           <div
             className="rounded-lg px-3 py-2.5"
-            style={{ background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(34,197,94,0.1)' }}
+            style={{ background: 'var(--dp-code-bg)', border: '1px solid rgba(34,197,94,0.1)' }}
           >
             <pre className="m-0 text-[10px] leading-[1.65]" style={{ color: 'var(--dp-fg-muted)', fontFamily: 'var(--dp-font-mono)' }}>{`{
   "irn": "a1b2c3d4e5f6789abc...",
@@ -156,7 +156,7 @@ function ApiPanel() {
         </div>
 
         {/* Status chips */}
-        <div className="px-3.5 py-2.5 flex gap-1.5 flex-wrap" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}>
+        <div className="px-3.5 py-2.5 flex gap-1.5 flex-wrap" style={{ borderTop: '1px solid var(--dp-border)' }}>
           {['GSTIN Verified', 'IRN Generated', 'Compliant'].map(s => (
             <div
               key={s}
@@ -585,7 +585,7 @@ function CapabilitiesSection() {
                 {/* Snippet */}
                 <div
                   className="rounded-[7px] px-3 py-2"
-                  style={{ background: 'rgba(0,0,0,0.35)', border: '1px solid rgba(255,255,255,0.04)' }}
+                  style={{ background: 'var(--dp-code-bg)', border: '1px solid var(--dp-border)' }}
                 >
                   <pre className="m-0 text-[10px] leading-[1.7]" style={{ color: 'var(--dp-fg-dim)', fontFamily: 'var(--dp-font-mono)' }}>{snippet}</pre>
                 </div>
@@ -771,7 +771,7 @@ export function SandboxSection({ title, subTitle, setupSteps, showOTPBlock = tru
   return (
     <section
       className="px-6 sm:px-10 lg:px-12 py-12 sm:py-14 lg:py-[60px]"
-      style={{ background: 'rgba(13,13,19,0.6)' }}
+      style={{ background: 'var(--dp-bg-2)' }}
     >
       <div className="max-w-[980px] mx-auto">
         <SectionHeading>Sandbox API</SectionHeading>
@@ -789,8 +789,8 @@ export function SandboxSection({ title, subTitle, setupSteps, showOTPBlock = tru
             className="relative rounded-2xl overflow-hidden"
             style={{
               background: 'var(--dp-surface)',
-              border: '1px solid rgba(255,255,255,0.07)',
-              boxShadow: '0 0 0 1px rgba(255,255,255,0.02), 0 24px 56px rgba(0,0,0,0.5)',
+              border: '1px solid var(--dp-border)',
+              boxShadow: '0 24px 56px rgba(0,0,0,0.2)',
             }}
           >
             {/* Top accent stripe */}
@@ -807,7 +807,7 @@ export function SandboxSection({ title, subTitle, setupSteps, showOTPBlock = tru
 
             {/* ── Header ── */}
             <div className="relative flex flex-col sm:flex-row sm:items-start justify-between gap-4 px-7 pt-7 pb-5"
-              style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}
+              style={{ borderBottom: '1px solid var(--dp-border)' }}
             >
               <div className="flex items-start gap-4">
                 {/* Icon block */}
@@ -836,7 +836,7 @@ export function SandboxSection({ title, subTitle, setupSteps, showOTPBlock = tru
 
             {/* ── Steps grid ── */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-px p-px"
-              style={{ background: 'rgba(255,255,255,0.04)' }}
+              style={{ background: 'var(--dp-border)' }}
             >
               {setupSteps.map(({ n, title, desc, link, icon: Icon }) => (
                 <div
@@ -854,7 +854,7 @@ export function SandboxSection({ title, subTitle, setupSteps, showOTPBlock = tru
                   <span
                     className="absolute top-4 right-5 text-[40px] font-black tabular-nums select-none leading-none pointer-events-none"
                     style={{
-                      color: 'rgba(255,255,255,0.04)',
+                      color: 'var(--dp-border)',
                       fontFamily: 'var(--dp-font-mono)',
                     }}
                   >
@@ -914,7 +914,7 @@ export function SandboxSection({ title, subTitle, setupSteps, showOTPBlock = tru
             {/* ── Footer ── */}
             <div
               className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 px-7 py-4"
-              style={{ borderTop: '1px solid rgba(255,255,255,0.05)', background: 'rgba(0,0,0,0.15)' }}
+              style={{ borderTop: '1px solid var(--dp-border)', background: 'var(--dp-surface-3)' }}
             >
               <div className="flex items-center gap-2">
                 <Shield size={11} color="var(--dp-fg-faint)" />
@@ -1214,7 +1214,7 @@ const BEST_PRACTICES = [
 
 export function BestPracticesSection() {
   return (
-    <section className="px-6 sm:px-10 lg:px-12 py-12 sm:py-14 lg:py-[60px]" style={{ background: 'rgba(13,13,19,0.6)' }}>
+    <section className="px-6 sm:px-10 lg:px-12 py-12 sm:py-14 lg:py-[60px]" style={{ background: 'var(--dp-bg-2)' }}>
       <div className="max-w-[980px] mx-auto">
         <motion.div
           initial="hidden"
@@ -1238,7 +1238,7 @@ export function BestPracticesSection() {
         >
           {BEST_PRACTICES.map(({ icon: Icon, title, body, tip }) => (
             <motion.div key={title} variants={fadeUp} className="h-full">
-              <GlassCard style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: 12, height: '100%' }}>
+              <GlassCard style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: 12, height: '100%', background: 'var(--dp-surface)', boxShadow: '0 2px 12px rgba(0,0,0,0.07)' }}>
                 <div className="flex items-center gap-2.5">
                   <div
                     className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
@@ -1251,7 +1251,7 @@ export function BestPracticesSection() {
                 <p className="m-0 text-sm leading-[1.65] flex-1" style={{ color: 'var(--dp-fg-muted)' }}>{body}</p>
                 <div
                   className="rounded-[6px] px-3 py-2 overflow-x-auto"
-                  style={{ background: 'rgba(0,0,0,0.35)', border: '1px solid rgba(255,255,255,0.04)' }}
+                  style={{ background: 'var(--dp-code-bg)', border: '1px solid var(--dp-border)' }}
                 >
                   <code className="text-xs whitespace-nowrap" style={{ color: 'var(--dp-fg-dim)', fontFamily: 'var(--dp-font-mono)' }}>{tip}</code>
                 </div>
@@ -1533,12 +1533,6 @@ export default function GstOverview(): React.ReactElement {
         subTitle='To use GST API Sandbox Credentials, follow the steps below to generate your API keys from the developer dashboard.'
         setupSteps={GST_SANDBOX_SETUP_STEPS}
       />
-      {/* <Divider />
-      <WorkflowSection /> */}
-      {/* <Divider />
-      <CategoriesSection /> */}
-      {/* <Divider />
-      <WhySection /> */}
       <Divider />
       <BestPracticesSection />
       {/* <Divider />

@@ -7,11 +7,11 @@ interface Props {
 }
 
 const config: Record<NormalizedMethod, { bg: string; text: string; border: string }> = {
-  GET:    { bg: 'rgba(34,197,94,0.12)',   text: '#4ade80', border: 'rgba(34,197,94,0.25)' },
-  POST:   { bg: 'rgba(96,165,250,0.12)',  text: '#60a5fa', border: 'rgba(96,165,250,0.25)' },
-  PUT:    { bg: 'rgba(251,191,36,0.12)',  text: '#fbbf24', border: 'rgba(251,191,36,0.25)' },
-  DELETE: { bg: 'rgba(239,68,68,0.12)',   text: '#f87171', border: 'rgba(239,68,68,0.25)' },
-  PATCH:  { bg: 'rgba(167,139,250,0.12)', text: '#a78bfa', border: 'rgba(167,139,250,0.25)' },
+  GET:    { bg: 'var(--dp-method-get-bg)',    text: 'var(--dp-method-get-fg)',    border: 'var(--dp-method-get-border)' },
+  POST:   { bg: 'var(--dp-method-post-bg)',   text: 'var(--dp-method-post-fg)',   border: 'var(--dp-method-post-border)' },
+  PUT:    { bg: 'var(--dp-method-put-bg)',    text: 'var(--dp-method-put-fg)',    border: 'var(--dp-method-put-border)' },
+  DELETE: { bg: 'var(--dp-method-delete-bg)', text: 'var(--dp-method-delete-fg)', border: 'var(--dp-method-delete-border)' },
+  PATCH:  { bg: 'var(--dp-method-patch-bg)',  text: 'var(--dp-method-patch-fg)',  border: 'var(--dp-method-patch-border)' },
 };
 
 export default function MethodBadge({ method, size = 'md' }: Props): React.ReactElement {

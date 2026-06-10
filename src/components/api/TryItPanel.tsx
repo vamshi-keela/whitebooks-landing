@@ -21,9 +21,9 @@ interface ResponseState {
 }
 
 function statusColors(code: number): { text: string; bg: string; border: string } {
-  if (code >= 200 && code < 300) return { text: '#4ade80', bg: 'rgba(34,197,94,0.1)', border: 'rgba(34,197,94,0.25)' };
-  if (code >= 400 && code < 500) return { text: '#fbbf24', bg: 'rgba(251,191,36,0.1)', border: 'rgba(251,191,36,0.25)' };
-  if (code >= 500) return { text: '#f87171', bg: 'rgba(239,68,68,0.1)', border: 'rgba(239,68,68,0.25)' };
+  if (code >= 200 && code < 300) return { text: 'var(--dp-status-2xx)', bg: 'var(--dp-status-2xx-bg)', border: 'var(--dp-status-2xx)' };
+  if (code >= 400 && code < 500) return { text: 'var(--dp-status-4xx)', bg: 'var(--dp-status-4xx-bg)', border: 'var(--dp-status-4xx)' };
+  if (code >= 500) return { text: 'var(--dp-status-5xx)', bg: 'var(--dp-status-5xx-bg)', border: 'var(--dp-status-5xx)' };
   return { text: 'var(--dp-fg-muted)', bg: 'var(--dp-surface)', border: 'var(--dp-border)' };
 }
 
@@ -128,7 +128,7 @@ export default function TryItPanel({ operation, fullUrl }: Props): React.ReactEl
         </code>
 
         {operation.deprecated && (
-          <span className="inline-flex items-center gap-1 text-[11px] text-[#f59e0b] bg-[rgba(245,158,11,0.08)] border border-[rgba(245,158,11,0.2)] rounded-[6px] px-2 py-0.5 font-[family-name:var(--dp-font-mono)] shrink-0">
+          <span className="inline-flex items-center gap-1 text-[11px] text-[var(--dp-status-4xx)] bg-[var(--dp-status-4xx-bg)] border border-[var(--dp-status-4xx)] rounded-[6px] px-2 py-0.5 font-[family-name:var(--dp-font-mono)] shrink-0" style={{ borderOpacity: '0.4' }}>
             <AlertTriangle size={10} /> Deprecated
           </span>
         )}
@@ -160,7 +160,7 @@ export default function TryItPanel({ operation, fullUrl }: Props): React.ReactEl
             <div key={p.name} className="mb-2">
               <label className={fieldLabel}>
                 {p.name}
-                {p.required && <span className="text-[#f87171] ml-0.5">*</span>}
+                {p.required && <span className="text-[var(--dp-status-5xx)] ml-0.5">*</span>}
               </label>
               <input
                 type="text"
@@ -182,7 +182,7 @@ export default function TryItPanel({ operation, fullUrl }: Props): React.ReactEl
             <div key={p.name} className="mb-2">
               <label className={fieldLabel}>
                 {p.name}
-                {p.required && <span className="text-[#f87171] ml-0.5">*</span>}
+                {p.required && <span className="text-[var(--dp-status-5xx)] ml-0.5">*</span>}
               </label>
               <input
                 type="text"
@@ -204,7 +204,7 @@ export default function TryItPanel({ operation, fullUrl }: Props): React.ReactEl
             <div key={p.name} className="mb-2">
               <label className={fieldLabel}>
                 {p.name}
-                {p.required && <span className="text-[#f87171] ml-0.5">*</span>}
+                {p.required && <span className="text-[var(--dp-status-5xx)] ml-0.5">*</span>}
               </label>
               <input
                 type="text"

@@ -24,7 +24,7 @@ interface Props {
 
 function SectionLabel({ children }: { children: React.ReactNode }): React.ReactElement {
   return (
-    <div className="flex items-center gap-2 text-[12px] font-bold uppercase tracking-[0.09em] text-[var(--dp-fg-muted)] mb-[14px]">
+    <div className="flex items-center gap-2 text-[11.5px] font-semibold uppercase tracking-[0.1em] text-[var(--dp-fg-dim)] mb-4">
       <span className="inline-block w-[3px] h-[13px] bg-[var(--dp-accent)] rounded-[2px] shrink-0" />
       {children}
     </div>
@@ -126,23 +126,23 @@ export default function OperationDetail({
         </div> */}
 
         {/* Title */}
-        <h1 className="font-[family-name:var(--dp-font-display)] text-lg sm:text-lg lg:text-xl font-bold text-[var(--dp-fg)] mt-0 mb-2.5 leading-[1.2] tracking-[-0.02em]">
+        <h1 className="font-[family-name:var(--dp-font-display)] text-xl sm:text-xl lg:text-2xl font-semibold text-[var(--dp-fg)] mt-0 mb-3 leading-[1.25] tracking-[-0.02em]">
           {operation.summary}
         </h1>
 
         {/* Description */}
         {operation.description && (
-          <p className="text-base leading-[1.75] text-[var(--dp-fg-muted)] mt-0 mb-[22px]">
+          <p className="text-[15px] leading-[1.75] text-[var(--dp-fg-muted)] mt-0 mb-6">
             {operation.description}
           </p>
         )}
 
         {/* Base URL pill */}
-        <div className="flex items-center gap-2.5 mb-8 bg-[var(--dp-surface)] border border-[var(--dp-border)] rounded-[8px] px-3.5 py-2">
+        <div className="flex items-center gap-2.5 mb-8 bg-[var(--dp-surface-2)] border border-[var(--dp-border-strong)] rounded-[9px] px-3.5 py-2.5">
           <MethodBadge method={operation.method} />
-          <code className="py-1 font-[family-name:var(--dp-font-mono)] text-[0.75rem] sm:text-[0.875rem] text-[var(--dp-fg-muted)] flex-1 min-w-0 overflow-x-auto leading-none self-center flex items-center flex-nowrap gap-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <code className="py-0.5 font-[family-name:var(--dp-font-mono)] text-[0.75rem] sm:text-[0.8125rem] text-[var(--dp-fg-muted)] flex-1 min-w-0 overflow-x-auto leading-none self-center flex items-center flex-nowrap gap-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             <span className="text-[var(--dp-fg-faint)] whitespace-nowrap shrink-0">{baseUrl}</span>
-            <span className="whitespace-nowrap shrink-0">{operation.path}</span>
+            <span className="text-[var(--dp-fg)] whitespace-nowrap shrink-0">{operation.path}</span>
           </code>
           <div className="shrink-0">
             <CopyButton text={fullUrl} size={12} />
@@ -188,10 +188,10 @@ export default function OperationDetail({
         Mobile:  full-width block below docs, border-top
         Desktop: 420px sticky sidebar, border-left, fixed viewport height with internal scroll
       */}
-      <div className="flex flex-col w-full border-t border-[var(--dp-border)] bg-gradient-to-b from-[#09090f] to-[#080810] lg:pt-10 lg:w-[420px] lg:shrink-0 lg:border-t-0 lg:border-l lg:border-[var(--dp-border)] lg:sticky lg:top-[60px] lg:h-[calc(100vh-60px)] lg:overflow-hidden mr-4">
+      <div className="flex flex-col w-full border-t border-[var(--dp-border)] bg-[var(--dp-code-bg)] lg:pt-10 lg:w-[420px] lg:shrink-0 lg:border-t-0 lg:border-l lg:border-[var(--dp-border)] lg:sticky lg:top-[60px] lg:h-[calc(100vh-60px)] lg:overflow-hidden mr-4">
 
         {/* Tab bar */}
-        <div className="flex items-center border-b border-[var(--dp-border)] px-1 bg-white/[0.015] shrink-0">
+        <div className="flex items-center border-b border-[var(--dp-border)] px-1 bg-[var(--dp-surface)] shrink-0">
           <RightTabBtn label="▶  Try It" active={rightTab === 'try'} accent onClick={() => setRightTab('try')} />
           <RightTabBtn label="◎  Code" active={rightTab === 'code'} accent onClick={() => setRightTab('code')} />
         </div>

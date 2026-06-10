@@ -158,7 +158,7 @@ export default function DpNav({ onOpenPalette }: DpNavProps): React.ReactElement
   const { pathname } = useLocation();
 
   return (
-    <nav className="sticky top-0 z-50 backdrop-blur-xl bg-[rgba(10,10,15,0.85)] border-b border-[var(--dp-border)]">
+    <nav className="sticky top-0 z-50 backdrop-blur-xl bg-[var(--dp-nav-bg)] border-b border-[var(--dp-border-strong)]">
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 h-[60px] flex items-center gap-2">
         <SiteLogo />
 
@@ -190,7 +190,7 @@ export default function DpNav({ onOpenPalette }: DpNavProps): React.ReactElement
         <button
           onClick={onOpenPalette}
           className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-[7px] cursor-pointer border border-[var(--dp-border)] text-[11px] font-mono text-[var(--dp-fg-dim)] hover:border-[var(--dp-accent)] transition-colors duration-150"
-          style={{ background: 'rgba(255,255,255,0.03)' }}
+          style={{ background: 'var(--dp-surface-2)' }}
         >
           <DpIcon name="search" size={11} />
           Search
@@ -205,7 +205,7 @@ export default function DpNav({ onOpenPalette }: DpNavProps): React.ReactElement
         <button
           onClick={openNav}
           className="lg:hidden w-9 h-9 flex items-center justify-center rounded-[8px] cursor-pointer border-0 transition-colors duration-150"
-          style={{ background: 'rgba(255,255,255,0.05)', color: 'var(--dp-fg-muted)' }}
+          style={{ background: 'var(--dp-sidebar-hover)', color: 'var(--dp-fg-muted)' }}
           aria-label="Open navigation"
         >
           <DpIcon name="menu" size={17} />

@@ -61,16 +61,16 @@ export function NavDropdown({ label, triggerIcon, hubHref, items, isActive, seco
       >
         {triggerIcon}
         {label}
-        <svg
+        {items.length > 0 && <svg
           width="10" height="6" viewBox="0 0 10 6" fill="none"
           className={`ml-0.5 opacity-50 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
         >
           <path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
+        </svg>}
       </Link>
 
       {/* pt-[6px] bridges the gap between trigger and panel */}
-      <div
+      {items.length > 0 && <div
         className={`absolute top-full left-1/2 -translate-x-1/2 pt-[6px] z-50 transition-all duration-150 ease-out
           ${open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
       >
@@ -150,7 +150,7 @@ export function NavDropdown({ label, triggerIcon, hubHref, items, isActive, seco
             </div>
           )}
         </div>
-      </div>
+      </div>}
     </div>
   );
 }

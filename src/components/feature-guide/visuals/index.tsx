@@ -296,7 +296,7 @@ export function DefaultVisual({ title }: { title: string }) {
       </div>
       <div className="wb-fg-mock-default-body">
         <div className="wb-fg-mock-default-title">{title}</div>
-        <div className="wb-fg-mock-default-sub">UI preview · drop a screenshot here</div>
+        {/* <div className="wb-fg-mock-default-sub">UI preview · drop a screenshot here</div> */}
       </div>
     </div>
   );

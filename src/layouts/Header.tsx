@@ -177,7 +177,7 @@ export function Header({ mode = 'home' }: HeaderProps) {
           <SiteLogo />
 
           <div>
-            <div className="hidden min-[1100px]:inline-flex border-solid border-1 border-[var(--line-2)] rounded-full p-1 gap-1 mx-2">
+            <div className="hidden min-[1100px]:inline-flex border-solid border-1 border-[var(--line-2)] rounded-full p-1 gap-0.5 mx-2">
               <Link
                 role="tab"
                 to="/"
@@ -213,19 +213,21 @@ export function Header({ mode = 'home' }: HeaderProps) {
                 isActive={isApi}
               />
               <NavDropdown
-                label="Services"
-                triggerIcon={<Icon.Box />}
-                hubHref="/services"
-                items={SERVICES_ITEMS}
-                isActive={isServices}
-              />
-              <NavDropdown
                 label="Resources"
                 triggerIcon={<Icon.Code />}
                 hubHref="/resources/partners"
                 items={RESOURCES_ITEMS}
                 isActive={isResources}
                 secondaryGroup={{ label: 'Tools', items: TOOLS_ITEMS }}
+              />
+            </div>
+            <div className="hidden min-[1100px]:inline-flex border-solid border-1 border-[var(--line-2)] rounded-full p-1 gap-0.5 mx-2">
+              <NavDropdown
+                label="Services"
+                triggerIcon={<Icon.Box />}
+                hubHref="/services"
+                items={[]}//{SERVICES_ITEMS}
+                isActive={isServices}
               />
             </div>
           </div>

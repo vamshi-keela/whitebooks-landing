@@ -128,7 +128,7 @@ export default function TryItPanel({ operation, fullUrl }: Props): React.ReactEl
         </code>
 
         {operation.deprecated && (
-          <span className="inline-flex items-center gap-1 text-[11px] text-[var(--dp-status-4xx)] bg-[var(--dp-status-4xx-bg)] border border-[var(--dp-status-4xx)] rounded-[6px] px-2 py-0.5 font-[family-name:var(--dp-font-mono)] shrink-0" style={{ borderOpacity: '0.4' }}>
+          <span className="inline-flex items-center gap-1 text-[11px] text-[var(--dp-status-4xx)] bg-[var(--dp-status-4xx-bg)] border border-[var(--dp-status-4xx)] rounded-[6px] px-2 py-0.5 font-[family-name:var(--dp-font-mono)] shrink-0">
             <AlertTriangle size={10} /> Deprecated
           </span>
         )}

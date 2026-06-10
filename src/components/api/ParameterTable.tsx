@@ -6,8 +6,8 @@ interface Props {
 }
 
 const inColors: Record<string, { color: string; bg: string }> = {
-  path:   { color: 'var(--dp-param-path-fg)',   bg: 'var(--dp-param-path-bg)' },
-  query:  { color: 'var(--dp-param-query-fg)',  bg: 'var(--dp-param-query-bg)' },
+  path: { color: 'var(--dp-param-path-fg)', bg: 'var(--dp-param-path-bg)' },
+  query: { color: 'var(--dp-param-query-fg)', bg: 'var(--dp-param-query-bg)' },
   header: { color: 'var(--dp-param-header-fg)', bg: 'var(--dp-param-header-bg)' },
   cookie: { color: 'var(--dp-param-cookie-fg)', bg: 'var(--dp-param-cookie-bg)' },
 };
@@ -76,7 +76,6 @@ const ParameterTable: React.FC<Props> = ({ parameters }) => {
                         ? 'text-[var(--dp-status-5xx)] bg-[var(--dp-status-5xx-bg)] border border-[var(--dp-status-5xx)]'
                         : 'text-[var(--dp-fg-faint)] border border-[var(--dp-border)]',
                     ].join(' ')}
-                    style={{ borderOpacity: '0.4' }}
                   >
                     {param.required ? 'required' : 'optional'}
                   </span>

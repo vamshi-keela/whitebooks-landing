@@ -17,6 +17,7 @@ import { HubSoftwares } from '@/pages/hubs/HubSoftwares';
 import { HubServices } from '@/pages/services/HubServices';
 import { APISubPage, SubPage } from '@/components/subpage/SubPage';
 import { ScrollToTop } from '@/components/ScrollToTop';
+import { ScrollToTopButton } from '@/components/ScrollToTopButton';
 import { pagesRegistry } from '@/pages/registry/index';
 import type { SubPageData } from '@/types/pages';
 import { useReveal } from '@/hooks/useReveal';
@@ -26,6 +27,12 @@ import DpHome from '@/pages/developer/DpHome';
 import { PartnerWithUs } from '@/pages/resources/PartnerWithUs';
 import { SupportPage } from '@/pages/resources/Support';
 import { VideosPage } from '@/pages/resources/Videos';
+import { AboutUs } from '@/pages/about/AboutUs';
+import { ContactUs } from '@/pages/about/ContactUs';
+import { Pricing } from '@/pages/about/Pricing';
+import { Terms } from '@/pages/about/Terms';
+import { PrivacyPolicy } from '@/pages/about/PrivacyPolicy';
+import { RefundCancellation } from '@/pages/about/RefundCancellation';
 import { GstNumberSearch } from '@/pages/tools/GstNumberSearch';
 import { GstTaxCalculator } from '@/pages/tools/GstTaxCalculator';
 import { MultiGstSearch } from '@/pages/tools/MultiGstSearch';
@@ -242,6 +249,7 @@ export function AppRouter() {
   return (
     <>
       <ScrollToTop />
+      <ScrollToTopButton />
       <Routes>
         {/* ── Marketing / product routes ────────────────────────────── */}
         <Route path="/" element={<HomeRoute />} />
@@ -253,6 +261,12 @@ export function AppRouter() {
         <Route path="/resources/partners" element={<PartnerWithUs />} />
         <Route path="/resources/support" element={<SupportPage />} />
         <Route path="/resources/videos" element={<VideosPage />} />
+        <Route path="/about/about-us" element={<AboutUs />} />
+        <Route path="/about/contact-us" element={<ContactUs />} />
+        <Route path="/about/pricing" element={<Pricing />} />
+        <Route path="/about/terms" element={<Terms />} />
+        <Route path="/about/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/about/refund-cancellation" element={<RefundCancellation />} />
         <Route path="/tools/gst-number-search" element={<GstNumberSearch />} />
         <Route path="/tools/gst-tax-calculator" element={<GstTaxCalculator />} />
         <Route path="/tools/multiple-gst-search" element={<MultiGstSearch />} />

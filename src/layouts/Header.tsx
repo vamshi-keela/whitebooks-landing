@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Icon } from '@/components/icons/Icon';
-import { Button } from '@/components/ui/Button';
+import { Button, ButtonLink } from '@/components/ui/Button';
 import { SiteLogo } from '@/components/ui/SiteLogo';
 import { NavDropdown } from '@/components/nav/NavDropdown';
 import { MobileNavGroup } from '@/components/nav/MobileNavGroup';
@@ -15,86 +15,39 @@ interface HeaderProps {
   mode?: HeaderMode;
 }
 
-function AccountDropdown() {
-  const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    function handleClick(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
-    }
-    document.addEventListener('mousedown', handleClick);
-    return () => document.removeEventListener('mousedown', handleClick);
-  }, []);
-
+function AuthButtons() {
   return (
-    <div ref={ref} className="relative">
-      <button
-        onClick={() => setOpen(v => !v)}
-        aria-label="Account"
-        className="flex items-center justify-center w-9 h-9 rounded-lg border border-[var(--line-2)] bg-[var(--bg-elev)] text-[var(--muted-2)] hover:text-[var(--text)] hover:bg-[var(--bg-3)] hover:border-[var(--line-2)] transition-all duration-150"
+    <div className="flex items-center gap-2">
+      <ButtonLink
+        href="https://accounts.whitebooks.in/login"
+        rel="noopener noreferrer"
+        variant="secondary"
+        size="sm"
       >
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-          <circle cx="12" cy="8" r="4" />
-          <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
-        </svg>
-      </button>
-
-      {open && (
-        <div className="absolute right-0 top-[calc(100%+8px)] w-44 rounded-xl border border-[var(--line-2)] bg-[var(--bg-3)] shadow-[0_20px_60px_-10px_rgba(0,0,0,0.5)] overflow-hidden z-50">
-          <div className="px-1.5 pb-1.5 pl-1.5 flex flex-col gap-0.5">
-            <a
-              href="https://accounts.whitebooks.in/signupall"
-              rel="noopener noreferrer"
-              onClick={() => setOpen(false)}
-              className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-[var(--text)] hover:bg-[var(--bg-2)] transition-colors duration-100 no-underline"
-            >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--muted-2)]">
-                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                <circle cx="9" cy="7" r="4" />
-                <line x1="19" y1="8" x2="19" y2="14" />
-                <line x1="22" y1="11" x2="16" y2="11" />
-              </svg>
-              <span className="font-medium">Sign up</span>
-            </a>
-            <a
-              href="https://accounts.whitebooks.in/login"
-              rel="noopener noreferrer"
-              onClick={() => setOpen(false)}
-              className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-[var(--text)] hover:bg-[var(--bg-2)] transition-colors duration-100 no-underline"
-            >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--muted-2)]">
-                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
-                <polyline points="10 17 15 12 10 7" />
-                <line x1="15" y1="12" x2="3" y2="12" />
-              </svg>
-              <span className="font-medium">Sign in</span>
-            </a>
-          </div>
-        </div>
-      )}
+        Sign in
+      </ButtonLink>
+      <ButtonLink
+        href="https://accounts.whitebooks.in/signupall"
+        rel="noopener noreferrer"
+        variant="primary"
+        size="sm"
+      >
+        Sign up
+      </ButtonLink>
     </div>
   );
 }
 
 function ContactUsDropdown() {
   const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
+  const timer = useRef<ReturnType<typeof setTimeout>>();
 
-  useEffect(() => {
-    function handleClick(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
-    }
-    document.addEventListener('mousedown', handleClick);
-    return () => document.removeEventListener('mousedown', handleClick);
-  }, []);
+  const show = () => { clearTimeout(timer.current); setOpen(true); };
+  const hide = () => { timer.current = setTimeout(() => setOpen(false), 150); };
 
   return (
-    <div ref={ref} className="relative">
-      <Button variant='primary'
-        onClick={() => setOpen(v => !v)}
-        className="hidden min-[1100px]:inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-sm font-medium text-[var(--muted-2)] hover:text-[var(--text)] hover:bg-white/[0.05] border border-transparent hover:border-white/10 transition-all duration-150"
-      >
+    <div className="hidden min-[1100px]:block relative" onMouseEnter={show} onMouseLeave={hide}>
+      <Button variant='secondary' size='sm' type='button'>
         <Icon.Phone />
         Contact Us
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={`transition-transform duration-150 ${open ? 'rotate-180' : ''}`}>
@@ -102,8 +55,11 @@ function ContactUsDropdown() {
         </svg>
       </Button>
 
-      {open && (
-        <div className="absolute right-0 top-[calc(100%+8px)] w-60 rounded-xl border border-[var(--line-2)] bg-[var(--bg-3)] shadow-[0_20px_60px_-10px_rgba(0,0,0,0.5)] overflow-hidden z-50">
+      <div
+        className={`absolute right-0 top-full pt-[6px] z-50 transition-all duration-150 ease-out
+          ${open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+      >
+        <div className={`relative w-60 rounded-xl border border-[var(--line-2)] bg-[var(--bg-3)] shadow-[0_20px_60px_-10px_rgba(0,0,0,0.5)] overflow-hidden transition-transform duration-150 ease-out ${open ? 'translate-y-0' : '-translate-y-1'}`}>
           <div className="px-3 border-b border-[var(--line)]">
             <p className="text-[10px] font-medium text-[var(--muted)] tracking-wider uppercase">Get in touch</p>
           </div>
@@ -137,7 +93,7 @@ function ContactUsDropdown() {
             </div>
           </div>
         </div>
-      )}
+      </div>
     </div>
   );
 }
@@ -182,7 +138,7 @@ export function Header({ mode = 'home' }: HeaderProps) {
                 role="tab"
                 to="/"
                 className={`group py-[7px] px-[18px] rounded-full text-[13.5px] font-medium tracking-[0.005em] transition-all duration-[180ms] inline-flex items-center gap-2 cursor-pointer max-[760px]:py-[6px] max-[760px]:px-3 max-[760px]:text-[12.5px] ${isHome
-                  ? 'bg-[var(--brand)] text-white shadow-[0_6px_18px_-6px_rgba(220,47,101,0.55)] hover:bg-[var(--brand)]'
+                  ? 'bg-[var(--brand)] text-[var(--text)] shadow-[0_6px_18px_-6px_rgba(220,47,101,0.55)] hover:bg-[var(--brand)]'
                   : 'text-[var(--muted-2)] hover:text-[var(--text)] hover:bg-[rgba(220,47,101,0.08)]'
                   }`}
               >
@@ -190,7 +146,7 @@ export function Header({ mode = 'home' }: HeaderProps) {
                   src={homeIcon}
                   className={`w-4 h-4 transition-[filter] duration-[180ms] ${isHome
                     ? '[filter:brightness(0)_invert(1)]'
-                    : '[filter:brightness(0)_saturate(100%)_invert(67%)_sepia(8%)_saturate(453%)_hue-rotate(199deg)_brightness(87%)_contrast(92%)] group-hover:[filter:brightness(0)_invert(1)_opacity(0.85)]'
+                    : '[filter:brightness(0)_saturate(100%)_invert(67%)_sepia(8%)_saturate(453%)_hue-rotate(199deg)_brightness(87%)_contrast(92%)] '
                     }`}
                   alt="home"
                 />
@@ -233,8 +189,8 @@ export function Header({ mode = 'home' }: HeaderProps) {
           </div>
 
           <div className="flex items-center gap-[14px] justify-self-end pl-10">
-            <ThemeToggle size={32} />
-            <AccountDropdown />
+            <ThemeToggle className='hidden min-[1100px]:inline-flex' size={32} />
+            <AuthButtons />
             <ContactUsDropdown />
             {/* <Button
               onClick={() => setDemoOpen(true)}

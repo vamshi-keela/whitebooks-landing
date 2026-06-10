@@ -53,11 +53,11 @@ export function MobileNavGroup({ label, icon, items, onNavigate, secondaryGroup 
     <div>
       <Button
         onClick={() => setOpen(v => !v)}
-        className="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium text-[var(--muted-2)] bg-[var(--bg-elev)]"
+        className="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium text-[var(--text)] bg-[var(--bg-elev)]"
         aria-expanded={open}
       >
         <span className="flex items-center gap-2">
-          <span className="text-[#dc2f65]">{icon}</span>
+          <span className="text-[var(--text)]">{icon}</span>
           {label}
         </span>
         <svg

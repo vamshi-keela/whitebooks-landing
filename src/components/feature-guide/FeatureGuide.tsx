@@ -81,6 +81,12 @@ export function FeatureGuide({ heading, items, navLabel = "What it does" }: Feat
     "--idx": active,
   } as CSSProperties;
 
+  const visualGlowStyle: CSSProperties = {
+    inset: "-30px",
+    background:
+      "radial-gradient(ellipse 40% 60% at 30% 30%, rgba(220,47,101,0.30), transparent 60%), radial-gradient(ellipse 40% 60% at 80% 80%, rgba(220,47,101,0.20), transparent 65%)",
+  };
+
   // c = compact (tablet-height) variant values; only affects the sticky laptop layout
   const c = compact
     ? { sticky: "pt-5 pb-5 top-[0px]", grid: "mt-5", panel: "pt-4", h3: "text-[22px] mb-1", vis: "mt-3 min-h-[180px]" }
@@ -113,9 +119,9 @@ export function FeatureGuide({ heading, items, navLabel = "What it does" }: Feat
           {/* wb-fg-grid */}
           <div className={`grid grid-cols-[280px_1fr] gap-12 ${c.grid} items-start max-[1000px]:grid-cols-1 max-[1000px]:gap-6 max-[1000px]:mt-9 max-[700px]:mt-6 max-[700px]:gap-4`}>
 
-            {/* wb-fg-nav: position:relative overrides the earlier sticky rule */}
+            {/* wb-fg-nav: position:relative overrides the earlier sticky rule. Hidden on mobile — replaced by the stacked list below. */}
             <nav
-              className="relative flex flex-col gap-0.5 max-[1000px]:flex-row max-[1000px]:flex-wrap max-[1000px]:mb-20"
+              className="relative flex flex-col gap-0.5 max-[1000px]:hidden"
               aria-label="Features"
             >
               {items.map((it, i) => (
@@ -180,10 +186,10 @@ export function FeatureGuide({ heading, items, navLabel = "What it does" }: Feat
               </div>
             </nav>
 
-            {/* wb-fg-panel */}
+            {/* wb-fg-panel — desktop/tablet only, replaced by the stacked list below on mobile */}
             <div
               key={active}
-              className={`flex flex-col gap-0 border-t border-hairline ${c.panel} [animation:wb-fg-pop_480ms_cubic-bezier(0.2,0.7,0.2,1)_both] max-[700px]:pt-6 max-[700px]:gap-6`}
+              className={`flex flex-col gap-0 border-t border-hairline ${c.panel} [animation:wb-fg-pop_480ms_cubic-bezier(0.2,0.7,0.2,1)_both] max-[1000px]:hidden`}
             >
               {/* wb-fg-panel-text */}
               <div className="flex-[1_1_0] pr-12 max-[900px]:pr-0">
@@ -193,30 +199,52 @@ export function FeatureGuide({ heading, items, navLabel = "What it does" }: Feat
                 </p>
 
                 {/* wb-fg-panel-title */}
-                <h3 className={`font-display font-semibold tracking-[-0.02em] leading-[1.15] m-0 [text-wrap:balance] max-[700px]:!text-[22px] max-[700px]:!mb-4 ${c.h3}`}>
+                <h3 className={`font-display font-semibold tracking-[-0.02em] leading-[1.15] m-0 [text-wrap:balance] ${c.h3}`}>
                   {item.title}
                 </h3>
 
                 {/* wb-fg-panel-body */}
-                <p className="m-0 text-[16px] text-secondary leading-[1.6] max-[700px]:text-[15px]">
+                <p className="m-0 text-[16px] text-secondary leading-[1.6]">
                   {item.body}
                 </p>
               </div>
 
               {/* wb-fg-panel-visual */}
-              <div className={`${c.vis} flex-[1_1_0] relative max-[700px]:!mt-10 max-[700px]:!min-h-[220px]`}>
+              <div className={`${c.vis} flex-[1_1_0] relative`}>
                 {/* wb-fg-panel-visual::before — radial glow (replaced with real div) */}
-                <div
-                  aria-hidden="true"
-                  className="absolute pointer-events-none z-0 blur-[28px]"
-                  style={{
-                    inset: "-30px",
-                    background:
-                      "radial-gradient(ellipse 40% 60% at 30% 30%, rgba(220,47,101,0.30), transparent 60%), radial-gradient(ellipse 40% 60% at 80% 80%, rgba(220,47,101,0.20), transparent 65%)",
-                  }}
-                />
+                <div aria-hidden="true" className="absolute pointer-events-none z-0 blur-[28px]" style={visualGlowStyle} />
                 {VisualComp ? <VisualComp /> : <DefaultVisual title={item.title ?? ""} />}
               </div>
+            </div>
+
+            {/* Mobile: nav-free stacked list — every item's text + visual, one below the other */}
+            <div className="hidden max-[1000px]:flex max-[1000px]:flex-col max-[1000px]:gap-10">
+              {items.map((it, i) => {
+                const ItemVisual = (it.visualKey && VISUALS[it.visualKey]) ?? null;
+                return (
+                  <div
+                    key={i}
+                    className={`flex flex-col gap-6 ${i > 0 ? "border-t border-hairline pt-8" : ""}`}
+                  >
+                    <div>
+                      <p className="font-mono text-[10.5px] tracking-[0.14em] uppercase text-brand m-0 mb-3.5">
+                        {String(i + 1).padStart(2, "0")}&nbsp;/&nbsp;{String(STEPS).padStart(2, "0")}
+                      </p>
+                      <h3 className="font-display font-semibold tracking-[-0.02em] leading-[1.15] m-0 [text-wrap:balance] text-[22px] mb-4">
+                        {it.title}
+                      </h3>
+                      <p className="m-0 text-[15px] text-secondary leading-[1.6]">
+                        {it.body}
+                      </p>
+                    </div>
+
+                    <div className="relative min-h-[220px]">
+                      <div aria-hidden="true" className="absolute pointer-events-none z-0 blur-[28px]" style={visualGlowStyle} />
+                      {ItemVisual ? <ItemVisual /> : <DefaultVisual title={it.title ?? ""} />}
+                    </div>
+                  </div>
+                );
+              })}
             </div>
 
           </div>

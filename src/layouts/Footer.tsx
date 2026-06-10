@@ -174,22 +174,22 @@ export function Footer() {
             <FooterCol
               title="Company"
               items={[
-                { label: 'About' },
-                { label: 'Customers' },
-                { label: 'Partners' },
-                { label: 'Careers' },
-                { label: 'Contact' },
+                { label: 'About Us', href: '/about/about-us' },
+                { label: 'Contact Us', href: '/about/contact-us' },
+                { label: 'Pricing', href: '/about/pricing' },
+                { label: 'Terms & Conditions', href: '/about/terms' },
+                { label: 'Privacy Policy', href: '/about/privacy-policy' },
+                { label: 'Refund & Cancellation', href: '/about/refund-cancellation' },
               ]}
             />
 
             <FooterCol
               title="Resources"
               items={[
-                { label: 'Pricing' },
-                { label: 'Blog' },
-                { label: 'Migration guide' },
-                { label: 'Compliance calendar' },
-                { label: 'API status' },
+                { label: 'Partners', href: '/resources/partners' },
+                { label: 'Support', href: '/resources/support' },
+                { label: 'Videos', href: '/resources/videos' },
+                { label: 'Blog', href: '/resources/blog' },
               ]}
             />
           </div>

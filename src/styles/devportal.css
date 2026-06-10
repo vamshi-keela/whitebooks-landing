@@ -5,11 +5,11 @@
  */
 :root {
   /* ── Backgrounds ──────────────────────── */
-  --dp-bg: #0a0a0f;
-  --dp-bg-2: #0d0d13;
-  --dp-surface: #111118;
-  --dp-surface-2: #15151d;
-  --dp-surface-3: #1b1b25;
+  --dp-bg: #161616;
+  --dp-bg-2: #19191a;
+  --dp-surface: #1d1d1f;
+  --dp-surface-2: #212124;
+  --dp-surface-3: #27272c;
 
   /* ── Brand ────────────────────────────── */
   --dp-accent: #dc2f65;
@@ -23,7 +23,7 @@
   --dp-border-strong: rgba(255, 255, 255, 0.12);
 
   /* ── Input fields ─────────────────────── */
-  --dp-input-bg: #1e1e2a;
+  --dp-input-bg: #2a2a31;
   --dp-input-border: rgba(255, 255, 255, 0.18);
   --dp-input-border-focus: rgba(220, 47, 101, 0.5);
   --dp-input-placeholder: #4a4a62;
@@ -47,7 +47,7 @@
 
   /* ── Navigation & chrome ──────────────── */
   --dp-nav-bg: rgba(10, 10, 15, 0.90);
-  --dp-code-bg: #080810;
+  --dp-code-bg: #141417;
   --dp-sidebar-hover: rgba(255, 255, 255, 0.05);
 
   /* ── Parameter location colors ────────── */

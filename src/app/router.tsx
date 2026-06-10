@@ -4,6 +4,7 @@ import { BookDemoModal } from '@/components/modals/BookDemoModal';
 import { Header, Footer } from '@/layouts/SiteShell';
 import { Hero, LogoWall } from '@/sections/WbHero';
 import { HubAPIsSection, HubSection } from '@/sections/WbHubs';
+import { ConnectorsSection } from '@/sections/ConnectorsSection';
 import { ProblemSection } from '@/sections/WbProblem';
 import { FinanceTeamsSection } from '@/sections/WbFinanaceTeams';
 import ClosingCTA from '@/components/ui/ClosingCTA';
@@ -125,6 +126,7 @@ function HomeRoute() {
         <LogoWall />
         <HubSection tab={tab} setTab={setTab} navigate={navigate} />
         <HubAPIsSection />
+        <ConnectorsSection />
         <ProblemSection />
         <FinanceTeamsSection />
         <ForDevelopersSection />

@@ -77,7 +77,7 @@ export function SubPage({ data, onPrimaryClick, onSecondaryClick }: SubPageProps
   });
 
   return (
-    <div className="min-h-screen bg-[var(--bg)]">
+    <div className="min-h-screen">
       {data.seo && <SeoHead {...data.seo} />}
       {schema && <StructuredData schema={schema} />}
       <Header mode={data.headerMode} />

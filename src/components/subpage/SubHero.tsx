@@ -18,7 +18,7 @@ export default function SubHero({ eyebrow, title, sub, primaryCta, secondaryCta,
   const navigate = useNavigate();
 
   return (
-    <section className="pt-[70px] pb-[72px] relative overflow-hidden font-[var(--font-display)]">
+    <section className="pt-[70px] pb-[72px] relative overflow-hidden font-[var(--font-display)] bg-[var(--bg-2)] max-xl:min-h-screen">
       <FluidBackground />
 
       {breadcrumb && (

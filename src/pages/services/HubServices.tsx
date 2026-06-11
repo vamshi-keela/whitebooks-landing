@@ -183,7 +183,7 @@ export function HubServices() {
           <FluidBackground />
 
           {/* Breadcrumb */}
-          <section className="pt-[30px] pb-[70px]">
+          <section className="pt-[30px] pb-[40px]">
             <div className="w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4">
               <Breadcrumb items={[
                 { label: "Home", href: "/" },

@@ -127,10 +127,10 @@ export function HubSoftwares() {
         <Header mode="softwares" />
         <main>
           {/* Hero */}
-          <section className="pt-[70px] pb-[72px] relative overflow-hidden">
+          <section className="pt-[70px] pb-[72px] relative overflow-hidden bg-[var(--bg-2)]">
             <FluidBackground />
 
-            <section style={{ paddingTop: 30, paddingBottom: 70 }}>
+            <section style={{ paddingTop: 30, paddingBottom: 40 }}>
               <div className={wrap}>
                 <Breadcrumb items={[
                   { label: "Home", href: "/" },
@@ -139,7 +139,7 @@ export function HubSoftwares() {
               </div>
             </section>
             <div className={`${wrap} relative z-[2]`}>
-              <div className="w-[60%] max-lg:w-[70%] max-md:w-[85%] max-sm:w-full">
+              <div className="w-[50%] max-lg:w-[70%] max-md:w-[85%] gap-10 max-sm:w-full">
                 <EyebrowPill label={'Whitebooks Softwares'} />
                 <h1
                   className="font-display font-semibold tracking-[-0.02em] leading-[1.04]"
@@ -162,7 +162,7 @@ export function HubSoftwares() {
               src={PhotoRoom}
               alt=""
               aria-hidden="true"
-              className="absolute bottom-0 right-0 h-full w-auto max-w-[50%] object-contain object-[bottom_right] pointer-events-none z-0 max-[1024px]:max-w-[40%] max-[1024px]:opacity-70 max-[700px]:hidden"
+              className="absolute bottom-0 right-0 h-full w-auto max-w-[55%] object-contain object-[bottom_right] pointer-events-none z-0 max-[1024px]:max-w-[40%] max-[1024px]:opacity-70 max-[700px]:hidden"
             />
           </section>
 

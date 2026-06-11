@@ -170,7 +170,7 @@ export function Header({ mode = 'home' }: HeaderProps) {
               />
               <NavDropdown
                 label="Resources"
-                triggerIcon={<Icon.Code />}
+                triggerIcon={<Icon.Resources />}
                 hubHref="/resources/partners"
                 items={RESOURCES_ITEMS}
                 isActive={isResources}
@@ -180,7 +180,7 @@ export function Header({ mode = 'home' }: HeaderProps) {
             <div className="hidden min-[1100px]:inline-flex border-solid border-1 border-[var(--line-2)] rounded-full p-1 gap-0.5 mx-2">
               <NavDropdown
                 label="Services"
-                triggerIcon={<Icon.Box />}
+                triggerIcon={<Icon.Services />}
                 hubHref="/services"
                 items={[]}//{SERVICES_ITEMS}
                 isActive={isServices}
@@ -215,8 +215,8 @@ export function Header({ mode = 'home' }: HeaderProps) {
           <div className="min-[1100px]:hidden border-t border-[var(--line)] bg-[var(--bg)] px-5 py-4 flex flex-col gap-3 overflow-y-auto max-h-[calc(100svh-4rem)]">
             <MobileNavGroup label="Softwares" icon={<Icon.Box />} items={SOFT_ITEMS} onNavigate={() => setMenuOpen(false)} />
             <MobileNavGroup label="APIs" icon={<Icon.Code />} items={API_ITEMS} onNavigate={() => setMenuOpen(false)} />
-            <MobileNavGroup label="Services" icon={<Icon.Box />} items={SERVICES_ITEMS} onNavigate={() => setMenuOpen(false)} />
-            <MobileNavGroup label="Resources" icon={<Icon.Code />} items={RESOURCES_ITEMS} onNavigate={() => setMenuOpen(false)} secondaryGroup={{ label: 'Tools', items: TOOLS_ITEMS }} />
+            <MobileNavGroup label="Services" icon={<Icon.Services />} items={SERVICES_ITEMS} onNavigate={() => setMenuOpen(false)} />
+            <MobileNavGroup label="Resources" icon={<Icon.Resources />} items={RESOURCES_ITEMS} onNavigate={() => setMenuOpen(false)} secondaryGroup={{ label: 'Tools', items: TOOLS_ITEMS }} />
             <div className="flex flex-col gap-1.5 pt-1 border-t border-[var(--line)]">
               <p className="text-[10px] font-medium text-[var(--muted)] tracking-wider uppercase px-1 pt-1">Contact Us</p>
               <div className="flex flex-col gap-2">

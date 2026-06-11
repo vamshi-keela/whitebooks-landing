@@ -132,6 +132,22 @@ export const Globe = (p: SvgProps) => (
   </svg>
 );
 
+export const Resources = (p: SvgProps) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="wb-toggle-icon" {...p}>
+    <path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v17H6.5A2.5 2.5 0 0 0 4 21.5z" />
+    <path d="M4 4.5v17" />
+    <line x1="9" y1="7" x2="15" y2="7" />
+  </svg>
+);
+
+export const Services = (p: SvgProps) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="wb-toggle-icon" {...p}>
+    <rect x="2.5" y="7.5" width="19" height="13" rx="2" />
+    <path d="M8 7.5V5.5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+    <line x1="2.5" y1="13" x2="21.5" y2="13" />
+  </svg>
+);
+
 export const Close = (p: SvgProps) => (
 
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
@@ -164,6 +180,8 @@ export const Icon = {
   Seal,
   Brain,
   Globe,
+  Resources,
+  Services,
   Close
 };
 

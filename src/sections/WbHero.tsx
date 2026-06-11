@@ -23,13 +23,13 @@ export function Hero() {
 
   return (
     <>
-      <section className="relative bg-[#0a0a0f] pt-[9rem] overflow-hidden hero-horizon">
+      <section className="relative bg-[var(--bg-2)] pt-[9rem] overflow-hidden hero-horizon">
         <HeroFluidBackground variant="left" gradientOpacity={0.6} />
 
         <div className="relative z-10 max-w-[1240px] mx-auto px-8 max-sm:px-5 justiy-center">
           <div className="max-w-[960px] mx-auto text-center">
             <EyebrowPill label="GST Suvidha Provider" subtitle="Licensed by GSTN" />
-            <h1 className="font-display font-semibold text-[clamp(36px,4vw,101px)] leading-[1.05] tracking-[-0.03em] mt-[22px] text-center text-[#e8e8f0]">
+            <h1 className="font-display font-semibold text-[clamp(36px,4vw,101px)] leading-[1.05] tracking-[-0.03em] mt-[22px] text-center text-[var(--text)]">
               Compliance infrastructure for{' '}
               <span className="text-[#dc2f65]">India's largest finance teams.</span>
             </h1>

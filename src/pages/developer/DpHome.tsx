@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button, ButtonLink } from '@/components/ui/Button';
-import { Header, Footer } from '@/layouts/SiteShell';
+import { Header, Footer, FluidBackground, Breadcrumb } from '@/layouts/SiteShell';
 import { CodeBlock, SurfaceCard, Status, InlineCode, Pill, MethodBadge } from './DpComponents';
 import DpIcon from './DpIcon';
 import { heroTabs, quickstartReqTabs, quickstartRespTabs } from './DpHomeData';
@@ -12,9 +12,11 @@ const wrap = "w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-s
 /* ─── Hero Section ───────────────────────────────────────────────────────────── */
 function HeroSection(): React.ReactElement {
   return (
-    <section className="relative pt-12 pb-16 md:pt-20 md:pb-[100px] max-w-[1280px] mx-auto overflow-hidden px-16 max-lg:px-10 max-md:px-6 max-sm:px-4">
+    <section className="pt-[70px] pb-[72px] relative overflow-hidden bg-[var(--bg-2)] maxl-xl:min-h-screen">
+      <FluidBackground />
+
       {/* Grid background */}
-      <div
+      {/* <div
         className="absolute inset-0 pointer-events-none"
         style={{
           backgroundImage: 'linear-gradient(var(--dp-border) 1px, transparent 1px), linear-gradient(90deg, var(--dp-border) 1px, transparent 1px)',
@@ -22,9 +24,16 @@ function HeroSection(): React.ReactElement {
           WebkitMaskImage: 'radial-gradient(ellipse 80% 80% at 50% 0%, black 20%, transparent 100%)',
           maskImage: 'radial-gradient(ellipse 80% 80% at 50% 0%, black 20%, transparent 100%)',
         }}
-      />
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-[60px] items-center relative">
+      /> */}
+      <section style={{ paddingTop: 30, paddingBottom: 40 }}>
+        <div className={wrap}>
+          <Breadcrumb items={[
+            { label: "Home", href: "/" },
+            { label: "APIs" },
+          ]} />
+        </div>
+      </section>
+      <div className={`grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-[60px] items-center relative ${wrap}`}>
         {/* Left */}
         <div>
           <h1 className="font-[var(--font-display)] font-semibold leading-[1.1] tracking-[-0.02em] text-[2rem] sm:text-[2.625rem] md:text-[4rem] text-[var(--dp-fg)] mb-4">

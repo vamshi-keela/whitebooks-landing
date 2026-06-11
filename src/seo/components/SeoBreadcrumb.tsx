@@ -36,7 +36,7 @@ export function SeoBreadcrumb({ items, className = '' }: SeoBreadcrumbProps) {
               itemType="https://schema.org/ListItem"
               style={{ display: 'flex', alignItems: 'center' }}
             >
-              {idx > 0 && <span className="wb-crumb-sep" aria-hidden="true">›</span>}
+              {idx > 0 && <span className="wb-crumb-sep px-1" aria-hidden="true"> › </span>}
               {item.href ? (
                 item.href.startsWith('/') ? (
                   <Link to={item.href} itemProp="item">

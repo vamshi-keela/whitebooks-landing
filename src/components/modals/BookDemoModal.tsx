@@ -310,7 +310,7 @@ export function BookDemoModal({ onClose }: { onClose: () => void }) {
             <button
               onClick={onClose}
               aria-label="Close dialog"
-              className="flex items-center justify-center w-8 h-8 rounded-lg text-[var(--muted)] hover:text-[var(--text)] hover:bg-white/[0.06] transition-all duration-150"
+              className="flex items-center justify-center w-8 h-8 rounded-lg text-white/50 hover:text-white hover:bg-white/[0.06] transition-all duration-150"
             >
               <Close />
             </button>

@@ -12,7 +12,7 @@ export default function MobileBreadcrumb({ sectionLabel, pageLabel }: Props): Re
 
   return (
     <div
-      className="lg:hidden sticky top-[60px] z-40 flex items-center h-[44px]"
+      className="lg:hidden sticky top-[var(--dp-nav-h)] z-40 flex items-center h-[44px]"
       style={{
         background: 'var(--dp-bg-2)',
         borderBottom: '1px solid var(--dp-border)',

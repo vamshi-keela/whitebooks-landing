@@ -12,17 +12,26 @@ export default function SearchBar({ value, onChange, placeholder = 'Search APIs.
 
   return (
     <div
+      className="dp-searchbar"
       style={{
         display: 'flex',
         alignItems: 'center',
         gap: 8,
         background: 'var(--dp-surface)',
-        border: '1px solid var(--dp-border)',
-        borderRadius: 9,
+        border: '1px solid var(--dp-border-strong)',
+        borderRadius: 8,
         padding: '7px 10px',
-        transition: 'border-color 0.15s',
+        transition: 'border-color 0.15s, box-shadow 0.15s',
       }}
       onClick={() => inputRef.current?.focus()}
+      onFocusCapture={e => {
+        (e.currentTarget as HTMLDivElement).style.borderColor = 'var(--dp-input-border-focus)';
+        (e.currentTarget as HTMLDivElement).style.boxShadow = '0 0 0 3px var(--dp-accent-soft)';
+      }}
+      onBlurCapture={e => {
+        (e.currentTarget as HTMLDivElement).style.borderColor = 'var(--dp-border-strong)';
+        (e.currentTarget as HTMLDivElement).style.boxShadow = 'none';
+      }}
     >
       <Search size={14} color="var(--dp-fg-dim)" style={{ flexShrink: 0 }} />
       <input
@@ -32,6 +41,7 @@ export default function SearchBar({ value, onChange, placeholder = 'Search APIs.
         placeholder={placeholder}
         style={{
           flex: 1,
+          minWidth: 0,
           background: 'none',
           border: 'none',
           outline: 'none',

@@ -70,7 +70,7 @@ export default memo(function ResponseViewer({ operation }: Props): React.ReactEl
       {/* Schema / Example tabs */}
       {(contentSchema || exampleJson) && (
         <>
-          <div style={{ display: 'flex', gap: 0, borderBottom: '1px solid var(--dp-border)', marginBottom: 12 }}>
+          <div style={{ display: 'flex', gap: 18, borderBottom: '1px solid var(--dp-border)', marginBottom: 14 }}>
             {(['example', 'schema'] as const).map(tab => (
               <button
                 key={tab}
@@ -80,8 +80,9 @@ export default memo(function ResponseViewer({ operation }: Props): React.ReactEl
                   border: 'none',
                   borderBottom: `2px solid ${activeTab === tab ? 'var(--dp-accent)' : 'transparent'}`,
                   color: activeTab === tab ? 'var(--dp-fg)' : 'var(--dp-fg-dim)',
-                  padding: '6px 14px',
+                  padding: '6px 2px 8px',
                   fontSize: 13,
+                  fontWeight: activeTab === tab ? 600 : 400,
                   fontFamily: 'var(--dp-font-body)',
                   cursor: 'pointer',
                   marginBottom: -1,

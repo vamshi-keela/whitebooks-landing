@@ -585,7 +585,7 @@ export default function DpGuide(): React.ReactElement {
   const [activeSlug, setActiveSlug] = useState('introduction');
 
   return (
-    <div style={{ display: 'flex', minHeight: 'calc(100vh - 60px)' }}>
+    <div style={{ display: 'flex', minHeight: 'calc(100vh - var(--dp-nav-h))' }}>
       <DocSidebar activeSlug={activeSlug} onSelect={setActiveSlug} />
 
       {/* Main content */}

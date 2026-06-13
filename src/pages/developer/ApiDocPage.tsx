@@ -220,6 +220,7 @@ export default function ApiDocPage({ apiType }: Props): React.ReactElement {
       return (
         <OperationDetail
           operation={selectedOp}
+          operations={operations}
           hasPrev={selectedIdx > 0}
           hasNext={selectedIdx < visibleOps.length - 1}
           onPrev={goPrev}

@@ -91,8 +91,8 @@ export function DocSidebar({ activeSlug, onSelect }: DocSidebarProps): React.Rea
         borderRight: '1px solid var(--dp-border)',
         padding: '24px 0',
         position: 'sticky',
-        top: 60,
-        maxHeight: 'calc(100vh - 60px)',
+        top: 'var(--dp-nav-h)',
+        maxHeight: 'calc(100vh - var(--dp-nav-h))',
         overflowY: 'auto',
       }}
     >
@@ -204,7 +204,7 @@ export function TOC(): React.ReactElement {
           if (entry.isIntersecting) setActive(entry.target.id);
         });
       },
-      { rootMargin: '-60px 0px -70% 0px' }
+      { rootMargin: '-110px 0px -70% 0px' }
     );
 
     TOC_ITEMS.forEach(item => {
@@ -222,8 +222,8 @@ export function TOC(): React.ReactElement {
         flexShrink: 0,
         padding: '24px 0',
         position: 'sticky',
-        top: 60,
-        maxHeight: 'calc(100vh - 60px)',
+        top: 'var(--dp-nav-h)',
+        maxHeight: 'calc(100vh - var(--dp-nav-h))',
         overflowY: 'auto',
       }}
     >

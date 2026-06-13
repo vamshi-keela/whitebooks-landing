@@ -5,6 +5,8 @@ interface Props {
   json: string;
   maxHeight?: number;
   showCopy?: boolean;
+  /* Drop the box's own border/radius so it can be embedded inside a card. */
+  bare?: boolean;
 }
 
 type Token = { type: 'key' | 'string' | 'number' | 'boolean' | 'null' | 'punct' | 'ws'; value: string };
@@ -70,7 +72,7 @@ const tokenColors: Record<Token['type'], string> = {
   ws: 'transparent',
 };
 
-export default function JsonTree({ json, maxHeight = 400, showCopy = true }: Props): React.ReactElement {
+export default function JsonTree({ json, maxHeight = 400, showCopy = true, bare = false }: Props): React.ReactElement {
   const tokens = useMemo(() => {
     try {
       const formatted = JSON.stringify(JSON.parse(json), null, 2);
@@ -81,7 +83,7 @@ export default function JsonTree({ json, maxHeight = 400, showCopy = true }: Pro
   }, [json]);
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div className="dp-code-panel" style={{ position: 'relative', background: 'transparent' }}>
       {showCopy && (
         <div style={{ position: 'absolute', top: 8, right: 8, zIndex: 1 }}>
           <CopyButton text={json} label={false} />
@@ -89,17 +91,19 @@ export default function JsonTree({ json, maxHeight = 400, showCopy = true }: Pro
       )}
       <div
         style={{
-          background: '#0a0a0f',
-          border: '1px solid var(--dp-border)',
-          borderRadius: 10,
-          padding: '16px 48px 16px 16px',
+          /* Fern-style: code blocks stay dark in both themes */
+          background: '#0d0d10',
+          border: bare ? 'none' : '1px solid rgba(255,255,255,0.08)',
+          borderRadius: bare ? 0 : 10,
+          padding: '14px 48px 14px 14px',
           fontFamily: 'var(--dp-font-mono)',
-          fontSize: 12,
+          fontSize: 12.5,
           lineHeight: 1.7,
           overflowX: 'auto',
           overflowY: 'auto',
           maxHeight,
           whiteSpace: 'pre',
+          colorScheme: 'dark',
         }}
       >
         {tokens.map((tok, i) => (

@@ -7,11 +7,11 @@ import { useMobileNav } from '../../contexts/MobileNavContext';
 
 /* ─── Route map ─────────────────────────────────────────────────────────── */
 
-const NAV_ITEMS: { label: string; path: string }[] = [
-  { label: 'GST API',        path: '/developer/gst-api' },
-  { label: 'e-Invoice API',  path: '/developer/e-invoice-api' },
-  { label: 'e-Way Bill API', path: '/developer/e-way-bill-api' },
-  { label: 'KSA API',        path: '/developer/ksa-e-invoice-api' },
+const NAV_ITEMS: { label: string; path: string; icon: IconName }[] = [
+  { label: 'GST API',        path: '/developer/gst-api',          icon: 'receipt' },
+  { label: 'e-Invoice API',  path: '/developer/e-invoice-api',    icon: 'scroll'  },
+  { label: 'e-Way Bill API', path: '/developer/e-way-bill-api',   icon: 'truck'   },
+  { label: 'KSA API',        path: '/developer/ksa-e-invoice-api', icon: 'globe'  },
 ];
 
 /* ─── Command Palette ────────────────────────────────────────────────────── */
@@ -92,7 +92,7 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps): React.Re
           />
           <button
             onClick={onClose}
-            className="bg-white/[0.06] border-0 text-[var(--dp-fg-dim)] rounded-[5px] px-1.5 py-0.5 text-[11px] font-mono cursor-pointer"
+            className="bg-[var(--dp-surface-3)] border border-[var(--dp-border)] text-[var(--dp-fg-dim)] rounded-[5px] px-1.5 py-0.5 text-[11px] font-mono cursor-pointer"
           >
             Esc
           </button>
@@ -131,7 +131,7 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps): React.Re
           )}
         </div>
 
-        <div className="flex gap-5 px-4 py-2.5 border-t border-[var(--dp-border)] bg-white/[0.01]">
+        <div className="flex gap-5 px-4 py-2.5 border-t border-[var(--dp-border)] bg-[var(--dp-surface)]">
           {[['↵', 'Select'], ['↑↓', 'Navigate'], ['Esc', 'Close']].map(([key, label]) => (
             <span key={label} className="flex items-center gap-1.5 text-xs text-[var(--dp-fg-dim)]">
               <kbd className="bg-[var(--dp-surface-3)] border border-[var(--dp-border)] rounded px-1.5 py-px text-[11px] font-mono text-[var(--dp-fg-muted)]">
@@ -158,14 +158,57 @@ export default function DpNav({ onOpenPalette }: DpNavProps): React.ReactElement
   const { pathname } = useLocation();
 
   return (
-    <nav className="sticky top-0 z-50 backdrop-blur-xl bg-[var(--dp-nav-bg)] border-b border-[var(--dp-border-strong)]">
-      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 h-[60px] flex items-center gap-2">
-        <SiteLogo />
+    <nav className="sticky top-0 z-50 backdrop-blur-xl bg-[var(--dp-nav-bg)] border-b border-[var(--dp-border)]">
+      {/* ── Row 1: logo · centered search · actions ──────────────────────── */}
+      <div className="relative max-w-[1440px] mx-auto px-4 sm:px-6 h-[56px] flex items-center justify-between gap-3">
+        {/* Logo */}
+        <div className="flex items-center shrink-0">
+          <SiteLogo />
+          <span className="hidden md:inline-block ml-3 pl-3 border-l border-[var(--dp-border-strong)] text-[14px] font-medium text-[var(--dp-fg-dim)]">
+            Developer Hub
+          </span>
+        </div>
 
-        <div className="w-px h-5 bg-[var(--dp-border)] mx-3 hidden lg:block shrink-0" />
+        {/* Centered search — desktop */}
+        <button
+          onClick={onOpenPalette}
+          className="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center gap-2.5 w-full max-w-[460px] px-4 py-[9px] rounded-xl cursor-pointer border border-[var(--dp-border-strong)] text-[14px] font-body text-[var(--dp-fg-dim)] hover:border-[var(--dp-fg-faint)] transition-colors duration-150"
+          style={{ background: 'var(--dp-surface)' }}
+        >
+          <DpIcon name="search" size={15} />
+          <span className="flex-1 text-left">Search...</span>
+          <kbd className="text-[11px] font-mono px-1.5 py-0.5 rounded-[5px] border border-[var(--dp-border)] bg-[var(--dp-surface-2)] text-[var(--dp-fg-faint)]">⌘K</kbd>
+        </button>
 
-        {/* Desktop nav items */}
-        <div className="hidden lg:flex items-center gap-0.5 flex-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden min-w-0">
+        {/* Actions */}
+        <div className="flex items-center gap-1.5 shrink-0">
+          {/* Mobile search trigger */}
+          <button
+            onClick={onOpenPalette}
+            className="lg:hidden w-9 h-9 flex items-center justify-center rounded-lg cursor-pointer border border-[var(--dp-border)] text-[var(--dp-fg-muted)] transition-colors duration-150"
+            style={{ background: 'var(--dp-surface)' }}
+            aria-label="Search"
+          >
+            <DpIcon name="search" size={16} />
+          </button>
+
+          <ThemeToggle size={24} />
+
+          {/* Mobile menu */}
+          <button
+            onClick={openNav}
+            className="lg:hidden w-9 h-9 flex items-center justify-center rounded-lg cursor-pointer border border-[var(--dp-border)] transition-colors duration-150"
+            style={{ background: 'var(--dp-surface)', color: 'var(--dp-fg-muted)' }}
+            aria-label="Open navigation"
+          >
+            <DpIcon name="menu" size={17} />
+          </button>
+        </div>
+      </div>
+
+      {/* ── Row 2: API tabs with icons + active underline — desktop only ─── */}
+      <div className="hidden lg:block">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 h-[48px] flex items-stretch gap-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {NAV_ITEMS.map(item => {
             const isActive = pathname.startsWith(item.path);
             return (
@@ -173,43 +216,26 @@ export default function DpNav({ onOpenPalette }: DpNavProps): React.ReactElement
                 key={item.path}
                 onClick={() => navigate(item.path)}
                 className={[
-                  'whitespace-nowrap bg-transparent border-x-0 border-t-0 px-3 py-1.5 text-sm font-body cursor-pointer flex items-center gap-1 transition-colors duration-150',
-                  'border-b-2',
+                  'relative whitespace-nowrap bg-transparent border-0 px-3 text-[14px] font-body cursor-pointer',
+                  'flex items-center gap-2 transition-colors duration-150',
                   isActive
-                    ? 'text-[var(--dp-fg)] border-[var(--dp-accent)]'
-                    : 'text-[var(--dp-fg-muted)] border-transparent hover:text-[var(--dp-fg)]',
+                    ? 'text-[var(--dp-fg)] font-medium'
+                    : 'text-[var(--dp-fg-dim)] font-normal hover:text-[var(--dp-fg)]',
                 ].join(' ')}
               >
+                <DpIcon
+                  name={item.icon}
+                  size={15}
+                  style={{ color: isActive ? 'var(--dp-accent)' : 'currentColor' }}
+                />
                 {item.label}
+                {isActive && (
+                  <span className="absolute left-0 right-0 -bottom-px h-[2px] bg-[var(--dp-accent)]" />
+                )}
               </button>
             );
           })}
         </div>
-
-        {/* ⌘K shortcut button — desktop only */}
-        <button
-          onClick={onOpenPalette}
-          className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-[7px] cursor-pointer border border-[var(--dp-border)] text-[11px] font-mono text-[var(--dp-fg-dim)] hover:border-[var(--dp-accent)] transition-colors duration-150"
-          style={{ background: 'var(--dp-surface-2)' }}
-        >
-          <DpIcon name="search" size={11} />
-          Search
-          <kbd className="ml-1 text-[10px]">⌘K</kbd>
-        </button>
-
-        <ThemeToggle size={24} />
-
-        <div className="flex-1 lg:hidden" />
-
-        {/* Mobile menu — opens unified nav drawer */}
-        <button
-          onClick={openNav}
-          className="lg:hidden w-9 h-9 flex items-center justify-center rounded-[8px] cursor-pointer border-0 transition-colors duration-150"
-          style={{ background: 'var(--dp-sidebar-hover)', color: 'var(--dp-fg-muted)' }}
-          aria-label="Open navigation"
-        >
-          <DpIcon name="menu" size={17} />
-        </button>
       </div>
     </nav>
   );

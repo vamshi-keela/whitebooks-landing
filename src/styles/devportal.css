@@ -5,34 +5,35 @@
  */
 :root {
   /* ── Backgrounds ──────────────────────── */
-  --dp-bg: #161616;
-  --dp-bg-2: #19191a;
-  --dp-surface: #1d1d1f;
-  --dp-surface-2: #212124;
-  --dp-surface-3: #27272c;
+  /* --dp-bg: #0e0e11; */
+  --dp-bg: rgba(17, 17, 19, 1);
+  --dp-bg-2: #0c0c0f;
+  --dp-surface: #141418;
+  --dp-surface-2: #19191e;
+  --dp-surface-3: #212127;
 
   /* ── Brand ────────────────────────────── */
   --dp-accent: #dc2f65;
-  --dp-accent-2: #ff4d80;
+  --dp-accent-2: #ff5c8a;
   --dp-accent-soft: rgba(220, 47, 101, 0.12);
-  --dp-accent-line: rgba(220, 47, 101, 0.22);
+  --dp-accent-line: rgba(220, 47, 101, 0.25);
   --dp-accent-glow: rgba(220, 47, 101, 0.35);
 
   /* ── Borders ──────────────────────────── */
-  --dp-border: rgba(255, 255, 255, 0.07);
-  --dp-border-strong: rgba(255, 255, 255, 0.12);
+  --dp-border: rgba(255, 255, 255, 0.08);
+  --dp-border-strong: rgba(255, 255, 255, 0.14);
 
   /* ── Input fields ─────────────────────── */
-  --dp-input-bg: #2a2a31;
-  --dp-input-border: rgba(255, 255, 255, 0.18);
-  --dp-input-border-focus: rgba(220, 47, 101, 0.5);
-  --dp-input-placeholder: #4a4a62;
+  --dp-input-bg: #1a1a20;
+  --dp-input-border: rgba(255, 255, 255, 0.16);
+  --dp-input-border-focus: rgba(220, 47, 101, 0.55);
+  --dp-input-placeholder: #5b5b66;
 
   /* ── Text ─────────────────────────────── */
-  --dp-fg: #eaeaf4;
-  --dp-fg-muted: #b2b2cc;
-  --dp-fg-dim: #7c7c96;
-  --dp-fg-faint: #50506a;
+  --dp-fg: #fafafa;
+  --dp-fg-muted: #a8a8b3;
+  --dp-fg-dim: #76767f;
+  --dp-fg-faint: #55555e;
 
   /* ── Status ───────────────────────────── */
   --dp-success: #22c55e;
@@ -41,13 +42,13 @@
   --dp-info: #60a5fa;
 
   /* ── Typography ───────────────────────── */
-  --dp-font-display: 'Poppins', system-ui, sans-serif;
-  --dp-font-body: 'Poppins', 'DM Sans', system-ui, sans-serif;
-  --dp-font-mono: 'Poppins', 'JetBrains Mono', monospace;
+  --dp-font-display: 'Inter', system-ui, -apple-system, sans-serif;
+  --dp-font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --dp-font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 
   /* ── Navigation & chrome ──────────────── */
-  --dp-nav-bg: rgba(10, 10, 15, 0.90);
-  --dp-code-bg: #141417;
+  --dp-nav-bg: rgba(12, 12, 15, 0.88);
+  --dp-code-bg: #121216;
   --dp-sidebar-hover: rgba(255, 255, 255, 0.05);
 
   /* ── Parameter location colors ────────── */
@@ -93,11 +94,11 @@
 
 /* ── Light theme overrides ──────────────────────────────────────────────── */
 [data-theme="light"] {
-  --dp-bg: #f9f9fd;
-  --dp-bg-2: #f1f1f8;
-  --dp-surface: #ffffff;
-  --dp-surface-2: #f4f4fa;
-  --dp-surface-3: #ebebf2;
+  --dp-bg: #ffffff;
+  --dp-bg-2: #fcfcfd;
+  --dp-surface: #fafafa;
+  --dp-surface-2: #f4f4f5;
+  --dp-surface-3: #ececee;
 
   /* Slightly darker accent-2 for sufficient contrast on white */
   --dp-accent-2: #c4264f;
@@ -105,24 +106,24 @@
   --dp-accent-glow: rgba(220, 47, 101, 0.18);
 
   --dp-border: rgba(0, 0, 0, 0.08);
-  --dp-border-strong: rgba(0, 0, 0, 0.14);
+  --dp-border-strong: rgba(0, 0, 0, 0.13);
 
   /* ── Input fields (light) ─────────────── */
   --dp-input-bg: #ffffff;
-  --dp-input-border: rgba(0, 0, 0, 0.20);
+  --dp-input-border: rgba(0, 0, 0, 0.18);
   --dp-input-border-focus: rgba(220, 47, 101, 0.45);
-  --dp-input-placeholder: #9090a8;
+  --dp-input-placeholder: #a1a1aa;
 
   /* ── Text (high contrast on white) ───── */
-  --dp-fg: #0d0d18;
-  --dp-fg-muted: #35355a;
-  --dp-fg-dim: #5a5a78;
-  --dp-fg-faint: #8888a8;
+  --dp-fg: #18181b;
+  --dp-fg-muted: #52525b;
+  --dp-fg-dim: #71717a;
+  --dp-fg-faint: #a1a1aa;
 
   /* ── Navigation & chrome ──────────────── */
-  --dp-nav-bg: rgba(249, 249, 253, 0.95);
-  --dp-code-bg: #ededf5;
-  --dp-sidebar-hover: rgba(0, 0, 0, 0.05);
+  --dp-nav-bg: rgba(255, 255, 255, 0.92);
+  --dp-code-bg: #fafafa;
+  --dp-sidebar-hover: rgba(0, 0, 0, 0.045);
 
   /* ── Parameter location colors (darkened for light bg) */
   --dp-param-path-fg: #7a4800;
@@ -171,22 +172,80 @@ body {
 }
 
 .dp-root {
+  /* Sticky-chrome height: single-row nav on mobile, two-row on desktop.
+     Every sticky offset (sidebar, code panel, env bar, breadcrumb, TOCs)
+     reads this so the whole portal stays aligned to the header. */
+  --dp-nav-h: 56px;
   background: var(--dp-bg);
   color: var(--dp-fg);
   font-family: var(--dp-font-body);
   font-size: 15px;
-  line-height: 1.65;
+  line-height: 1.6;
+  letter-spacing: -0.006em;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
   min-height: 100vh;
-  background-image:
-    radial-gradient(1200px 600px at 70% -10%, rgba(220, 47, 101, 0.08), transparent 60%),
-    radial-gradient(900px 500px at 10% 30%, rgba(220, 47, 101, 0.04), transparent 60%);
 }
 
-[data-theme="light"] .dp-root {
-  background-image:
-    radial-gradient(1200px 600px at 70% -10%, rgba(220, 47, 101, 0.05), transparent 60%),
-    radial-gradient(900px 500px at 10% 30%, rgba(220, 47, 101, 0.03), transparent 60%);
+@media (min-width: 1024px) {
+  .dp-root {
+    --dp-nav-h: 105px;
+  }
+}
+
+/*
+ * Fern-style code panel: always dark, in both themes.
+ * Re-scopes the dp tokens so any component rendered inside
+ * (Try It inputs, JSON viewers, tabs) is dark automatically.
+ */
+.dp-code-panel {
+  --dp-bg: #0d0d10;
+  --dp-bg-2: #0b0b0e;
+  --dp-surface: #131317;
+  --dp-surface-2: #18181d;
+  --dp-surface-3: #202026;
+  --dp-border: rgba(255, 255, 255, 0.08);
+  --dp-border-strong: rgba(255, 255, 255, 0.14);
+  --dp-input-bg: #1a1a20;
+  --dp-input-border: rgba(255, 255, 255, 0.16);
+  --dp-input-placeholder: #5b5b66;
+  --dp-fg: #f4f4f5;
+  --dp-fg-muted: #b5b5bf;
+  --dp-fg-dim: #80808a;
+  --dp-fg-faint: #5a5a64;
+  --dp-accent-2: #ff5c8a;
+  --dp-code-bg: #0d0d10;
+  --dp-sidebar-hover: rgba(255, 255, 255, 0.05);
+
+  /* Dark syntax + status tokens, regardless of theme */
+  --dp-type-fg: #62bce8;
+  --dp-str-fg: #62c88a;
+  --dp-kw-fg: #b280f0;
+  --dp-status-2xx: #4ade80;
+  --dp-status-2xx-bg: rgba(74, 222, 128, 0.10);
+  --dp-status-4xx: #fbbf24;
+  --dp-status-4xx-bg: rgba(251, 191, 36, 0.10);
+  --dp-status-5xx: #f87171;
+  --dp-status-5xx-bg: rgba(248, 113, 113, 0.10);
+  --dp-method-get-fg: #4ade80;
+  --dp-method-get-bg: rgba(74, 222, 128, 0.10);
+  --dp-method-get-border: rgba(74, 222, 128, 0.22);
+  --dp-method-post-fg: #60a5fa;
+  --dp-method-post-bg: rgba(96, 165, 250, 0.10);
+  --dp-method-post-border: rgba(96, 165, 250, 0.22);
+  --dp-method-put-fg: #fbbf24;
+  --dp-method-put-bg: rgba(251, 191, 36, 0.10);
+  --dp-method-put-border: rgba(251, 191, 36, 0.22);
+  --dp-method-delete-fg: #f87171;
+  --dp-method-delete-bg: rgba(248, 113, 113, 0.10);
+  --dp-method-delete-border: rgba(248, 113, 113, 0.22);
+  --dp-method-patch-fg: #a78bfa;
+  --dp-method-patch-bg: rgba(167, 139, 250, 0.10);
+  --dp-method-patch-border: rgba(167, 139, 250, 0.22);
+
+  background: var(--dp-bg);
+  color: var(--dp-fg);
+  color-scheme: dark;
 }
 
 .dp-root * {

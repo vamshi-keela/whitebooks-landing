@@ -49,6 +49,7 @@ import {
   buildFAQSchema,
 } from '@/seo/schema/generators';
 import type { SchemaFaqItem } from '@/seo/types';
+import ApiSuitePage from '@/pages/apis/ApiSuitePage';
 
 /* ─── Slug maps ─────────────────────────────────────────────────────────── */
 
@@ -255,7 +256,7 @@ export function AppRouter() {
         <Route path="/" element={<HomeRoute />} />
         <Route path="/softwares" element={<SoftwaresHubRoute />} />
         <Route path="/softwares/:product" element={<SoftwareSubPageRoute />} />
-        <Route path="/apis" element={<ApisHubRoute />} />
+        <Route path="/apis" element={<ApiSuitePage />} />
         <Route path="/apis/:product" element={<ApiSubPageRoute />} />
         <Route path="/services" element={<ServicesHubRoute />} />
         <Route path="/resources/partners" element={<PartnerWithUs />} />

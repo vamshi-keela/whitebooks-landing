@@ -33,22 +33,22 @@ export default memo(function RequestBodyViewer({ requestBody }: Props): React.Re
   return (
     <div>
       {/* Media type badge */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
         <span
           style={{
             fontFamily: 'var(--dp-font-mono)',
-            fontSize: 11,
-            color: '#7dd3fc',
-            background: 'rgba(125,211,252,0.08)',
-            border: '1px solid rgba(125,211,252,0.2)',
-            borderRadius: 5,
+            fontSize: 11.5,
+            color: 'var(--dp-fg-dim)',
+            background: 'var(--dp-surface-2)',
+            border: '1px solid var(--dp-border)',
+            borderRadius: 6,
             padding: '2px 8px',
           }}
         >
           {mediaType}
         </span>
         {requestBody.required && (
-          <span style={{ fontSize: 11, color: '#f87171', fontFamily: 'var(--dp-font-mono)' }}>required</span>
+          <span style={{ fontSize: 12, fontWeight: 500, color: 'var(--dp-accent)', fontFamily: 'var(--dp-font-body)' }}>required</span>
         )}
       </div>
 
@@ -56,9 +56,9 @@ export default memo(function RequestBodyViewer({ requestBody }: Props): React.Re
       <div
         style={{
           display: 'flex',
-          gap: 0,
+          gap: 18,
           borderBottom: '1px solid var(--dp-border)',
-          marginBottom: 12,
+          marginBottom: 14,
         }}
       >
         {tabs.map(tab => (
@@ -70,8 +70,9 @@ export default memo(function RequestBodyViewer({ requestBody }: Props): React.Re
               border: 'none',
               borderBottom: `2px solid ${activeTab === tab.id ? 'var(--dp-accent)' : 'transparent'}`,
               color: activeTab === tab.id ? 'var(--dp-fg)' : 'var(--dp-fg-dim)',
-              padding: '6px 14px',
+              padding: '6px 2px 8px',
               fontSize: 13,
+              fontWeight: activeTab === tab.id ? 600 : 400,
               fontFamily: 'var(--dp-font-body)',
               cursor: 'pointer',
               transition: 'color 0.15s',

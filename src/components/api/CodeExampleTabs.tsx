@@ -11,13 +11,6 @@ interface Props {
 type Lang = 'cURL' | 'JavaScript' | 'Axios' | 'Python';
 const LANGS: Lang[] = ['cURL', 'JavaScript', 'Axios', 'Python'];
 
-const langColors: Record<string, string> = {
-  'cURL':       'var(--dp-param-path-fg)',
-  'JavaScript': 'var(--dp-status-4xx)',
-  'Axios':      'var(--dp-type-fg)',
-  'Python':     'var(--dp-str-fg)',
-};
-
 function highlight(code: string, lang: Lang): React.ReactNode {
   const lines = code.split('\n');
   return lines.map((line, i) => {
@@ -66,8 +59,8 @@ export default memo(function CodeExampleTabs({ operation }: Props): React.ReactE
     <div
       style={{
         background: 'var(--dp-code-bg)',
-        border: '1px solid var(--dp-border-strong)',
-        borderRadius: 12,
+        border: '1px solid var(--dp-border)',
+        borderRadius: 10,
         overflow: 'hidden',
       }}
     >
@@ -77,44 +70,49 @@ export default memo(function CodeExampleTabs({ operation }: Props): React.ReactE
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
+          gap: 8,
           borderBottom: '1px solid var(--dp-border)',
-          padding: '0 12px',
+          padding: '6px 8px',
           background: 'var(--dp-surface)',
         }}
       >
-        <div style={{ display: 'flex' }}>
-          {LANGS.map(lang => (
-            <button
-              key={lang}
-              onClick={() => setActiveLang(lang)}
-              style={{
-                background: 'none',
-                border: 'none',
-                borderBottom: `2px solid ${activeLang === lang ? langColors[lang] ?? 'var(--dp-accent)' : 'transparent'}`,
-                color: activeLang === lang ? langColors[lang] ?? 'var(--dp-fg)' : 'var(--dp-fg-dim)',
-                padding: '10px 14px',
-                fontSize: 12,
-                fontFamily: 'var(--dp-font-mono)',
-                cursor: 'pointer',
-                transition: 'color 0.15s',
-                marginBottom: -1,
-              }}
-            >
-              {lang}
-            </button>
-          ))}
+        <div style={{ display: 'flex', gap: 2, overflowX: 'auto', scrollbarWidth: 'none' }}>
+          {LANGS.map(lang => {
+            const active = activeLang === lang;
+            return (
+              <button
+                key={lang}
+                onClick={() => setActiveLang(lang)}
+                style={{
+                  background: active ? 'var(--dp-surface-3)' : 'transparent',
+                  border: `1px solid ${active ? 'var(--dp-border-strong)' : 'transparent'}`,
+                  borderRadius: 6,
+                  color: active ? 'var(--dp-fg)' : 'var(--dp-fg-dim)',
+                  padding: '4px 10px',
+                  fontSize: 12,
+                  fontWeight: active ? 500 : 400,
+                  fontFamily: 'var(--dp-font-body)',
+                  cursor: 'pointer',
+                  transition: 'color 0.15s, background 0.15s',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {lang}
+              </button>
+            );
+          })}
         </div>
-        <CopyButton text={activeCode} label={false} />
+        <CopyButton text={activeCode} label={false} size={12} />
       </div>
 
       {/* Code */}
       <div
         style={{
-          padding: '16px 16px 20px 14px',
+          padding: '14px 14px 18px 12px',
           fontFamily: 'var(--dp-font-mono)',
           fontSize: 12.5,
           overflowX: 'auto',
-          maxHeight: 400,
+          maxHeight: 420,
           overflowY: 'auto',
         }}
       >

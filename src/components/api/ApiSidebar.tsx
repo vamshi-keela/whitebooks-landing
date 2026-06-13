@@ -63,31 +63,30 @@ const SidebarGroup = memo(function SidebarGroup({
   const anyActive = filteredOps.some(op => op.id === selectedOpId);
 
   return (
-    <div className="mb-0.5">
+    <div className="mb-1">
       <div
         onClick={() => setOpen(o => !o)}
         className={[
-          'flex items-center gap-1.5 px-2 py-1.5 rounded-[7px] cursor-pointer select-none',
-          anyActive && !open ? 'bg-[var(--dp-accent-soft)]' : '',
+          'group flex items-center gap-1.5 px-2.5 py-[7px] rounded-lg cursor-pointer select-none',
+          'transition-colors duration-100 hover:bg-[var(--dp-sidebar-hover)]',
         ].join(' ')}
       >
-        {open
-          ? <ChevronDown size={11} color="var(--dp-fg-faint)" className="shrink-0" />
-          : <ChevronRight size={11} color="var(--dp-fg-faint)" className="shrink-0" />
-        }
         <span className={[
-          'text-[11px] font-semibold flex-1 tracking-[0.01em]',
-          anyActive && !open ? 'text-[var(--dp-accent-2)]' : 'text-[var(--dp-fg-dim)]',
+          'text-[13px] font-semibold flex-1 leading-[1.3]',
+          anyActive && !open ? 'text-[var(--dp-accent-2)]' : 'text-[var(--dp-fg)]',
         ].join(' ')}>
           {group.tag.name}
         </span>
-        <span className="text-[10px] font-[family-name:var(--dp-font-mono)] text-[var(--dp-fg-faint)] bg-[var(--dp-surface-2)] border border-[var(--dp-border)] rounded-[4px] px-1">
-          {filteredOps.length}
-        </span>
+        <ChevronRight
+          size={13}
+          color="var(--dp-fg-faint)"
+          className="shrink-0 transition-transform duration-150"
+          style={{ transform: open ? 'rotate(90deg)' : 'none' }}
+        />
       </div>
 
       {open && (
-        <div className="pl-1.5 mt-px">
+        <div className="ml-[13px] pl-[7px] mt-0.5 border-l border-[var(--dp-border)] flex flex-col gap-px">
           {filteredOps.map(op => {
             const isActive = selectedOpId === op.id;
             return (
@@ -95,20 +94,23 @@ const SidebarGroup = memo(function SidebarGroup({
                 key={op.id}
                 onClick={() => onSelect(op.id)}
                 className={[
-                  'flex items-center gap-[7px] px-2 py-[5px] rounded-[6px] cursor-pointer',
-                  'border-l-2 transition-[background] duration-[120ms]',
-                  isActive ? 'bg-[var(--dp-accent-soft)]' : 'hover:bg-[var(--dp-sidebar-hover)]',
+                  'flex items-center gap-2 pl-2.5 pr-1.5 py-[6px] rounded-md cursor-pointer',
+                  'transition-colors duration-100',
+                  isActive
+                    ? 'bg-[var(--dp-accent-soft)]'
+                    : 'hover:bg-[var(--dp-sidebar-hover)]',
                 ].join(' ')}
-                style={{ borderLeftColor: isActive ? 'var(--dp-accent)' : 'transparent' }}
               >
-                <MethodBadge method={op.method as NormalizedMethod} size="sm" />
                 <span className={[
-                  'text-[11px] font-[family-name:var(--dp-font-mono)]',
-                  'overflow-hidden text-ellipsis whitespace-nowrap leading-[1.4]',
-                  isActive ? 'text-[var(--dp-fg)]' : 'text-[var(--dp-fg-muted)]',
+                  'text-[13px] flex-1 font-body',
+                  'overflow-hidden text-ellipsis whitespace-nowrap leading-[1.45]',
+                  isActive
+                    ? 'text-[var(--dp-accent-2)] font-medium'
+                    : 'text-[var(--dp-fg-muted)] font-normal',
                 ].join(' ')}>
                   {op.summary}
                 </span>
+                <MethodBadge method={op.method as NormalizedMethod} size="sm" />
               </div>
             );
           })}
@@ -139,27 +141,29 @@ const StaticGroup = memo(function StaticGroup({
 
   const anyActive = filteredOps.some(op => op.id === selectedOpId);
   return (
-    <div className="mb-0.5">
+    <div className="mb-1">
       {group.items.length > 1 && <div
         onClick={() => setOpen(o => !o)}
         className={[
-          'flex items-center gap-1.5 px-2 py-1.5 rounded-[7px] cursor-pointer select-none',
-          anyActive && !open ? 'bg-[var(--dp-accent-soft)]' : '',
+          'flex items-center gap-1.5 px-2.5 py-[7px] rounded-lg cursor-pointer select-none',
+          'transition-colors duration-100 hover:bg-[var(--dp-sidebar-hover)]',
         ].join(' ')}
       >
-        {open
-          ? <ChevronDown size={11} color="var(--dp-fg-faint)" className="shrink-0" />
-          : <ChevronRight size={11} color="var(--dp-fg-faint)" className="shrink-0" />
-        }
         <span className={[
-          'text-[11px] font-semibold flex-1 tracking-[0.01em]',
-          anyActive && !open ? 'text-[var(--dp-accent-2)]' : 'text-[var(--dp-fg-dim)]',
+          'text-[13px] font-semibold flex-1 leading-[1.3]',
+          anyActive && !open ? 'text-[var(--dp-accent-2)]' : 'text-[var(--dp-fg)]',
         ].join(' ')}>
           {group.heading}
         </span>
+        <ChevronRight
+          size={13}
+          color="var(--dp-fg-faint)"
+          className="shrink-0 transition-transform duration-150"
+          style={{ transform: open ? 'rotate(90deg)' : 'none' }}
+        />
       </div>}
       {open && (
-        <div className="pl-1.5 mt-px">
+        <div className="flex flex-col gap-px">
           {filteredOps.map(item => {
             const isActive = selectedOpId === item.id;
             return (
@@ -167,11 +171,10 @@ const StaticGroup = memo(function StaticGroup({
                 key={item.id}
                 onClick={() => onSelect(item.id)}
                 className={[
-                  'flex items-center gap-[7px] px-2 py-[5px] rounded-[6px] cursor-pointer',
-                  'border-l-2 transition-[background] duration-[120ms]',
+                  'flex items-center gap-2 px-2.5 py-[6px] rounded-md cursor-pointer',
+                  'transition-colors duration-100',
                   isActive ? 'bg-[var(--dp-accent-soft)]' : 'hover:bg-[var(--dp-sidebar-hover)]',
                 ].join(' ')}
-                style={{ borderLeftColor: isActive ? 'var(--dp-accent)' : 'transparent' }}
               >
                 {item.icon && (
                   <span className="shrink-0 flex items-center" style={{ color: isActive ? 'var(--dp-accent-2)' : 'var(--dp-fg-faint)' }}>
@@ -179,9 +182,9 @@ const StaticGroup = memo(function StaticGroup({
                   </span>
                 )}
                 <span className={[
-                  'text-[11px]',
-                  'overflow-hidden text-ellipsis whitespace-nowrap leading-[1.4]',
-                  isActive ? 'text-[var(--dp-fg)] font-medium' : 'text-[var(--dp-fg-muted)]',
+                  'text-[13px] font-body',
+                  'overflow-hidden text-ellipsis whitespace-nowrap leading-[1.45]',
+                  isActive ? 'text-[var(--dp-accent-2)] font-medium' : 'text-[var(--dp-fg-muted)] font-normal',
                 ].join(' ')}>
                   {item.label}
                 </span>
@@ -289,10 +292,10 @@ export default function ApiSidebar({
 
   const sidebarContent = (
     <>
-      <div className="px-3 pt-3 pb-2">
+      <div className="px-4 pt-4 pb-2">
         <SearchBar value={searchQuery} onChange={onSearchChange} />
       </div>
-      <div className="px-2 pt-1 overflow-y-auto flex-1">
+      <div className="px-3 pt-1 pb-6 overflow-y-auto flex-1">
         {staticGroups?.map(group => (
           <StaticGroup
             key={group.heading}
@@ -374,7 +377,7 @@ export default function ApiSidebar({
       <aside className={[
         'hidden lg:flex flex-col',
         'lg:w-[240px] xl:w-[272px] 2xl:w-[312px] shrink-0',
-        'sticky top-[60px] h-[calc(100vh-60px)]',
+        'sticky top-[var(--dp-nav-h)] h-[calc(100vh_-_var(--dp-nav-h))]',
         'overflow-y-auto',
         'border-r border-[var(--dp-border)] bg-[var(--dp-bg-2)]',
       ].join(' ')}>

@@ -22,93 +22,85 @@ const ParameterTable: React.FC<Props> = ({ parameters }) => {
   }
 
   return (
-    <div className="flex flex-col gap-4">
-      {Object.entries(byLocation).map(([loc, params]) => (
-        <div key={loc}>
-          <div
-            className="text-xs font-[family-name:var(--dp-font-mono)] uppercase tracking-[0.08em] mb-1.5"
-            style={{ color: inColors[loc]?.color ?? 'var(--dp-fg-dim)' }}
-          >
-            {loc} parameters
-          </div>
-          <div className="bg-[var(--dp-surface)] border border-[var(--dp-border-strong)] rounded-[10px] overflow-hidden">
-            {params.map((param, i) => {
-              const schema = param.schema && !('$ref' in param.schema) ? param.schema : null;
-              const paramType = schema?.type ?? 'string';
-              const locColor = inColors[loc];
-              return (
-                <div
-                  key={param.name}
-                  className={[
-                    'px-[14px] py-[11px] grid gap-3 items-start',
-                    'grid-cols-[minmax(0,180px)_80px_70px_1fr]',
-                    i < params.length - 1 ? 'border-b border-[var(--dp-border)]' : '',
-                  ].join(' ')}
-                >
-                  {/* Name */}
-                  <div>
-                    <code className="font-[family-name:var(--dp-font-mono)] text-[13px] text-[var(--dp-fg)] font-semibold">
-                      {param.name}
-                    </code>
-                    <span
-                      className="inline-block ml-1.5 text-[10px] font-[family-name:var(--dp-font-mono)] rounded-[4px] px-[5px] py-px"
-                      style={{
-                        color: locColor?.color ?? 'var(--dp-fg-dim)',
-                        background: locColor?.bg ?? 'transparent',
-                        border: `1px solid ${locColor?.color ?? 'var(--dp-border)'}`,
-                        opacity: 0.9,
-                      }}
-                    >
-                      {loc}
-                    </span>
-                  </div>
-
-                  {/* Type */}
-                  <code className="font-[family-name:var(--dp-font-mono)] text-[12px] text-[var(--dp-type-fg)]">
-                    {paramType}
-                  </code>
-
-                  {/* Required */}
-                  <span
-                    className={[
-                      'text-[11.5px] font-medium rounded-[4px] px-[6px] py-px w-fit',
-                      param.required
-                        ? 'text-[var(--dp-status-5xx)] bg-[var(--dp-status-5xx-bg)] border border-[var(--dp-status-5xx)]'
-                        : 'text-[var(--dp-fg-faint)] border border-[var(--dp-border)]',
-                    ].join(' ')}
+    <div className="flex flex-col gap-7">
+      {Object.entries(byLocation).map(([loc, params]) => {
+        const locColor = inColors[loc];
+        return (
+          <div key={loc}>
+            <div
+              className="text-[12px] font-semibold font-[family-name:var(--dp-font-body)] uppercase tracking-[0.06em] mb-1 flex items-center gap-1.5"
+              style={{ color: locColor?.color ?? 'var(--dp-fg-dim)' }}
+            >
+              {loc} parameters
+            </div>
+            <div>
+              {params.map(param => {
+                const schema = param.schema && !('$ref' in param.schema) ? param.schema : null;
+                const paramType = schema?.type ?? 'string';
+                return (
+                  <div
+                    key={param.name}
+                    className="py-3.5 border-b border-[var(--dp-border)] dp-param-row"
                   >
-                    {param.required ? 'required' : 'optional'}
-                  </span>
+                    {/* Name · type · required — single Fern-style line */}
+                    <div className="flex flex-wrap items-baseline gap-x-2.5 gap-y-1">
+                      <code className="font-[family-name:var(--dp-font-mono)] text-[13.5px] text-[var(--dp-fg)] font-semibold tracking-[-0.01em]">
+                        {param.name}
+                      </code>
+                      <span className="font-[family-name:var(--dp-font-mono)] text-[12px] text-[var(--dp-fg-dim)]">
+                        {paramType}
+                      </span>
+                      <span
+                        className={[
+                          'text-[12px] font-medium',
+                          param.required
+                            ? 'text-[var(--dp-accent)]'
+                            : 'text-[var(--dp-fg-faint)]',
+                        ].join(' ')}
+                      >
+                        {param.required ? 'required' : 'optional'}
+                      </span>
+                      {(schema?.deprecated || param.deprecated) && (
+                        <span className="text-[11px] text-[var(--dp-warning)] font-[family-name:var(--dp-font-mono)]">
+                          ⚠ deprecated
+                        </span>
+                      )}
+                    </div>
 
-                  {/* Description + example */}
-                  <div>
+                    {/* Description + example + enum */}
                     {param.description && (
-                      <div className="text-[13px] text-[var(--dp-fg-muted)] leading-[1.6]">
+                      <div className="text-[13.5px] text-[var(--dp-fg-muted)] leading-[1.65] mt-1.5">
                         {param.description}
                       </div>
                     )}
                     {param.example !== undefined && (
-                      <div className="text-[11.5px] font-[family-name:var(--dp-font-mono)] text-[var(--dp-fg-faint)] mt-1">
-                        Example: <span className="text-[var(--dp-str-fg)]">{JSON.stringify(param.example)}</span>
+                      <div className="text-[12px] font-[family-name:var(--dp-font-mono)] text-[var(--dp-fg-faint)] mt-1.5">
+                        Example:{' '}
+                        <span className="text-[var(--dp-str-fg)] bg-[var(--dp-surface-2)] border border-[var(--dp-border)] rounded-[5px] px-1.5 py-px">
+                          {JSON.stringify(param.example)}
+                        </span>
                       </div>
                     )}
                     {schema?.enum && (
-                      <div className="text-[11.5px] font-[family-name:var(--dp-font-mono)] text-[var(--dp-kw-fg)] mt-1">
-                        Enum: {schema.enum.map(String).join(' | ')}
+                      <div className="flex flex-wrap items-center gap-1.5 mt-2">
+                        <span className="text-[11.5px] text-[var(--dp-fg-faint)] font-[family-name:var(--dp-font-body)]">Enum:</span>
+                        {schema.enum.map(v => (
+                          <code
+                            key={String(v)}
+                            className="text-[11.5px] font-[family-name:var(--dp-font-mono)] text-[var(--dp-kw-fg)] bg-[var(--dp-surface-2)] border border-[var(--dp-border)] rounded-[5px] px-1.5 py-px"
+                          >
+                            {String(v)}
+                          </code>
+                        ))}
                       </div>
                     )}
-                    {(schema?.deprecated || param.deprecated) && (
-                      <span className="text-[11px] text-[var(--dp-warning)] font-[family-name:var(--dp-font-mono)]">
-                        ⚠ deprecated
-                      </span>
-                    )}
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 };

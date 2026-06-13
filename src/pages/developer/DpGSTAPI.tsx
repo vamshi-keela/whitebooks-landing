@@ -104,6 +104,7 @@ export default function DpGSTAPI({ apiType }: { apiType: ApiSpecKey }): React.Re
       return (
         <OperationDetail
           operation={selectedOp}
+          operations={operations}
           hasPrev={selectedIdx > 0}
           hasNext={selectedIdx < visibleOps.length - 1}
           onPrev={goPrev}

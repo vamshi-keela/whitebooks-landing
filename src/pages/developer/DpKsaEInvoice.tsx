@@ -90,6 +90,7 @@ export default function DpKsaEInvoiceAPI(): React.ReactElement {
                         ) : selectedOp ? (
                             <OperationDetail
                                 operation={selectedOp}
+                                operations={operations}
                                 hasPrev={selectedIdx > 0}
                                 hasNext={selectedIdx < visibleOps.length - 1}
                                 onPrev={() => selectedIdx > 0 && handleSelect(visibleOps[selectedIdx - 1].id)}

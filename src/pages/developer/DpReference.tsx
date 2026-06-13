@@ -72,8 +72,8 @@ function RefSidebar({ activeSlug, onSelect }: RefSidebarProps): React.ReactEleme
         borderRight: '1px solid var(--dp-border)',
         padding: '24px 0',
         position: 'sticky',
-        top: 60,
-        maxHeight: 'calc(100vh - 60px)',
+        top: 'var(--dp-nav-h)',
+        maxHeight: 'calc(100vh - var(--dp-nav-h))',
         overflowY: 'auto',
       }}
     >
@@ -737,7 +737,7 @@ export default function DpReference(): React.ReactElement {
   const [activeSlug, setActiveSlug] = useState('gst-get');
 
   return (
-    <div style={{ display: 'flex', minHeight: 'calc(100vh - 60px)' }}>
+    <div style={{ display: 'flex', minHeight: 'calc(100vh - var(--dp-nav-h))' }}>
       <RefSidebar activeSlug={activeSlug} onSelect={setActiveSlug} />
 
       {/* Main */}

@@ -1,25 +1,19 @@
 import React, { useState, memo } from 'react';
-import { ChevronRight, ChevronDown } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 import type { SchemaOrRef, SchemaObject } from '../../data/openapi-spec';
 import { useSpec } from '../../contexts/SpecContext';
 import { resolveSchema } from '../../utils/normalizeSpec';
 import { getTypeLabel, isRequired, flattenSchema } from '../../utils/schemaHelpers';
 
-/* ─── Type badge ──────────────────────────────────────────────────────────── */
+/* ─── Type label — Fern-style muted inline mono text ─────────────────────── */
 function TypeBadge({ schema }: { schema: SchemaObject }): React.ReactElement {
   const label = getTypeLabel(schema);
-  const isArr = label.startsWith('array');
-  const isObj = label === 'object';
   return (
     <span
       style={{
         fontFamily: 'var(--dp-font-mono)',
-        fontSize: 11,
-        color: isArr ? '#f5c986' : isObj ? '#7dd3fc' : 'var(--dp-accent-2)',
-        background: isArr ? 'rgba(245,201,134,0.08)' : isObj ? 'rgba(125,211,252,0.08)' : 'var(--dp-accent-soft)',
-        border: `1px solid ${isArr ? 'rgba(245,201,134,0.2)' : isObj ? 'rgba(125,211,252,0.2)' : 'var(--dp-accent-line)'}`,
-        borderRadius: 4,
-        padding: '1px 6px',
+        fontSize: 12,
+        color: 'var(--dp-fg-dim)',
         flexShrink: 0,
       }}
     >
@@ -28,18 +22,15 @@ function TypeBadge({ schema }: { schema: SchemaObject }): React.ReactElement {
   );
 }
 
-/* ─── Required / optional badge ──────────────────────────────────────────── */
+/* ─── Required / optional — Fern-style plain text ────────────────────────── */
 function RequiredBadge({ required }: { required: boolean }): React.ReactElement {
   return (
     <span
       style={{
-        fontSize: 10,
-        fontFamily: 'var(--dp-font-mono)',
-        color: required ? '#f87171' : 'var(--dp-fg-faint)',
-        background: required ? 'rgba(239,68,68,0.08)' : 'transparent',
-        border: required ? '1px solid rgba(239,68,68,0.2)' : '1px solid transparent',
-        borderRadius: 4,
-        padding: '1px 5px',
+        fontSize: 12,
+        fontWeight: 500,
+        fontFamily: 'var(--dp-font-body)',
+        color: required ? 'var(--dp-accent)' : 'var(--dp-fg-faint)',
         flexShrink: 0,
       }}
     >
@@ -73,8 +64,8 @@ const PropRow = memo(function PropRow({ name, schema: schemaOrRef, required = fa
     <div
       style={{
         borderLeft: depth > 0 ? '1px solid var(--dp-border)' : 'none',
-        marginLeft: depth > 0 ? 8 : 0,
-        paddingLeft: depth > 0 ? 12 : 0,
+        marginLeft: depth > 0 ? 6 : 0,
+        paddingLeft: depth > 0 ? 14 : 0,
       }}
     >
       {/* Property header row */}
@@ -82,31 +73,22 @@ const PropRow = memo(function PropRow({ name, schema: schemaOrRef, required = fa
         onClick={hasChildren ? () => setOpen(o => !o) : undefined}
         style={{
           display: 'flex',
-          alignItems: 'flex-start',
-          gap: 8,
-          padding: '6px 0',
+          alignItems: 'baseline',
+          gap: 10,
+          padding: '8px 0 2px',
           cursor: hasChildren ? 'pointer' : 'default',
           userSelect: 'none',
         }}
       >
-        {/* Collapse toggle */}
-        <div style={{ width: 16, flexShrink: 0, paddingTop: 2 }}>
-          {hasChildren ? (
-            open
-              ? <ChevronDown size={13} color="var(--dp-fg-dim)" />
-              : <ChevronRight size={13} color="var(--dp-fg-dim)" />
-          ) : null}
-        </div>
-
         {/* Name */}
         <code
           style={{
             fontFamily: 'var(--dp-font-mono)',
-            fontSize: 13,
+            fontSize: 13.5,
             color: 'var(--dp-fg)',
             fontWeight: 600,
+            letterSpacing: '-0.01em',
             flexShrink: 0,
-            minWidth: 120,
           }}
         >
           {name}
@@ -118,28 +100,67 @@ const PropRow = memo(function PropRow({ name, schema: schemaOrRef, required = fa
         {/* Required */}
         <RequiredBadge required={required} />
 
-        {/* Enum badge */}
-        {flat.enum && (
-          <span style={{ fontSize: 11, color: '#c084fc', fontFamily: 'var(--dp-font-mono)' }}>
-            enum: {flat.enum.slice(0, 3).map(String).join(' | ')}{flat.enum.length > 3 ? '...' : ''}
-          </span>
-        )}
-
         {/* Nullable */}
         {flat.nullable && (
-          <span style={{ fontSize: 10, color: 'var(--dp-fg-faint)', fontFamily: 'var(--dp-font-mono)' }}>nullable</span>
+          <span style={{ fontSize: 11, color: 'var(--dp-fg-faint)', fontFamily: 'var(--dp-font-mono)' }}>nullable</span>
+        )}
+
+        {/* Collapse toggle — right after meta, Fern-style */}
+        {hasChildren && (
+          <span style={{ flexShrink: 0, alignSelf: 'center', display: 'flex' }}>
+            <ChevronRight
+              size={13}
+              color="var(--dp-fg-dim)"
+              style={{ transform: open ? 'rotate(90deg)' : 'none', transition: 'transform 0.15s' }}
+            />
+          </span>
         )}
       </div>
 
-      {/* Description + example */}
-      {(flat.description || flat.example !== undefined) && (
-        <div style={{ paddingLeft: 24, paddingBottom: 4 }}>
+      {/* Description + example + enum */}
+      {(flat.description || flat.example !== undefined || flat.enum) && (
+        <div style={{ paddingBottom: 6 }}>
           {flat.description && (
-            <div style={{ fontSize: 12, color: 'var(--dp-fg-muted)', lineHeight: 1.5 }}>{flat.description}</div>
+            <div style={{ fontSize: 13, color: 'var(--dp-fg-muted)', lineHeight: 1.6, marginTop: 2 }}>{flat.description}</div>
+          )}
+          {flat.enum && (
+            <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 6, marginTop: 6 }}>
+              <span style={{ fontSize: 11.5, color: 'var(--dp-fg-faint)' }}>Enum:</span>
+              {flat.enum.slice(0, 6).map(v => (
+                <code
+                  key={String(v)}
+                  style={{
+                    fontSize: 11.5,
+                    fontFamily: 'var(--dp-font-mono)',
+                    color: 'var(--dp-kw-fg)',
+                    background: 'var(--dp-surface-2)',
+                    border: '1px solid var(--dp-border)',
+                    borderRadius: 5,
+                    padding: '0 6px',
+                  }}
+                >
+                  {String(v)}
+                </code>
+              ))}
+              {flat.enum.length > 6 && (
+                <span style={{ fontSize: 11.5, color: 'var(--dp-fg-faint)' }}>…</span>
+              )}
+            </div>
           )}
           {flat.example !== undefined && (
-            <div style={{ fontSize: 11, color: 'var(--dp-fg-faint)', fontFamily: 'var(--dp-font-mono)', marginTop: 2 }}>
-              Example: <span style={{ color: '#a5e3a1' }}>{JSON.stringify(flat.example)}</span>
+            <div style={{ fontSize: 12, color: 'var(--dp-fg-faint)', fontFamily: 'var(--dp-font-mono)', marginTop: 6 }}>
+              Example:{' '}
+              <span
+                style={{
+                  color: 'var(--dp-str-fg)',
+                  background: 'var(--dp-surface-2)',
+                  border: '1px solid var(--dp-border)',
+                  borderRadius: 5,
+                  padding: '0 6px',
+                }}
+              >
+                {JSON.stringify(flat.example)}
+              </span>
             </div>
           )}
         </div>
@@ -147,7 +168,7 @@ const PropRow = memo(function PropRow({ name, schema: schemaOrRef, required = fa
 
       {/* Children */}
       {hasChildren && open && (
-        <div style={{ paddingLeft: 8 }}>
+        <div style={{ paddingBottom: 4 }}>
           <SchemaChildren schema={flat} depth={depth + 1} />
         </div>
       )}
@@ -185,7 +206,7 @@ function SchemaChildren({ schema, depth }: { schema: SchemaObject; depth: number
     // Primitive array
     return (
       <div style={{ fontSize: 11, color: 'var(--dp-fg-faint)', fontFamily: 'var(--dp-font-mono)', padding: '4px 0 2px 24px' }}>
-        items: <span style={{ color: '#f5c986' }}>{getTypeLabel(flat)}</span>
+        items: <span style={{ color: 'var(--dp-type-fg)' }}>{getTypeLabel(flat)}</span>
         {flat.description && <span style={{ color: 'var(--dp-fg-dim)', marginLeft: 8 }}>{flat.description}</span>}
       </div>
     );
@@ -226,20 +247,17 @@ export default memo(function RecursiveSchemaRenderer({ schema: schemaOrRef, titl
     return (
       <div
         style={{
-          background: 'var(--dp-surface)',
-          border: '1px solid var(--dp-border)',
-          borderRadius: 10,
-          padding: '12px 16px',
-          fontFamily: 'var(--dp-font-mono)',
-          fontSize: 13,
+          fontFamily: 'var(--dp-font-body)',
+          fontSize: 13.5,
           color: 'var(--dp-fg-muted)',
+          padding: '4px 0',
         }}
       >
         <TypeBadge schema={flat} />
         {flat.description && <span style={{ marginLeft: 8 }}>{flat.description}</span>}
         {flat.example !== undefined && (
-          <div style={{ marginTop: 4, fontSize: 12, color: 'var(--dp-fg-faint)' }}>
-            Example: <span style={{ color: '#a5e3a1' }}>{JSON.stringify(flat.example)}</span>
+          <div style={{ marginTop: 4, fontSize: 12, fontFamily: 'var(--dp-font-mono)', color: 'var(--dp-fg-faint)' }}>
+            Example: <span style={{ color: 'var(--dp-str-fg)' }}>{JSON.stringify(flat.example)}</span>
           </div>
         )}
       </div>
@@ -247,33 +265,23 @@ export default memo(function RecursiveSchemaRenderer({ schema: schemaOrRef, titl
   }
 
   return (
-    <div
-      style={{
-        background: 'var(--dp-surface)',
-        border: '1px solid var(--dp-border)',
-        borderRadius: 10,
-        overflow: 'hidden',
-      }}
-    >
+    <div>
       {title && (
         <div
           style={{
-            padding: '8px 14px',
-            borderBottom: '1px solid var(--dp-border)',
-            fontSize: 11,
-            fontFamily: 'var(--dp-font-mono)',
+            padding: '0 0 8px',
+            fontSize: 12,
+            fontFamily: 'var(--dp-font-body)',
+            fontWeight: 600,
             color: 'var(--dp-fg-dim)',
-            background: 'var(--dp-surface-2)',
             textTransform: 'uppercase',
-            letterSpacing: '0.08em',
+            letterSpacing: '0.06em',
           }}
         >
           {title}
         </div>
       )}
-      <div style={{ padding: '8px 12px' }}>
-        <SchemaChildren schema={flat} depth={0} />
-      </div>
+      <SchemaChildren schema={flat} depth={0} />
     </div>
   );
 });

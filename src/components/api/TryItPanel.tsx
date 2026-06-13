@@ -29,14 +29,15 @@ function statusColors(code: number): { text: string; bg: string; border: string 
 
 /* Shared class strings */
 const inputCls = [
-  'w-full bg-[var(--dp-surface-2)] border border-[var(--dp-border-strong)] rounded-[7px]',
+  'w-full bg-[var(--dp-input-bg)] border border-[var(--dp-input-border)] rounded-lg',
   'px-3 py-2',
-  'font-[family-name:var(--dp-font-mono)] text-[13px] text-[var(--dp-fg)]',
-  'outline-none focus:border-[var(--dp-accent-line)] transition-colors duration-150',
-  'placeholder:text-[var(--dp-fg-faint)]',
+  'font-[family-name:var(--dp-font-mono)] text-[12.5px] text-[var(--dp-fg)]',
+  'outline-none focus:border-[var(--dp-input-border-focus)] focus:shadow-[0_0_0_3px_var(--dp-accent-soft)]',
+  'transition-[border-color,box-shadow] duration-150',
+  'placeholder:text-[var(--dp-input-placeholder)]',
 ].join(' ');
 
-const sectionHead = 'text-[11px] font-bold uppercase tracking-[0.1em] text-[var(--dp-fg-dim)] mt-[18px] mb-2';
+const sectionHead = 'text-[11px] font-semibold uppercase tracking-[0.08em] text-[var(--dp-fg-dim)] mt-5 mb-2';
 const fieldLabel = 'block text-[12px] font-[family-name:var(--dp-font-mono)] text-[var(--dp-fg-muted)] mb-1.5';
 
 export default function TryItPanel({ operation, fullUrl }: Props): React.ReactElement {
@@ -120,10 +121,10 @@ export default function TryItPanel({ operation, fullUrl }: Props): React.ReactEl
         </span>
       </div> */}
       {/* Method + path */}
-      <div className="flex flex-wrap items-center gap-2.5 mb-[18px]">
+      <div className="flex items-center gap-2 mb-1 bg-[var(--dp-surface)] border border-[var(--dp-border)] rounded-lg pl-2 pr-2.5 py-1.5">
         <MethodBadge method={operation.method} />
 
-        <code className="font-[family-name:var(--dp-font-mono)] text-[13px] text-[var(--dp-fg)] bg-[var(--dp-surface-2)] border border-[var(--dp-border-strong)] rounded-[7px] px-3 py-1.5 tracking-[0.01em] break-all">
+        <code className="font-[family-name:var(--dp-font-mono)] text-[12.5px] text-[var(--dp-fg)] tracking-[0.01em] flex-1 min-w-0 overflow-x-auto whitespace-nowrap [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {operation.path}
         </code>
 
@@ -236,13 +237,13 @@ export default function TryItPanel({ operation, fullUrl }: Props): React.ReactEl
         onClick={execute}
         disabled={loading || !canSend}
         className={[
-          'flex items-center justify-center gap-2 mt-[18px] w-full',
-          'px-4 py-[10px] rounded-[8px]',
-          'text-white font-[family-name:var(--dp-font-body)] text-[13px] font-semibold tracking-[0.02em]',
-          'transition-[background] duration-200',
+          'flex items-center justify-center gap-2 mt-5 w-full',
+          'px-4 py-[9px] rounded-lg',
+          'text-white font-[family-name:var(--dp-font-body)] text-[13px] font-semibold tracking-[0.01em]',
+          'transition-[background,box-shadow] duration-200',
           loading || !canSend
-            ? 'bg-[rgba(220,47,101,0.5)] cursor-not-allowed'
-            : 'bg-[var(--dp-accent)] cursor-pointer',
+            ? 'bg-[rgba(220,47,101,0.45)] cursor-not-allowed'
+            : 'bg-[var(--dp-accent)] cursor-pointer hover:bg-[#e84a78] shadow-[0_1px_2px_rgba(0,0,0,0.3),0_0_0_1px_rgba(220,47,101,0.4)]',
         ].join(' ')}
         style={{ border: 'none' }}
       >

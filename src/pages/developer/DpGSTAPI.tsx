@@ -37,7 +37,7 @@ function isStaticId(id: string): boolean {
 
 export default function DpGSTAPI({ apiType }: { apiType: ApiSpecKey }): React.ReactElement {
   const [selectedEnv, setSelectedEnv] = useState<Environment>(environments[0]);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery] = useState('');
 
   const apiSpec = openApiSpec(apiType);
   const operations = useMemo(() => normalizeSpec(apiSpec), []);
@@ -104,7 +104,7 @@ export default function DpGSTAPI({ apiType }: { apiType: ApiSpecKey }): React.Re
       return (
         <OperationDetail
           operation={selectedOp}
-          operations={operations}
+          apiType="gst-api"
           hasPrev={selectedIdx > 0}
           hasNext={selectedIdx < visibleOps.length - 1}
           onPrev={goPrev}
@@ -129,8 +129,6 @@ export default function DpGSTAPI({ apiType }: { apiType: ApiSpecKey }): React.Re
         <div className="flex min-h-[calc(100vh-100px)]">
           <ApiSidebar
             groups={filteredGroups}
-            searchQuery={searchQuery}
-            onSearchChange={setSearchQuery}
             selectedOpId={isStaticId(selectedOpId) ? selectedOpId : (selectedOp?.id ?? '')}
             onSelect={handleSelect}
             staticGroups={STATIC_GROUPS}

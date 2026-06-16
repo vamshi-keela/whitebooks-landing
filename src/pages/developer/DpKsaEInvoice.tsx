@@ -13,7 +13,7 @@ import { useKsaEInvoiceSpec } from '../../hooks/useKsaEInvoiceSpec';
 export default function DpKsaEInvoiceAPI(): React.ReactElement {
     const { data: apiSpec, isLoading, isError } = useKsaEInvoiceSpec();
     const [selectedEnv, setSelectedEnv] = useState<Environment>(environments[0]);
-    const [searchQuery, setSearchQuery] = useState('');
+    const [searchQuery] = useState('');
     const [selectedOpId, setSelectedOpId] = useState<string>('');
 
     const operations = useMemo(() => (apiSpec ? normalizeSpec(apiSpec) : []), [apiSpec]);
@@ -75,8 +75,6 @@ export default function DpKsaEInvoiceAPI(): React.ReactElement {
                 <div className="flex min-h-[calc(100vh-100px)]">
                     <ApiSidebar
                         groups={filteredGroups}
-                        searchQuery={searchQuery}
-                        onSearchChange={setSearchQuery}
                         selectedOpId={selectedOp?.id ?? ''}
                         onSelect={handleSelect}
                     />
@@ -90,7 +88,7 @@ export default function DpKsaEInvoiceAPI(): React.ReactElement {
                         ) : selectedOp ? (
                             <OperationDetail
                                 operation={selectedOp}
-                                operations={operations}
+                                apiType="ksa-e-invoice-api"
                                 hasPrev={selectedIdx > 0}
                                 hasNext={selectedIdx < visibleOps.length - 1}
                                 onPrev={() => selectedIdx > 0 && handleSelect(visibleOps[selectedIdx - 1].id)}

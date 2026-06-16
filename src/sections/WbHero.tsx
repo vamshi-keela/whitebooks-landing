@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import heroImage from "../assets/hero-image.png";
 import heroImageMobile from "../assets/hero-image-mobile.png";
+import complianceTrust from "../assets/elements/complaince-trust.jpeg";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { FluidBackground, HeroFluidBackground } from "@/layouts/SiteShell";
 import { Button } from "@/components/ui/Button";
@@ -8,7 +9,32 @@ import EyebrowPill from "@/components/ui/EyebrowPill";
 import LogoWallCarousel from "@/components/ui/LogoWall";
 import { BookDemoModal } from "@/components/modals/BookDemoModal";
 import DpIcon from "@/pages/developer/DpIcon";
+import HeroShowcase from "./HeroShowcase";
+import WbStats from "./WbStats";
+export default function HeroBackground() {
+  return (
+    <div className="absolute inset-0 overflow-hidden bg-white">
+      {/* Top border */}
+      <div className="absolute top-0 left-[-50vw] w-[200vw] h-px bg-gray-200" />
 
+      {/* Bottom border */}
+      <div className="absolute bottom-0 left-[-50vw] w-[200vw] h-px bg-gray-200" />
+
+      {/* Wave layer 1 */}
+      <div className="wave wave-primary" />
+
+      {/* Wave layer 2 */}
+      <div className="wave wave-secondary" />
+
+      {/* Glow */}
+      <div className="glow glow-left" />
+      <div className="glow glow-right" />
+
+      {/* Noise overlay */}
+      <div className="noise" />
+    </div>
+  );
+}
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 
 export function Hero() {
@@ -28,7 +54,7 @@ export function Hero() {
 
         <div className="relative z-10 max-w-[1240px] mx-auto px-8 max-sm:px-5 justiy-center">
           <div className="max-w-[960px] mx-auto text-center">
-            <EyebrowPill label="GST Suvidha Provider" subtitle="Licensed by GSTN" />
+            <EyebrowPill label="Licensed GSP by GSTIN" subtitle="GST Suvidha Provider" />
             <h1 className="font-display font-semibold text-[clamp(36px,4vw,101px)] leading-[1.05] tracking-[-0.03em] mt-[22px] text-center text-[var(--text)]">
               Compliance infrastructure for{' '}
               <span className="text-[#dc2f65]">India's largest finance teams.</span>
@@ -50,14 +76,15 @@ export function Hero() {
 
         </div>
 
-        <img
+        <HeroShowcase />
+        {/* <img
           src={isMobile ? heroImageMobile : heroImage}
           alt="WhiteBooks Hero"
           className="w-full flex-row pt-5"
           loading="eager"
           decoding="async"
           fetchPriority="high"
-        />
+        /> */}
       </section>
       {demoOpen && <BookDemoModal onClose={() => setDemoOpen(false)} />}
     </>
@@ -188,29 +215,43 @@ export function LogoWall() {
   ];
 
   return (
-    <section className="relative border-b border-[var(--hairline)] py-24 max-md:py-16 max-sm:py-12" data-reveal>
-      {/* <div className="wb-logo-wall-header mb-10"> */}
-      <div className={`${wrap} grid md:grid-cols-2 grid-cols-1 gap-10 items-end pb-24 max-md:pb-16`}>
-        <h2 className="h1">
-          Compliance for the companies that can't afford to get it
-          wrong.
-        </h2>
-        <p className="body">
-          Whitebooks runs GST, e-invoicing, and e-way bill operations for
-          India's largest enterprises and the CA firms that audit them. We
-          already helped 3,000+ Customers across India.
-        </p>
-      </div>
-      <LogoWallCarousel />
+    <section className="relative border-b border-[var(--hairline)] pb-24 max-md:pb-16 max-sm:pb-12" data-reveal>
 
-      <div className={`${wrap} pt-12 max-md:pt-8`}>
-        <div className="wb-stat-strip">
-          <Stat val="10 Cr+" lbl="Invoices filed" />
-          <Stat val="12,000+" lbl="Businesses" />
-          <Stat val="5,000+" lbl="CAs & Tax Professionals" />
-          <Stat val="99.95%" lbl="API uptime SLA" />
+      <LogoWallCarousel />
+      {/* <div className="wb-logo-wall-header mb-10"> */}
+      <div className={`${wrap} grid md:grid-cols-2 grid-cols-1 gap-12 items-center pt-24 max-md:pt-16 max-sm:pt-12`}>
+        {/* Left: eyebrow + heading + body */}
+        <div className="flex flex-col gap-6">
+          <div className="flex items-center gap-2.5">
+            {/* <svg width="18" height="18" viewBox="0 0 24 24" fill="none" className="text-[var(--brand)] opacity-70">
+              <path d="M12 2C9 6 4 8 4 13a8 8 0 0016 0c0-5-5-7-8-11z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
+            </svg> */}
+            <span className="text-sm font-medium tracking-wide text-[var(--muted)] uppercase">Trusted Compliance Partner</span>
+            {/* <svg width="18" height="18" viewBox="0 0 24 24" fill="none" className="text-[var(--brand)] opacity-70">
+              <path d="M12 2C9 6 4 8 4 13a8 8 0 0016 0c0-5-5-7-8-11z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
+            </svg> */}
+          </div>
+          <h2 className="h1">
+            Compliance for companies that{' '}
+            <span className="text-[var(--brand)]">can't afford to get it wrong.</span>
+          </h2>
+          <p className="body">
+            Whitebooks runs GST, e-invoicing, and e-way bill operations for
+            India's largest enterprises and the CA firms that audit them. We
+            already helped 3,000+ Customers across India.
+          </p>
+        </div>
+        {/* Right: image */}
+        <div className="rounded-2xl overflow-hidden w-full aspect-[4/3]">
+          <img
+            src={complianceTrust}
+            alt="Compliance trust — enterprise teams at work"
+            className="w-full h-full object-cover"
+          />
         </div>
       </div>
+
+      <WbStats />
     </section>
   );
 }

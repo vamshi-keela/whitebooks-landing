@@ -1,18 +1,44 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { SiteLogo } from '@/layouts/SiteShell';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import DpIcon, { type IconName } from './DpIcon';
 import { useMobileNav } from '../../contexts/MobileNavContext';
+import MethodBadge from '../../components/api/MethodBadge';
+import { searchOps } from './devSearch';
+import type { NormalizedMethod } from '../../data/openapi-spec';
 
 /* ─── Route map ─────────────────────────────────────────────────────────── */
 
-const NAV_ITEMS: { label: string; path: string; icon: IconName }[] = [
-  { label: 'GST API',        path: '/developer/gst-api',          icon: 'receipt' },
-  { label: 'e-Invoice API',  path: '/developer/e-invoice-api',    icon: 'scroll'  },
-  { label: 'e-Way Bill API', path: '/developer/e-way-bill-api',   icon: 'truck'   },
-  { label: 'KSA API',        path: '/developer/ksa-e-invoice-api', icon: 'globe'  },
+interface NavTab { id: string; label: string; path: string; icon: IconName }
+
+const NAV_ITEMS: NavTab[] = [
+  { id: 'guides',    label: 'Guides',        path: '/developer/overview',       icon: 'book'     },
+  { id: 'reference', label: 'API Reference', path: '/developer/api-reference',  icon: 'code'     },
+  { id: 'changelog', label: 'Changelog',     path: '/developer/changelog',      icon: 'activity' },
 ];
+
+/* Routes that belong to the "API Reference" tab (the landing + the four API docs). */
+const REFERENCE_ROOTS = [
+  '/developer/api-reference',
+  '/developer/gst-api',
+  '/developer/e-invoice-api',
+  '/developer/e-way-bill-api',
+  '/developer/ksa-e-invoice-api',
+];
+
+function activeTabId(pathname: string): string {
+  if (pathname.startsWith('/developer/changelog')) return 'changelog';
+  if (REFERENCE_ROOTS.some(r => pathname === r || pathname.startsWith(r + '/'))) return 'reference';
+  return 'guides'; // overview, quickstart, authentication, errors, /developer root
+}
+
+/* Pages that render their own left sub-navigation (and thus a mobile drawer). */
+function hasSubNav(pathname: string): boolean {
+  if (pathname.startsWith('/developer/changelog')) return false;
+  if (pathname === '/developer/api-reference') return false;
+  return true;
+}
 
 /* ─── Command Palette ────────────────────────────────────────────────────── */
 
@@ -25,12 +51,16 @@ interface PaletteItem {
 }
 
 const PALETTE_ITEMS: PaletteItem[] = [
-  { group: 'Jump to', icon: 'book',     label: 'GST API Overview',        hint: 'docs',  path: '/developer/gst-api' },
-  { group: 'Jump to', icon: 'book',     label: 'e-Invoice API Overview',   hint: 'docs',  path: '/developer/e-invoice-api' },
-  { group: 'Jump to', icon: 'book',     label: 'e-Way Bill API Overview',  hint: 'docs',  path: '/developer/e-way-bill-api' },
-  { group: 'Jump to', icon: 'book',     label: 'KSA e-Invoice API',        hint: 'docs',  path: '/developer/ksa-e-invoice-api' },
-  { group: 'Jump to', icon: 'key',      label: 'Authentication',           hint: 'guide', path: '/developer/gst-api' },
-  { group: 'Jump to', icon: 'terminal', label: 'Sandbox',                  hint: 'env',   path: '/developer/gst-api' },
+  { group: 'Guides',        icon: 'compass',  label: 'Overview',              hint: 'guide', path: '/developer/overview' },
+  { group: 'Guides',        icon: 'bolt',     label: 'Quickstart',            hint: 'guide', path: '/developer/quickstart' },
+  { group: 'Guides',        icon: 'key',      label: 'Authentication',        hint: 'guide', path: '/developer/authentication' },
+  { group: 'Guides',        icon: 'warning',  label: 'Errors & Status Codes', hint: 'guide', path: '/developer/errors' },
+  { group: 'API Reference', icon: 'receipt',  label: 'GST API',               hint: 'docs',  path: '/developer/gst-api' },
+  { group: 'API Reference', icon: 'scroll',   label: 'e-Invoice API',         hint: 'docs',  path: '/developer/e-invoice-api' },
+  { group: 'API Reference', icon: 'truck',    label: 'e-Way Bill API',        hint: 'docs',  path: '/developer/e-way-bill-api' },
+  { group: 'API Reference', icon: 'globe',    label: 'KSA e-Invoice API',     hint: 'docs',  path: '/developer/ksa-e-invoice-api' },
+  { group: 'API Reference', icon: 'code',     label: 'API Reference home',    hint: 'docs',  path: '/developer/api-reference' },
+  { group: 'Resources',     icon: 'activity', label: 'Changelog',             hint: 'updates', path: '/developer/changelog' },
 ];
 
 interface CommandPaletteProps {
@@ -38,39 +68,96 @@ interface CommandPaletteProps {
   onClose: () => void;
 }
 
+/* Unified result row — either a curated shortcut or an API endpoint. */
+type PaletteRow =
+  | { kind: 'static'; group: string; label: string; hint: string; icon: IconName; path: string }
+  | { kind: 'op'; group: string; label: string; method: NormalizedMethod; path: string; route: string };
+
 export function CommandPalette({ open, onClose }: CommandPaletteProps): React.ReactElement | null {
   const [query, setQuery] = useState('');
+  const [debounced, setDebounced] = useState('');
+  const [active, setActive] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
+  const rowRefs = useRef<(HTMLDivElement | null)[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (open) {
       setQuery('');
+      setDebounced('');
+      setActive(0);
       setTimeout(() => inputRef.current?.focus(), 50);
     }
   }, [open]);
 
+  /* Debounce the query feeding search so fast typing never blocks the input,
+     even with thousands of endpoints in the index. */
   useEffect(() => {
-    const handle = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
-    if (open) document.addEventListener('keydown', handle);
+    const t = setTimeout(() => setDebounced(query), 70);
+    return () => clearTimeout(t);
+  }, [query]);
+
+  /* Static shortcut matches (few items — a plain filter is fine). */
+  const staticRows = useMemo<PaletteRow[]>(() => {
+    const q = debounced.trim().toLowerCase();
+    const items = q
+      ? PALETTE_ITEMS.filter(i =>
+          i.label.toLowerCase().includes(q) ||
+          i.group.toLowerCase().includes(q) ||
+          i.hint.toLowerCase().includes(q))
+      : PALETTE_ITEMS;
+    return items.map(i => ({ kind: 'static', group: i.group, label: i.label, hint: i.hint, icon: i.icon, path: i.path ?? '/developer' }));
+  }, [debounced]);
+
+  /* Global endpoint matches across all four APIs (indexed + scored). */
+  const opRows = useMemo<PaletteRow[]>(() => {
+    if (!debounced.trim()) return [];
+    return searchOps(debounced, 50).map(op => ({
+      kind: 'op', group: op.apiLabel, label: op.summary, method: op.method, path: op.path, route: op.route,
+    }));
+  }, [debounced]);
+
+  /* Group, preserving order: shortcuts first, then endpoints by API. */
+  const sections = useMemo(() => {
+    const secs: { group: string; rows: PaletteRow[] }[] = [];
+    const byGroup = new Map<string, PaletteRow[]>();
+    const push = (row: PaletteRow) => {
+      let arr = byGroup.get(row.group);
+      if (!arr) { arr = []; byGroup.set(row.group, arr); secs.push({ group: row.group, rows: arr }); }
+      arr.push(row);
+    };
+    staticRows.forEach(push);
+    opRows.forEach(push);
+    return secs;
+  }, [staticRows, opRows]);
+
+  const flat = useMemo(() => sections.flatMap(s => s.rows), [sections]);
+
+  useEffect(() => { setActive(0); }, [debounced]);
+  useEffect(() => { rowRefs.current[active]?.scrollIntoView({ block: 'nearest' }); }, [active]);
+
+  const select = (row: PaletteRow) => {
+    navigate(row.kind === 'op' ? row.route : row.path);
+    onClose();
+  };
+
+  useEffect(() => {
+    if (!open) return;
+    const handle = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') { onClose(); }
+      else if (e.key === 'ArrowDown') { e.preventDefault(); setActive(a => Math.min(a + 1, flat.length - 1)); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); setActive(a => Math.max(a - 1, 0)); }
+      else if (e.key === 'Enter') { e.preventDefault(); const r = flat[active]; if (r) select(r); }
+    };
+    document.addEventListener('keydown', handle);
     return () => document.removeEventListener('keydown', handle);
-  }, [open, onClose]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open, flat, active, onClose]);
 
   if (!open) return null;
 
-  const lq = query.toLowerCase();
-  const filtered = PALETTE_ITEMS.filter(
-    item =>
-      item.label.toLowerCase().includes(lq) ||
-      item.group.toLowerCase().includes(lq) ||
-      item.hint.toLowerCase().includes(lq),
-  );
-  const groups = ['Jump to'];
-
-  const handleItemClick = (item: PaletteItem) => {
-    if (item.path) navigate(item.path);
-    onClose();
-  };
+  let rowIndex = -1; // running absolute index across sections for keyboard nav
+  rowRefs.current = [];
 
   return (
     <div
@@ -87,7 +174,7 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps): React.Re
             ref={inputRef}
             value={query}
             onChange={e => setQuery(e.target.value)}
-            placeholder="Search docs, endpoints, guides..."
+            placeholder="Search endpoints, guides, APIs..."
             className="flex-1 bg-transparent border-0 outline-none text-[var(--dp-fg)] text-[15px] font-body placeholder:text-[var(--dp-fg-dim)]"
           />
           <button
@@ -98,36 +185,52 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps): React.Re
           </button>
         </div>
 
-        <div className="max-h-[360px] sm:max-h-[400px] overflow-y-auto py-2">
-          {groups.map(group => {
-            const items = filtered.filter(i => i.group === group);
-            if (items.length === 0) return null;
-            return (
-              <div key={group}>
-                <div className="px-4 pt-2 pb-1 text-[11px] font-mono text-[var(--dp-fg-faint)] tracking-[0.08em] uppercase">
-                  {group}
-                </div>
-                {items.map(item => (
-                  <div
-                    key={item.label}
-                    onClick={() => handleItemClick(item)}
-                    className="flex items-center gap-2.5 px-4 py-2 hover:bg-[rgba(220,47,101,0.06)] cursor-pointer transition-colors duration-100"
-                  >
-                    <span className="w-7 h-7 flex items-center justify-center bg-[var(--dp-surface-3)] rounded-[7px] text-[var(--dp-fg-muted)] shrink-0">
-                      <DpIcon name={item.icon} size={14} />
-                    </span>
-                    <span className="flex-1 text-sm text-[var(--dp-fg)]">{item.label}</span>
-                    <span className="text-[11px] font-mono text-[var(--dp-fg-dim)] bg-[var(--dp-surface-3)] px-1.5 py-px rounded">
-                      {item.hint}
-                    </span>
-                    <DpIcon name="chevron-right" size={13} style={{ color: 'var(--dp-fg-faint)' }} />
-                  </div>
-                ))}
+        <div className="max-h-[380px] sm:max-h-[440px] overflow-y-auto py-2">
+          {sections.map(section => (
+            <div key={section.group}>
+              <div className="px-4 pt-2 pb-1 text-[11px] font-mono text-[var(--dp-fg-faint)] tracking-[0.08em] uppercase">
+                {section.group}
               </div>
-            );
-          })}
-          {filtered.length === 0 && (
-            <div className="py-6 text-center text-[var(--dp-fg-dim)] text-sm">No results found</div>
+              {section.rows.map(row => {
+                rowIndex++;
+                const i = rowIndex;
+                const isActive = i === active;
+                return (
+                  <div
+                    key={row.kind === 'op' ? row.route : `${row.group}-${row.label}`}
+                    ref={el => { rowRefs.current[i] = el; }}
+                    onClick={() => select(row)}
+                    onMouseEnter={() => setActive(i)}
+                    className="flex items-center gap-2.5 px-4 py-2 cursor-pointer transition-colors duration-100"
+                    style={{ background: isActive ? 'var(--dp-accent-soft)' : 'transparent' }}
+                  >
+                    {row.kind === 'op' ? (
+                      <>
+                        <MethodBadge method={row.method} size="sm" />
+                        <span className="flex-1 min-w-0">
+                          <span className="block truncate text-[13.5px] text-[var(--dp-fg)]">{row.label}</span>
+                          <span className="block truncate text-[11px] font-[family-name:var(--dp-font-mono)] text-[var(--dp-fg-faint)]">{row.path}</span>
+                        </span>
+                      </>
+                    ) : (
+                      <>
+                        <span className="w-7 h-7 flex items-center justify-center bg-[var(--dp-surface-3)] rounded-[7px] text-[var(--dp-fg-muted)] shrink-0">
+                          <DpIcon name={row.icon} size={14} />
+                        </span>
+                        <span className="flex-1 text-sm text-[var(--dp-fg)] truncate">{row.label}</span>
+                        <span className="text-[11px] font-mono text-[var(--dp-fg-dim)] bg-[var(--dp-surface-3)] px-1.5 py-px rounded">
+                          {row.hint}
+                        </span>
+                      </>
+                    )}
+                    <DpIcon name="chevron-right" size={13} style={{ color: isActive ? 'var(--dp-accent-2)' : 'var(--dp-fg-faint)', flexShrink: 0 }} />
+                  </div>
+                );
+              })}
+            </div>
+          ))}
+          {flat.length === 0 && (
+            <div className="py-8 text-center text-[var(--dp-fg-dim)] text-sm">No results found</div>
           )}
         </div>
 
@@ -156,6 +259,8 @@ export default function DpNav({ onOpenPalette }: DpNavProps): React.ReactElement
   const { openNav } = useMobileNav();
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const activeId = activeTabId(pathname);
+  const showHamburger = hasSubNav(pathname);
 
   return (
     <nav className="sticky top-0 z-50 backdrop-blur-xl bg-[var(--dp-nav-bg)] border-b border-[var(--dp-border)]">
@@ -194,26 +299,28 @@ export default function DpNav({ onOpenPalette }: DpNavProps): React.ReactElement
 
           <ThemeToggle size={24} />
 
-          {/* Mobile menu */}
-          <button
-            onClick={openNav}
-            className="lg:hidden w-9 h-9 flex items-center justify-center rounded-lg cursor-pointer border border-[var(--dp-border)] transition-colors duration-150"
-            style={{ background: 'var(--dp-surface)', color: 'var(--dp-fg-muted)' }}
-            aria-label="Open navigation"
-          >
-            <DpIcon name="menu" size={17} />
-          </button>
+          {/* Mobile menu — only when the page has a left sub-nav */}
+          {showHamburger && (
+            <button
+              onClick={openNav}
+              className="lg:hidden w-9 h-9 flex items-center justify-center rounded-lg cursor-pointer border border-[var(--dp-border)] transition-colors duration-150"
+              style={{ background: 'var(--dp-surface)', color: 'var(--dp-fg-muted)' }}
+              aria-label="Open navigation"
+            >
+              <DpIcon name="menu" size={17} />
+            </button>
+          )}
         </div>
       </div>
 
-      {/* ── Row 2: API tabs with icons + active underline — desktop only ─── */}
-      <div className="hidden lg:block">
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 h-[48px] flex items-stretch gap-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      {/* ── Row 2: section tabs with icons + active underline (all viewports) ─── */}
+      <div className="border-t border-[var(--dp-border)] lg:border-t-0">
+        <div className="max-w-[1440px] mx-auto px-2 sm:px-6 h-[48px] flex items-stretch gap-0.5 sm:gap-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {NAV_ITEMS.map(item => {
-            const isActive = pathname.startsWith(item.path);
+            const isActive = activeId === item.id;
             return (
               <button
-                key={item.path}
+                key={item.id}
                 onClick={() => navigate(item.path)}
                 className={[
                   'relative whitespace-nowrap bg-transparent border-0 px-3 text-[14px] font-body cursor-pointer',

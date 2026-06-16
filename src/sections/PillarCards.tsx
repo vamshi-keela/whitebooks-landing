@@ -672,8 +672,31 @@ export function PillarCard({
       >
         {/* Tag + optional nav arrow */}
         <div className="flex justify-between items-start">
-          <span className="mono-tag accent">
-            <span className="dot" />
+          <span
+            className="mono-tag accent"
+            style={{
+              background: 'transparent',
+              border: 'none',
+              borderRadius: 0,
+              padding: '1px 0',
+              boxShadow: 'none',
+              fontSize: 14,
+              fontWeight: 700,
+              letterSpacing: '0.10em',
+              color: isDark ? '#ff7aac' : '#c41e57',
+            }}
+          >
+            <span
+              className="dot"
+              style={{
+                width: 7,
+                height: 7,
+                flexShrink: 0,
+                boxShadow: isDark
+                  ? '0 0 10px rgba(220,47,101,0.95), 0 0 4px rgba(220,47,101,0.60)'
+                  : '0 0 6px rgba(220,47,101,0.60)',
+              }}
+            />
             {tag}
           </span>
           {onClick && (

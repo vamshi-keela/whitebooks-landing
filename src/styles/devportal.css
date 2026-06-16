@@ -172,10 +172,10 @@ body {
 }
 
 .dp-root {
-  /* Sticky-chrome height: single-row nav on mobile, two-row on desktop.
-     Every sticky offset (sidebar, code panel, env bar, breadcrumb, TOCs)
-     reads this so the whole portal stays aligned to the header. */
-  --dp-nav-h: 56px;
+  /* Sticky-chrome height: two-row nav (logo/search row + section-tabs row)
+     on all viewports. Every sticky offset (sidebar, code panel, env bar,
+     breadcrumb, TOCs) reads this so the portal stays aligned to the header. */
+  --dp-nav-h: 104px;
   background: var(--dp-bg);
   color: var(--dp-fg);
   font-family: var(--dp-font-body);
@@ -185,12 +185,6 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   min-height: 100vh;
-}
-
-@media (min-width: 1024px) {
-  .dp-root {
-    --dp-nav-h: 105px;
-  }
 }
 
 /*

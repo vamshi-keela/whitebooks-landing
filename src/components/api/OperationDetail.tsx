@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, AlertTriangle, Play } from 'lucide-react';
-import type { NormalizedOperation } from '../../data/openapi-spec';
+import type { NormalizedOperation, ApiSpecKey } from '../../data/openapi-spec';
 import { useSpec } from '../../contexts/SpecContext';
 import MethodBadge from './MethodBadge';
 import CopyButton from './CopyButton';
@@ -13,7 +13,7 @@ import Playground from './Playground';
 
 interface Props {
   operation: NormalizedOperation;
-  operations: NormalizedOperation[];
+  apiType: ApiSpecKey;
   hasPrev: boolean;
   hasNext: boolean;
   onPrev?: () => void;
@@ -69,7 +69,7 @@ function NavButton({
 /* ─── Main ──────────────────────────────────────────────────────────────── */
 
 export default function OperationDetail({
-  operation, operations, hasPrev, hasNext, onPrev, onNext, prevLabel, nextLabel,
+  operation, apiType, hasPrev, hasNext, onPrev, onNext, prevLabel, nextLabel,
 }: Props): React.ReactElement {
   const { baseUrl } = useSpec();
   const [playgroundOpen, setPlaygroundOpen] = useState(false);
@@ -182,7 +182,7 @@ export default function OperationDetail({
         open={playgroundOpen}
         onClose={() => setPlaygroundOpen(false)}
         operation={operation}
-        operations={operations}
+        apiType={apiType}
       />
     </div>
   );

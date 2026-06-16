@@ -3,7 +3,6 @@ import { ChevronDown, ChevronRight, X, Check, LayoutGrid } from 'lucide-react';
 import type { TagGroup } from '../../utils/groupOperations';
 import type { NormalizedMethod } from '../../data/openapi-spec';
 import MethodBadge from './MethodBadge';
-import SearchBar from './SearchBar';
 import { useMobileNav } from '../../contexts/MobileNavContext';
 
 export interface StaticNavItem {
@@ -32,8 +31,6 @@ const API_SWITCH_ITEMS: ApiSwitchItem[] = [
 
 interface Props {
   groups: TagGroup[];
-  searchQuery: string;
-  onSearchChange: (v: string) => void;
   selectedOpId: string;
   onSelect: (id: string) => void;
   staticGroups?: StaticNavGroup[];
@@ -43,24 +40,18 @@ interface Props {
 
 /* ─── Sidebar group ──────────────────────────────────────────────────────── */
 const SidebarGroup = memo(function SidebarGroup({
-  group, selectedOpId, searchQuery, onSelect,
+  group, selectedOpId, onSelect,
 }: {
   group: TagGroup;
   selectedOpId: string;
-  searchQuery: string;
   onSelect: (id: string) => void;
 }): React.ReactElement {
   const [open, setOpen] = useState(true);
 
-  const filteredOps = group.operations.filter(op => {
-    if (!searchQuery) return true;
-    const q = searchQuery.toLowerCase();
-    return op.path.toLowerCase().includes(q) || op.summary.toLowerCase().includes(q);
-  });
+  const ops = group.operations;
+  if (ops.length === 0) return <></>;
 
-  if (filteredOps.length === 0) return <></>;
-
-  const anyActive = filteredOps.some(op => op.id === selectedOpId);
+  const anyActive = ops.some(op => op.id === selectedOpId);
 
   return (
     <div className="mb-1">
@@ -87,7 +78,7 @@ const SidebarGroup = memo(function SidebarGroup({
 
       {open && (
         <div className="ml-[13px] pl-[7px] mt-0.5 border-l border-[var(--dp-border)] flex flex-col gap-px">
-          {filteredOps.map(op => {
+          {ops.map(op => {
             const isActive = selectedOpId === op.id;
             return (
               <div
@@ -122,24 +113,18 @@ const SidebarGroup = memo(function SidebarGroup({
 
 /* ─── Static nav group ───────────────────────────────────────────────────── */
 const StaticGroup = memo(function StaticGroup({
-  group, selectedOpId, searchQuery, onSelect,
+  group, selectedOpId, onSelect,
 }: {
   group: StaticNavGroup;
   selectedOpId: string;
-  searchQuery: string;
   onSelect: (id: string) => void;
 }): React.ReactElement {
   const [open, setOpen] = useState(true);
 
-  const filteredOps = group.items.filter(op => {
-    if (!searchQuery) return true;
-    const q = searchQuery.toLowerCase();
-    return op.label.toLowerCase().includes(q);
-  });
+  const items = group.items;
+  if (items.length === 0) return <></>;
 
-  if (filteredOps.length === 0) return <></>;
-
-  const anyActive = filteredOps.some(op => op.id === selectedOpId);
+  const anyActive = items.some(op => op.id === selectedOpId);
   return (
     <div className="mb-1">
       {group.items.length > 1 && <div
@@ -164,7 +149,7 @@ const StaticGroup = memo(function StaticGroup({
       </div>}
       {open && (
         <div className="flex flex-col gap-px">
-          {filteredOps.map(item => {
+          {items.map(item => {
             const isActive = selectedOpId === item.id;
             return (
               <div
@@ -268,7 +253,7 @@ function ApiSwitcher({
 
 /* ─── ApiSidebar ─────────────────────────────────────────────────────────── */
 export default function ApiSidebar({
-  groups, searchQuery, onSearchChange, selectedOpId, onSelect, staticGroups,
+  groups, selectedOpId, onSelect, staticGroups,
   currentApiType, onApiSwitch,
 }: Props): React.ReactElement {
   const { open: mobileOpen, closeNav } = useMobileNav();
@@ -292,16 +277,20 @@ export default function ApiSidebar({
 
   const sidebarContent = (
     <>
-      <div className="px-4 pt-4 pb-2">
-        <SearchBar value={searchQuery} onChange={onSearchChange} />
-      </div>
-      <div className="px-3 pt-1 pb-6 overflow-y-auto flex-1">
+      {/* API switcher — shown on both desktop sidebar and mobile drawer */}
+      <ApiSwitcher
+        currentApiType={currentApiType}
+        onApiSwitch={onApiSwitch}
+        onClose={closeNav}
+      />
+      <div className="mx-4 mb-1" style={{ height: 1, background: 'var(--dp-border)' }} />
+
+      <div className="px-3 pt-2 pb-6 overflow-y-auto flex-1">
         {staticGroups?.map(group => (
           <StaticGroup
             key={group.heading}
             group={group}
             selectedOpId={selectedOpId}
-            searchQuery={searchQuery}
             onSelect={id => { onSelect(id); closeNav(); }}
           />
         ))}
@@ -313,7 +302,6 @@ export default function ApiSidebar({
             key={group.tag.name}
             group={group}
             selectedOpId={selectedOpId}
-            searchQuery={searchQuery}
             onSelect={id => { onSelect(id); closeNav(); }}
           />
         ))}
@@ -360,16 +348,7 @@ export default function ApiSidebar({
           </button>
         </div>
 
-        {/* API switcher */}
-        <ApiSwitcher
-          currentApiType={currentApiType}
-          onApiSwitch={onApiSwitch}
-          onClose={closeNav}
-        />
-
-        <div className="mx-5 mb-3" style={{ height: 1, background: 'var(--dp-border)' }} />
-
-        {/* Search + operations */}
+        {/* API switcher + operations */}
         {sidebarContent}
       </div>
 

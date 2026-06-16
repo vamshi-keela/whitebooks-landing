@@ -69,7 +69,7 @@ export function HubSection({ tab, setTab, navigate }: HubSectionProps) {
         {/* Heading row — stacks on mobile, side-by-side from md */}
         <div className="grid grid-cols-1 gap-3 items-end mb-7 sm:mb-9 md:grid-cols-[1.3fr_0.7fr] md:gap-10 md:mb-10 lg:gap-16 lg:mb-14">
           <h2 className="font-serif font-semibold text-[clamp(24px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 text-balance">
-            One platform. Four compliance engines.<br />Every Indian filing requirement.
+            One platform.<span className='text-[var(--brand)]'> Four compliance engines.</span><br />Every Indian filing requirement.
           </h2>
           <p className="text-[14px] sm:text-[15px] md:text-[17px] text-[var(--fg-secondary)] leading-[1.6] m-0 md:max-w-[460px] md:justify-self-end">
             Built on a direct GSP license from GSTN. Each engine is a product on its own — together they cover every filing requirement in India, and a few outside.
@@ -146,9 +146,12 @@ export function HubAPIsSection() {
         {/* Heading row */}
         <div className="grid grid-cols-1 gap-3 items-end mb-7 sm:mb-9 md:grid-cols-[1.3fr_0.7fr] md:gap-10 md:mb-10 lg:gap-16 lg:mb-14">
           <h2 className="font-serif font-semibold text-[clamp(24px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 text-balance">
-            Four REST APIs. Every compliance operation in India and KSA.
+            {/* Four REST APIs. Every compliance operation in India and KSA. */}
+            <span className='text-[var(--brand)]'>Compliance APIs</span> That Scale With Your Business.
           </h2>
           <p className="text-[14px] sm:text-[15px] md:text-[17px] text-[var(--fg-secondary)] leading-[1.6] m-0 md:max-w-[460px] md:justify-self-end">
+            {/* Trusted by enterprises to automate GST, e-Invoicing, e-Way Bills, and vendor verification workflows.
+            Secure, scalable APIs designed for ERP, fintech, logistics, and enterprise platforms. */}
             Built on a direct GSP license from GSTN. Sandbox in 5 minutes. Production in 5 days. No resold pipes.
           </p>
         </div>
@@ -189,6 +192,7 @@ export function HubAPIsSection() {
             body="FATOORAH submission, cryptographic signing, CSID lifecycle managed for you. Bilingual Arabic-English invoice rendering. One account covers India and KSA."
             cta="Explore KSA e-Invoice API"
             tone="amber"
+            featured
             mock={<MiniKSAMock />}
             onClick={() => navigate('/apis/ksa')}
           />

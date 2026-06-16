@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { X, ChevronDown, ChevronRight, Search, Play, Loader2, AlertCircle } from 'lucide-react';
-import type { NormalizedOperation } from '../../data/openapi-spec';
-import { useSpec } from '../../contexts/SpecContext';
+import { openApiSpec, type NormalizedOperation, type NormalizedMethod, type ApiSpecKey } from '../../data/openapi-spec';
+import { useSpec, SpecContext, makeSpecContext } from '../../contexts/SpecContext';
 import { generateExampleFromSchema } from '../../utils/schemaHelpers';
 import { resolveSchema } from '../../utils/normalizeSpec';
+import { searchOps, getOpIndex } from '../../pages/developer/devSearch';
 import MethodBadge from './MethodBadge';
 import CodeExampleTabs from './CodeExampleTabs';
 import ResponseCard, { type LiveResponse } from './ResponseCard';
@@ -84,15 +85,27 @@ function ParamField({
   );
 }
 
-/* ─── Endpoint switcher dropdown ──────────────────────────────────────────── */
+/* ─── Endpoint switcher dropdown (global across all APIs) ─────────────────── */
+
+interface OpResult {
+  apiType: ApiSpecKey;
+  apiLabel: string;
+  op: NormalizedOperation;
+  method: NormalizedMethod;
+  summary: string;
+  path: string;
+}
 
 function EndpointSelect({
-  active, operations, onSelect,
+  activeApiType, activeOp, onSelect,
 }: {
-  active: NormalizedOperation; operations: NormalizedOperation[]; onSelect: (op: NormalizedOperation) => void;
+  activeApiType: ApiSpecKey;
+  activeOp: NormalizedOperation;
+  onSelect: (apiType: ApiSpecKey, op: NormalizedOperation) => void;
 }): React.ReactElement {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
+  const [debounced, setDebounced] = useState('');
   const ref = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -100,6 +113,12 @@ function EndpointSelect({
     if (open) setTimeout(() => inputRef.current?.focus(), 30);
     else setQuery('');
   }, [open]);
+
+  /* Debounce so typing stays smooth even with thousands of endpoints. */
+  useEffect(() => {
+    const t = setTimeout(() => setDebounced(query), 60);
+    return () => clearTimeout(t);
+  }, [query]);
 
   useEffect(() => {
     const handle = (e: MouseEvent) => {
@@ -109,11 +128,19 @@ function EndpointSelect({
     return () => document.removeEventListener('mousedown', handle);
   }, [open]);
 
-  const filtered = useMemo(() => {
-    const q = query.toLowerCase();
-    if (!q) return operations;
-    return operations.filter(o => o.summary.toLowerCase().includes(q) || o.path.toLowerCase().includes(q));
-  }, [operations, query]);
+  const isGlobal = debounced.trim().length > 0;
+
+  /* Empty query → browse the active API. Typing → global search across all APIs. */
+  const results = useMemo<OpResult[]>(() => {
+    if (!isGlobal) {
+      return getOpIndex()
+        .filter(e => e.apiType === activeApiType)
+        .map(e => ({ apiType: e.apiType, apiLabel: e.apiLabel, op: e.op, method: e.method, summary: e.summary, path: e.path }));
+    }
+    return searchOps(debounced, 50).map(s => ({
+      apiType: s.apiType, apiLabel: s.apiLabel, op: s.op, method: s.method, summary: s.summary, path: s.path,
+    }));
+  }, [isGlobal, debounced, activeApiType]);
 
   return (
     <div ref={ref} className="relative shrink-0">
@@ -121,46 +148,54 @@ function EndpointSelect({
         onClick={() => setOpen(o => !o)}
         className="flex items-center gap-2 w-full sm:w-[260px] px-2.5 py-2 rounded-lg border border-[var(--dp-border-strong)] bg-[var(--dp-surface)] cursor-pointer transition-colors duration-150 hover:border-[var(--dp-fg-faint)]"
       >
-        <MethodBadge method={active.method} size="sm" />
+        <MethodBadge method={activeOp.method} size="sm" />
         <span className="flex-1 min-w-0 text-left text-[13px] font-medium text-[var(--dp-fg)] truncate">
-          {active.summary}
+          {activeOp.summary}
         </span>
         <ChevronDown size={15} color="var(--dp-fg-dim)" className="shrink-0" style={{ transform: open ? 'rotate(180deg)' : 'none', transition: 'transform 0.15s' }} />
       </button>
 
       {open && (
-        <div className="absolute z-10 mt-1.5 w-[300px] max-w-[88vw] rounded-xl border border-[var(--dp-border-strong)] bg-[var(--dp-surface-2)] shadow-[0_16px_48px_rgba(0,0,0,0.4)] overflow-hidden">
+        <div className="absolute z-10 mt-1.5 w-[360px] max-w-[88vw] rounded-xl border border-[var(--dp-border-strong)] bg-[var(--dp-surface-2)] shadow-[0_16px_48px_rgba(0,0,0,0.4)] overflow-hidden">
           <div className="flex items-center gap-2 px-3 py-2.5 border-b border-[var(--dp-border)]">
             <Search size={14} color="var(--dp-fg-dim)" className="shrink-0" />
             <input
               ref={inputRef}
               value={query}
               onChange={e => setQuery(e.target.value)}
-              placeholder="Search for endpoint..."
+              placeholder="Search endpoints across all APIs..."
               className="flex-1 min-w-0 bg-transparent border-0 outline-none text-[13px] font-body text-[var(--dp-fg)] placeholder:text-[var(--dp-fg-dim)]"
             />
           </div>
-          <div className="max-h-[340px] overflow-y-auto py-1">
-            {filtered.map(op => {
-              const isActive = op.id === active.id;
+          <div className="max-h-[360px] overflow-y-auto py-1">
+            {results.map(r => {
+              const isActive = r.apiType === activeApiType && r.op.id === activeOp.id;
               return (
                 <button
-                  key={op.id}
-                  onClick={() => { onSelect(op); setOpen(false); }}
+                  key={`${r.apiType}:${r.op.id}`}
+                  onClick={() => { onSelect(r.apiType, r.op); setOpen(false); }}
                   className="w-full flex items-center gap-2.5 px-3 py-2 cursor-pointer border-0 bg-transparent text-left transition-colors duration-100 hover:bg-[var(--dp-sidebar-hover)]"
                   style={{ background: isActive ? 'var(--dp-accent-soft)' : undefined }}
                 >
-                  <MethodBadge method={op.method} size="sm" />
-                  <span className={[
-                    'flex-1 min-w-0 truncate text-[13px]',
-                    isActive ? 'text-[var(--dp-accent-2)] font-medium' : 'text-[var(--dp-fg-muted)]',
-                  ].join(' ')}>
-                    {op.summary}
+                  <MethodBadge method={r.method} size="sm" />
+                  <span className="flex-1 min-w-0">
+                    <span className={[
+                      'block truncate text-[13px]',
+                      isActive ? 'text-[var(--dp-accent-2)] font-medium' : 'text-[var(--dp-fg)]',
+                    ].join(' ')}>
+                      {r.summary}
+                    </span>
+                    <span className="block truncate text-[11px] font-[family-name:var(--dp-font-mono)] text-[var(--dp-fg-faint)]">{r.path}</span>
                   </span>
+                  {isGlobal && (
+                    <span className="shrink-0 text-[10.5px] text-[var(--dp-fg-dim)] bg-[var(--dp-surface-3)] border border-[var(--dp-border)] rounded-full px-2 py-0.5">
+                      {r.apiLabel}
+                    </span>
+                  )}
                 </button>
               );
             })}
-            {filtered.length === 0 && (
+            {results.length === 0 && (
               <div className="px-3 py-5 text-center text-[13px] text-[var(--dp-fg-dim)]">No endpoints found</div>
             )}
           </div>
@@ -200,11 +235,11 @@ function UrlComposer({ method, baseUrl, path }: { method: NormalizedOperation['m
 /* ─── Playground inner (state resets per operation via key) ───────────────── */
 
 function PlaygroundInner({
-  operation, operations, onSelectOp, onClose,
+  apiType, operation, onSelect, onClose,
 }: {
+  apiType: ApiSpecKey;
   operation: NormalizedOperation;
-  operations: NormalizedOperation[];
-  onSelectOp: (op: NormalizedOperation) => void;
+  onSelect: (apiType: ApiSpecKey, op: NormalizedOperation) => void;
   onClose: () => void;
 }): React.ReactElement {
   const { spec, baseUrl } = useSpec();
@@ -278,7 +313,7 @@ function PlaygroundInner({
     <>
       {/* ── Top bar ──────────────────────────────────────────────────────── */}
       <div className="flex flex-wrap items-center gap-2.5 px-3 sm:px-4 py-3 border-b border-[var(--dp-border)] shrink-0">
-        <EndpointSelect active={operation} operations={operations} onSelect={onSelectOp} />
+        <EndpointSelect activeApiType={apiType} activeOp={operation} onSelect={onSelect} />
         <UrlComposer method={operation.method} baseUrl={baseUrl} path={operation.path} />
         <button
           onClick={execute}
@@ -408,13 +443,15 @@ interface PlaygroundProps {
   open: boolean;
   onClose: () => void;
   operation: NormalizedOperation;
-  operations: NormalizedOperation[];
+  apiType: ApiSpecKey;
 }
 
-export default function Playground({ open, onClose, operation, operations }: PlaygroundProps): React.ReactElement | null {
-  const [activeOp, setActiveOp] = useState(operation);
+export default function Playground({ open, onClose, operation, apiType }: PlaygroundProps): React.ReactElement | null {
+  // Preserve the page's environment (baseUrl) while we swap specs per selected API.
+  const { baseUrl } = useSpec();
+  const [active, setActive] = useState<{ apiType: ApiSpecKey; op: NormalizedOperation }>({ apiType, op: operation });
 
-  useEffect(() => { if (open) setActiveOp(operation); }, [open, operation]);
+  useEffect(() => { if (open) setActive({ apiType, op: operation }); }, [open, apiType, operation]);
 
   useEffect(() => {
     const handle = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
@@ -429,6 +466,13 @@ export default function Playground({ open, onClose, operation, operations }: Pla
     }
   }, [open]);
 
+  // Spec scoped to the *selected* endpoint's API so cross-API switching resolves
+  // the right schemas, examples, and code samples.
+  const specCtx = useMemo(
+    () => makeSpecContext(openApiSpec(active.apiType), baseUrl),
+    [active.apiType, baseUrl],
+  );
+
   if (!open) return null;
 
   return (
@@ -440,13 +484,15 @@ export default function Playground({ open, onClose, operation, operations }: Pla
         className="flex flex-col w-full h-full sm:h-[90vh] sm:max-w-[1320px] sm:rounded-2xl bg-[var(--dp-bg)] border border-[var(--dp-border-strong)] shadow-[0_32px_100px_rgba(0,0,0,0.55)] overflow-hidden"
         onClick={e => e.stopPropagation()}
       >
-        <PlaygroundInner
-          key={activeOp.id}
-          operation={activeOp}
-          operations={operations}
-          onSelectOp={setActiveOp}
-          onClose={onClose}
-        />
+        <SpecContext.Provider value={specCtx}>
+          <PlaygroundInner
+            key={`${active.apiType}:${active.op.id}`}
+            apiType={active.apiType}
+            operation={active.op}
+            onSelect={(t, op) => setActive({ apiType: t, op })}
+            onClose={onClose}
+          />
+        </SpecContext.Provider>
       </div>
     </div>
   );

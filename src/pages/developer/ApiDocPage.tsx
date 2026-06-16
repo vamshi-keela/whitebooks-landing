@@ -67,7 +67,6 @@ export default function ApiDocPage({ apiType }: Props): React.ReactElement {
   const { opSlug } = useParams<{ opSlug?: string }>();
   const navigate = useNavigate();
   const [selectedEnv, setSelectedEnv] = useState<Environment>(environments[0]);
-  const [searchQuery, setSearchQuery] = useState('');
 
   const { slug: apiSlug, label: apiLabel, description: apiDesc } = API_CONFIG[apiType];
 
@@ -103,26 +102,9 @@ export default function ApiDocPage({ apiType }: Props): React.ReactElement {
     },
   ];
 
-  const filteredGroups = useMemo(() => {
-    if (!searchQuery) return groups;
-    const q = searchQuery.toLowerCase();
-    return groups
-      .map(g => ({
-        ...g,
-        operations: g.operations.filter(
-          op =>
-            op.path.toLowerCase().includes(q) ||
-            op.summary.toLowerCase().includes(q) ||
-            op.tag.toLowerCase().includes(q) ||
-            (op.description?.toLowerCase().includes(q) ?? false),
-        ),
-      }))
-      .filter(g => g.operations.length > 0);
-  }, [groups, searchQuery]);
-
   const visibleOps = useMemo(
-    () => filteredGroups.flatMap(g => g.operations),
-    [filteredGroups],
+    () => groups.flatMap(g => g.operations),
+    [groups],
   );
 
   const selectedIdx = selectedOp
@@ -210,8 +192,8 @@ export default function ApiDocPage({ apiType }: Props): React.ReactElement {
       return (
         <div className="flex flex-col items-center pt-24 gap-3 text-[var(--dp-fg-muted)]">
           <Search size={32} color="var(--dp-fg-faint)" />
-          <div className="text-base font-semibold text-[var(--dp-fg)]">No results</div>
-          <div className="text-sm">No endpoints match &ldquo;{searchQuery}&rdquo;</div>
+          <div className="text-base font-semibold text-[var(--dp-fg)]">No endpoints</div>
+          <div className="text-sm">This API has no endpoints to display.</div>
         </div>
       );
     }
@@ -220,7 +202,7 @@ export default function ApiDocPage({ apiType }: Props): React.ReactElement {
       return (
         <OperationDetail
           operation={selectedOp}
-          operations={operations}
+          apiType={apiType}
           hasPrev={selectedIdx > 0}
           hasNext={selectedIdx < visibleOps.length - 1}
           onPrev={goPrev}
@@ -275,9 +257,7 @@ export default function ApiDocPage({ apiType }: Props): React.ReactElement {
 
         <div className="flex min-h-[calc(100vh-100px)]">
           <ApiSidebar
-            groups={filteredGroups}
-            searchQuery={searchQuery}
-            onSearchChange={setSearchQuery}
+            groups={groups}
             selectedOpId={selectedOpId}
             onSelect={handleSelect}
             staticGroups={staticGroups}

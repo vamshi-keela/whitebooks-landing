@@ -24,6 +24,13 @@ import { useReveal } from '@/hooks/useReveal';
 import DevPortal from '@/pages/developer/DevPortal';
 import ApiDocPage from '@/pages/developer/ApiDocPage';
 import DpHome from '@/pages/developer/DpHome';
+import GuidesLayout from '@/pages/developer/guides/GuidesLayout';
+import GuideOverview from '@/pages/developer/guides/Overview';
+import GuideQuickstart from '@/pages/developer/guides/Quickstart';
+import GuideAuthentication from '@/pages/developer/guides/Authentication';
+import GuideErrors from '@/pages/developer/guides/Errors';
+import ApiReferenceLanding from '@/pages/developer/ApiReferenceLanding';
+import Changelog from '@/pages/developer/Changelog';
 import { PartnerWithUs } from '@/pages/resources/PartnerWithUs';
 import { SupportPage } from '@/pages/resources/Support';
 import { VideosPage } from '@/pages/resources/Videos';
@@ -241,7 +248,7 @@ function ServicesHubRoute() {
 }
 
 function DevPortalIndex() {
-  return <Navigate to="/developer/gst-api" replace />;
+  return <Navigate to="/developer/overview" replace />;
 }
 
 /* ─── AppRouter ──────────────────────────────────────────────────────────── */
@@ -275,8 +282,19 @@ export function AppRouter() {
 
         {/* ── Developer portal (nested layout) ─────────────────────── */}
         <Route path="/developer" element={<DevPortal />}>
-          {/* /developer → redirect to first API */}
+          {/* /developer → docs overview */}
           <Route index element={<DevPortalIndex />} />
+
+          {/* Tab 1 — Guides */}
+          <Route element={<GuidesLayout />}>
+            <Route path="overview" element={<GuideOverview />} />
+            <Route path="quickstart" element={<GuideQuickstart />} />
+            <Route path="authentication" element={<GuideAuthentication />} />
+            <Route path="errors" element={<GuideErrors />} />
+          </Route>
+
+          {/* Tab 2 — API Reference */}
+          <Route path="api-reference" element={<ApiReferenceLanding />} />
 
           {/* GST API */}
           <Route path="gst-api" element={<ApiDocPage apiType="gst-api" />} />
@@ -293,6 +311,9 @@ export function AppRouter() {
           {/* KSA e-Invoice API */}
           <Route path="ksa-e-invoice-api" element={<ApiDocPage apiType="ksa-e-invoice-api" />} />
           <Route path="ksa-e-invoice-api/:opSlug" element={<ApiDocPage apiType="ksa-e-invoice-api" />} />
+
+          {/* Tab 3 — Changelog */}
+          <Route path="changelog" element={<Changelog />} />
         </Route>
 
         {/* ── Fallback ──────────────────────────────────────────────── */}

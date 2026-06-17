@@ -5,15 +5,17 @@ import { SectionLabel } from '@/components/ui/SectionLabel';
 import { cn } from '@/lib/cn';
 import {
   PillarCard,
-  MiniReconMock,
+  ProductPillarCard,
   MiniEinvoiceMock,
-  MiniEwayMock,
-  MiniAccountingMock,
   MiniKSAMock,
   MiniGstApiMock,
   MiniEwayApiMock,
 } from '@/sections/PillarCards';
 import type { RouteKey } from '@/hooks/useHashRoute';
+import gstDashboard from '@/assets/product-images/gst-software/gst-dashboard-1.png';
+import einvoiceDashboard from '@/assets/product-images/e-invoice-software/e-invoice-dashboard.png';
+import ewayDashboard from '@/assets/product-images/e-way-bill-software/e-way-bill-dashboard.png';
+import accountingDashboard from '@/assets/product-images/softwares/whitebooks_softwares_1.png';
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
@@ -76,56 +78,70 @@ export function HubSection({ tab, setTab, navigate }: HubSectionProps) {
           </p>
         </div>
 
-        {/* Card grid
-            mobile  (< 640):  1 column — cards stack cleanly
-            tablet  (640–1023): 2 columns — featured spans full width
-            desktop (1024+):  3 columns — featured spans 2 */}
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3 grid-flow-dense">
-          <PillarCard
+        {/* Card grid — uniform, equal-weight cards
+            mobile  (< 1024): 1 column — cards stack cleanly
+            desktop (1024+):  2 columns
+            The 5th card spans the full row (wide) so the trailing row reads
+            as intentional rather than a half-empty orphan. */}
+        <div className="grid grid-cols-1 gap-4 sm:gap-5 lg:grid-cols-2 lg:gap-6">
+          <ProductPillarCard
             tag="GST Software"
             title="GST filing that thinks before you click submit."
-            body="File GSTR-1, 3B, 9, and 9C across unlimited GSTINs from one workspace. Auto-reconcile 2A/2B against your purchase register in under 60 seconds."
+            body="File GSTR-1, 3B, 9, and 9C across unlimited GSTINs from one workspace. Auto-reconcile 2A/2B against your purchase register."
             cta="Explore GST Software"
             tone="pink"
-            featured
-            mock={<MiniReconMock />}
+            metricValue="< 60s"
+            metricLabel="2A/2B reconciliation"
+            image={gstDashboard}
+            imageAlt="WhiteBooks GST software dashboard"
             onClick={() => navigate('gst-soft')}
           />
-          <PillarCard
+          <ProductPillarCard
             tag="e-Invoicing"
             title="IRNs, sub-second."
-            body="Direct IRP integration. Bulk upload, auto-retry, audit trail. p50 latency under 200ms."
+            body="Direct IRP integration with bulk upload, auto-retry, and a full audit trail on every invoice."
             cta="Explore e-Invoicing"
             tone="violet"
-            mock={<MiniEinvoiceMock />}
+            metricValue="< 200ms"
+            metricLabel="p50 IRN latency"
+            image={einvoiceDashboard}
+            imageAlt="WhiteBooks e-Invoicing software dashboard"
             onClick={() => navigate('einvoice-soft')}
           />
-          <PillarCard
+          <ProductPillarCard
             tag="e-Way Bills"
             title="Generate, extend, cancel."
-            body="One screen or one API call. Auto-populated from invoice. Real-time validity check."
+            body="One screen or one API call. Auto-populated from your invoice, with real-time validity checks."
             cta="Explore e-Way Bills"
             tone="blue"
-            mock={<MiniEwayMock />}
+            metricValue="90%"
+            metricLabel="fields auto-filled"
+            image={ewayDashboard}
+            imageAlt="WhiteBooks e-Way Bill software dashboard"
             onClick={() => navigate('eway-soft')}
           />
-          <PillarCard
+          <ProductPillarCard
             tag="Accounting"
             title="Books that journal themselves."
             body="Cloud-native books with automated entries from your sales and purchase data. No accountant to enter, one to certify."
             cta="Explore Accounting"
             tone="cyan"
-            mock={<MiniAccountingMock />}
+            metricValue="₹4.2Cr"
+            metricLabel="auto-journalled · 0 manual"
+            image={accountingDashboard}
+            imageAlt="WhiteBooks accounting software dashboard"
             onClick={() => navigate('accounting')}
           />
-          <PillarCard
+          <ProductPillarCard
             tag="KSA e-Invoicing"
             title="ZATCA-approved, same platform."
-            body="One of the few GSPs operating KSA e-invoicing. Real-time clearance, cryptographic stamp."
+            body="One of the few GSPs operating KSA e-invoicing — real-time clearance and cryptographic stamping, all from the same account you use for India."
             cta="Explore KSA"
             tone="amber"
-            mock={<MiniKSAMock />}
+            metricValue="100%"
+            metricLabel="real-time ZATCA clearance"
             onClick={() => navigate('ksa-soft')}
+            wide
           />
         </div>
 
@@ -156,16 +172,19 @@ export function HubAPIsSection() {
           </p>
         </div>
 
-        {/* Card grid — same asymmetric 3-column layout as software hub */}
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3 grid-flow-dense">
+        {/* Card grid — uniform, equal-weight cards: 1 column on mobile,
+            2 columns from lg (4 cards → clean 2×2). */}
+        <div className="grid grid-cols-1 gap-4 sm:gap-5 lg:grid-cols-2 lg:gap-6">
           <PillarCard
             tag="GST API"
             title="File returns. Pull 2A/2B. Validate GSTINs."
             body="JSON in, ARN out. GSTR-1, 3B, 9, 9C — all supported. GSTIN validation, HSN search, IMS bulk ops, and notice tracking over clean REST endpoints."
             cta="Explore GST API"
             tone="pink"
-            featured
             mock={<MiniGstApiMock />}
+            sandboxLabel="Access Free Sandbox"
+            exploreLabel="Explore GST API"
+            onExplore={() => navigate('/developer/gst-api')}
             onClick={() => navigate('/apis/gst')}
           />
           <PillarCard
@@ -175,6 +194,9 @@ export function HubAPIsSection() {
             cta="Explore e-Invoice API"
             tone="violet"
             mock={<MiniEinvoiceMock />}
+            sandboxLabel="Access Free Sandbox"
+            exploreLabel="Explore e-Invoice API"
+            onExplore={() => navigate('/developer/e-invoice-api')}
             onClick={() => navigate('/apis/e-invoice')}
           />
           <PillarCard
@@ -184,6 +206,9 @@ export function HubAPIsSection() {
             cta="Explore e-Way Bill API"
             tone="blue"
             mock={<MiniEwayApiMock />}
+            sandboxLabel="Access Free Sandbox"
+            exploreLabel="Explore e-Way Bill API"
+            onExplore={() => navigate('/developer/e-way-bill-api')}
             onClick={() => navigate('/apis/e-way-bill')}
           />
           <PillarCard
@@ -192,8 +217,10 @@ export function HubAPIsSection() {
             body="FATOORAH submission, cryptographic signing, CSID lifecycle managed for you. Bilingual Arabic-English invoice rendering. One account covers India and KSA."
             cta="Explore KSA e-Invoice API"
             tone="amber"
-            featured
             mock={<MiniKSAMock />}
+            sandboxLabel="Access Free Sandbox"
+            exploreLabel="Explore KSA e-Invoice API"
+            onExplore={() => navigate('/developer/ksa-e-invoice-api')}
             onClick={() => navigate('/apis/ksa')}
           />
         </div>

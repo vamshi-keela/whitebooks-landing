@@ -183,7 +183,7 @@ export function HubAPIsSection() {
             tone="pink"
             mock={<MiniGstApiMock />}
             sandboxLabel="Access Free Sandbox"
-            exploreLabel="Explore GST API"
+            exploreLabel="Read API Docs"
             onExplore={() => navigate('/developer/gst-api')}
             onClick={() => navigate('/apis/gst')}
           />
@@ -195,7 +195,7 @@ export function HubAPIsSection() {
             tone="violet"
             mock={<MiniEinvoiceMock />}
             sandboxLabel="Access Free Sandbox"
-            exploreLabel="Explore e-Invoice API"
+            exploreLabel="Read API Docs"
             onExplore={() => navigate('/developer/e-invoice-api')}
             onClick={() => navigate('/apis/e-invoice')}
           />
@@ -207,7 +207,7 @@ export function HubAPIsSection() {
             tone="blue"
             mock={<MiniEwayApiMock />}
             sandboxLabel="Access Free Sandbox"
-            exploreLabel="Explore e-Way Bill API"
+            exploreLabel="Read API Docs"
             onExplore={() => navigate('/developer/e-way-bill-api')}
             onClick={() => navigate('/apis/e-way-bill')}
           />
@@ -219,7 +219,7 @@ export function HubAPIsSection() {
             tone="amber"
             mock={<MiniKSAMock />}
             sandboxLabel="Access Free Sandbox"
-            exploreLabel="Explore KSA e-Invoice API"
+            exploreLabel="Read API Docs"
             onExplore={() => navigate('/developer/ksa-e-invoice-api')}
             onClick={() => navigate('/apis/ksa')}
           />

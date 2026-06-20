@@ -5,6 +5,8 @@ import { Header, Footer } from '@/layouts/SiteShell';
 import { Hero, LogoWall } from '@/sections/WbHero';
 import { HubAPIsSection, HubSection } from '@/sections/WbHubs';
 import { ConnectorsSection } from '@/sections/ConnectorsSection';
+import { WhyWhitebooks } from '@/sections/WhyWhitebooks';
+import { ExploreShowcase } from '@/sections/ExploreShowcase';
 import { ProblemSection } from '@/sections/WbProblem';
 import { FinanceTeamsSection } from '@/sections/WbFinanaceTeams';
 import ClosingCTA from '@/components/ui/ClosingCTA';
@@ -57,6 +59,7 @@ import {
 } from '@/seo/schema/generators';
 import type { SchemaFaqItem } from '@/seo/types';
 import ApiSuitePage from '@/pages/apis/ApiSuitePage';
+import WbTrust from '@/sections/WbTrust';
 
 /* ─── Slug maps ─────────────────────────────────────────────────────────── */
 
@@ -142,12 +145,15 @@ function HomeRoute() {
         <HubSection tab={tab} setTab={setTab} navigate={navigate} />
         <HubAPIsSection />
         <ConnectorsSection />
+        <WhyWhitebooks />
+        <ExploreShowcase />
+        <WbTrust />
         <ProblemSection />
         <FinanceTeamsSection />
         <ForDevelopersSection />
         <AILayerSection />
         <ProofSection />
-        <KSASection />
+        {/* <KSASection /> */}
         <FAQSection />
         <ClosingCTA
           eyebrow="One platform"

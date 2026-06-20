@@ -122,18 +122,48 @@ export function BrandLogo({ logo, className }: BrandLogoProps) {
 
 // ─── LogoWallCarousel ─────────────────────────────────────────────────────────
 
-export function LogoWallCarousel() {
+interface LogoWallCarouselProps {
+  /** Optional centered eyebrow above the logos (e.g. "Trusted by 3,000+ finance teams"). */
+  caption?: string;
+}
+
+/** Splits the registry into two balanced rows for the dual-marquee layout. */
+function splitRows<T>(items: T[]): [T[], T[]] {
+  const mid = Math.ceil(items.length / 2);
+  return [items.slice(0, mid), items.slice(mid)];
+}
+
+/**
+ * A single marquee row. Renders the logos twice so a translateX(-50%) loop
+ * is perfectly seamless. `reverse` scrolls the row in the opposite direction.
+ */
+function TickerRow({ logos, reverse }: { logos: LogoEntry[]; reverse?: boolean }) {
   return (
     <div className="wb-logos-wrap">
-      {/* Two identical copies so translateX(-50%) loops seamlessly */}
-      <div className="wb-ticker" aria-label="Our clients" role="list">
-        {LOGOS.map((l) => (
+      <div
+        className={`wb-ticker${reverse ? ' reverse' : ''}`}
+        role="list"
+        aria-hidden={reverse ? true : undefined}
+      >
+        {logos.map((l) => (
           <BrandLogo key={`a-${l.key}`} logo={l} />
         ))}
-        {LOGOS.map((l) => (
+        {logos.map((l) => (
           <BrandLogo key={`b-${l.key}`} logo={l} />
         ))}
       </div>
+    </div>
+  );
+}
+
+export function LogoWallCarousel({ caption }: LogoWallCarouselProps) {
+  const [row1, row2] = splitRows(LOGOS);
+
+  return (
+    <div className="wb-logos" aria-label="Our clients">
+      {caption && <p className="wb-logos-caption">{caption}</p>}
+      <TickerRow logos={row1} />
+      <TickerRow logos={row2} reverse />
     </div>
   );
 }

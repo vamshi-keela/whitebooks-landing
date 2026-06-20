@@ -1685,43 +1685,80 @@ img {
 }
 
 /* ---------- Logo wall ---------- */
-.wb-logos-wrap {
-  padding-left: 32px;
-  padding-right: 32px;
-  position: relative;
-  overflow: hidden;
-  background-color: var(--bg-2);
-  contain: layout style;
+/* Dual-row marquee. Outer stacks the optional caption + two ticker rows that
+   scroll in opposite directions for a balanced, premium feel.               */
+.wb-logos {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
 }
 
-.wb-logos-wrap::before,
-.wb-logos-wrap::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 140px;
-  z-index: 2;
-  pointer-events: none;
+.wb-logos-caption {
+  margin: 0 auto 6px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-tertiary, rgba(255, 255, 255, 0.45));
+}
+
+.wb-logos-wrap {
+  position: relative;
+  overflow: hidden;
+  contain: layout style;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 12%,
+    #000 88%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 12%,
+    #000 88%,
+    transparent 100%
+  );
 }
 
 .wb-ticker {
   display: flex;
-  gap: 40px;
+  align-items: center;
+  gap: 64px;
   width: max-content;
-  height: 100px;
-  padding: 14px 0;
-  animation: wb-scroll-l 38s linear infinite;
+  height: 64px;
+  animation: wb-scroll-l 46s linear infinite;
   will-change: transform;
   transform: translateZ(0);
 }
 
+/* Second row drifts the other way, slightly slower for visual depth. */
 .wb-ticker.reverse {
   animation-name: wb-scroll-r;
+  animation-duration: 54s;
 }
 
-.wb-ticker:hover {
+.wb-logos:hover .wb-ticker {
   animation-play-state: paused;
+}
+
+@media (max-width: 768px) {
+  .wb-ticker {
+    gap: 44px;
+    height: 52px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wb-ticker {
+    animation: none;
+    /* Pull the duplicated copy out of view so only one clean set shows. */
+    transform: translateX(0);
+  }
 }
 
 @keyframes wb-scroll-l {
@@ -1763,12 +1800,12 @@ img {
 .wb-logo img {
   /* Height drives the size; width auto-follows to preserve aspect ratio.
      clamp gives a gentle responsive range without media-query breakpoints. */
-  height: clamp(32px, 3.4vw, 40px);
+  height: clamp(28px, 3vw, 34px);
   width: auto;
   /* Guarantees narrow logos (icon-only marks) stay legible */
   min-width: 30px;
   /* Caps very wide wordmarks without squishing them */
-  max-width: 160px;
+  max-width: 150px;
   object-fit: contain;
   display: block;
   /* Prevent layout shift by reserving height before the image loads */
@@ -1784,7 +1821,7 @@ img {
    brightness(0) collapses all colours to black, invert(1) flips to white,
    giving a crisp light ghost that reads on the dark background.            */
 .wb-logo.wb-logo-v-dark img {
-  filter: brightness(0) invert(1) opacity(0.38);
+  filter: brightness(0) invert(1) opacity(0.55);
 }
 
 .wb-logo.wb-logo-v-dark:hover img {
@@ -1794,7 +1831,7 @@ img {
 /* 'light' variant — logos whose fills are white/near-white.
    They are already bright on the dark background; just dim for consistency. */
 .wb-logo.wb-logo-v-light img {
-  filter: opacity(0.38);
+  filter: opacity(0.55);
 }
 
 .wb-logo.wb-logo-v-light:hover img {
@@ -1805,7 +1842,7 @@ img {
    Grayscale reduces them to a neutral mid-grey that sits equally on both
    themes; full colours restore on hover.                                   */
 .wb-logo.wb-logo-v-color img {
-  filter: grayscale(1) opacity(0.45);
+  filter: grayscale(1) opacity(0.6);
 }
 
 .wb-logo.wb-logo-v-color:hover img {
@@ -1827,7 +1864,7 @@ img {
 
 /* 'dark' variant in light mode — black logos naturally visible; just mute. */
 [data-theme="light"] .wb-logo.wb-logo-v-dark img {
-  filter: grayscale(1) opacity(0.42);
+  filter: grayscale(1) opacity(0.55);
 }
 
 [data-theme="light"] .wb-logo.wb-logo-v-dark:hover img {
@@ -1837,7 +1874,7 @@ img {
 /* 'light' variant in light mode — white logos invisible on white bg.
    brightness(0) makes everything black, giving a readable dark ghost.      */
 [data-theme="light"] .wb-logo.wb-logo-v-light img {
-  filter: brightness(0) opacity(0.32);
+  filter: brightness(0) opacity(0.5);
 }
 
 [data-theme="light"] .wb-logo.wb-logo-v-light:hover img {
@@ -1846,7 +1883,7 @@ img {
 
 /* 'color' variant in light mode */
 [data-theme="light"] .wb-logo.wb-logo-v-color img {
-  filter: grayscale(1) opacity(0.42);
+  filter: grayscale(1) opacity(0.58);
 }
 
 [data-theme="light"] .wb-logo.wb-logo-v-color:hover img {
@@ -2142,6 +2179,13 @@ img {
   }
 }
 
+@media (max-width: 980px) {
+  .wb-stats__trust-row {
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(18px, 3vw, 28px) clamp(18px, 3vw, 32px);
+  }
+}
+
 @media (max-width: 720px) {
   .wb-stats__bar {
     grid-template-columns: repeat(2, 1fr);
@@ -2156,8 +2200,147 @@ img {
   }
 }
 
+@media (max-width: 560px) {
+  .wb-stats__trust-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .wb-stats__gradient {
+    animation: none;
+  }
+}
+
+/* ---------- Compliance & Security KPIs (WbTrust) ---------- */
+.wb-trust {
+  width: 100%;
+  padding-block: clamp(48px, 7vw, 88px);
+
+  /* gradient-clipped numbers — dark text on light theme, bright on dark */
+  --tr-grad: linear-gradient(180deg, #1c1e40 0%, #dc2f65 135%);
+}
+
+[data-theme="dark"] .wb-trust {
+  --tr-grad: linear-gradient(180deg, #ffffff 0%, #c9b9f5 100%);
+}
+
+/* bento card ---------------------------------------------------- */
+.wb-trust-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: clamp(120px, 14vw, 158px);
+  padding: clamp(18px, 2.4vw, 30px);
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  background: var(--bg-2);
+  overflow: hidden;
+  transition: transform 0.18s ease, border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+/* soft brand glow on hover, echoing the product cards */
+.wb-trust-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 90% at 100% 0%,
+      rgba(220, 47, 101, 0.07), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.wb-trust-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--brand-border);
+  box-shadow: 0 16px 40px -22px rgba(220, 47, 101, 0.35);
+}
+
+.wb-trust-card:hover::before {
+  opacity: 1;
+}
+
+.wb-trust-num {
+  width: max-content;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(28px, 3.2vw, 46px);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  background: var(--tr-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.wb-trust-lbl {
+  margin-top: 10px;
+  max-width: 22ch;
+  font-family: var(--font-body);
+  font-size: clamp(12.5px, 1.05vw, 15px);
+  line-height: 1.4;
+  color: var(--muted-2);
+}
+
+/* aurora feature tile ------------------------------------------ */
+.wb-trust-feature {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: clamp(220px, 30vw, 340px);
+  padding: clamp(22px, 2.6vw, 34px);
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* deep plum→pink aurora so the white headline reads in either theme */
+.wb-trust-feature__bg {
+  position: absolute;
+  inset: -16%;
+  z-index: -1;
+  background:
+    radial-gradient(78% 60% at 22% 116%,
+      rgba(220, 47, 101, 0.6) 0%, rgba(220, 47, 101, 0) 58%),
+    radial-gradient(130% 110% at 72% -12%,
+      #5a1b46 0%, #341635 38%, #1c1426 72%, #161019 100%);
+  animation: wbStatsDrift 18s ease-in-out infinite alternate;
+  will-change: transform, filter;
+}
+
+.wb-trust-feature__eyebrow {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.wb-trust-feature__num {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(40px, 5vw, 66px);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: #fff;
+}
+
+.wb-trust-feature__lbl {
+  display: block;
+  margin-top: 10px;
+  font-family: var(--font-body);
+  font-size: clamp(13px, 1.1vw, 16px);
+  color: rgba(255, 255, 255, 0.72);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wb-trust-feature__bg {
     animation: none;
   }
 }
@@ -6730,5 +6913,27 @@ img {
 
   to {
     stroke-dashoffset: 0;
+  }
+}
+
+/* Hidden scrollbar for the connector carousel — progress is shown via dots */
+.wb-hscroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.wb-hscroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* Very subtle drift on the connector data dot — gentle, homepage-calm */
+@keyframes wb-conn-dot {
+  0%, 100% { opacity: 0.35; }
+  50%      { opacity: 0.9; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wb-conn-dot {
+    animation: none;
   }
 }

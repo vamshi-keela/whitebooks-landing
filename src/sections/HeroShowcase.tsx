@@ -16,21 +16,32 @@ import {
 
 const BRAND = "#dc2f65";
 
-// Near-black glass card with prominent pink glass-edge highlight on top/left.
-// The inset top shadow simulates the "glass catching light" look from the comp.
+// Near-black glass card with a soft pink top-edge highlight and a faint
+// radial glow at the top — matches the "glass catching light" look in the comp.
 const cardSurface: React.CSSProperties = {
-  background:
-    "linear-gradient(155deg, rgba(14,8,18,0.94) 0%, rgba(5,2,10,0.97) 100%)",
-  border: "1px solid rgba(220,47,101,0.28)",
+  background: [
+    "radial-gradient(120% 78% at 50% 0%, rgba(220,47,101,0.16) 0%, rgba(220,47,101,0) 46%)",
+    "linear-gradient(155deg, rgba(15,8,19,0.95) 0%, rgba(6,2,11,0.98) 100%)",
+  ].join(", "),
+  border: "1px solid rgba(220,47,101,0.26)",
   boxShadow: [
-    "inset 0 1px 0 rgba(255,100,150,0.52)",     // glass top edge
-    "inset 1px 0 0 rgba(255,80,135,0.18)",       // glass left edge
-    "inset -1px 0 0 rgba(220,47,101,0.06)",      // faint right edge
-    "0 12px 44px rgba(0,0,0,0.62)",              // deep drop shadow
-    "0 0 28px rgba(220,47,101,0.09)",            // pink ambient glow
+    "inset 0 1px 0 rgba(255,110,155,0.5)", // glass top edge
+    "inset 1px 0 0 rgba(255,90,140,0.16)", // glass left edge
+    "inset -1px 0 0 rgba(220,47,101,0.05)", // faint right edge
+    "0 12px 44px rgba(0,0,0,0.62)", // deep drop shadow
+    "0 0 28px rgba(220,47,101,0.08)", // pink ambient glow
   ].join(", "),
   backdropFilter: "blur(20px)",
   WebkitBackdropFilter: "blur(20px)",
+};
+
+// Subdued dark-glass tile used for the stats card + API strip icons.
+const darkTile: React.CSSProperties = {
+  background:
+    "linear-gradient(155deg, rgba(64,14,32,0.92) 0%, rgba(28,8,16,0.96) 100%)",
+  border: "1px solid rgba(220,47,101,0.42)",
+  boxShadow:
+    "inset 0 1px 0 rgba(255,120,160,0.28), 0 0 18px rgba(220,47,101,0.28)",
 };
 
 interface ProductCard {
@@ -129,6 +140,7 @@ const APIS: ApiItem[] = [
   { icon: Code2, title: "Developer Friendly", sub: "Swagger Docs, SDKs, Sandbox" },
 ];
 
+// Bright solid-pink tile — used for product card headers.
 function IconTile({
   icon: Icon,
   className = "",
@@ -143,6 +155,26 @@ function IconTile({
       className={`flex shrink-0 items-center justify-center bg-gradient-to-br from-[#ff5a8e] to-[#dc2f65] shadow-[0_6px_18px_rgba(220,47,101,0.45)] ring-1 ring-[rgba(255,255,255,0.15)] ${className}`}
     >
       <Icon className={`text-white ${iconClassName}`} strokeWidth={2.1} />
+    </span>
+  );
+}
+
+// Subdued dark-glass tile with a pink icon — stats + API strip.
+function DarkIconTile({
+  icon: Icon,
+  className = "",
+  iconClassName = "",
+}: {
+  icon: LucideIcon;
+  className?: string;
+  iconClassName?: string;
+}) {
+  return (
+    <span
+      style={darkTile}
+      className={`flex shrink-0 items-center justify-center ${className}`}
+    >
+      <Icon className={iconClassName} color="#ff6a96" strokeWidth={2.1} />
     </span>
   );
 }
@@ -201,28 +233,28 @@ function StatsGlassCard() {
   return (
     <div
       style={cardSurface}
-      className="relative flex h-full flex-col justify-center rounded-[20px] p-4 transition-transform duration-300 hover:-translate-y-1"
+      className="relative flex flex-col justify-center rounded-[20px] p-4 transition-transform duration-300 hover:-translate-y-1"
     >
       <ul className="flex flex-col">
         {STATS.map((stat, i) => (
           <li
             key={stat.label}
-            className={`flex items-center gap-3 py-3 first:pt-0 last:pb-0 ${
+            className={`flex items-center gap-3 py-3.5 first:pt-0 last:pb-0 ${
               i < STATS.length - 1
                 ? "border-b border-[rgba(255,255,255,0.07)]"
                 : ""
             }`}
           >
-            <IconTile
+            <DarkIconTile
               icon={stat.icon}
-              className="h-10 w-10 rounded-full"
+              className="h-11 w-11 rounded-full"
               iconClassName="h-[19px] w-[19px]"
             />
-            <div>
-              <div className="font-display text-[22px] font-bold leading-none tracking-tight text-[#ff4f86]">
+            <div className="min-w-0">
+              <div className="font-display text-[22px] font-bold leading-none tracking-tight text-[#ff4f86] whitespace-nowrap">
                 {stat.value}
               </div>
-              <div className="mt-0.5 text-[12px] leading-tight text-white/68">
+              <div className="mt-1 text-[12px] leading-tight text-white/68">
                 {stat.label}
               </div>
             </div>
@@ -253,7 +285,7 @@ function ApiStrip() {
               i > 0 ? "lg:border-l lg:border-[rgba(255,255,255,0.07)]" : ""
             }`}
           >
-            <IconTile
+            <DarkIconTile
               icon={api.icon}
               className="h-10 w-10 shrink-0 rounded-xl"
               iconClassName="h-[18px] w-[18px]"
@@ -273,41 +305,73 @@ function ApiStrip() {
   );
 }
 
+// Dashed constellation ring + branch lines that link the cards to the centre.
+function ConnectorWeb() {
+  return (
+    <svg
+      viewBox="0 0 600 480"
+      fill="none"
+      aria-hidden
+      className="absolute left-1/2 top-1/2 hidden h-[118%] w-[172%] -translate-x-1/2 -translate-y-1/2 overflow-visible xl:block"
+    >
+      {/* dashed ring around the person */}
+      <circle
+        cx="300"
+        cy="240"
+        r="150"
+        stroke="rgba(220,47,101,0.32)"
+        strokeWidth="1.5"
+        strokeDasharray="5 8"
+      />
+
+      {/* branch lines toward the four inner cards */}
+      <g stroke="rgba(220,47,101,0.4)" strokeWidth="1.5" strokeDasharray="4 7">
+        <line x1="177" y1="154" x2="48" y2="64" />
+        <line x1="423" y1="154" x2="552" y2="64" />
+        <line x1="150" y1="240" x2="20" y2="240" />
+        <line x1="450" y1="240" x2="580" y2="240" />
+      </g>
+
+      {/* dots where the branches touch the ring */}
+      <g fill="#ff5a8e">
+        <circle cx="177" cy="154" r="3.5" />
+        <circle cx="423" cy="154" r="3.5" />
+        <circle cx="150" cy="240" r="3.5" />
+        <circle cx="450" cy="240" r="3.5" />
+      </g>
+
+      {/* glowing dots at the card-facing ends */}
+      <g
+        fill="#ff5a8e"
+        style={{ filter: "drop-shadow(0 0 6px rgba(220,47,101,0.9))" }}
+      >
+        <circle cx="48" cy="64" r="5" />
+        <circle cx="552" cy="64" r="5" />
+        <circle cx="20" cy="240" r="5" />
+        <circle cx="580" cy="240" r="5" />
+      </g>
+    </svg>
+  );
+}
+
 function PersonStage() {
   return (
-    <div className="relative flex min-h-[260px] items-end justify-center sm:min-h-[320px] xl:min-h-0 xl:h-full">
+    <div className="relative flex min-h-[300px] items-end justify-center sm:min-h-[360px] xl:h-full xl:min-h-0">
       {/* Soft brand glow */}
       <div
         aria-hidden
-        className="absolute bottom-[4%] left-1/2 h-[78%] w-[76%] -translate-x-1/2 rounded-[46%] bg-[#dc2f65] opacity-28 blur-[80px]"
+        className="absolute bottom-[4%] left-1/2 h-[80%] w-[78%] -translate-x-1/2 rounded-[46%] bg-[#dc2f65] opacity-30 blur-[84px]"
       />
       <div
         aria-hidden
-        className="absolute bottom-[14%] left-1/2 h-[46%] w-[50%] -translate-x-1/2 rounded-full bg-[#ff3d77] opacity-38 blur-[60px]"
+        className="absolute bottom-[12%] left-1/2 h-[50%] w-[54%] -translate-x-1/2 rounded-full bg-[#ff3d77] opacity-40 blur-[64px]"
       />
 
-      {/* Dashed connector ring (desktop only) */}
-      <div
-        aria-hidden
-        className="absolute left-1/2 top-1/2 hidden aspect-square w-[118%] max-w-none -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-[rgba(220,47,101,0.25)] xl:block"
-      >
-        {[
-          "left-[6%] top-[20%]",
-          "right-[6%] top-[20%]",
-          "left-[0%] top-1/2",
-          "right-[0%] top-1/2",
-          "left-[10%] bottom-[16%]",
-          "right-[10%] bottom-[16%]",
-        ].map((pos) => (
-          <span
-            key={pos}
-            className={`absolute h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ff5a8e] shadow-[0_0_10px_rgba(220,47,101,0.8)] ${pos}`}
-          />
-        ))}
-      </div>
+      {/* Dashed connector constellation (desktop only) */}
+      <ConnectorWeb />
 
       {/* Human image slot */}
-      <div className="relative z-10 flex aspect-[3/4] w-[72%] max-w-[260px] items-center justify-center rounded-2xl border border-dashed border-white/35 bg-white/[0.04] backdrop-blur-sm">
+      <div className="relative z-10 flex aspect-[3/4] w-[78%] max-w-[280px] items-center justify-center rounded-2xl border border-dashed border-white/35 bg-white/[0.04] backdrop-blur-sm">
         <span className="px-4 text-center text-[11px] font-medium uppercase tracking-[0.15em] text-white/75">
           Human image
           <br />
@@ -324,11 +388,13 @@ export default function HeroShowcase() {
   return (
     <div className="relative z-10 mx-auto mt-10 w-full max-w-[1500px] px-4 pb-20 md:mt-14 md:px-6">
       {/* ── Desktop constellation ──────────────────────────────────────────── */}
-      {/* items-start so each card shrinks to its own content height; stats
-          card uses self-stretch to fill the two-row span naturally. */}
-      <div className="hidden xl:grid xl:grid-cols-[0.82fr_1.32fr_0.78fr_1.32fr_1fr] xl:items-start xl:gap-x-4 xl:gap-y-3">
-        {/* Stats — spans both rows, so stretch to fill that height */}
-        <div className="col-start-1 row-start-1 row-end-3 self-stretch">
+      {/* Columns: stats · GST/E-Way · person · Accounting/E-Invoice · KSA.
+          items-start so each card shrinks to its own content height; the stats
+          card spans both rows but sits at the bottom of that span (self-end),
+          matching the comp. */}
+      <div className="hidden xl:grid xl:grid-cols-[1fr_1.45fr_1.45fr_1.45fr_1.15fr] xl:items-start xl:gap-x-4 xl:gap-y-3">
+        {/* Stats — spans both rows, bottom-aligned within the span */}
+        <div className="col-start-1 row-start-1 row-end-3 self-end">
           <StatsGlassCard />
         </div>
 

@@ -678,6 +678,29 @@ export function PillarCard({
   const isDark = theme === 'dark';
   const hasSandbox = Boolean(sandboxLabel || (exploreLabel && onExplore));
 
+  // ─ Sandbox highlight + explore-CTA palette (theme-aware, lifted off the card) ─
+  // Stronger fills/borders + brighter text than the base tokens so both read
+  // clearly against the washed card, while staying subtle (not neon).
+  const sandboxFx = isDark
+    ? {
+      bg: 'rgba(34,197,94,0.14)', border: 'rgba(74,222,128,0.50)', text: '#d8ffe9', icon: '#4ade80',
+      shadow: '0 4px 16px -8px rgba(34,197,94,0.45), inset 0 1px 0 rgba(255,255,255,0.06)'
+    }
+    : {
+      bg: 'rgba(34,197,94,0.12)', border: 'rgba(34,197,94,0.45)', text: '#15803d', icon: '#16a34a',
+      shadow: '0 4px 14px -8px rgba(34,197,94,0.40)'
+    };
+
+  const exploreIdle = isDark
+    ? {
+      bg: 'rgba(220,47,101,0.20)', border: 'rgba(255,138,184,0.55)', color: '#ff97c0',
+      shadow: '0 6px 20px -10px rgba(220,47,101,0.60), inset 0 1px 0 rgba(255,255,255,0.08)'
+    }
+    : {
+      bg: 'rgba(220,47,101,0.10)', border: 'rgba(220,47,101,0.50)', color: '#c41e57',
+      shadow: '0 6px 18px -10px rgba(220,47,101,0.40)'
+    };
+
   const cardShadow = isDark
     ? 'none'
     : hovered
@@ -824,18 +847,19 @@ export function PillarCard({
                     <span
                       className="inline-flex items-center gap-2 rounded-full px-3 py-1.5"
                       style={{
-                        border: '1px solid rgba(34,197,94,0.35)',
-                        background: isDark ? 'rgba(34,197,94,0.10)' : 'rgba(34,197,94,0.12)',
+                        border: `1px solid ${sandboxFx.border}`,
+                        background: sandboxFx.bg,
+                        boxShadow: sandboxFx.shadow,
                       }}
                     >
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={sandboxFx.icon} strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z" />
                       </svg>
-                      <span style={{ fontSize: 12.5, fontWeight: 600, color: 'var(--fg-primary)', letterSpacing: '0.01em' }}>
+                      <span style={{ fontSize: 12.5, fontWeight: 600, color: sandboxFx.text, letterSpacing: '0.01em' }}>
                         {sandboxLabel}
                       </span>
                     </span>
-                    <p className="m-0 mt-2" style={{ fontSize: 11.5, color: 'var(--fg-tertiary)', letterSpacing: '0.01em' }}>
+                    <p className="m-0 mt-2" style={{ fontSize: 11.5, color: 'var(--fg-secondary)', letterSpacing: '0.01em' }}>
                       No credit card · Live in minutes
                     </p>
                   </div>
@@ -847,9 +871,10 @@ export function PillarCard({
                     onClick={(e) => { e.stopPropagation(); onExplore(); }}
                     className="inline-flex items-center gap-1.5 rounded-[10px] px-4 py-2.5 text-[13px] font-semibold transition-colors duration-[160ms] cursor-pointer"
                     style={{
-                      border: '1px solid var(--brand-border)',
-                      background: 'var(--brand-soft)',
-                      color: 'var(--brand)',
+                      border: `1px solid ${exploreIdle.border}`,
+                      background: exploreIdle.bg,
+                      color: exploreIdle.color,
+                      boxShadow: exploreIdle.shadow,
                     }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.background = 'var(--brand)';
@@ -857,13 +882,13 @@ export function PillarCard({
                       e.currentTarget.style.borderColor = 'var(--brand)';
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.background = 'var(--brand-soft)';
-                      e.currentTarget.style.color = 'var(--brand)';
-                      e.currentTarget.style.borderColor = 'var(--brand-border)';
+                      e.currentTarget.style.background = exploreIdle.bg;
+                      e.currentTarget.style.color = exploreIdle.color;
+                      e.currentTarget.style.borderColor = exploreIdle.border;
                     }}
                   >
                     {exploreLabel}
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M5 12h14" />
                       <path d="m13 6 6 6-6 6" />
                     </svg>

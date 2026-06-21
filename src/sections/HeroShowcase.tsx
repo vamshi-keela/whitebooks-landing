@@ -1,4 +1,5 @@
 import React from "react";
+import heroImage from "../assets/hero-image.png";
 import {
   FileText,
   FileSpreadsheet,
@@ -239,11 +240,10 @@ function StatsGlassCard() {
         {STATS.map((stat, i) => (
           <li
             key={stat.label}
-            className={`flex items-center gap-3 py-3.5 first:pt-0 last:pb-0 ${
-              i < STATS.length - 1
-                ? "border-b border-[rgba(255,255,255,0.07)]"
-                : ""
-            }`}
+            className={`flex items-center gap-3 py-3.5 first:pt-0 last:pb-0 ${i < STATS.length - 1
+              ? "border-b border-[rgba(255,255,255,0.07)]"
+              : ""
+              }`}
           >
             <DarkIconTile
               icon={stat.icon}
@@ -254,7 +254,7 @@ function StatsGlassCard() {
               <div className="font-display text-[22px] font-bold leading-none tracking-tight text-[#ff4f86] whitespace-nowrap">
                 {stat.value}
               </div>
-              <div className="mt-1 text-[12px] leading-tight text-white/68">
+              <div className="mt-1 text-[12px] leading-tight text-white/70">
                 {stat.label}
               </div>
             </div>
@@ -269,7 +269,7 @@ function ApiStrip() {
   return (
     <div
       style={cardSurface}
-      className="relative mt-4 overflow-hidden rounded-[20px] px-5 py-5 sm:px-8"
+      className="relative overflow-hidden rounded-[20px] px-5 pb-5 sm:px-8"
     >
       <div className="mb-4 text-center">
         <span className="font-display text-[12px] font-semibold uppercase tracking-[0.22em] text-white/90">
@@ -281,9 +281,8 @@ function ApiStrip() {
         {APIS.map((api, i) => (
           <div
             key={api.title}
-            className={`flex min-w-[160px] shrink-0 items-center gap-2.5 sm:min-w-0 lg:px-4 ${
-              i > 0 ? "lg:border-l lg:border-[rgba(255,255,255,0.07)]" : ""
-            }`}
+            className={`flex min-w-[160px] shrink-0 items-center gap-2.5 sm:min-w-0 lg:px-4 ${i > 0 ? "lg:border-l lg:border-[rgba(255,255,255,0.07)]" : ""
+              }`}
           >
             <DarkIconTile
               icon={api.icon}
@@ -294,7 +293,7 @@ function ApiStrip() {
               <div className="text-[13px] font-semibold text-white/95">
                 {api.title}
               </div>
-              <div className="text-[11.5px] leading-tight text-white/58">
+              <div className="text-[11.5px] leading-tight text-white/70">
                 {api.sub}
               </div>
             </div>
@@ -370,13 +369,13 @@ function PersonStage() {
       {/* Dashed connector constellation (desktop only) */}
       <ConnectorWeb />
 
-      {/* Human image slot */}
-      <div className="relative z-10 flex aspect-[3/4] w-[78%] max-w-[280px] items-center justify-center rounded-2xl border border-dashed border-white/35 bg-white/[0.04] backdrop-blur-sm">
-        <span className="px-4 text-center text-[11px] font-medium uppercase tracking-[0.15em] text-white/75">
-          Human image
-          <br />
-          placeholder
-        </span>
+      {/* Human image */}
+      <div className="relative z-10 flex aspect-[4/8] w-[78%] max-w-[280px] items-center justify-center">
+        <img
+          src={heroImage}
+          alt=""
+          className="h-full w-full object-contain object-bottom"
+        />
       </div>
     </div>
   );
@@ -387,60 +386,125 @@ export default function HeroShowcase() {
 
   return (
     <div className="relative z-10 mx-auto mt-10 w-full max-w-[1500px] px-4 pb-20 md:mt-14 md:px-6">
-      {/* ── Desktop constellation ──────────────────────────────────────────── */}
-      {/* Columns: stats · GST/E-Way · person · Accounting/E-Invoice · KSA.
-          items-start so each card shrinks to its own content height; the stats
-          card spans both rows but sits at the bottom of that span (self-end),
-          matching the comp. */}
-      <div className="hidden xl:grid xl:grid-cols-[1fr_1.45fr_1.45fr_1.45fr_1.15fr] xl:items-start xl:gap-x-4 xl:gap-y-3">
-        {/* Stats — spans both rows, bottom-aligned within the span */}
-        <div className="col-start-1 row-start-1 row-end-3 self-end">
+
+      {/* ══════════════════════════════════════════════════════════════════════
+          MOBILE layout  (hidden on md+)
+          Person image centred, product cards flanking left & right,
+          stats + KSA in a 2-col row below, then ApiStrip at the bottom.
+      ══════════════════════════════════════════════════════════════════════ */}
+      <div className="md:hidden">
+
+        {/* 3-column constellation: left cards | person | right cards */}
+        <div
+          className="grid"
+          style={{
+            gridTemplateColumns: "1fr 1.15fr 1fr",
+            gap: "8px",
+            alignItems: "stretch",
+          }}
+        >
+          {/* LEFT column: GST (row 1) · E-Way (row 2) */}
+          <div className="col-start-1 row-start-1">
+            <ProductGlassCard card={gst} />
+          </div>
+          <div className="col-start-1 row-start-2">
+            <ProductGlassCard card={eway} />
+          </div>
+
+          {/* CENTRE: PersonStage spans both rows */}
+          <div className="col-start-2 row-start-1 row-end-3 self-stretch">
+            <PersonStage />
+          </div>
+
+          {/* RIGHT column: Accounting (row 1) · E-Invoice (row 2) */}
+          <div className="col-start-3 row-start-1">
+            <ProductGlassCard card={accounting} />
+          </div>
+          <div className="col-start-3 row-start-2">
+            <ProductGlassCard card={einvoice} />
+          </div>
+        </div>
+
+        {/* Bottom row: Stats card + KSA card side-by-side */}
+        <div className="mt-2 grid grid-cols-2 gap-2">
           <StatsGlassCard />
-        </div>
-
-        <div className="col-start-2 row-start-1">
-          <ProductGlassCard card={gst} />
-        </div>
-
-        {/* Person stage — spans both rows */}
-        <div className="col-start-3 row-start-1 row-end-3 self-stretch">
-          <PersonStage />
-        </div>
-
-        <div className="col-start-4 row-start-1">
-          <ProductGlassCard card={accounting} />
-        </div>
-
-        <div className="col-start-2 row-start-2">
-          <ProductGlassCard card={eway} />
-        </div>
-
-        <div className="col-start-4 row-start-2">
-          <ProductGlassCard card={einvoice} />
-        </div>
-
-        <div className="col-start-5 row-start-2">
           <ProductGlassCard card={ksa} />
         </div>
-      </div>
 
-      {/* ── Tablet / mobile ────────────────────────────────────────────────── */}
-      <div className="flex flex-col gap-4 xl:hidden">
-        {/* Stats + person side-by-side on tablet */}
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <StatsGlassCard />
-          <PersonStage />
-        </div>
-
-        {/* Product cards: 1 col mobile, 2 col tablet */}
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-          {PRODUCT_CARDS.map((card) => (
-            <ProductGlassCard key={card.title} card={card} />
-          ))}
+        {/* ApiStrip — below the whole grid on mobile */}
+        <div className="mt-3">
+          <ApiStrip />
         </div>
       </div>
 
-      <ApiStrip />
+      {/* ══════════════════════════════════════════════════════════════════════
+          DESKTOP / LAPTOP layout  (hidden below md)
+          Fixed 1468px inner canvas scaled down to fit the viewport width.
+          clamp(0.50, 100vw/1500px, 1):
+            ≥1500px  → scale 1.0  (full size)
+            ~1280px  → ~0.85
+            ~900px   → ~0.60
+            768px    → 0.50  (minimum)
+          ApiStrip is inside the scale wrapper so it scales with the grid.
+      ══════════════════════════════════════════════════════════════════════ */}
+      <div
+        className="hidden md:block w-full origin-top"
+        style={{
+          transform: "scale(var(--showcase-scale, 1))",
+          marginBottom: "calc((var(--showcase-scale, 1) - 1) * 620px)",
+        } as React.CSSProperties}
+      >
+        <style>{`
+          :root {
+            --showcase-scale: clamp(0.50, calc(100vw / 1500px), 1);
+          }
+        `}</style>
+
+        {/* Constellation grid */}
+        <div
+          className="grid items-start"
+          style={{
+            gridTemplateColumns: "1fr 1.45fr 1.45fr 1.45fr 1.15fr",
+            gap: "12px 16px",
+            width: "1468px",
+          }}
+        >
+          {/* Stats — spans both rows, bottom-aligned */}
+          <div className="col-start-1 row-start-1 row-end-3 self-end">
+            <StatsGlassCard />
+          </div>
+
+          <div className="col-start-2 row-start-1">
+            <ProductGlassCard card={gst} />
+          </div>
+
+          {/* Person stage — spans both rows */}
+          <div className="col-start-3 row-start-1 row-end-3 self-stretch">
+            <PersonStage />
+          </div>
+
+          <div className="col-start-4 row-start-1">
+            <ProductGlassCard card={accounting} />
+          </div>
+
+          <div className="col-start-2 row-start-2">
+            <ProductGlassCard card={eway} />
+          </div>
+
+          <div className="col-start-4 row-start-2">
+            <ProductGlassCard card={einvoice} />
+          </div>
+
+          <div className="col-start-5 row-start-2">
+            <ProductGlassCard card={ksa} />
+          </div>
+        </div>
+
+        {/* ApiStrip — docked below the constellation, inside the scale wrapper */}
+        <div style={{ width: "1468px", marginTop: "12px" }}>
+          <ApiStrip />
+        </div>
+      </div>
     </div>
   );
 }

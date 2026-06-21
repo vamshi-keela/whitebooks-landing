@@ -121,6 +121,25 @@ export interface ClosingSection {
     primaryCta?: CtaLink;
     secondaryCta?: CtaLink;
 }
+export interface ExploreShowCase {
+    id: string;
+    label: string;
+    /** plain heading text + the brand-accented fragment that follows it */
+    heading: string;
+    accent: string;
+    desc: string;
+    benefits: string[];
+    metrics: MetricCard[];
+}
+
+export interface MetricCard {
+    /** corner the card pins to over the canvas */
+    pos: 'tr' | 'bl' | 'br';
+    value: string;
+    label: string;
+    /** optional delta chip e.g. "+24%" */
+    delta?: string;
+}
 
 export interface PageConfig {
     headerMode: HeaderMode
@@ -160,7 +179,7 @@ export interface FAQSection {
 export interface FeaturesSection {
     label?: string;
     heading: ReactNode;
-    layout?: "guide" | "grid";
+    layout?: "guide" | "grid" | "showcase";
     items: FeatureItem[];
 }
 
@@ -192,6 +211,7 @@ export interface SubPageData {
     pricing?: PricingSection;
     faq?: FAQSection;
     closing?: ClosingSection;
+    exploreShowCase?: ExploreShowCase[],
     /** Optional extra section (e.g. ProductMap for e-Way Bill). */
     extra?: ReactNode;
 }

@@ -57,7 +57,7 @@ const LOGOS: LogoEntry[] = [
   { name: 'Pharmeasy', key: 'pharmeasy', variant: 'color' },
   { name: 'Cars24', key: 'cars24', variant: 'color' },
   { name: 'INOX', key: 'inox', variant: 'color' },
-  { name: 'Grant Thornton', key: 'grant-thornton', variant: 'color' },
+  // { name: 'Grant Thornton', key: 'grant-thornton', variant: 'color' },
   { name: 'EaseMyTrip', key: 'easemytrip', variant: 'color' },
   { name: 'Pigeon', key: 'pigeon', variant: 'color' },
   { name: 'Landmark', key: 'landmark', variant: 'color' },

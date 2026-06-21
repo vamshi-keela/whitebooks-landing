@@ -21,6 +21,7 @@ import {
   buildTechArticleSchema,
 } from "@/seo/schema/generators";
 import type { SchemaFaqItem } from "@/seo/types";
+import ExploreShowcase from "@/sections/ExploreShowcase";
 
 interface SubPageProps {
   data: SubPageData;
@@ -88,9 +89,11 @@ export function SubPage({ data, onPrimaryClick, onSecondaryClick }: SubPageProps
           onPrimaryClick={onPrimaryClick}
           onSecondaryClick={handleSecondaryClick}
         />
+
         {data.problem && <ProblemSection data={data.problem} />}
         {data.features && <FeaturesSection data={data.features} />}
         {data.extra}
+        {data.exploreShowCase && <ExploreShowcase features={data.exploreShowCase} />}
         {data.integrations && <IntegrationSection data={data.integrations} />}
         {data.ai && <AILayerSection data={data.ai} />}
         {data.faq && <FAQSection data={data.faq} />}

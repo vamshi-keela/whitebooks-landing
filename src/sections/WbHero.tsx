@@ -11,6 +11,7 @@ import { BookDemoModal } from "@/components/modals/BookDemoModal";
 import DpIcon from "@/pages/developer/DpIcon";
 import HeroShowcase from "./HeroShowcase";
 import WbStats from "./WbStats";
+import TickMark from "@/components/ui/TickMark";
 export default function HeroBackground() {
   return (
     <div className="absolute inset-0 overflow-hidden bg-white">
@@ -226,7 +227,9 @@ export function LogoWall() {
             {/* <svg width="18" height="18" viewBox="0 0 24 24" fill="none" className="text-[var(--brand)] opacity-70">
               <path d="M12 2C9 6 4 8 4 13a8 8 0 0016 0c0-5-5-7-8-11z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
             </svg> */}
-            <span className="text-sm font-medium tracking-wide text-[var(--muted)] uppercase">Trusted Compliance Partner</span>
+            {/* <TickMark width={12} height={12} className="shrink-0" />
+            <span className="text-sm font-medium tracking-wide text-[var(--muted)] uppercase">Trusted Compliance Partner</span> */}
+            <EyebrowPill label={"Trusted Compliance Partner"} />
             {/* <svg width="18" height="18" viewBox="0 0 24 24" fill="none" className="text-[var(--brand)] opacity-70">
               <path d="M12 2C9 6 4 8 4 13a8 8 0 0016 0c0-5-5-7-8-11z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
             </svg> */}
@@ -250,8 +253,6 @@ export function LogoWall() {
           />
         </div>
       </div>
-
-      <WbStats />
     </section>
   );
 }

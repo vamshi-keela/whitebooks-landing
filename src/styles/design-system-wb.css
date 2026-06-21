@@ -1709,20 +1709,16 @@ img {
   position: relative;
   overflow: hidden;
   contain: layout style;
-  -webkit-mask-image: linear-gradient(
-    to right,
-    transparent 0,
-    #000 12%,
-    #000 88%,
-    transparent 100%
-  );
-  mask-image: linear-gradient(
-    to right,
-    transparent 0,
-    #000 12%,
-    #000 88%,
-    transparent 100%
-  );
+  -webkit-mask-image: linear-gradient(to right,
+      transparent 0,
+      #000 12%,
+      #000 88%,
+      transparent 100%);
+  mask-image: linear-gradient(to right,
+      transparent 0,
+      #000 12%,
+      #000 88%,
+      transparent 100%);
 }
 
 .wb-ticker {
@@ -2047,7 +2043,7 @@ img {
   text-align: center;
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(24px, 3vw, 38px);
+  font-size: clamp(28px, 4vw, 42px);
   line-height: 1.15;
   letter-spacing: -0.02em;
   color: var(--st-val);
@@ -2146,18 +2142,14 @@ img {
    the band surface so the luminous particles read on a dark ground */
 [data-theme="dark"] .wb-stats__gradient {
   background:
-    radial-gradient(
-      82% 56% at 50% 122%,
+    radial-gradient(82% 56% at 50% 122%,
       rgba(220, 47, 101, 0.5) 0%,
-      rgba(220, 47, 101, 0) 60%
-    ),
-    radial-gradient(
-      120% 90% at 50% 124%,
+      rgba(220, 47, 101, 0) 60%),
+    radial-gradient(120% 90% at 50% 124%,
       #4a163a 0%,
       #2c1430 32%,
       #1b1422 60%,
-      #131217 100%
-    );
+      #131217 100%);
 }
 
 .wb-stats__canvas {
@@ -3913,6 +3905,13 @@ img {
   --radius-lg: 16px;
   --light-fg: #e8e8f0;
   --light-fg-sec: #9a9ab0;
+
+  /* ── PillButton (scoped aliases, see src/components/ui/PillButton.tsx) ── */
+  --pill-bg: var(--bg);
+  --pill-fg-primary: var(--fg-primary);
+  --pill-fg-secondary: var(--fg-secondary);
+  --pill-bg-card: var(--bg-card);
+  --pill-hairline: var(--hairline);
 }
 
 [data-theme="light"] {
@@ -3927,6 +3926,12 @@ img {
   --accent-glow: rgba(220, 47, 101, 0.22);
   --light-fg: #0d0d14;
   --light-fg-sec: #4e4e65;
+
+  --pill-bg: var(--bg);
+  --pill-fg-primary: var(--fg-primary);
+  --pill-fg-secondary: var(--fg-secondary);
+  --pill-bg-card: var(--bg-card);
+  --pill-hairline: var(--hairline);
 }
 
 /* ---------- Product UI widget ---------- */
@@ -4016,9 +4021,9 @@ img {
   position: relative;
 }
 
-.hairline {
+/* .hairline {
   border-bottom: 1px solid var(--hairline);
-}
+} */
 
 /* .wb-logo-wall-header {
   display: grid;
@@ -5878,14 +5883,31 @@ img {
    card content. Tone colours are injected inline by <CardWash>; motion,
    shaping, and texture live here so they stay consistent across cards. */
 @keyframes wb-card-drift-a {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-  33%      { transform: translate3d(6%, 8%, 0) scale(1.12); }
-  66%      { transform: translate3d(-4%, 4%, 0) scale(1.05); }
+
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  33% {
+    transform: translate3d(6%, 8%, 0) scale(1.12);
+  }
+
+  66% {
+    transform: translate3d(-4%, 4%, 0) scale(1.05);
+  }
 }
 
 @keyframes wb-card-drift-b {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1.05); }
-  50%      { transform: translate3d(-8%, -6%, 0) scale(1.18); }
+
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1.05);
+  }
+
+  50% {
+    transform: translate3d(-8%, -6%, 0) scale(1.18);
+  }
 }
 
 .wb-cardfx-orb {
@@ -5896,8 +5918,13 @@ img {
   transform: translateZ(0);
 }
 
-.wb-cardfx-orb-a { animation: wb-card-drift-a 20s ease-in-out infinite; }
-.wb-cardfx-orb-b { animation: wb-card-drift-b 26s ease-in-out infinite; }
+.wb-cardfx-orb-a {
+  animation: wb-card-drift-a 20s ease-in-out infinite;
+}
+
+.wb-cardfx-orb-b {
+  animation: wb-card-drift-b 26s ease-in-out infinite;
+}
 
 .wb-cardfx-grain {
   position: absolute;
@@ -5915,8 +5942,11 @@ img {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .wb-cardfx-orb-a,
-  .wb-cardfx-orb-b { animation: none; }
+  .wb-cardfx-orb-b {
+    animation: none;
+  }
 }
 
 /* ---------- Grid helpers ---------- */
@@ -6928,8 +6958,15 @@ img {
 
 /* Very subtle drift on the connector data dot — gentle, homepage-calm */
 @keyframes wb-conn-dot {
-  0%, 100% { opacity: 0.35; }
-  50%      { opacity: 0.9; }
+
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+
+  50% {
+    opacity: 0.9;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

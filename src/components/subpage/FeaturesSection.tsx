@@ -1,6 +1,7 @@
 import { PlainSection } from "@/layouts/SubpageShell.tsx";
 import type { FeaturesSection as FeaturesSectionData, FeatureItem } from "../../types/pages.ts";
 import { FeatureGuide } from "@/components/feature-guide/FeatureGuide";
+import { PlatformShowcase } from "@/sections/PlatformShowcase";
 
 interface Props {
   data: FeaturesSectionData;
@@ -27,6 +28,12 @@ function FeatureGrid({ items }: { items: FeatureItem[] }) {
 }
 
 export function FeaturesSection({ data }: Props) {
+  if (data.layout === "showcase") {
+    return <>
+      <PlatformShowcase heading={data.heading} />
+      <FeatureGuide heading={data.heading} items={data.items} navLabel={data.label || "What it does"} />
+    </>;
+  }
   if (data.layout === "guide") {
     return <FeatureGuide heading={data.heading} items={data.items} navLabel={data.label || "What it does"} />;
   }

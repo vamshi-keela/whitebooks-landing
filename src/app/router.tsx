@@ -60,6 +60,16 @@ import {
 import type { SchemaFaqItem } from '@/seo/types';
 import ApiSuitePage from '@/pages/apis/ApiSuitePage';
 import WbTrust from '@/sections/WbTrust';
+import InvoiceTemplates from '@/sections/InvoiceTemplates';
+import { EnterpriseControls } from '@/sections/EnterpriseControls';
+import { ApiArchitecture } from '@/sections/ApiArchitecture';
+import { DeveloperExperience } from '@/sections/DeveloperExperience';
+import { IntegrationPartners } from '@/sections/IntegrationPartners';
+import { ComplianceSupport } from '@/sections/ComplianceSupport';
+import { CONNECTOR_REGISTRY } from '@/pages/connectors/connectors.data';
+import { SapConnectorPage } from '@/pages/connectors/SapConnectorPage';
+import { TallyConnectorPage } from '@/pages/connectors/TallyConnectorPage';
+import WbStats from '@/sections/WbStats';
 
 /* ─── Slug maps ─────────────────────────────────────────────────────────── */
 
@@ -146,8 +156,14 @@ function HomeRoute() {
         <HubAPIsSection />
         <ConnectorsSection />
         <WhyWhitebooks />
-        <ExploreShowcase />
+        <WbStats />
         <WbTrust />
+        <InvoiceTemplates />
+        <EnterpriseControls />
+        <ApiArchitecture />
+        <DeveloperExperience />
+        <IntegrationPartners />
+        <ComplianceSupport />
         <ProblemSection />
         <FinanceTeamsSection />
         <ForDevelopersSection />
@@ -257,6 +273,17 @@ function DevPortalIndex() {
   return <Navigate to="/developer/overview" replace />;
 }
 
+/* ─── Connector landing pages (SAP / Tally) ──────────────────────────────── */
+
+function ConnectorPageRoute() {
+  const { slug } = useParams<{ slug: string }>();
+  const data = CONNECTOR_REGISTRY[slug ?? ''];
+  if (!data) return <Navigate to="/" replace />;
+  return data.platform === 'sap'
+    ? <SapConnectorPage data={data} />
+    : <TallyConnectorPage data={data} />;
+}
+
 /* ─── AppRouter ──────────────────────────────────────────────────────────── */
 
 export function AppRouter() {
@@ -272,6 +299,7 @@ export function AppRouter() {
         <Route path="/apis" element={<ApiSuitePage />} />
         <Route path="/apis/:product" element={<ApiSubPageRoute />} />
         <Route path="/services" element={<ServicesHubRoute />} />
+        <Route path="/connectors/:slug" element={<ConnectorPageRoute />} />
         <Route path="/resources/partners" element={<PartnerWithUs />} />
         <Route path="/resources/support" element={<SupportPage />} />
         <Route path="/resources/videos" element={<VideosPage />} />

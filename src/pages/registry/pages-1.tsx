@@ -1,4 +1,3 @@
-import React from 'react';
 import { SubPageData } from '@/types/pages';
 import { ProductMap } from '@/components/product-map/ProductMap';
 
@@ -64,7 +63,7 @@ const PAGES: Record<string, SubPageData> = {
     features: {
       heading: (
         <>
-          What Whitebooks Accounting <span className="text-[var(--brand)]">does.</span>
+          Everything your business needs <span className="text-[var(--brand)]">in one place.</span>
         </>
       ),
       layout: "guide",
@@ -79,6 +78,73 @@ const PAGES: Record<string, SubPageData> = {
         { visualKey: "native-integration", navLabel: "Native integration", title: "Native integration with Whitebooks GST and e-Invoice", body: "An e-invoice generated in Whitebooks e-Invoice automatically becomes a sales journal here. A GSTR-2B reconciliation in Whitebooks GST automatically reflects in your purchase ledger. No CSV exports, no double entry." },
       ],
     },
+    exploreShowCase: [
+      {
+        id: 'dashboard',
+        label: 'Dashboard',
+        heading: 'Every number, every day — your',
+        accent: 'accounting dashboard',
+        desc: 'Total income, expenses, profit & loss, cash position, receivable / payable ageing and tax dues — live, accurate and drillable straight to source.',
+        benefits: ['Live profit & loss', 'Cash position', 'Receivable ageing', 'Payable ageing', 'Tax dues at a glance', 'Drill to source'],
+        metrics: [
+          { pos: 'tr', value: '₹39,810', label: 'Total income', delta: '+24%' },
+          { pos: 'bl', value: 'P&L Live', label: 'Auto-synced' },
+          { pos: 'br', value: '₹34,402', label: 'Profit this year' },
+        ],
+      },
+      {
+        id: 'sales',
+        label: 'Sales',
+        heading: 'Invoices that flow straight into',
+        accent: 'GSTR-1',
+        desc: 'Sales invoices, proforma, recurring billing, delivery challans, other-income and e-commerce — auto-posted to your books and mapped into GSTR-1 with zero re-keying.',
+        benefits: ['Sales invoices', 'Proforma billing', 'Recurring invoices', 'Delivery challans', 'Auto GSTR-1 mapping', 'Zero re-keying'],
+        metrics: [
+          { pos: 'tr', value: '₹18.2L', label: 'Sales this month', delta: '+24%' },
+          { pos: 'bl', value: 'GSTR-1 Ready', label: 'Auto-synced' },
+          { pos: 'br', value: '187 invoices', label: 'Processed today' },
+        ],
+      },
+      {
+        id: 'purchases',
+        label: 'Purchases',
+        heading: 'Capture every purchase and match against',
+        accent: 'GSTR-2B',
+        desc: 'Purchase orders, purchase invoices, reverse-charge entries and credit notes — auto-reconciled against your fetched GSTR-2B for accurate ITC claims and audit-ready records.',
+        benefits: ['Purchase orders', 'Purchase invoices', 'Reverse-charge entries', 'Credit notes', 'GSTR-2B reconciliation', 'Accurate ITC claims'],
+        metrics: [
+          { pos: 'tr', value: '₹33,000', label: 'Purchases', delta: '9 entries' },
+          { pos: 'bl', value: 'ITC ₹1.2L', label: 'Claimable' },
+          { pos: 'br', value: '9 / 9 matched', label: 'Against 2B' },
+        ],
+      },
+      {
+        id: 'expenses',
+        label: 'Expenses',
+        heading: 'Track every expense with',
+        accent: 'GST-input categorisation',
+        desc: 'Vendor expenses with GST eligibility flags, recurring expense rules, one-click voucher posting and an immutable audit trail on every single entry.',
+        benefits: ['GST eligibility flags', 'Recurring expense rules', 'One-click vouchers', 'Vendor expenses', 'Immutable audit trail', 'Category insights'],
+        metrics: [
+          { pos: 'tr', value: '₹2.72L', label: 'Expenses', delta: 'FY 25-26' },
+          { pos: 'bl', value: 'GST Input', label: 'Flagged' },
+          { pos: 'br', value: '4 vouchers', label: 'Posted today' },
+        ],
+      },
+      {
+        id: 'banking',
+        label: 'Banking',
+        heading: 'Reconcile banks in minutes — for',
+        accent: 'SBI, HDFC, ICICI & 10+',
+        desc: 'Auto-parse bank statements, rule-based matching against payments and receipts, drag-and-drop manual match, and a BRS evidence pack — locked once the period is signed off.',
+        benefits: ['Auto-parse statements', 'Rule-based matching', 'Drag-and-drop match', 'BRS evidence pack', 'Period lock on sign-off', '14+ banks supported'],
+        metrics: [
+          { pos: 'tr', value: '₹47,974', label: 'Received', delta: '+12%' },
+          { pos: 'bl', value: 'BRS Locked', label: 'Signed off' },
+          { pos: 'br', value: '6 / 6', label: 'Reconciled' },
+        ],
+      },
+    ],
     integrations: {
       heading: "Connect your bank, your ERP, your billing system.",
       body:

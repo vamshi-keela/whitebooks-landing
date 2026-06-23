@@ -8,7 +8,7 @@ import {
     type LucideIcon,
     BrickWallShield,
 } from "lucide-react";
-import securityShield from "@/assets/resources/security_shield-old.png";
+import securityShield from "@/assets/resources/security_shield.png";
 import { Button, ButtonLink } from "../ui/Button";
 import { useNavigate } from "react-router-dom";
 

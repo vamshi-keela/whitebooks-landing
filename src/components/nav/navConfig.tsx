@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import { Accounting, GST, EInvoice, EWayBill, KSA } from '@/components/icons/Icon';
 import { Home, FileText, ShieldCheck, Search, Briefcase, Users, LifeBuoy, PlayCircle, BookOpen, Calculator, Hash, Layers } from 'lucide-react';
+import DpIcon from '@/pages/developer/DpIcon';
 
 export interface NavItem {
   label: string;
@@ -48,4 +49,28 @@ export const TOOLS_ITEMS: NavItem[] = [
   { label: 'GST TAX Calculator', href: '/tools/gst-tax-calculator', icon: <Calculator size={14} /> },
   { label: 'Multiple GST Numbers Search', href: '/tools/multiple-gst-search', icon: <Hash size={14} /> },
   { label: 'GST HSN SAC Code Search', href: '/tools/gst-hsn-sac-search', icon: <Layers size={14} /> },
+];
+
+export const API_DEVELOPER_ITEMS: NavItem[] = [
+  {
+    label: 'Getting Started', href: '/developer', icon: <DpIcon
+      name='book'
+      size={15}
+      style={{ color: 'var(--dp-accent)' }}
+    />
+  },
+  {
+    label: 'API Reference', href: '/developer/api-reference', icon: <DpIcon
+      name='code'
+      size={15}
+      style={{ color: 'var(--dp-accent)' }}
+    />
+  },
+  {
+    label: 'Changelog', href: '/developer/changelog', icon: <DpIcon
+      name='activity'
+      size={15}
+      style={{ color: 'var(--dp-accent)' }}
+    />
+  },
 ];

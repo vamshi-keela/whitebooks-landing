@@ -11,6 +11,10 @@ import DpIcon from '@/pages/developer/DpIcon';
 import { cn } from '@/lib/cn';
 import './api-suite.css';
 import '@/styles/hero.css';
+import ApiArchitecture from '@/sections/ApiArchitecture';
+import DeveloperExperience from '@/sections/DeveloperExperience';
+import IntegrationPartners from '@/sections/IntegrationPartners';
+import ComplianceSupport from '@/sections/ComplianceSupport';
 
 /* ════════════════════════════════════════════════════════════════════════════
    WhiteBooks API Suite — enterprise redesign (enhanced visual layer)
@@ -397,7 +401,7 @@ function LogoWallSection() {
 const DEV_BADGES = ['GSP Licensed', '99.99% uptime', 'Sandbox + Production', 'Java / Node.js / Python SDKs', 'Enterprise SLAs', 'AI-Ready', 'Secure & Scalable'];
 const DEV_DOCS = ['Comprehensive API Documentation', 'Sandbox Environment', 'Multiple Language SDKs', 'Error Codes & Diagnostics', 'Postman Collections', 'Webhook Events', 'OAuth 2.0 & IP Restrictions'];
 
-function DeveloperSection() {
+export function DeveloperSection() {
   return (
     <section className={SECTION}>
       <div className={WRAP}>
@@ -1225,6 +1229,10 @@ export function ApiSuitePage() {
         <IndustriesSection />
         <SuiteSection />
         <ScaleSection />
+        {/* apis */}<ApiArchitecture />
+        {/* apis */}<DeveloperExperience />
+        {/* apis */}<IntegrationPartners />
+        {/* apis */}<ComplianceSupport />
         <DemosSection />
         <TestimonialsSection />
         <TryItSection />

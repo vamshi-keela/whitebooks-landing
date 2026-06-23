@@ -1,5 +1,18 @@
 import { SubPageData } from '@/types/pages';
 import { ProductMap } from '@/components/product-map/ProductMap';
+import whitebooksSoftwares1 from '@/assets/product-images/softwares/whitebooks_softwares_1.png';
+import salesRegisterImage from '@/assets/product-images/feature-images/saleInvoices-sales-register.svg';
+import purchaseInvoiceImage from '@/assets/product-images/feature-images/purchaseInvoice-register.svg';
+import expensesRegisterImage from '@/assets/product-images/feature-images/expenses-register.svg';
+import receiptsRegisterImage from '@/assets/product-images/feature-images/receipts-register-banking.svg';
+import gstDashboardImage from '@/assets/product-images/gst-software/gst-dashboard-1.png';
+import prepareGstr1Image from '@/assets/product-images/feature-images/prepare-gstr1-dashboard.svg';
+import gstr2aRegisterImage from '@/assets/product-images/feature-images/gstr2A-register.svg';
+import gstr2bReconcileImage from '@/assets/product-images/feature-images/gstr2B-reconcile-register.svg';
+import gstr3bUploadImage from '@/assets/product-images/feature-images/gstr3B-uploadToGSTN.svg';
+import gstr9RegisterImage from '@/assets/product-images/feature-images/gstr9-register.svg';
+import { ACCOUNTING_SHOWCASE_CATEGORIES } from '@/data/accouting-platform-showcase.data';
+import { GST_SOFTWARE_SHOWCASE_CATEGORIES } from '@/data/gst-software-platform-showcase.data';
 
 const PAGES: Record<string, SubPageData> = {
   "accounting": {
@@ -91,6 +104,7 @@ const PAGES: Record<string, SubPageData> = {
           { pos: 'bl', value: 'P&L Live', label: 'Auto-synced' },
           { pos: 'br', value: '₹34,402', label: 'Profit this year' },
         ],
+        image: whitebooksSoftwares1,
       },
       {
         id: 'sales',
@@ -104,6 +118,7 @@ const PAGES: Record<string, SubPageData> = {
           { pos: 'bl', value: 'GSTR-1 Ready', label: 'Auto-synced' },
           { pos: 'br', value: '187 invoices', label: 'Processed today' },
         ],
+        image: salesRegisterImage,
       },
       {
         id: 'purchases',
@@ -117,6 +132,7 @@ const PAGES: Record<string, SubPageData> = {
           { pos: 'bl', value: 'ITC ₹1.2L', label: 'Claimable' },
           { pos: 'br', value: '9 / 9 matched', label: 'Against 2B' },
         ],
+        image: purchaseInvoiceImage,
       },
       {
         id: 'expenses',
@@ -130,6 +146,7 @@ const PAGES: Record<string, SubPageData> = {
           { pos: 'bl', value: 'GST Input', label: 'Flagged' },
           { pos: 'br', value: '4 vouchers', label: 'Posted today' },
         ],
+        image: expensesRegisterImage,
       },
       {
         id: 'banking',
@@ -143,8 +160,10 @@ const PAGES: Record<string, SubPageData> = {
           { pos: 'bl', value: 'BRS Locked', label: 'Signed off' },
           { pos: 'br', value: '6 / 6', label: 'Reconciled' },
         ],
+        image: receiptsRegisterImage,
       },
     ],
+    featureShowCase: ACCOUNTING_SHOWCASE_CATEGORIES,
     integrations: {
       heading: "Connect your bank, your ERP, your billing system.",
       body:
@@ -270,6 +289,93 @@ const PAGES: Record<string, SubPageData> = {
         { visualKey: "native-integration", navLabel: "White-label portal", title: "White-label client portal", body: "Each of your clients gets a branded portal under your firm's name where they upload invoices, see their compliance status, and pay you. White-label included on Growth plan." },
       ],
     },
+    featureShowCase: GST_SOFTWARE_SHOWCASE_CATEGORIES,
+    exploreShowCase: [
+      {
+        id: 'dashboard',
+        label: 'Dashboard',
+        heading: 'Live status across every GSTIN — your',
+        accent: 'GST dashboard',
+        desc: 'Real-time view of GSTR status, ledger cards, filing health, input summary, ITC reversal, reconciliation and IMS — across all your GSTINs, one screen, drillable to source invoice.',
+        benefits: ['GSTR status', 'Ledger cards', 'Filing health', 'Input summary', 'ITC reversal & IMS', 'Drill to source'],
+        metrics: [
+          { pos: 'tr', value: 'All GSTINs', label: 'Live status' },
+          { pos: 'bl', value: 'IMS Synced', label: 'Auto-fetched' },
+          { pos: 'br', value: 'Drillable', label: 'To source invoice' },
+        ],
+        image: gstDashboardImage,
+      },
+      {
+        id: 'gstr1',
+        label: 'GSTR1',
+        heading: 'Prepare, validate and file',
+        accent: 'GSTR-1',
+        desc: 'Prepare, auto-validate, notify, sync and file GSTR-1 through the GSP-licensed channel direct to GSTN. Mismatch detection on HSN, tax rate and GSTIN before submission.',
+        benefits: ['Auto-validate', 'Notify & sync', 'GSP-direct filing', 'HSN mismatch check', 'Tax rate check', 'Unlimited GSTINs / batch'],
+        metrics: [
+          { pos: 'tr', value: 'Unlimited', label: 'GSTINs / batch' },
+          { pos: 'bl', value: 'GSP Filed', label: 'Direct to GSTN' },
+          { pos: 'br', value: '47-point', label: 'Pre-validation' },
+        ],
+        image: prepareGstr1Image,
+      },
+      {
+        id: 'gstr2a',
+        label: 'GSTR2A',
+        heading: 'Daily auto-fetch of',
+        accent: 'GSTR-2A',
+        desc: 'No manual portal logins. WhiteBooks pulls your GSTR-2A every day for visibility into supplier-filed invoices and downstream ITC eligibility checks.',
+        benefits: ['Daily auto-fetch', 'No portal logins', 'Supplier-filed view', 'ITC eligibility checks', 'Purchase ledger sync', 'No missed updates'],
+        metrics: [
+          { pos: 'tr', value: 'Daily', label: 'Auto-fetch' },
+          { pos: 'bl', value: 'No logins', label: 'Portal-free' },
+          { pos: 'br', value: 'ITC Ready', label: 'Eligibility checks' },
+        ],
+        image: gstr2aRegisterImage,
+      },
+      {
+        id: 'gstr2b',
+        label: 'GSTR2B',
+        heading: '4-way invoice matching for',
+        accent: 'GSTR-2B',
+        desc: 'GSTR-2B fetch, ITC claim summary, IMS actions, pending purchases, delink flow and manual match for invoice, payment, bank and past-pending — every flow built in.',
+        benefits: ['4-way matching', 'ITC claim summary', 'IMS actions', 'Pending purchases', 'Delink flow', 'Manual match'],
+        metrics: [
+          { pos: 'tr', value: '4-way', label: 'Invoice match' },
+          { pos: 'bl', value: '3% queue', label: 'Manual review' },
+          { pos: 'br', value: 'IMS', label: 'Actions built-in' },
+        ],
+        image: gstr2bReconcileImage,
+      },
+      {
+        id: 'gstr3b',
+        label: 'GSTR3B',
+        heading: 'Liability, ITC offset and filing —',
+        accent: 'GSTR-3B',
+        desc: 'Auto-compute liability, set off ITC across IGST, CGST and SGST, pay through the GSTN ledger and file — every step traceable in the immutable audit log.',
+        benefits: ['Auto liability calc', 'ITC offset', 'IGST / CGST / SGST', 'GSTN ledger payment', 'One-flow filing', 'Immutable audit log'],
+        metrics: [
+          { pos: 'tr', value: 'Auto', label: 'Liability calc' },
+          { pos: 'bl', value: 'ITC Offset', label: 'IGST/CGST/SGST' },
+          { pos: 'br', value: 'Audit Log', label: 'Immutable' },
+        ],
+        image: gstr3bUploadImage,
+      },
+      {
+        id: 'gstr9',
+        label: 'GSTR9',
+        heading: 'Annual return pre-filled —',
+        accent: 'GSTR-9 & 9C',
+        desc: 'All six parts (2 through 6) auto-pre-filled from your filed GSTR-1 and GSTR-3B, plus GSTR-9C reconciliation against your books — for unlimited GSTINs.',
+        benefits: ['Parts 2-6 pre-filled', 'From GSTR-1 & 3B', 'GSTR-9C reconciliation', 'Reconciled to books', 'Unlimited GSTINs', 'Annual return ready'],
+        metrics: [
+          { pos: 'tr', value: 'Parts 2-6', label: 'Pre-filled' },
+          { pos: 'bl', value: 'GSTR-9C', label: 'Reconciled' },
+          { pos: 'br', value: 'Unlimited', label: 'GSTINs' },
+        ],
+        image: gstr9RegisterImage,
+      },
+    ],
     integrations: {
       heading: "SAP, Tally, and 40+ ERPs. Zero CSV uploads.",
       body:

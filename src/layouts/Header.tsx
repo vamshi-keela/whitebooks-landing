@@ -5,7 +5,7 @@ import { Button, ButtonLink } from '@/components/ui/Button';
 import { SiteLogo } from '@/components/ui/SiteLogo';
 import { NavDropdown } from '@/components/nav/NavDropdown';
 import { MobileNavGroup } from '@/components/nav/MobileNavGroup';
-import { SOFT_ITEMS, API_ITEMS, SERVICES_ITEMS, RESOURCES_ITEMS, TOOLS_ITEMS } from '@/components/nav/navConfig';
+import { SOFT_ITEMS, API_ITEMS, SERVICES_ITEMS, RESOURCES_ITEMS, TOOLS_ITEMS, API_DEVELOPER_ITEMS } from '@/components/nav/navConfig';
 import type { HeaderMode } from '@/types/components';
 import homeIcon from '@/assets/home.svg';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
@@ -167,6 +167,7 @@ export function Header({ mode = 'home' }: HeaderProps) {
                 hubHref="/apis"
                 items={API_ITEMS}
                 isActive={isApi}
+                secondaryGroup={{ label: 'API Guides', items: API_DEVELOPER_ITEMS }}
               />
               <NavDropdown
                 label="Resources"

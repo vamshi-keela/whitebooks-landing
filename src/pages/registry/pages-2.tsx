@@ -1,6 +1,12 @@
 import React from 'react';
 import { SubPageData } from '@/types/pages';
 import { ProductMap } from "@/components/product-map/ProductMap";
+import eInvoiceDashboardImage from '@/assets/product-images/e-invoice-software/e-invoice-dashboard.png';
+import eInvoiceGenerateIrnImage from '@/assets/product-images/feature-images/e-invoice-generate-irn.svg';
+import ewayBillDashboardImage from '@/assets/product-images/e-way-bill-software/e-way-bill-dashboard.png';
+import ewayBillGenerateImage from '@/assets/product-images/softwares/whitebooks_softwares_1.png';
+import { E_INVOICING_SOFTWARE_SHOWCASE_CATEGORIES } from '@/data/e-invoicing-software-platform-showcase.data';
+import { E_WAY_BILL_SOFTWARE_SHOWCASE_CATEGORIES } from '@/data/e-way-bill-platform-showcase.data';
 
 const PAGES_2: Record<string, SubPageData> = {
 
@@ -70,6 +76,37 @@ const PAGES_2: Record<string, SubPageData> = {
         { visualKey: "audit-reports", navLabel: "Per-invoice audit log", title: "Audit log per invoice", body: "Every IRN action — generation, cancellation, amendment, retry — logged with user, timestamp, IRP response code, and full request/response payload. Exportable for audit." },
       ],
     },
+    featureShowCase: E_INVOICING_SOFTWARE_SHOWCASE_CATEGORIES,
+    exploreShowCase: [
+      {
+        id: 'dashboard',
+        label: 'Dashboard',
+        heading: 'Track every IRN, signed QR and acknowledgement from one',
+        accent: 'dashboard',
+        desc: 'Live NIC IRP status, IRN cancellation window, success / failure trends, signed JSON archive and exception alerts — across every GSTIN you operate.',
+        benefits: ['Live NIC IRP status', 'IRN cancellation window', 'Success / failure trends', 'Signed JSON archive', 'Exception alerts', 'Across every GSTIN'],
+        metrics: [
+          { pos: 'tr', value: 'All GSTINs', label: 'Live IRP status' },
+          { pos: 'bl', value: 'Signed QR', label: 'JSON archived' },
+          { pos: 'br', value: 'Exceptions', label: 'Auto-alerted' },
+        ],
+        image: eInvoiceDashboardImage,
+      },
+      {
+        id: 'einvoice',
+        label: 'e-Invoice',
+        heading: 'Generate, sign and verify e-Invoices against the',
+        accent: 'NIC IRP',
+        desc: 'Single IRN, bulk IRN, B2C QR, signed JSON archive, PDF print and bulk zip download — sub-100ms p50 latency, 9 Crore+ IRNs processed per year.',
+        benefits: ['Single IRN', 'Bulk IRN', 'B2C QR', 'Signed JSON archive', 'PDF print', 'Bulk zip download'],
+        metrics: [
+          { pos: 'tr', value: 'sub-100ms', label: 'p50 latency' },
+          { pos: 'bl', value: '9 Cr+', label: 'IRNs / year' },
+          { pos: 'br', value: 'Bulk IRN', label: 'CSV / ERP push' },
+        ],
+        image: eInvoiceGenerateIrnImage,
+      },
+    ],
     integrations: {
       heading: "Connect to your billing system, your ERP, your custom code.",
       body:
@@ -194,6 +231,37 @@ const PAGES_2: Record<string, SubPageData> = {
         { visualKey: "audit-reports", navLabel: "Per-bill audit log", title: "Audit log per bill", body: "Every e-way bill — generation, update, cancellation, expiry — logged with user, timestamp, vehicle number, distance, and GSTN response. Exportable for audit and dispute resolution." },
       ],
     },
+    featureShowCase: E_WAY_BILL_SOFTWARE_SHOWCASE_CATEGORIES,
+    exploreShowCase: [
+      {
+        id: 'dashboard',
+        label: 'Dashboard',
+        heading: 'Track every e-Way Bill, Part-B update and consignment from your',
+        accent: 'EWB dashboard',
+        desc: 'Live status, expiry alerts, validity countdowns and mismatch reports across every GSTIN — from one workspace, drillable to invoice.',
+        benefits: ['Live status', 'Expiry alerts', 'Validity countdowns', 'Mismatch reports', 'Every GSTIN', 'Drillable to invoice'],
+        metrics: [
+          { pos: 'tr', value: 'All GSTINs', label: 'Live status' },
+          { pos: 'bl', value: 'Expiry', label: 'Auto-alerted' },
+          { pos: 'br', value: 'Drillable', label: 'To invoice' },
+        ],
+        image: ewayBillDashboardImage,
+      },
+      {
+        id: 'ewaybill',
+        label: 'e-WayBill',
+        heading: 'Generate, extend and consolidate e-Way Bills against the',
+        accent: 'NIC EWB system',
+        desc: 'Single or bulk EWB, Part-A auto-creation, Part-B vehicle updates, validity extension, multi-vehicle transhipment and consolidated EWB — 7 Crore+ processed per year.',
+        benefits: ['Single & bulk EWB', 'Part-A auto-create', 'Part-B updates', 'Validity extension', 'Multi-vehicle transhipment', 'Consolidated EWB'],
+        metrics: [
+          { pos: 'tr', value: '7 Cr+', label: 'EWB / year' },
+          { pos: 'bl', value: 'Bulk EWB', label: 'CSV / ERP push' },
+          { pos: 'br', value: 'Part-B', label: 'Vehicle updates' },
+        ],
+        image: ewayBillGenerateImage,
+      },
+    ],
     integrations: {
       heading: "Connect to your invoicing, your warehouse system, your TMS.",
       body:

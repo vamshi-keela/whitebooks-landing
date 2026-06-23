@@ -48,11 +48,11 @@ export default function EnvironmentSwitcher({ environments, selected, onChange }
       <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
         {environments.map(env => {
           const isSelected = env.key === selected.key;
-          const isSandbox = env.color === 'emerald';
-          const accentColor = isSandbox ? '#22c55e' : '#dc2f65';
-          const accentSoft = isSandbox ? 'rgba(34,197,94,0.08)' : 'rgba(220,47,101,0.08)';
-          const accentLine = isSandbox ? 'rgba(34,197,94,0.22)' : 'rgba(220,47,101,0.22)';
-          const accentGlow = isSandbox ? 'rgba(34,197,94,0.15)' : 'rgba(220,47,101,0.15)';
+          const isSandbox = env.color === 'blue';
+          const accentColor = isSandbox ? '#3b82f6' : '#22c55e';
+          const accentSoft = isSandbox ? 'rgba(59,130,246,0.08)' : 'rgba(34,197,94,0.08)';
+          const accentLine = isSandbox ? 'rgba(59,130,246,0.22)' : 'rgba(34,197,94,0.22)';
+          const accentGlow = isSandbox ? 'rgba(59,130,246,0.15)' : 'rgba(34,197,94,0.15)';
 
           return (
             <button

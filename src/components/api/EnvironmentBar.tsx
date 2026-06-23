@@ -1,6 +1,7 @@
 import React from 'react';
-import { Globe } from 'lucide-react';
+import { Check, Copy, Globe } from 'lucide-react';
 import type { Environment as Env } from '../../data/environments';
+import CopyButton from './CopyButton';
 
 interface Props {
   environments: Env[];
@@ -9,6 +10,9 @@ interface Props {
 }
 
 export default function EnvironmentBar({ environments, selected, onChange }: Props): React.ReactElement {
+  const [copied, setCopied] = React.useState(false);
+
+
   return (
     <div className="flex flex-wrap items-center gap-2 sm:gap-3 px-4 sm:px-6 py-[7px] bg-[var(--dp-nav-bg)] border-b border-[var(--dp-border)] sticky top-[var(--dp-nav-h)] z-40 backdrop-blur-xl">
       <Globe size={13} color="var(--dp-fg-faint)" className="shrink-0" />
@@ -21,13 +25,13 @@ export default function EnvironmentBar({ environments, selected, onChange }: Pro
       <div className="flex p-[3px] gap-0.5 rounded-lg bg-[var(--dp-surface-2)] border border-[var(--dp-border)]">
         {environments.map(env => {
           const isSelected = env.key === selected.key;
-          const isSandbox = env.color === 'emerald';
-          const accent = isSandbox ? 'var(--dp-success)' : 'var(--dp-accent)';
+          const isSandbox = env.color === 'blue';
+          const accent = isSandbox ? 'var(--dp-info)' : 'var(--dp-success)';
           return (
             <button
               key={env.key}
               onClick={() => onChange(env)}
-              className="flex items-center gap-1.5 rounded-[6px] px-3 py-[3px] text-xs font-body cursor-pointer transition-all duration-150 border-0"
+              className="flex items-center gap-1.5 rounded-lg px-3 py-[3px] text-xs font-body cursor-pointer transition-all duration-150 border-0"
               style={{
                 background: isSelected ? 'var(--dp-bg)' : 'transparent',
                 boxShadow: isSelected ? '0 1px 3px rgba(0,0,0,0.18)' : 'none',
@@ -51,6 +55,19 @@ export default function EnvironmentBar({ environments, selected, onChange }: Pro
       <code className="hidden sm:inline-block font-[family-name:var(--dp-font-mono)] text-[12px] text-[var(--dp-fg-dim)] bg-[var(--dp-surface)] border border-[var(--dp-border)] rounded-md px-2 py-0.5">
         {selected.baseUrl}
       </code>
+
+      <CopyButton text={selected.baseUrl} size={12} label={false} />
+      {/* <button
+        type="button"
+        onClick={handleCopy}
+        aria-label={copied ? 'Copied' : 'Copy base URL'}
+        title={copied ? 'Copied' : 'Copy base URL'}
+        className="hidden sm:inline-flex items-center justify-center p-[3px] rounded-md bg-[var(--dp-surface)] border border-[var(--dp-border)] text-[var(--dp-fg-dim)] hover:text-[var(--dp-fg)] cursor-pointer transition-colors duration-150 shrink-0"
+      >
+        {copied
+          ? <Check size={12} color="var(--dp-success)" />
+          : <Copy size={12} />}
+      </button> */}
     </div>
   );
 }

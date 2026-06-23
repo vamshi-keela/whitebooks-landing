@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import DpIcon from './DpIcon';
 
 /* ─── Logo ─────────────────────────────────────────────────────────────────── */
@@ -75,6 +75,14 @@ interface CodeBlockProps {
 export function CodeBlock({ tabs, defaultTab = 0 }: CodeBlockProps): React.ReactElement {
   const [active, setActive] = useState(defaultTab);
   const [copied, setCopied] = useState(false);
+
+  // Reserve a fixed height for the tallest tab so the block doesn't resize
+  // when switching between tabs with different line counts.
+  const codeMinHeight = useMemo(() => {
+    const maxLines = Math.max(0, ...tabs.map(t => t.lines.length));
+    const lineHeightPx = 13 * 1.7; // fontSize * lineHeight
+    return maxLines * lineHeightPx;
+  }, [tabs]);
 
   const handleCopy = useCallback(() => {
     const text = tabs[active].lines
@@ -154,7 +162,7 @@ export function CodeBlock({ tabs, defaultTab = 0 }: CodeBlockProps): React.React
       </div>
 
       {/* Code area */}
-      <div style={{ overflowX: 'auto', padding: '16px 0' }}>
+      <div style={{ overflowX: 'auto', padding: '16px 0', minHeight: codeMinHeight }}>
         <table style={{ borderCollapse: 'collapse', width: '100%', minWidth: 'max-content' }}>
           <tbody>
             {tabs[active].lines.map((line, li) => (

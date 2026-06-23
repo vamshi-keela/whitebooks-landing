@@ -12,8 +12,8 @@ const isPlaceholder = (url: string) =>
   url === 'SWAGGER_SANDBOX_URL_PLACEHOLDER' || url === 'SWAGGER_PRODUCTION_URL_PLACEHOLDER';
 
 export default function SwaggerWrapper({ environment }: Props): React.ReactElement {
-  const isSandbox = environment.color === 'emerald';
-  const accentColor = isSandbox ? '#22c55e' : '#dc2f65';
+  const isSandbox = environment.color === 'blue';
+  const accentColor = isSandbox ? '#3b82f6' : '#22c55e';
 
   return (
     <section style={{ padding: '0 0 64px' }}>
@@ -53,8 +53,8 @@ export default function SwaggerWrapper({ environment }: Props): React.ReactEleme
               display: 'inline-flex',
               alignItems: 'center',
               gap: 6,
-              background: isSandbox ? 'rgba(34,197,94,0.08)' : 'rgba(220,47,101,0.08)',
-              border: `1px solid ${isSandbox ? 'rgba(34,197,94,0.22)' : 'rgba(220,47,101,0.22)'}`,
+              background: isSandbox ? 'rgba(59,130,246,0.08)' : 'rgba(34,197,94,0.08)',
+              border: `1px solid ${isSandbox ? 'rgba(59,130,246,0.22)' : 'rgba(34,197,94,0.22)'}`,
               color: accentColor,
               borderRadius: 999,
               padding: '3px 12px',

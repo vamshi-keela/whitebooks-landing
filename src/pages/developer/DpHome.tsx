@@ -5,7 +5,12 @@ import { Header, Footer, FluidBackground, Breadcrumb } from '@/layouts/SiteShell
 import { CodeBlock, SurfaceCard, Status, InlineCode, Pill, MethodBadge } from './DpComponents';
 import DpIcon from './DpIcon';
 import { heroTabs, quickstartReqTabs, quickstartRespTabs } from './DpHomeData';
-import { nav } from 'framer-motion/client';
+import LogoWallCarousel from '@/components/ui/LogoWall';
+import DeveloperExperience from '@/sections/DeveloperExperience';
+import IntegrationPartners from '@/sections/IntegrationPartners';
+import ComplianceSupport from '@/sections/ComplianceSupport';
+import SecurityHero from '@/components/security/SecurityHero';
+import { DeveloperSection } from '../apis/ApiSuitePage';
 
 const wrap = "w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4";
 
@@ -91,7 +96,7 @@ function HeroSection(): React.ReactElement {
           {/* Metrics */}
           <div className="flex gap-5 md:gap-7">
             {[
-              { value: '99.98%', label: 'Uptime SLA' },
+              { value: '99.99%', label: 'Uptime SLA' },
               { value: '184ms', label: 'Median latency' },
               { value: '12.4M', label: 'Invoices / month' },
             ].map(m => (
@@ -182,7 +187,7 @@ function EcosystemSection(): React.ReactElement {
   const navigate = useNavigate();
 
   return (
-    <section className="max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4 py-12 md:py-20">
+    <section className="max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4 py-12 md:py-24">
       <div className="mb-8 md:mb-10">
         <h2 className="font-[var(--font-display)] font-semibold text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px]">
           Every compliance API you need.
@@ -423,7 +428,7 @@ function AuthAndMetricsSection(): React.ReactElement {
 
           <div className="grid grid-cols-2 gap-3 mb-5 md:mb-6">
             {[
-              { value: '99.98%', label: 'Uptime', sub: '90-day rolling' },
+              { value: '99.99%', label: 'Uptime', sub: '90-day rolling' },
               { value: '184ms', label: 'Median P50', sub: 'API latency' },
               { value: '12.4M', label: 'Invoices', sub: 'This month' },
               { value: '240Cr', label: 'Value processed', sub: 'INR' },
@@ -914,13 +919,20 @@ export default function DpHome(): React.ReactElement {
       <Header mode="apis" />
       <main>
         <HeroSection />
-        <TrustStrip />
+        <LogoWallCarousel />
         <EcosystemSection />
         <QuickstartSection />
         <OnboardingSection />
         <AuthAndMetricsSection />
         <SDKSection />
-        <UseCasesSection />
+        {/* <UseCasesSection /> */}
+        <SecurityHero />
+        {/* apis <ApiArchitecture />*/}
+        {/* apis */}<DeveloperExperience />
+
+        <DeveloperSection />
+        {/* apis */}<IntegrationPartners />
+        {/* apis */}<ComplianceSupport />
         <SandboxSection />
         <CTASection />
       </main>

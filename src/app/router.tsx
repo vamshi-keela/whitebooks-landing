@@ -70,6 +70,8 @@ import { CONNECTOR_REGISTRY } from '@/pages/connectors/connectors.data';
 import { SapConnectorPage } from '@/pages/connectors/SapConnectorPage';
 import { TallyConnectorPage } from '@/pages/connectors/TallyConnectorPage';
 import WbStats from '@/sections/WbStats';
+import SecurityHero from '@/components/security/SecurityHero';
+import UseCasesAndPartners from '@/components/usecases-and-partners/UseCasesAndPartners';
 
 /* ─── Slug maps ─────────────────────────────────────────────────────────── */
 
@@ -158,12 +160,7 @@ function HomeRoute() {
         <WhyWhitebooks />
         <WbStats />
         <WbTrust />
-        <InvoiceTemplates />
-        <EnterpriseControls />
-        <ApiArchitecture />
-        <DeveloperExperience />
-        <IntegrationPartners />
-        <ComplianceSupport />
+        <SecurityHero />
         <ProblemSection />
         <FinanceTeamsSection />
         <ForDevelopersSection />
@@ -296,7 +293,8 @@ export function AppRouter() {
         <Route path="/" element={<HomeRoute />} />
         <Route path="/softwares" element={<SoftwaresHubRoute />} />
         <Route path="/softwares/:product" element={<SoftwareSubPageRoute />} />
-        <Route path="/apis" element={<ApiSuitePage />} />
+        {/* <Route path="/apis" element={<ApiSuitePage />} /> */}
+        <Route path="/apis" element={<ApisHubRoute />} />
         <Route path="/apis/:product" element={<ApiSubPageRoute />} />
         <Route path="/services" element={<ServicesHubRoute />} />
         <Route path="/connectors/:slug" element={<ConnectorPageRoute />} />

@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import { X, ChevronDown, ChevronRight, Search, Play, Loader2, AlertCircle } from 'lucide-react';
+import { createPortal } from 'react-dom';
+import { X, Check, ChevronDown, ChevronRight, Search, Play, Loader2, AlertCircle } from 'lucide-react';
 import { openApiSpec, type NormalizedOperation, type NormalizedMethod, type ApiSpecKey } from '../../data/openapi-spec';
+import { environments, type Environment } from '../../data/environments';
 import { useSpec, SpecContext, makeSpecContext } from '../../contexts/SpecContext';
 import { generateExampleFromSchema } from '../../utils/schemaHelpers';
 import { resolveSchema } from '../../utils/normalizeSpec';
@@ -8,6 +10,7 @@ import { searchOps, getOpIndex } from '../../pages/developer/devSearch';
 import MethodBadge from './MethodBadge';
 import CodeExampleTabs from './CodeExampleTabs';
 import ResponseCard, { type LiveResponse } from './ResponseCard';
+import CopyButton from './CopyButton';
 
 /* ─── Shared field styles ─────────────────────────────────────────────────── */
 
@@ -207,13 +210,106 @@ function EndpointSelect({
 
 /* ─── URL composer ────────────────────────────────────────────────────────── */
 
-function UrlComposer({ method, baseUrl, path }: { method: NormalizedOperation['method']; baseUrl: string; path: string }): React.ReactElement {
+const envAccent = (env: Environment) => (env.color === 'blue' ? 'var(--dp-info)' : 'var(--dp-success)');
+
+function UrlComposer({
+  method, path, selectedEnv, onEnvChange,
+}: {
+  method: NormalizedOperation['method'];
+  path: string;
+  selectedEnv: Environment;
+  onEnvChange: (env: Environment) => void;
+}): React.ReactElement {
   const segments = path.split('/').filter(Boolean);
+  const [envOpen, setEnvOpen] = useState(false);
+  const [menuPos, setMenuPos] = useState<{ left: number; top: number } | null>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  const openMenu = () => {
+    const r = triggerRef.current?.getBoundingClientRect();
+    if (r) setMenuPos({ left: r.left, top: r.bottom + 6 });
+    setEnvOpen(o => !o);
+  };
+
+  useEffect(() => {
+    if (!envOpen) return;
+    const onDoc = (e: MouseEvent) => {
+      const t = e.target as Node;
+      if (triggerRef.current?.contains(t) || menuRef.current?.contains(t)) return;
+      setEnvOpen(false);
+    };
+    const onScroll = () => setEnvOpen(false);
+    document.addEventListener('mousedown', onDoc);
+    window.addEventListener('resize', onScroll);
+    return () => {
+      document.removeEventListener('mousedown', onDoc);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, [envOpen]);
+
   return (
     <div className="flex-1 min-w-0 flex items-center gap-2 px-2.5 py-2 rounded-lg border border-[var(--dp-border-strong)] bg-[var(--dp-surface)]">
       <MethodBadge method={method} size="sm" />
       <div className="flex-1 min-w-0 flex items-center flex-nowrap overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden font-[family-name:var(--dp-font-mono)] text-[13px]">
-        <span className="text-[var(--dp-fg-dim)] whitespace-nowrap shrink-0">{baseUrl}</span>
+        {/* Environment selector — click the base URL to switch environment */}
+        <button
+          ref={triggerRef}
+          type="button"
+          onClick={openMenu}
+          aria-haspopup="listbox"
+          aria-expanded={envOpen}
+          title="Change environment"
+          className="shrink-0 flex items-center gap-1 -ml-1 px-1 py-px rounded-[5px] border-0 bg-transparent cursor-pointer hover:bg-[var(--dp-surface-2)] transition-colors duration-150"
+        >
+          <span
+            className="w-1.5 h-1.5 rounded-full shrink-0"
+            style={{ background: envAccent(selectedEnv), boxShadow: `0 0 6px ${envAccent(selectedEnv)}` }}
+          />
+          <span className="text-[var(--dp-fg-dim)] whitespace-nowrap font-[family-name:var(--dp-font-mono)]">{selectedEnv.baseUrl}</span>
+          <ChevronDown
+            size={12}
+            color="var(--dp-fg-faint)"
+            className="shrink-0 transition-transform duration-150"
+            style={{ transform: envOpen ? 'rotate(180deg)' : 'none' }}
+          />
+        </button>
+
+        {envOpen && menuPos && createPortal(
+          <div
+            ref={menuRef}
+            role="listbox"
+            style={{ position: 'fixed', left: menuPos.left, top: menuPos.top }}
+            className="z-[1100] min-w-[260px] p-1 rounded-lg bg-[var(--dp-surface)] border border-[var(--dp-border-strong)] shadow-[0_12px_40px_rgba(0,0,0,0.4)]"
+          >
+            {environments.map(env => {
+              const isSel = env.key === selectedEnv.key;
+              return (
+                <button
+                  key={env.key}
+                  type="button"
+                  role="option"
+                  aria-selected={isSel}
+                  onClick={() => { onEnvChange(env); setEnvOpen(false); }}
+                  className="w-full flex items-center gap-2 px-2.5 py-2 rounded-md border-0 text-left cursor-pointer transition-colors duration-150 hover:bg-[var(--dp-surface-2)]"
+                  style={{ background: isSel ? 'var(--dp-surface-2)' : 'transparent' }}
+                >
+                  <span
+                    className="w-1.5 h-1.5 rounded-full shrink-0"
+                    style={{ background: envAccent(env), boxShadow: `0 0 6px ${envAccent(env)}` }}
+                  />
+                  <span className="flex-1 min-w-0">
+                    <span className="block text-[12.5px] font-[family-name:var(--dp-font-body)] font-medium text-[var(--dp-fg)]">{env.name}</span>
+                    <span className="block truncate text-[11px] font-[family-name:var(--dp-font-mono)] text-[var(--dp-fg-faint)]">{env.baseUrl}</span>
+                  </span>
+                  {isSel && <Check size={14} color={envAccent(env)} className="shrink-0" />}
+                </button>
+              );
+            })}
+          </div>,
+          document.body,
+        )}
+
         {segments.map((seg, i) => {
           const isParam = seg.startsWith('{') && seg.endsWith('}');
           return (
@@ -228,6 +324,7 @@ function UrlComposer({ method, baseUrl, path }: { method: NormalizedOperation['m
           );
         })}
       </div>
+      <CopyButton text={`${selectedEnv.baseUrl}${path}`} size={12} label={false} />
     </div>
   );
 }
@@ -235,12 +332,14 @@ function UrlComposer({ method, baseUrl, path }: { method: NormalizedOperation['m
 /* ─── Playground inner (state resets per operation via key) ───────────────── */
 
 function PlaygroundInner({
-  apiType, operation, onSelect, onClose,
+  apiType, operation, onSelect, onClose, selectedEnv, onEnvChange,
 }: {
   apiType: ApiSpecKey;
   operation: NormalizedOperation;
   onSelect: (apiType: ApiSpecKey, op: NormalizedOperation) => void;
   onClose: () => void;
+  selectedEnv: Environment;
+  onEnvChange: (env: Environment) => void;
 }): React.ReactElement {
   const { spec, baseUrl } = useSpec();
 
@@ -262,6 +361,7 @@ function PlaygroundInner({
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState<LiveResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [warn, setWarn] = useState(false);
 
   const canSend = useMemo(() => {
     if (pathParams.some(p => p.required && !pathVals[p.name]?.trim())) return false;
@@ -269,6 +369,11 @@ function PlaygroundInner({
     if (headerParams.some(p => p.required && !headerVals[p.name]?.trim())) return false;
     return true;
   }, [pathParams, queryParams, headerParams, pathVals, queryVals, headerVals]);
+
+  // Clear the "required fields" warning as soon as everything is filled in.
+  useEffect(() => {
+    if (canSend && warn) setWarn(false);
+  }, [canSend, warn]);
 
   const fullUrl = `${baseUrl}${operation.path}`;
 
@@ -282,6 +387,16 @@ function PlaygroundInner({
       .map(p => `${encodeURIComponent(p.name)}=${encodeURIComponent(queryVals[p.name])}`);
     if (qs.length) url += '?' + qs.join('&');
     return url;
+  };
+
+  const handleSend = () => {
+    if (loading) return;
+    if (!canSend) {
+      setWarn(true);
+      return;
+    }
+    setWarn(false);
+    void execute();
   };
 
   const execute = async () => {
@@ -314,10 +429,11 @@ function PlaygroundInner({
       {/* ── Top bar ──────────────────────────────────────────────────────── */}
       <div className="flex flex-wrap items-center gap-2.5 px-3 sm:px-4 py-3 border-b border-[var(--dp-border)] shrink-0">
         <EndpointSelect activeApiType={apiType} activeOp={operation} onSelect={onSelect} />
-        <UrlComposer method={operation.method} baseUrl={baseUrl} path={operation.path} />
+        <UrlComposer method={operation.method} path={operation.path} selectedEnv={selectedEnv} onEnvChange={onEnvChange} />
         <button
-          onClick={execute}
-          disabled={loading || !canSend}
+          onClick={handleSend}
+          disabled={loading}
+          aria-disabled={!canSend}
           className={[
             'flex items-center justify-center gap-1.5 px-5 py-2 rounded-lg shrink-0',
             'text-white font-[family-name:var(--dp-font-body)] text-[13px] font-semibold',
@@ -338,6 +454,17 @@ function PlaygroundInner({
           <X size={17} />
         </button>
       </div>
+
+      {/* ── Required-fields warning ──────────────────────────────────────── */}
+      {warn && (
+        <div
+          role="alert"
+          className="flex items-center gap-2 px-3 sm:px-4 py-2 border-b border-[rgba(220,47,101,0.25)] bg-[rgba(220,47,101,0.08)] text-[var(--dp-accent)] text-[12.5px] font-[family-name:var(--dp-font-body)] shrink-0"
+        >
+          <AlertCircle size={14} className="shrink-0" />
+          Fill all the required fields
+        </div>
+      )}
 
       {/* ── Body: form | code+response ───────────────────────────────────── */}
       <div className="flex-1 min-h-0 overflow-y-auto lg:overflow-hidden flex flex-col lg:flex-row">
@@ -450,8 +577,16 @@ export default function Playground({ open, onClose, operation, apiType }: Playgr
   // Preserve the page's environment (baseUrl) while we swap specs per selected API.
   const { baseUrl } = useSpec();
   const [active, setActive] = useState<{ apiType: ApiSpecKey; op: NormalizedOperation }>({ apiType, op: operation });
+  const [selectedEnv, setSelectedEnv] = useState<Environment>(
+    () => environments.find(e => e.baseUrl === baseUrl) ?? environments[0],
+  );
 
   useEffect(() => { if (open) setActive({ apiType, op: operation }); }, [open, apiType, operation]);
+
+  // Re-sync to the page's environment whenever the playground (re)opens.
+  useEffect(() => {
+    if (open) setSelectedEnv(environments.find(e => e.baseUrl === baseUrl) ?? environments[0]);
+  }, [open, baseUrl]);
 
   useEffect(() => {
     const handle = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
@@ -469,8 +604,8 @@ export default function Playground({ open, onClose, operation, apiType }: Playgr
   // Spec scoped to the *selected* endpoint's API so cross-API switching resolves
   // the right schemas, examples, and code samples.
   const specCtx = useMemo(
-    () => makeSpecContext(openApiSpec(active.apiType), baseUrl),
-    [active.apiType, baseUrl],
+    () => makeSpecContext(openApiSpec(active.apiType), selectedEnv.baseUrl),
+    [active.apiType, selectedEnv.baseUrl],
   );
 
   if (!open) return null;
@@ -491,6 +626,8 @@ export default function Playground({ open, onClose, operation, apiType }: Playgr
             operation={active.op}
             onSelect={(t, op) => setActive({ apiType: t, op })}
             onClose={onClose}
+            selectedEnv={selectedEnv}
+            onEnvChange={setSelectedEnv}
           />
         </SpecContext.Provider>
       </div>

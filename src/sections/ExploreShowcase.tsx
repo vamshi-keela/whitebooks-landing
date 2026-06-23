@@ -230,7 +230,7 @@ function VideoCanvas({ feature, isDark }: { feature: ExploreShowCase; isDark: bo
             exit={{ opacity: 0, scale: 1.01 }}
             transition={{ duration: 0.3, ease: EASE }}
           >
-            {/* 16:10 video placeholder — swap the inner content for a <video> later */}
+            {/* 16:10 canvas — shows feature image or gradient fallback */}
             <div
               className="relative aspect-[16/10] w-full overflow-hidden rounded-[24px]"
               style={{
@@ -240,36 +240,48 @@ function VideoCanvas({ feature, isDark }: { feature: ExploreShowCase; isDark: bo
                 border: '1px solid var(--hairline)',
               }}
             >
-              {/* subtle grid texture */}
-              <div
-                aria-hidden
-                className="absolute inset-0 opacity-[0.5]"
-                style={{
-                  backgroundImage: isDark
-                    ? 'linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)'
-                    : 'linear-gradient(rgba(0,0,0,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.035) 1px, transparent 1px)',
-                  backgroundSize: '40px 40px',
-                  maskImage: 'radial-gradient(ellipse 80% 80% at 50% 45%, #000 30%, transparent 80%)',
-                  WebkitMaskImage: 'radial-gradient(ellipse 80% 80% at 50% 45%, #000 30%, transparent 80%)',
-                }}
-              />
-
-              {/* play overlay */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-4">
-                <button
-                  aria-label={`Play ${feature.label} walkthrough`}
-                  className="group flex h-16 w-16 items-center justify-center rounded-full transition-transform duration-300 hover:scale-105"
-                  style={{
-                    background: 'linear-gradient(135deg, #ff5a8e 0%, #dc2f65 100%)',
-                    boxShadow: '0 14px 36px -10px rgba(220,47,101,0.65), 0 0 0 8px rgba(220,47,101,0.12)',
-                  }}
-                >
-                  <Play size={22} className="ml-0.5 text-white" fill="white" strokeWidth={0} />
-                </button>
-                <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--fg-tertiary)]">
-                  Video coming soon
-                </span>
-              </div>
+              {feature.image ? (
+                <>
+                  {/* hero image — object-cover so it always fills the 16:10 box */}
+                  <img
+                    src={feature.image}
+                    alt={`${feature.label} preview`}
+                    className="absolute inset-0 h-full w-full object-cover object-center"
+                  />
+                </>
+              ) : (
+                <>
+                  {/* subtle grid texture (fallback when no image) */}
+                  <div
+                    aria-hidden
+                    className="absolute inset-0 opacity-[0.5]"
+                    style={{
+                      backgroundImage: isDark
+                        ? 'linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)'
+                        : 'linear-gradient(rgba(0,0,0,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.035) 1px, transparent 1px)',
+                      backgroundSize: '40px 40px',
+                      maskImage: 'radial-gradient(ellipse 80% 80% at 50% 45%, #000 30%, transparent 80%)',
+                      WebkitMaskImage: 'radial-gradient(ellipse 80% 80% at 50% 45%, #000 30%, transparent 80%)',
+                    }}
+                  />
+                  {/* play overlay */}
+                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-4">
+                    <button
+                      aria-label={`Play ${feature.label} walkthrough`}
+                      className="group flex h-16 w-16 items-center justify-center rounded-full transition-transform duration-300 hover:scale-105"
+                      style={{
+                        background: 'linear-gradient(135deg, #ff5a8e 0%, #dc2f65 100%)',
+                        boxShadow: '0 14px 36px -10px rgba(220,47,101,0.65), 0 0 0 8px rgba(220,47,101,0.12)',
+                      }}
+                    >
+                      <Play size={22} className="ml-0.5 text-white" fill="white" strokeWidth={0} />
+                    </button>
+                    <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--fg-tertiary)]">
+                      Video coming soon
+                    </span>
+                  </div>
+                </>
+              )}
             </div>
           </motion.div>
         </AnimatePresence>

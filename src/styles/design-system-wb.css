@@ -2382,6 +2382,22 @@ img {
   font-size: 14px;
 }
 
+@media (max-width: 760px) {
+  .wb-tab-strip {
+    flex-wrap: wrap;
+    padding: 4px;
+    gap: 4px;
+    width: 100%;
+  }
+
+  .wb-tab-strip .wb-toggle-btn {
+    flex: 1 1 auto;
+    justify-content: center;
+    padding: 7px 12px;
+    font-size: 12px;
+  }
+}
+
 .wb-card-grid {
   display: grid;
   gap: 18px;

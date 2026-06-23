@@ -4,14 +4,13 @@ import { motion } from "framer-motion";
 import { PillButton } from "@/components/ui/PillButton";
 import {
   FEATURE_BASE,
-  SHOWCASE_CATEGORIES,
   SHOWCASE_HEADER,
   SHOWCASE_PRIMARY_CTA,
   type ShowcaseCategory,
   type ShowcaseCta,
   type ShowcaseMetric,
   type ShowcaseTab,
-} from "./platform-showcase.data";
+} from "../data/accouting-platform-showcase.data";
 
 /* ──────────────────────────────────────────────────────────────────────────
  * PlatformShowcase
@@ -25,6 +24,18 @@ const STEP_VH = 70;
 const FLATTEN_AT = 1100; // below this width: no scroll progression, click-driven
 
 const href = (path: string) => (/^https?:/.test(path) ? path : `${FEATURE_BASE}${path}`);
+
+/* Bundle every product image so `media.poster` strings resolve to hashed URLs.
+   Posters are authored as "@assets/product-images/…"; map that onto the real
+   "../assets/product-images/…" module keys Vite produces. */
+const POSTER_URLS = import.meta.glob<string>("../assets/product-images/**/*.{png,jpg,jpeg,webp}", {
+  eager: true,
+  query: "?url",
+  import: "default",
+});
+
+const resolvePoster = (poster?: string): string | undefined =>
+  poster ? POSTER_URLS[poster.replace(/^@assets\//, "../assets/")] : undefined;
 
 /* ── Small inline check ───────────────────────────────────────────────────── */
 function CheckMark() {
@@ -225,7 +236,7 @@ function CardCtas({ cta }: { cta: ShowcaseCta }) {
         {SHOWCASE_PRIMARY_CTA.label}
         <span aria-hidden="true">→</span>
       </motion.a>
-      <motion.a
+      {/* <motion.a
         href={href(cta.href)}
         whileHover={{ y: -2 }}
         whileTap={{ y: 0 }}
@@ -236,7 +247,7 @@ function CardCtas({ cta }: { cta: ShowcaseCta }) {
         <span aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-0.5">
           →
         </span>
-      </motion.a>
+      </motion.a> */}
     </div>
   );
 }
@@ -315,9 +326,31 @@ function MetricCard({ metric, index }: { metric: ShowcaseMetric; index: number }
 
 /* ── Animated 3:4 preview placeholder (no browser chrome) ─────────────────── */
 function AnimatedPreviewPlaceholder({ tab, counter }: { tab: ShowcaseTab; counter: string }) {
-  // TODO: When `tab.media.src` is set, swap this placeholder for a real player:
-  //   <video src={tab.media.src} poster={tab.media.poster} autoPlay muted loop
-  //          playsInline className="absolute inset-0 h-full w-full object-cover" />
+  const poster = resolvePoster(tab.media.poster);
+
+  // With a real image, let it render at its natural width/height — no fixed 3:4
+  // box, no cropping. The frame sizes itself to the image.
+  if (poster) {
+    return (
+      <div className="relative mx-auto w-fit max-w-full">
+        <motion.img
+          key={tab.id}
+          src={poster}
+          alt={tab.media.label}
+          loading="lazy"
+          decoding="async"
+          initial={{ opacity: 0, scale: 0.97 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.3, ease: EASE }}
+          className="block h-auto w-auto max-w-full"
+        />
+        {/* <span className="absolute left-5 top-5 z-10 font-mono text-[10.5px] uppercase tracking-[0.14em] text-brand">
+          {counter}
+        </span> */}
+      </div>
+    );
+  }
+
   return (
     <div className="relative mx-auto aspect-[3/4] w-full max-w-[280px]">
       <div className="absolute inset-0 overflow-hidden rounded-[32px] p-px">
@@ -348,7 +381,7 @@ function AnimatedPreviewPlaceholder({ tab, counter }: { tab: ShowcaseTab; counte
             {counter}
           </span>
 
-          {/* morphing content per tab — keyed mount animation */}
+          {/* placeholder content per tab — keyed mount animation */}
           <motion.div
             key={tab.id}
             initial={{ opacity: 0, scale: 0.97 }}
@@ -369,10 +402,12 @@ function AnimatedPreviewPlaceholder({ tab, counter }: { tab: ShowcaseTab; counte
               <div className="font-display text-[16px] font-semibold tracking-[-0.01em] text-[var(--text)]">
                 {tab.media.label}
               </div>
-              <div className="mt-1 px-2 text-[12px] leading-[1.45] text-muted">{tab.subtitle}</div>
+              <div className="mt-1 px-2 text-[12px] leading-[1.45] text-muted">
+                {tab.subtitle}
+              </div>
             </div>
             <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[10.5px] font-medium uppercase tracking-[0.12em] text-muted">
-              Video coming soon
+              Preview coming soon
             </span>
           </motion.div>
         </div>
@@ -401,21 +436,21 @@ function PreviewColumn({
         }}
       />
       <AnimatedPreviewPlaceholder tab={tab} counter={counter} />
-      {category.metrics.map((m, i) => (
+      {/* {category.metrics.map((m, i) => (
         <MetricCard key={`${category.id}-${m.slot}`} metric={m} index={i} />
-      ))}
+      ))} */}
     </div>
   );
 }
 
 /* ── Section ──────────────────────────────────────────────────────────────── */
-export function PlatformShowcase({ heading }: { heading?: ReactNode }) {
+export function PlatformShowcase({ heading, categories }: { heading?: ReactNode, categories: ShowcaseCategory[] }) {
   const [activeCat, setActiveCat] = useState(0);
   const [activeTab, setActiveTab] = useState(0);
   const outerRef = useRef<HTMLElement>(null);
-  const STEPS = SHOWCASE_CATEGORIES.length;
+  const STEPS = categories.length;
 
-  const category = SHOWCASE_CATEGORIES[activeCat];
+  const category = categories[activeCat];
   const tab = category.tabs[activeTab] ?? category.tabs[0];
   const counter = `${String(activeTab + 1).padStart(2, "0")} / ${String(category.tabs.length).padStart(2, "0")}`;
 
@@ -493,7 +528,7 @@ export function PlatformShowcase({ heading }: { heading?: ReactNode }) {
       <div className="mx-auto w-full max-w-[1280px] px-6 pt-16 sm:px-10">
         {headerBlock}
         <div className="mt-8 min-[1101px]:hidden">
-          <CategoryPills categories={SHOWCASE_CATEGORIES} active={activeCat} onSelect={onRailClick} />
+          <CategoryPills categories={categories} active={activeCat} onSelect={onRailClick} />
         </div>
       </div>
 
@@ -503,7 +538,7 @@ export function PlatformShowcase({ heading }: { heading?: ReactNode }) {
           <div className="grid grid-cols-[220px_minmax(0,1fr)] items-start gap-16">
             {/* Left column — category rail + proof */}
             <div className="pt-1">
-              <CategoryRail categories={SHOWCASE_CATEGORIES} active={activeCat} onSelect={onRailClick} />
+              <CategoryRail categories={categories} active={activeCat} onSelect={onRailClick} />
               <motion.div
                 key={`${category.id}-proof`}
                 initial={{ opacity: 0 }}

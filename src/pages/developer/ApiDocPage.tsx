@@ -247,7 +247,7 @@ export default function ApiDocPage({ apiType }: Props): React.ReactElement {
           sectionLabel={isOverview ? apiLabel : (selectedOp?.tag ?? apiLabel)}
           pageLabel={isOverview ? 'Overview' : (selectedOp?.summary ?? '')}
         />
-        {!isOverview && (
+        {(
           <EnvironmentBar
             environments={environments}
             selected={selectedEnv}

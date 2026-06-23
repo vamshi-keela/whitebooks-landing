@@ -291,6 +291,407 @@ export function HeroSection({ title, description }: { title: string; description
   );
 }
 
+// ─── API Lifecycle Diagram ────────────────────────────────────────────────────
+
+const LIFECYCLE_STEPS = [
+  { n: 1, title: 'Request', desc: 'You send a request\nto WhiteBooks API', color: '#60a5fa' },
+  { n: 2, title: 'Process', desc: 'We validate, sign &\nroute via GSP layer', color: 'var(--dp-accent-2)' },
+  { n: 3, title: 'Transmit', desc: 'GSP-certified relay\nto GSTN', color: '#9a9aae' },
+  { n: 4, title: 'Response', desc: 'GSTN processes\n& sends response', color: '#22c55e' },
+  { n: 5, title: 'Deliver', desc: 'Response delivered\nback to your app', color: '#60a5fa' },
+];
+
+type FlowChip = { label: string; icon: typeof Shield; color?: string };
+
+// Small filled number badge used on the flow arrows
+function StepBadge({ n, color }: { n: number; color: string }) {
+  return (
+    <span
+      className="inline-flex items-center justify-center rounded-full text-[10px] font-bold flex-shrink-0"
+      style={{ width: 18, height: 18, background: color, color: '#fff', fontFamily: 'var(--dp-font-mono)' }}
+    >
+      {n}
+    </span>
+  );
+}
+
+// Thin horizontal connector line with an arrow head
+function FlowArrow({ dir = 'right' }: { dir?: 'right' | 'left' }) {
+  const line = <div className="flex-1 h-px" style={{ background: 'var(--dp-border-strong)' }} />;
+  const head = <ArrowRight size={12} color="var(--dp-fg-faint)" className={dir === 'left' ? 'rotate-180' : ''} />;
+  return (
+    <div className="flex items-center gap-[2px] w-full" style={{ minWidth: 56 }}>
+      {dir === 'left' ? <>{head}{line}</> : <>{line}{head}</>}
+    </div>
+  );
+}
+
+// Two-way link between two nodes: labelled forward arrow on top, return arrow below
+function FlowLink({
+  top,
+  bottom,
+}: {
+  top?: { n: number; label: string; color: string };
+  bottom?: { n: number; label: string; color: string };
+}) {
+  return (
+    <div className="flex flex-col justify-center gap-5 px-1.5 self-center flex-shrink-0" style={{ minWidth: 84 }}>
+      <div className="flex flex-col items-center gap-1">
+        {top && (
+          <div className="flex items-center gap-1.5">
+            <StepBadge n={top.n} color={top.color} />
+            <span className="text-[11px]" style={{ color: 'var(--dp-fg-muted)' }}>{top.label}</span>
+          </div>
+        )}
+        <FlowArrow dir="right" />
+      </div>
+      <div className="flex flex-col items-center gap-1">
+        <FlowArrow dir="left" />
+        {bottom && (
+          <div className="flex items-center gap-1.5">
+            <StepBadge n={bottom.n} color={bottom.color} />
+            <span className="text-[11px]" style={{ color: 'var(--dp-fg-muted)' }}>{bottom.label}</span>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// Vertical two-way connector used in the stacked (mobile) flow
+function VertLink({
+  top,
+  bottom,
+}: {
+  top?: { n: number; label: string; color: string };
+  bottom?: { n: number; label: string; color: string };
+}) {
+  const down = (
+    <div className="flex flex-col items-center">
+      <div className="w-px h-3" style={{ background: 'var(--dp-border-strong)' }} />
+      <ArrowRight size={12} color="var(--dp-fg-faint)" className="rotate-90 -mt-[3px]" />
+    </div>
+  );
+  const up = (
+    <div className="flex flex-col items-center">
+      <ArrowRight size={12} color="var(--dp-fg-faint)" className="-rotate-90 -mb-[3px]" />
+      <div className="w-px h-3" style={{ background: 'var(--dp-border-strong)' }} />
+    </div>
+  );
+  return (
+    <div className="flex items-start justify-center gap-8 py-2.5">
+      <div className="flex flex-col items-center gap-1">
+        {top && (
+          <div className="flex items-center gap-1.5">
+            <StepBadge n={top.n} color={top.color} />
+            <span className="text-[11px]" style={{ color: 'var(--dp-fg-muted)' }}>{top.label}</span>
+          </div>
+        )}
+        {down}
+      </div>
+      {bottom && (
+        <div className="flex flex-col items-center gap-1">
+          {up}
+          <div className="flex items-center gap-1.5">
+            <StepBadge n={bottom.n} color={bottom.color} />
+            <span className="text-[11px]" style={{ color: 'var(--dp-fg-muted)' }}>{bottom.label}</span>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Vertical dashed branch connector (Audit Logs / Webhooks)
+function VertDash({ color, dir }: { color: string; dir: 'up' | 'down' }) {
+  const head = <ArrowRight size={11} color={color} className={dir === 'up' ? '-rotate-90' : 'rotate-90'} />;
+  const line = <div className="flex-1 border-l border-dashed" style={{ borderColor: color }} />;
+  return (
+    <div className="flex flex-col items-center my-1" style={{ height: 26 }}>
+      {dir === 'up' ? <>{head}{line}</> : <>{line}{head}</>}
+    </div>
+  );
+}
+
+function FlowNode({
+  icon: Icon,
+  iconColor,
+  title,
+  titleColor,
+  sub,
+  accentBg,
+  accentBorder,
+  chips,
+  layout = 'stack',
+  width = 150,
+}: {
+  icon: typeof Shield;
+  iconColor?: string;
+  title: string;
+  titleColor?: string;
+  sub?: string;
+  accentBg?: string;
+  accentBorder?: string;
+  chips?: FlowChip[];
+  layout?: 'stack' | 'inline';
+  width?: number | string;
+}) {
+  return (
+    <div
+      className="rounded-xl flex flex-col items-center text-center flex-shrink-0"
+      style={{
+        width,
+        padding: '16px 14px',
+        background: accentBg ?? 'var(--dp-surface-2)',
+        border: `1px solid ${accentBorder ?? 'var(--dp-border)'}`,
+      }}
+    >
+      {layout === 'stack' ? (
+        <>
+          <div
+            className="w-10 h-10 rounded-[10px] flex items-center justify-center mb-2.5"
+            style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid var(--dp-border)' }}
+          >
+            <Icon size={18} color={iconColor ?? 'var(--dp-fg-muted)'} />
+          </div>
+          <div className="text-[13px] font-bold leading-tight" style={{ color: titleColor ?? 'var(--dp-fg)', fontFamily: 'var(--dp-font-display)' }}>{title}</div>
+        </>
+      ) : (
+        <div className="flex items-center justify-center gap-2">
+          <Icon size={16} color={iconColor ?? 'var(--dp-fg-muted)'} />
+          <div className="text-[13px] font-bold leading-tight" style={{ color: titleColor ?? 'var(--dp-fg)', fontFamily: 'var(--dp-font-display)' }}>{title}</div>
+        </div>
+      )}
+      {sub && <div className="text-[10px] mt-1" style={{ color: 'var(--dp-fg-dim)', fontFamily: 'var(--dp-font-mono)' }}>{sub}</div>}
+      {chips && (
+        <div className="flex flex-wrap justify-center gap-1 mt-2.5">
+          {chips.map(({ label, icon: ChipIcon, color }) => (
+            <span
+              key={label}
+              className="inline-flex items-center gap-1 px-1.5 py-[2px] rounded text-[9px]"
+              style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid var(--dp-border)', color: 'var(--dp-fg-dim)', fontFamily: 'var(--dp-font-mono)' }}
+            >
+              <ChipIcon size={8} color={color ?? 'var(--dp-fg-dim)'} />{label}
+            </span>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+const ACCENT = 'var(--dp-accent-2)';
+
+function ApiLifecycleDiagram(): React.ReactElement {
+  return (
+    <SurfaceCard style={{ padding: 0, overflow: 'hidden' }}>
+      <div className="p-6 sm:p-8">
+        {/* Header */}
+        <div className="flex items-center gap-2.5 mb-8">
+          <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ background: ACCENT, boxShadow: '0 0 10px rgba(220,47,101,0.6)' }} />
+          <span className="text-[15px] font-bold" style={{ color: 'var(--dp-fg)', fontFamily: 'var(--dp-font-display)' }}>WhiteBooks API Lifecycle</span>
+        </div>
+
+        {/* Lifecycle timeline — horizontal on ≥sm */}
+        <div className="relative hidden sm:grid grid-cols-5 gap-2 mb-10">
+          <div className="absolute left-[10%] right-[10%] h-px" style={{ top: 13, background: 'var(--dp-border-strong)' }} />
+          {LIFECYCLE_STEPS.map(s => (
+            <div key={s.n} className="relative flex flex-col items-center text-center px-1">
+              <span
+                className="inline-flex items-center justify-center rounded-full text-[12px] font-bold mb-3"
+                style={{ width: 28, height: 28, background: s.color, color: '#fff', boxShadow: '0 0 0 4px var(--dp-surface)', fontFamily: 'var(--dp-font-mono)' }}
+              >
+                {s.n}
+              </span>
+              <div className="text-[13px] font-semibold mb-1" style={{ color: 'var(--dp-fg)', fontFamily: 'var(--dp-font-display)' }}>{s.title}</div>
+              <div className="text-[11px] leading-[1.5] whitespace-pre-line" style={{ color: 'var(--dp-fg-muted)' }}>{s.desc}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* Lifecycle timeline — vertical list on mobile */}
+        <div className="sm:hidden flex flex-col mb-8">
+          {LIFECYCLE_STEPS.map((s, i) => (
+            <div key={s.n} className="relative flex gap-3 pb-5 last:pb-0">
+              {i < LIFECYCLE_STEPS.length - 1 && (
+                <div className="absolute left-[13px] top-7 bottom-0 w-px" style={{ background: 'var(--dp-border-strong)' }} />
+              )}
+              <span
+                className="relative z-[1] inline-flex items-center justify-center rounded-full text-[12px] font-bold flex-shrink-0"
+                style={{ width: 28, height: 28, background: s.color, color: '#fff', boxShadow: '0 0 0 4px var(--dp-surface)', fontFamily: 'var(--dp-font-mono)' }}
+              >
+                {s.n}
+              </span>
+              <div className="pt-0.5">
+                <div className="text-[13px] font-semibold mb-0.5" style={{ color: 'var(--dp-fg)', fontFamily: 'var(--dp-font-display)' }}>{s.title}</div>
+                <div className="text-[12px] leading-[1.5]" style={{ color: 'var(--dp-fg-muted)' }}>{s.desc.replace(/\n/g, ' ')}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Flow diagram — horizontal on desktop (≥lg) */}
+        <div className="hidden lg:block overflow-x-auto pb-2 -mx-2 px-2">
+          <div className="flex items-center justify-center" style={{ minWidth: 866 }}>
+            <FlowNode icon={Code} title="Your App" sub="SDK / REST" width={150} />
+
+            <FlowLink
+              top={{ n: 1, label: 'Request', color: '#60a5fa' }}
+              bottom={{ n: 5, label: 'Response', color: '#60a5fa' }}
+            />
+
+            {/* Center column: Audit Logs / WhiteBooks API / Webhooks */}
+            <div className="flex flex-col items-center flex-shrink-0">
+              <FlowNode
+                icon={FileText}
+                iconColor="#60a5fa"
+                title="Audit Logs"
+                titleColor="#60a5fa"
+                sub="Immutable trail"
+                accentBg="rgba(96,165,250,0.06)"
+                accentBorder="rgba(96,165,250,0.25)"
+                layout="inline"
+                width={184}
+              />
+              <VertDash color="rgba(96,165,250,0.5)" dir="up" />
+              <FlowNode
+                icon={BookOpen}
+                iconColor={ACCENT}
+                title="WhiteBooks API"
+                titleColor={ACCENT}
+                sub="api.whitebooks.dev"
+                accentBg="rgba(220,47,101,0.08)"
+                accentBorder="rgba(220,47,101,0.35)"
+                layout="inline"
+                width={184}
+                chips={[
+                  { label: 'Auth', icon: Shield, color: ACCENT },
+                  { label: 'Validate', icon: CheckCircle, color: ACCENT },
+                  { label: 'Sign', icon: Lock, color: ACCENT },
+                  { label: 'Route', icon: TrendingUp, color: ACCENT },
+                ]}
+              />
+              <VertDash color="rgba(220,47,101,0.5)" dir="down" />
+              <FlowNode
+                icon={Network}
+                iconColor={ACCENT}
+                title="Webhooks"
+                titleColor={ACCENT}
+                sub="Events & alerts"
+                accentBg="rgba(220,47,101,0.06)"
+                accentBorder="rgba(220,47,101,0.25)"
+                layout="inline"
+                width={184}
+              />
+            </div>
+
+            <FlowLink
+              top={{ n: 2, label: 'Process', color: '#22c55e' }}
+              bottom={{ n: 4, label: 'Response', color: '#22c55e' }}
+            />
+
+            <FlowNode
+              icon={ShieldCheck}
+              iconColor="#22c55e"
+              title="GSP Layer"
+              sub="Licensed GSP"
+              width={168}
+              chips={[
+                { label: 'Secure', icon: Check, color: '#22c55e' },
+                { label: 'Reliable', icon: Check, color: '#22c55e' },
+                { label: 'Compliant', icon: Check, color: '#22c55e' },
+              ]}
+            />
+
+            <FlowLink top={{ n: 3, label: 'Transmit', color: '#a78bfa' }} />
+
+            <FlowNode icon={Building2} title="GSTN" sub="Govt. API" width={130} />
+          </div>
+        </div>
+
+        {/* Flow diagram — vertical stack on mobile / tablet (<lg) */}
+        <div className="lg:hidden flex justify-center">
+          <div className="w-full max-w-[300px] flex flex-col items-center">
+            <FlowNode icon={Code} title="Your App" sub="SDK / REST" width="100%" />
+
+            <VertLink
+              top={{ n: 1, label: 'Request', color: '#60a5fa' }}
+              bottom={{ n: 5, label: 'Response', color: '#60a5fa' }}
+            />
+
+            <FlowNode
+              icon={BookOpen}
+              iconColor={ACCENT}
+              title="WhiteBooks API"
+              titleColor={ACCENT}
+              sub="api.whitebooks.dev"
+              accentBg="rgba(220,47,101,0.08)"
+              accentBorder="rgba(220,47,101,0.35)"
+              layout="inline"
+              width="100%"
+              chips={[
+                { label: 'Auth', icon: Shield, color: ACCENT },
+                { label: 'Validate', icon: CheckCircle, color: ACCENT },
+                { label: 'Sign', icon: Lock, color: ACCENT },
+                { label: 'Route', icon: TrendingUp, color: ACCENT },
+              ]}
+            />
+
+            {/* Branches off the API */}
+            <VertDash color="rgba(255,255,255,0.18)" dir="down" />
+            <div className="grid grid-cols-2 gap-2 w-full">
+              <FlowNode
+                icon={FileText}
+                iconColor="#60a5fa"
+                title="Audit Logs"
+                titleColor="#60a5fa"
+                sub="Immutable trail"
+                accentBg="rgba(96,165,250,0.06)"
+                accentBorder="rgba(96,165,250,0.25)"
+                layout="inline"
+                width="100%"
+              />
+              <FlowNode
+                icon={Network}
+                iconColor={ACCENT}
+                title="Webhooks"
+                titleColor={ACCENT}
+                sub="Events & alerts"
+                accentBg="rgba(220,47,101,0.06)"
+                accentBorder="rgba(220,47,101,0.25)"
+                layout="inline"
+                width="100%"
+              />
+            </div>
+
+            <VertLink
+              top={{ n: 2, label: 'Process', color: '#22c55e' }}
+              bottom={{ n: 4, label: 'Response', color: '#22c55e' }}
+            />
+
+            <FlowNode
+              icon={ShieldCheck}
+              iconColor="#22c55e"
+              title="GSP Layer"
+              sub="Licensed GSP"
+              width="100%"
+              chips={[
+                { label: 'Secure', icon: Check, color: '#22c55e' },
+                { label: 'Reliable', icon: Check, color: '#22c55e' },
+                { label: 'Compliant', icon: Check, color: '#22c55e' },
+              ]}
+            />
+
+            <VertLink top={{ n: 3, label: 'Transmit', color: '#a78bfa' }} />
+
+            <FlowNode icon={Building2} title="GSTN" sub="Govt. API" width="100%" />
+          </div>
+        </div>
+      </div>
+    </SurfaceCard>
+  );
+}
+
 // section 1.1: Architecture
 export function GuideArchitecture(): React.ReactElement {
   return (
@@ -306,61 +707,8 @@ export function GuideArchitecture(): React.ReactElement {
           WhiteBooks sits between your application and GSTN, providing a reliable, GSP-licensed relay layer.
         </p>
 
-        {/* SVG Architecture Diagram */}
-        <SurfaceCard style={{ padding: 36, overflow: 'auto' }}>
-          <svg viewBox="0 0 640 220" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', maxWidth: 640 }}>
-            {/* Boxes */}
-            {/* Your App */}
-            <rect x="20" y="90" width="110" height="48" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" />
-            <text x="75" y="110" textAnchor="middle" fill="#9a9aae" fontSize="11" fontFamily="DM Sans, sans-serif">Your App</text>
-            <text x="75" y="126" textAnchor="middle" fill="#6b6b80" fontSize="10" fontFamily="JetBrains Mono, monospace">SDK / REST</text>
-
-            {/* WhiteBooks API */}
-            <rect x="200" y="82" width="130" height="56" rx="8" fill="rgba(220,47,101,0.1)" stroke="rgba(220,47,101,0.3)" />
-            <text x="265" y="106" textAnchor="middle" fill="#ff4d80" fontSize="11" fontFamily="DM Sans, sans-serif" fontWeight="600">WhiteBooks API</text>
-            <text x="265" y="122" textAnchor="middle" fill="#9a9aae" fontSize="10" fontFamily="JetBrains Mono, monospace">api.whitebooks.dev</text>
-
-            {/* GSP Layer */}
-            <rect x="400" y="82" width="110" height="56" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" />
-            <text x="455" y="106" textAnchor="middle" fill="#9a9aae" fontSize="11" fontFamily="DM Sans, sans-serif">GSP Layer</text>
-            <text x="455" y="122" textAnchor="middle" fill="#6b6b80" fontSize="10" fontFamily="JetBrains Mono, monospace">Licensed GSP</text>
-
-            {/* GSTN */}
-            <rect x="560" y="90" width="68" height="48" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" />
-            <text x="594" y="110" textAnchor="middle" fill="#9a9aae" fontSize="11" fontFamily="DM Sans, sans-serif">GSTN</text>
-            <text x="594" y="126" textAnchor="middle" fill="#6b6b80" fontSize="10" fontFamily="JetBrains Mono, monospace">Gov. API</text>
-
-            {/* Arrows between main nodes */}
-            <line x1="130" y1="114" x2="198" y2="114" stroke="rgba(255,255,255,0.15)" strokeWidth="1.5" markerEnd="url(#ar)" />
-            <line x1="330" y1="114" x2="398" y2="114" stroke="rgba(255,255,255,0.15)" strokeWidth="1.5" markerEnd="url(#ar)" />
-            <line x1="510" y1="114" x2="558" y2="114" stroke="rgba(255,255,255,0.15)" strokeWidth="1.5" markerEnd="url(#ar)" />
-
-            {/* Webhooks branch */}
-            <line x1="265" y1="138" x2="265" y2="165" stroke="rgba(220,47,101,0.3)" strokeWidth="1.5" strokeDasharray="4 3" markerEnd="url(#ar2)" />
-            <rect x="210" y="168" width="110" height="38" rx="6" fill="rgba(220,47,101,0.06)" stroke="rgba(220,47,101,0.2)" />
-            <text x="265" y="185" textAnchor="middle" fill="#ff4d80" fontSize="10" fontFamily="DM Sans, sans-serif">Webhooks</text>
-            <text x="265" y="198" textAnchor="middle" fill="#9a9aae" fontSize="9" fontFamily="JetBrains Mono, monospace">Events &amp; alerts</text>
-
-            {/* Audit branch */}
-            <line x1="265" y1="82" x2="265" y2="55" stroke="rgba(96,165,250,0.3)" strokeWidth="1.5" strokeDasharray="4 3" markerEnd="url(#ar3)" />
-            <rect x="210" y="20" width="110" height="38" rx="6" fill="rgba(96,165,250,0.06)" stroke="rgba(96,165,250,0.2)" />
-            <text x="265" y="37" textAnchor="middle" fill="#60a5fa" fontSize="10" fontFamily="DM Sans, sans-serif">Audit Logs</text>
-            <text x="265" y="50" textAnchor="middle" fill="#9a9aae" fontSize="9" fontFamily="JetBrains Mono, monospace">Immutable trail</text>
-
-            {/* Arrow markers */}
-            <defs>
-              <marker id="ar" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
-                <path d="M0 0 L6 3 L0 6 Z" fill="rgba(255,255,255,0.2)" />
-              </marker>
-              <marker id="ar2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
-                <path d="M0 0 L6 3 L0 6 Z" fill="rgba(220,47,101,0.4)" />
-              </marker>
-              <marker id="ar3" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
-                <path d="M0 0 L6 3 L0 6 Z" fill="rgba(96,165,250,0.4)" />
-              </marker>
-            </defs>
-          </svg>
-        </SurfaceCard>
+        {/* API Lifecycle Diagram */}
+        <ApiLifecycleDiagram />
       </div>
     </section>
   );

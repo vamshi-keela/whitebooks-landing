@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import type { SeoMeta } from '@/seo/types'
+import { ShowcaseCategory } from '@/data/accouting-platform-showcase.data'
 
 export type HeaderMode = 'home' | 'softwares' | 'apis'
 
@@ -130,6 +131,8 @@ export interface ExploreShowCase {
     desc: string;
     benefits: string[];
     metrics: MetricCard[];
+    /** optional preview image shown in the canvas area */
+    image?: string;
 }
 
 export interface MetricCard {
@@ -206,6 +209,7 @@ export interface SubPageData {
     hero: HeroProps;
     problem?: ProblemSection;
     features?: FeaturesSection;
+    featureShowCase?: ShowcaseCategory[];
     integrations?: IntegrationSection;
     ai?: AISection;
     pricing?: PricingSection;

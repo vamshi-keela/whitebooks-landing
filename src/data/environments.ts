@@ -3,7 +3,7 @@ export interface Environment {
   key: string;
   swaggerUrl: string;
   baseUrl: string;
-  color: 'emerald' | 'rose';
+  color: 'blue' | 'emerald';
 }
 
 export const environments: Environment[] = [
@@ -12,13 +12,13 @@ export const environments: Environment[] = [
     key: 'sandbox',
     swaggerUrl: 'SWAGGER_SANDBOX_URL_PLACEHOLDER',
     baseUrl: 'https://apisandbox.whitebooks.in',
-    color: 'emerald',
+    color: 'blue',
   },
   {
     name: 'Production',
     key: 'production',
     swaggerUrl: 'SWAGGER_PRODUCTION_URL_PLACEHOLDER',
     baseUrl: 'https://api.whitebooks.in',
-    color: 'rose',
+    color: 'emerald',
   },
 ];

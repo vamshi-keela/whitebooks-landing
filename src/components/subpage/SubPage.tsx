@@ -22,6 +22,10 @@ import {
 } from "@/seo/schema/generators";
 import type { SchemaFaqItem } from "@/seo/types";
 import ExploreShowcase from "@/sections/ExploreShowcase";
+import InvoiceTemplates from "@/sections/InvoiceTemplates";
+import EnterpriseControls from "@/sections/EnterpriseControls";
+import WbTrust from "@/sections/WbTrust";
+import PlatformShowcase from "@/sections/PlatformShowcase";
 
 interface SubPageProps {
   data: SubPageData;
@@ -91,9 +95,13 @@ export function SubPage({ data, onPrimaryClick, onSecondaryClick }: SubPageProps
         />
 
         {data.problem && <ProblemSection data={data.problem} />}
-        {data.features && <FeaturesSection data={data.features} />}
+        {/* {data.features && <FeaturesSection data={data.features} />} */}
+        {data.featureShowCase && <PlatformShowcase categories={data.featureShowCase} />}
         {data.extra}
+        <EnterpriseControls />
         {data.exploreShowCase && <ExploreShowcase features={data.exploreShowCase} />}
+        <InvoiceTemplates />
+        <WbTrust />
         {data.integrations && <IntegrationSection data={data.integrations} />}
         {data.ai && <AILayerSection data={data.ai} />}
         {data.faq && <FAQSection data={data.faq} />}

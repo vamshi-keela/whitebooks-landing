@@ -10,6 +10,7 @@ import ResponseViewer from './ResponseViewer';
 import CodeExampleTabs from './CodeExampleTabs';
 import ResponseCard from './ResponseCard';
 import Playground from './Playground';
+import PageActions from './PageActions';
 
 interface Props {
   operation: NormalizedOperation;
@@ -26,7 +27,7 @@ interface Props {
 
 function SectionLabel({ children }: { children: React.ReactNode }): React.ReactElement {
   return (
-    <h2 className="text-[17px] font-semibold tracking-[-0.01em] text-[var(--dp-fg)] m-0 mb-4 pb-2.5 border-b border-[var(--dp-border)] font-[family-name:var(--dp-font-display)]">
+    <h2 className="text-[17px] font-semibold tracking-[-0.01em] text-[var(--dp-fg)] m-0 mb-2  border-b border-[var(--dp-border)] font-[family-name:var(--dp-font-display)]">
       {children}
     </h2>
   );
@@ -66,6 +67,11 @@ function NavButton({
   );
 }
 
+/* ─── Divider ─────────────────────────────────────────────────────────────── */
+export const HorizontalDiver = ({ className = '' }: { className?: string }): React.ReactElement => (
+  <div className={`mb-2 h-px bg-[var(--dp-horizontal-border)] ${className}`} />
+)
+
 /* ─── Main ──────────────────────────────────────────────────────────────── */
 
 export default function OperationDetail({
@@ -103,13 +109,16 @@ export default function OperationDetail({
           )}
         </h1>
 
+        {/* Page actions toolbar */}
+        <PageActions operation={operation} />
+        <HorizontalDiver />
         {/* Endpoint URL bar + Try it */}
-        <div className="flex items-stretch gap-2 mb-5">
-          <div className="flex items-center gap-2.5 flex-1 min-w-0 bg-[var(--dp-surface)] border border-[var(--dp-border)] rounded-[10px] pl-2.5 pr-2 py-2">
+        <div className="flex items-stretch gap-2 mt-4 mb-5">
+          <div className="flex items-center gap-2.5 flex-1 min-w-0 bg-[var(--dp-surface-2)] border border-[var(--dp-border-strong)] rounded-[10px] pl-2.5 pr-2 py-2">
             <MethodBadge method={operation.method} />
             <code className="py-0.5 font-[family-name:var(--dp-font-mono)] text-[12.5px] sm:text-[13px] flex-1 min-w-0 overflow-x-auto leading-none self-center flex items-center flex-nowrap gap-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-              <span className="text-[var(--dp-fg-faint)] whitespace-nowrap shrink-0">{baseUrl}</span>
-              <span className="text-[var(--dp-fg)] font-medium whitespace-nowrap shrink-0">{operation.path}</span>
+              <span className="text-[var(--dp-fg-dim)] whitespace-nowrap shrink-0">{baseUrl}</span>
+              <span className="text-[var(--dp-fg)] font-semibold whitespace-nowrap shrink-0">{operation.path}</span>
             </code>
             <div className="shrink-0">
               <CopyButton text={fullUrl} size={12} label={false} />
@@ -137,22 +146,25 @@ export default function OperationDetail({
         {hasParams && (
           <section className="mb-10">
             <SectionLabel>Parameters</SectionLabel>
+            <HorizontalDiver className='mb-6' />
             <ParameterTable parameters={operation.parameters!} />
           </section>
         )}
 
         {/* Request Body */}
         {hasBody && (
-          <section className="mb-10">
+          <section className="mb-10 pt-9 border-t border-[var(--dp-border)]">
             <SectionLabel>Request Body</SectionLabel>
+            <HorizontalDiver className='mb-6' />
             <RequestBodyViewer requestBody={operation.requestBody!} />
           </section>
         )}
 
         {/* Response */}
         {hasResponses && (
-          <section className="mb-10">
+          <section className="mb-10 pt-9 border-t border-[var(--dp-border)]">
             <SectionLabel>Response</SectionLabel>
+            <HorizontalDiver className='mb-6' />
             <ResponseViewer operation={operation} />
           </section>
         )}
@@ -170,7 +182,7 @@ export default function OperationDetail({
         Desktop: sticky sidebar, border-left, fixed viewport height with internal scroll.
         Interactive requests happen in the Playground modal (the "Try it" button).
       */}
-      <div className="dp-code-panel flex flex-col w-full border-t border-[var(--dp-border)] lg:w-[420px] xl:w-[440px] lg:shrink-0 lg:border-t-0 lg:border-l lg:sticky lg:top-[var(--dp-nav-h)] lg:h-[calc(100vh_-_var(--dp-nav-h))] lg:overflow-hidden">
+      <div className="dp-code-bg flex flex-col w-full border-t border-[var(--dp-border)] lg:w-[420px] xl:w-[440px] lg:shrink-0 lg:border-t-0 lg:border-l lg:sticky lg:top-[var(--dp-nav-h)] lg:h-[calc(100vh_-_var(--dp-nav-h))] lg:overflow-hidden">
         <div className="p-4 lg:flex-1 lg:overflow-y-auto flex flex-col gap-4">
           <CodeExampleTabs operation={operation} />
           {hasResponses && <ResponseCard operation={operation} maxHeight={360} />}

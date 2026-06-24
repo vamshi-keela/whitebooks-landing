@@ -1,6 +1,7 @@
 import React from "react";
-import { ArrowRight, BookOpen, CheckCircle, Key, Terminal, Users, Zap } from "lucide-react";
-import { BestPracticesSection, CtaSection, Divider, GettingStartedSection, GuideArchitecture, HeroSection, SandboxSection, SdkLibrariesSection, SdkType, StatsSection } from "./GstOverview";
+import { ArrowRight, Ban, BookOpen, CheckCircle, FileSearch, FileText, Key, LayoutGrid, Network, Package, QrCode, ScanLine, ShieldCheck, Terminal, Truck, Users, Zap } from "lucide-react";
+import { BestPracticesSection, CtaSection, GettingStartedSection, GuideArchitecture, HeroSection, SandboxSection, SdkLibrariesSection, SdkType, StatsSection } from "./GstOverview";
+import { OverviewLayout, type OverviewNavSection } from "./OverviewLayout";
 import GstResources from "./GstResources";
 import sdkPostman from '../../assets/logos/postman.svg';
 import sdkCsharp from '../../assets/logos/csharp-logo.svg';
@@ -14,6 +15,7 @@ import visualFox from '../../assets/logos/vs-fox-logo.png';
 import { LOGIN_URL, SIGNUP_URL } from "@/utils/contants";
 import { INV_FAQS, INV_RESOURCE_ITEMS } from "@/data/e-invoice-api-page-data";
 import EyebrowPill from "@/components/ui/EyebrowPill";
+import ApiReferenceJump, { type FeaturedApiTag } from "./ApiReferenceJump";
 
 const STEPS_INV = [
     {
@@ -182,37 +184,71 @@ export function FinalCTA({
         </section>
     );
 }
+
+// Curated e-Invoice tags surfaced as "Jump into the API" cards. The remaining
+// lookup tags (GSTN details, sync GSTIN, doc-detail / rejected IRN, EWB by IRN)
+// fold into the "Browse all" overflow.
+const E_INVOICE_FEATURED_APIS: FeaturedApiTag[] = [
+    { tag: 'Authentication', label: 'Authentication', blurb: 'Token-based authentication to access the e-Invoice channel.', icon: Key },
+    { tag: 'Generate IRN', label: 'Generate IRN', blurb: 'Create an Invoice Reference Number with signed QR against the IRP.', icon: QrCode },
+    { tag: 'Get EInvoice Details', label: 'Get e-Invoice', blurb: 'Fetch signed e-Invoice details for a given IRN.', icon: FileSearch },
+    { tag: 'Cancel IRN', label: 'Cancel IRN', blurb: 'Cancel an IRN within 24 hours of generation.', icon: Ban },
+    { tag: 'Generate Ewaybill', label: 'e-Way Bill from IRN', blurb: 'Generate an e-Way Bill directly from an existing IRN.', icon: Truck },
+    { tag: 'Get B2C QR Code Details', label: 'B2C QR Code', blurb: 'Generate dynamic B2C QR codes for consumer invoices.', icon: ScanLine },
+];
+
 export default function InvoiceApiOverview() {
+    const sections: OverviewNavSection[] = [
+        {
+            id: 'overview',
+            label: 'Overview',
+            icon: BookOpen,
+            element: (
+                <HeroSection
+                    title="E-Invoice APIs for"
+                    description="The WhiteBooks e-Invoice API generates IRN and signed QR codes against the official Invoice Registration Portal in <100ms — with bulk IRN, real-time and batch modes, and webhook callbacks for downstream systems."
+                />
+            ),
+        },
+        { id: 'stats', label: 'Stats', icon: BookOpen, hideFromNav: true, element: <StatsSection /> },
+        { id: 'architecture', label: 'Architecture', icon: Network, element: <GuideArchitecture /> },
+        { id: 'getting-started', label: 'How To Start', icon: Zap, element: <GettingStartedSection steps={STEPS_INV} /> },
+        {
+            id: 'sandbox',
+            label: 'Sandbox API',
+            icon: Terminal,
+            element: (
+                <SandboxSection
+                    title='WhiteBooks E-Invoice API Sandbox Information'
+                    subTitle='To use E-Invoice API Sandbox Credentials, follow the steps below to generate your API keys from the developer dashboard.'
+                    setupSteps={INV_SANDBOX_SETUP_STEPS}
+                    showOTPBlock={false}
+                />
+            ),
+        },
+        {
+            id: 'api-reference',
+            label: 'Jump Into the API',
+            icon: LayoutGrid,
+            element: <ApiReferenceJump apiType="e-invoice-api" apiSlug="e-invoice-api" featured={E_INVOICE_FEATURED_APIS} />,
+        },
+        { id: 'best-practices', label: 'Best Practices', icon: ShieldCheck, element: <BestPracticesSection /> },
+        { id: 'sdks', label: 'SDKs & Libraries', icon: Package, element: <SdkLibrariesSection sdkItems={INV_SDK_ITEMS} /> },
+        { id: 'resources', label: 'Resources & FAQ', icon: FileText, element: <GstResources resources={INV_RESOURCE_ITEMS} faqs={INV_FAQS} /> },
+        {
+            id: 'get-started',
+            label: 'Get Started',
+            icon: ArrowRight,
+            element: (
+                <FinalCTA primaryButton={{ label: 'Get API Access', href: SIGNUP_URL }}
+                    secondaryButton={{ label: 'Read API Docs', href: '#' }} />
+            ),
+        },
+    ];
+
     return (
         <div className="min-h-screen" style={{ background: 'var(--dp-bg' }}>
-            <HeroSection
-                title="E-Invoice APIs for"
-                description="The WhiteBooks e-Invoice API generates IRN and signed QR codes against the official Invoice Registration Portal in <100ms — with bulk IRN, real-time and batch modes, and webhook callbacks for downstream systems."
-            />
-            <Divider />
-            <StatsSection />
-            <Divider />
-            <GuideArchitecture />
-            <Divider />
-            <GettingStartedSection steps={STEPS_INV} />
-            <Divider />
-            <SandboxSection
-                title='WhiteBooks E-Invoice API Sandbox Information'
-                subTitle='To use E-Invoice API Sandbox Credentials, follow the steps below to generate your API keys from the developer dashboard.'
-                setupSteps={INV_SANDBOX_SETUP_STEPS}
-                showOTPBlock={false}
-            />
-            <Divider />
-            <BestPracticesSection />
-
-            <Divider />
-            <SdkLibrariesSection sdkItems={INV_SDK_ITEMS} />
-            <Divider />
-            {/* gst resources */}
-            <GstResources resources={INV_RESOURCE_ITEMS} faqs={INV_FAQS} />
-            <Divider />
-            <FinalCTA primaryButton={{ label: 'Get API Access', href: SIGNUP_URL }}
-                secondaryButton={{ label: 'Read API Docs', href: '#' }} />
+            <OverviewLayout sections={sections} />
         </div>
     );
 }

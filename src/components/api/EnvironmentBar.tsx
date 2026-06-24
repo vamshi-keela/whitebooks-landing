@@ -52,22 +52,18 @@ export default function EnvironmentBar({ environments, selected, onChange }: Pro
         })}
       </div>
 
-      <code className="hidden sm:inline-block font-[family-name:var(--dp-font-mono)] text-[12px] text-[var(--dp-fg-dim)] bg-[var(--dp-surface)] border border-[var(--dp-border)] rounded-md px-2 py-0.5">
+      {/* <code className="hidden sm:inline-block font-[family-name:var(--dp-font-mono)] text-[12px] text-[var(--dp-fg-dim)] bg-[var(--dp-surface)] border border-[var(--dp-border)] rounded-md px-2 py-0.5">
         {selected.baseUrl}
-      </code>
+      </code> */}
+      <div className="hidden sm:inline-block items-center min-w-0 bg-[var(--dp-surface-2)] border border-[var(--dp-border-strong)] rounded-[10px] pl-2.5 pr-2 py-0.5">
+        <code className="py-0.5 font-[family-name:var(--dp-font-mono)] text-[12.5px] sm:text-[13px] flex-1 min-w-0 overflow-x-auto leading-none self-center flex items-center flex-nowrap gap-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <span className="text-[var(--dp-fg-dim)] whitespace-nowrap shrink-0">{selected.baseUrl}</span>
+        </code>
+      </div>
+      <div className="shrink-0">
+        <CopyButton text={selected.baseUrl} size={12} label={false} />
+      </div>
 
-      <CopyButton text={selected.baseUrl} size={12} label={false} />
-      {/* <button
-        type="button"
-        onClick={handleCopy}
-        aria-label={copied ? 'Copied' : 'Copy base URL'}
-        title={copied ? 'Copied' : 'Copy base URL'}
-        className="hidden sm:inline-flex items-center justify-center p-[3px] rounded-md bg-[var(--dp-surface)] border border-[var(--dp-border)] text-[var(--dp-fg-dim)] hover:text-[var(--dp-fg)] cursor-pointer transition-colors duration-150 shrink-0"
-      >
-        {copied
-          ? <Check size={12} color="var(--dp-success)" />
-          : <Copy size={12} />}
-      </button> */}
     </div>
   );
 }

@@ -7,15 +7,31 @@ import { useMobileNav } from '../../contexts/MobileNavContext';
 import MethodBadge from '../../components/api/MethodBadge';
 import { searchOps } from './devSearch';
 import type { NormalizedMethod } from '../../data/openapi-spec';
+import { AuthButtons, ContactUsDropdown } from '@/layouts/Header';
+import { LOGIN_URL } from '@/utils/contants';
 
 /* ─── Route map ─────────────────────────────────────────────────────────── */
 
 interface NavTab { id: string; label: string; path: string; icon: IconName }
 
 const NAV_ITEMS: NavTab[] = [
-  { id: 'guides',    label: 'Guides',        path: '/developer/overview',       icon: 'book'     },
-  { id: 'reference', label: 'API Reference', path: '/developer/api-reference',  icon: 'code'     },
-  { id: 'changelog', label: 'Changelog',     path: '/developer/changelog',      icon: 'activity' },
+  { id: 'guides', label: 'Guides', path: '/developer/overview', icon: 'book' },
+  { id: 'reference', label: 'API Reference', path: '/developer/api-reference', icon: 'code' },
+  { id: 'changelog', label: 'Changelog', path: '/developer/changelog', icon: 'activity' },
+];
+
+/* External resources surfaced in the far-right "Resources" dropdown of row 2.
+   These mirror the developer hub's resource menu; swap the hrefs for the
+   Whitebooks equivalents as they come online. */
+interface ResourceItem { icon: IconName; label: string; href: string; internal?: boolean }
+
+const RESOURCE_ITEMS: ResourceItem[] = [
+  { icon: 'book', label: 'Postman Collections', href: LOGIN_URL },
+  { icon: 'package', label: 'SDKs & Clients', href: LOGIN_URL },
+  // { icon: 'terminal', label: 'MCP Server', href: 'https://developer.sandbox.co.in/mcp' },
+  { icon: 'activity', label: 'Status', href: '/status', internal: true },
+  // { icon: 'wallet', label: 'Pricing', href: 'https://sandbox.co.in/pricing' },
+  // { icon: 'star', label: 'Customer Stories', href: 'https://sandbox.co.in/customers' },
 ];
 
 /* Routes that belong to the "API Reference" tab (the landing + the four API docs). */
@@ -34,7 +50,7 @@ function activeTabId(pathname: string): string {
 }
 
 /* Pages that render their own left sub-navigation (and thus a mobile drawer). */
-function hasSubNav(pathname: string): boolean {
+export function hasSubNav(pathname: string): boolean {
   if (pathname.startsWith('/developer/changelog')) return false;
   if (pathname === '/developer/api-reference') return false;
   return true;
@@ -51,16 +67,16 @@ interface PaletteItem {
 }
 
 const PALETTE_ITEMS: PaletteItem[] = [
-  { group: 'Guides',        icon: 'compass',  label: 'Overview',              hint: 'guide', path: '/developer/overview' },
-  { group: 'Guides',        icon: 'bolt',     label: 'Quickstart',            hint: 'guide', path: '/developer/quickstart' },
-  { group: 'Guides',        icon: 'key',      label: 'Authentication',        hint: 'guide', path: '/developer/authentication' },
-  { group: 'Guides',        icon: 'warning',  label: 'Errors & Status Codes', hint: 'guide', path: '/developer/errors' },
-  { group: 'API Reference', icon: 'receipt',  label: 'GST API',               hint: 'docs',  path: '/developer/gst-api' },
-  { group: 'API Reference', icon: 'scroll',   label: 'e-Invoice API',         hint: 'docs',  path: '/developer/e-invoice-api' },
-  { group: 'API Reference', icon: 'truck',    label: 'e-Way Bill API',        hint: 'docs',  path: '/developer/e-way-bill-api' },
-  { group: 'API Reference', icon: 'globe',    label: 'KSA e-Invoice API',     hint: 'docs',  path: '/developer/ksa-e-invoice-api' },
-  { group: 'API Reference', icon: 'code',     label: 'API Reference home',    hint: 'docs',  path: '/developer/api-reference' },
-  { group: 'Resources',     icon: 'activity', label: 'Changelog',             hint: 'updates', path: '/developer/changelog' },
+  { group: 'Guides', icon: 'compass', label: 'Overview', hint: 'guide', path: '/developer/overview' },
+  { group: 'Guides', icon: 'bolt', label: 'Quickstart', hint: 'guide', path: '/developer/quickstart' },
+  { group: 'Guides', icon: 'key', label: 'Authentication', hint: 'guide', path: '/developer/authentication' },
+  { group: 'Guides', icon: 'warning', label: 'Errors & Status Codes', hint: 'guide', path: '/developer/errors' },
+  { group: 'API Reference', icon: 'receipt', label: 'GST API', hint: 'docs', path: '/developer/gst-api' },
+  { group: 'API Reference', icon: 'scroll', label: 'e-Invoice API', hint: 'docs', path: '/developer/e-invoice-api' },
+  { group: 'API Reference', icon: 'truck', label: 'e-Way Bill API', hint: 'docs', path: '/developer/e-way-bill-api' },
+  { group: 'API Reference', icon: 'globe', label: 'KSA e-Invoice API', hint: 'docs', path: '/developer/ksa-e-invoice-api' },
+  { group: 'API Reference', icon: 'code', label: 'API Reference home', hint: 'docs', path: '/developer/api-reference' },
+  { group: 'Resources', icon: 'activity', label: 'Changelog', hint: 'updates', path: '/developer/changelog' },
 ];
 
 interface CommandPaletteProps {
@@ -102,9 +118,9 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps): React.Re
     const q = debounced.trim().toLowerCase();
     const items = q
       ? PALETTE_ITEMS.filter(i =>
-          i.label.toLowerCase().includes(q) ||
-          i.group.toLowerCase().includes(q) ||
-          i.hint.toLowerCase().includes(q))
+        i.label.toLowerCase().includes(q) ||
+        i.group.toLowerCase().includes(q) ||
+        i.hint.toLowerCase().includes(q))
       : PALETTE_ITEMS;
     return items.map(i => ({ kind: 'static', group: i.group, label: i.label, hint: i.hint, icon: i.icon, path: i.path ?? '/developer' }));
   }, [debounced]);
@@ -249,6 +265,85 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps): React.Re
   );
 }
 
+/* ─── Resources dropdown ─────────────────────────────────────────────────── */
+
+function ResourcesDropdown(): React.ReactElement {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
+
+  /* Close on outside click / Escape — covers both pointer and keyboard users. */
+  useEffect(() => {
+    if (!open) return;
+    const onPointer = (e: PointerEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false); };
+    document.addEventListener('pointerdown', onPointer);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('pointerdown', onPointer);
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [open]);
+
+  return (
+    <div ref={ref} className="relative flex items-center shrink-0">
+      <button
+        type="button"
+        onClick={() => setOpen(o => !o)}
+        aria-haspopup="menu"
+        aria-expanded={open}
+        className={[
+          'flex items-center gap-2 whitespace-nowrap bg-transparent border-0 px-2 sm:px-3 h-full',
+          'text-[14px] font-body cursor-pointer transition-colors duration-150',
+          open ? 'text-[var(--dp-fg)]' : 'text-[var(--dp-fg-dim)] hover:text-[var(--dp-fg)]',
+        ].join(' ')}
+      >
+        <DpIcon name="layers" size={15} style={{ color: open ? 'var(--dp-accent)' : 'currentColor' }} />
+        <span className="hidden sm:inline">Resources</span>
+        <DpIcon
+          name="chevron-down"
+          size={14}
+          className={`transition-transform duration-150 ${open ? 'rotate-180' : ''}`}
+        />
+      </button>
+
+      <div
+        role="menu"
+        className={[
+          'absolute right-0 top-full pt-2 z-50 transition-all duration-150 ease-out',
+          open ? 'opacity-100 pointer-events-auto translate-y-0' : 'opacity-0 pointer-events-none -translate-y-1',
+        ].join(' ')}
+      >
+        <div className="w-56 max-w-[calc(100vw-1.5rem)] rounded-2xl border border-[var(--dp-border)] bg-[var(--dp-surface-2)] shadow-[0_20px_60px_-10px_rgba(0,0,0,0.5)] p-1">
+          {RESOURCE_ITEMS.map(item => (
+            <a
+              key={item.label}
+              href={item.href}
+              {...(item.internal ? {} : { target: '_blank', rel: 'noreferrer' })}
+              role="menuitem"
+              onClick={e => {
+                setOpen(false);
+                if (item.internal) { e.preventDefault(); navigate(item.href); }
+              }}
+              className="group flex items-center gap-2.5 rounded-xl px-2.5 py-2 no-underline text-[var(--dp-fg-muted)] hover:text-[var(--dp-fg)] hover:bg-[var(--dp-accent-soft)] focus-visible:bg-[var(--dp-accent-soft)] focus:outline-none transition-colors duration-100"
+            >
+              <DpIcon name={item.icon} size={16} className="shrink-0" style={{ color: 'var(--dp-fg-dim)' }} />
+              <span className="flex-1 min-w-0 text-sm font-medium">{item.label}</span>
+              <DpIcon
+                name={item.internal ? 'arrow-right' : 'arrow-up-right'}
+                size={14}
+                className="shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-100"
+              />
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ─── DpNav ─────────────────────────────────────────────────────────────── */
 
 interface DpNavProps {
@@ -269,8 +364,8 @@ export default function DpNav({ onOpenPalette }: DpNavProps): React.ReactElement
         {/* Logo */}
         <div className="flex items-center shrink-0">
           <SiteLogo />
-          <span className="hidden md:inline-block ml-3 pl-3 border-l border-[var(--dp-border-strong)] text-[14px] font-medium text-[var(--dp-fg-dim)]">
-            Developer Hub
+          <span className=" md:inline-block ml-1 pl-1 border-l border-[var(--dp-border-strong)] md:text-lg sm:text-base font-medium text-[var(--dp-fg-dim)]">
+            | Developer Hub
           </span>
         </div>
 
@@ -296,11 +391,12 @@ export default function DpNav({ onOpenPalette }: DpNavProps): React.ReactElement
           >
             <DpIcon name="search" size={16} />
           </button>
-
-          <ThemeToggle size={24} />
+          {/* <AuthButtons /> */}
+          <ContactUsDropdown />
+          <ThemeToggle size={32} />
 
           {/* Mobile menu — only when the page has a left sub-nav */}
-          {showHamburger && (
+          {/* {showHamburger && (
             <button
               onClick={openNav}
               className="lg:hidden w-9 h-9 flex items-center justify-center rounded-lg cursor-pointer border border-[var(--dp-border)] transition-colors duration-150"
@@ -309,39 +405,45 @@ export default function DpNav({ onOpenPalette }: DpNavProps): React.ReactElement
             >
               <DpIcon name="menu" size={17} />
             </button>
-          )}
+          )} */}
         </div>
       </div>
 
       {/* ── Row 2: section tabs with icons + active underline (all viewports) ─── */}
       <div className="border-t border-[var(--dp-border)] lg:border-t-0">
-        <div className="max-w-[1440px] mx-auto px-2 sm:px-6 h-[48px] flex items-stretch gap-0.5 sm:gap-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          {NAV_ITEMS.map(item => {
-            const isActive = activeId === item.id;
-            return (
-              <button
-                key={item.id}
-                onClick={() => navigate(item.path)}
-                className={[
-                  'relative whitespace-nowrap bg-transparent border-0 px-3 text-[14px] font-body cursor-pointer',
-                  'flex items-center gap-2 transition-colors duration-150',
-                  isActive
-                    ? 'text-[var(--dp-fg)] font-medium'
-                    : 'text-[var(--dp-fg-dim)] font-normal hover:text-[var(--dp-fg)]',
-                ].join(' ')}
-              >
-                <DpIcon
-                  name={item.icon}
-                  size={15}
-                  style={{ color: isActive ? 'var(--dp-accent)' : 'currentColor' }}
-                />
-                {item.label}
-                {isActive && (
-                  <span className="absolute left-0 right-0 -bottom-px h-[2px] bg-[var(--dp-accent)]" />
-                )}
-              </button>
-            );
-          })}
+        <div className="max-w-[1440px] mx-auto px-2 sm:px-6 h-[48px] flex items-stretch justify-between gap-2">
+          {/* Section tabs — scroll horizontally on narrow viewports */}
+          <div className="flex items-stretch gap-0.5 sm:gap-1 min-w-0 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {NAV_ITEMS.map(item => {
+              const isActive = activeId === item.id;
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => navigate(item.path)}
+                  className={[
+                    'relative whitespace-nowrap bg-transparent border-0 px-3 text-[14px] font-body cursor-pointer',
+                    'flex items-center gap-2 transition-colors duration-150',
+                    isActive
+                      ? 'text-[var(--dp-fg)] font-medium'
+                      : 'text-[var(--dp-fg-dim)] font-normal hover:text-[var(--dp-fg)]',
+                  ].join(' ')}
+                >
+                  <DpIcon
+                    name={item.icon}
+                    size={15}
+                    style={{ color: isActive ? 'var(--dp-accent)' : 'currentColor' }}
+                  />
+                  {item.label}
+                  {isActive && (
+                    <span className="absolute left-0 right-0 -bottom-px h-[2px] bg-[var(--dp-accent)]" />
+                  )}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Far-right resources menu */}
+          <ResourcesDropdown />
         </div>
       </div>
     </nav>

@@ -5,11 +5,26 @@
 //       {/* Background Glow */}
 //       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(220,47,101,0.22),transparent_30%),radial-gradient(circle_at_bottom_left,rgba(220,47,101,0.12),transparent_35%)]" />
 
+import { ArrowRight, Ban, BookOpen, Clock, Edit3, FileSearch, FileText, Key, LayoutGrid, Network, Package, ShieldCheck, Terminal, Truck, Zap } from "lucide-react";
 import { SIGNUP_URL } from "@/utils/contants";
 import { FinalCTA } from "./EinvoiceApiOverview";
-import { BestPracticesSection, Divider, GettingStartedSection, GuideArchitecture, HeroSection, SandboxSection, SdkLibrariesSection, StatsSection } from "./GstOverview";
+import { BestPracticesSection, GettingStartedSection, GuideArchitecture, HeroSection, SandboxSection, SdkLibrariesSection, StatsSection } from "./GstOverview";
+import { OverviewLayout, type OverviewNavSection } from "./OverviewLayout";
 import GstResources from "./GstResources";
 import { EWAYBILL_FAQS, EWAYBILL_RESOURCE_ITEMS, EWAYBILL_SANDBOX_SETUP_STEPS, EWAYBILL_SDK_ITEMS, EWAYBILL_STEPS } from "@/data/e-way-bill-api-page-data";
+import ApiReferenceJump, { type FeaturedApiTag } from "./ApiReferenceJump";
+
+// Curated e-Way Bill tags surfaced as "Jump into the API" cards. The remaining
+// query/report tags (consolidated EWB, transporter look-ups, GSTIN/HSN helpers,
+// multi-vehicle) fold into the "Browse all" overflow.
+const E_WAY_BILL_FEATURED_APIS: FeaturedApiTag[] = [
+    { tag: 'Authentication', label: 'Authentication', blurb: 'Token-based authentication for the NIC e-Way Bill system.', icon: Key },
+    { tag: 'Generate Eway Bill', label: 'Generate e-Way Bill', blurb: 'Create a new e-Way Bill for goods in transit.', icon: Truck },
+    { tag: 'Update PART-B/Vehicle Number', label: 'Update Part-B / Vehicle', blurb: 'Attach or update vehicle and transport details on an EWB.', icon: Edit3 },
+    { tag: 'Cancel E-Way bill', label: 'Cancel e-Way Bill', blurb: 'Cancel an e-Way Bill within the permitted window.', icon: Ban },
+    { tag: 'Extend Validity of E-Way Bill', label: 'Extend Validity', blurb: 'Extend an EWB\'s validity for in-transit consignments.', icon: Clock },
+    { tag: 'Get EwayBill Details', label: 'Get e-Way Bill', blurb: 'Fetch full details of an e-Way Bill by EWB number.', icon: FileSearch },
+];
 
 //       <div className="relative z-10 mx-auto max-w-4xl text-center">
 //         {/* Badge */}
@@ -63,43 +78,64 @@ import { EWAYBILL_FAQS, EWAYBILL_RESOURCE_ITEMS, EWAYBILL_SANDBOX_SETUP_STEPS, E
 //   );
 // }
 export default function EWayBillApiOverview() {
+    const sections: OverviewNavSection[] = [
+        {
+            id: 'overview',
+            label: 'Overview',
+            icon: BookOpen,
+            element: (
+                <HeroSection
+                    title="E-Way Bill APIs for"
+                    description="The WhiteBooks e-Way Bill API creates, extends, cancels, and verifies e-Way Bills against the NIC e-Way Bill system. Use it from your ERP, dispatch system, or transport-management software to automate EWB at scale."
+                />
+            ),
+        },
+        { id: 'stats', label: 'Stats', icon: BookOpen, hideFromNav: true, element: <StatsSection /> },
+        { id: 'architecture', label: 'Architecture', icon: Network, element: <GuideArchitecture /> },
+        { id: 'getting-started', label: 'How To Start', icon: Zap, element: <GettingStartedSection steps={EWAYBILL_STEPS} /> },
+        {
+            id: 'sandbox',
+            label: 'Sandbox API',
+            icon: Terminal,
+            element: (
+                <SandboxSection
+                    title='WhiteBooks E-Way Bill API Sandbox Information'
+                    subTitle='To use E-Way Bill API Sandbox Credentials, follow the steps below to generate your API keys from the developer dashboard.'
+                    setupSteps={EWAYBILL_SANDBOX_SETUP_STEPS}
+                    showOTPBlock={false}
+                />
+            ),
+        },
+        {
+            id: 'api-reference',
+            label: 'Jump Into the API',
+            icon: LayoutGrid,
+            element: <ApiReferenceJump apiType="e-way-bill-api" apiSlug="e-way-bill-api" featured={E_WAY_BILL_FEATURED_APIS} />,
+        },
+        { id: 'best-practices', label: 'Best Practices', icon: ShieldCheck, element: <BestPracticesSection /> },
+        { id: 'sdks', label: 'SDKs & Libraries', icon: Package, element: <SdkLibrariesSection sdkItems={EWAYBILL_SDK_ITEMS} /> },
+        { id: 'resources', label: 'Resources & FAQ', icon: FileText, element: <GstResources resources={EWAYBILL_RESOURCE_ITEMS} faqs={EWAYBILL_FAQS} /> },
+        {
+            id: 'get-started',
+            label: 'Get Started',
+            icon: ArrowRight,
+            element: (
+                <FinalCTA
+                    eyebrowLabel="GST SUVIDHA PROVIDER | ISO 27001:2013"
+                    headingStart='Automate '
+                    headingAccent='e-Way Bill Generation'
+                    headingEnd='with Powerful APIs'
+                    description='Integrate WhiteBooks e-Way Bill APIs into your ERP, logistics platform, accounting software, or supply chain system to automate e-Way Bill generation, updates, cancellations, and transportation compliance workflows in real time.'
+                    trustItems={['GST Return Filing APIs', 'GSTIN Verification', 'Sandbox & Production Access']}
+                    primaryButton={{ label: 'Get API Access', href: SIGNUP_URL }}
+                    secondaryButton={{ label: 'Read API Docs', href: '#' }} />
+            ),
+        },
+    ];
+
     return (
         <div className="min-h-screen" style={{ background: 'var(--dp-bg' }}>
-            <HeroSection
-                title="E-Way Bill APIs for"
-                description="The WhiteBooks e-Way Bill API creates, extends, cancels, and verifies e-Way Bills against the NIC e-Way Bill system. Use it from your ERP, dispatch system, or transport-management software to automate EWB at scale."
-            />
-            <Divider />
-            <StatsSection />
-            <Divider />
-            <GuideArchitecture />
-            <Divider />
-            <GettingStartedSection steps={EWAYBILL_STEPS} />
-            <Divider />
-            <SandboxSection
-                title='WhiteBooks E-Way Bill API Sandbox Information'
-                subTitle='To use E-Way Bill API Sandbox Credentials, follow the steps below to generate your API keys from the developer dashboard.'
-                setupSteps={EWAYBILL_SANDBOX_SETUP_STEPS}
-                showOTPBlock={false}
-            />
-            <Divider />
-            <BestPracticesSection />
-
-            <Divider />
-            <SdkLibrariesSection sdkItems={EWAYBILL_SDK_ITEMS} />
-            <Divider />
-            {/* gst resources */}
-            <GstResources resources={EWAYBILL_RESOURCE_ITEMS} faqs={EWAYBILL_FAQS} />
-            <Divider />
-            <FinalCTA
-                eyebrowLabel="GST SUVIDHA PROVIDER | ISO 27001:2013"
-                headingStart='Automate '
-                headingAccent='e-Way Bill Generation'
-                headingEnd='with Powerful APIs'
-                description='Integrate WhiteBooks e-Way Bill APIs into your ERP, logistics platform, accounting software, or supply chain system to automate e-Way Bill generation, updates, cancellations, and transportation compliance workflows in real time.'
-                trustItems={['GST Return Filing APIs', 'GSTIN Verification', 'Sandbox & Production Access']}
-                primaryButton={{ label: 'Get API Access', href: SIGNUP_URL }}
-                secondaryButton={{ label: 'Read API Docs', href: '#' }} />
+            <OverviewLayout sections={sections} />
         </div>
     );
 }

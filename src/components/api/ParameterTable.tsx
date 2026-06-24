@@ -22,11 +22,14 @@ const ParameterTable: React.FC<Props> = ({ parameters }) => {
   }
 
   return (
-    <div className="flex flex-col gap-7">
-      {Object.entries(byLocation).map(([loc, params]) => {
+    <div className="flex flex-col">
+      {Object.entries(byLocation).map(([loc, params], groupIdx) => {
         const locColor = inColors[loc];
         return (
-          <div key={loc}>
+          <div
+            key={loc}
+            className={groupIdx > 0 ? 'mt-7 pt-7 border-t border-[var(--dp-border)]' : ''}
+          >
             <div
               className="text-[12px] font-semibold font-[family-name:var(--dp-font-body)] uppercase tracking-[0.06em] mb-1 flex items-center gap-1.5"
               style={{ color: locColor?.color ?? 'var(--dp-fg-dim)' }}

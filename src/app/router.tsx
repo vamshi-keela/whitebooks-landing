@@ -46,6 +46,8 @@ import { GstNumberSearch } from '@/pages/tools/GstNumberSearch';
 import { GstTaxCalculator } from '@/pages/tools/GstTaxCalculator';
 import { MultiGstSearch } from '@/pages/tools/MultiGstSearch';
 import { GstHsnSacSearch } from '@/pages/tools/GstHsnSacSearch';
+import { StatusPage } from '@/pages/status/StatusPage';
+import NoticeManagement from '@/pages/notices/NoticeManagement';
 import { SeoHead } from '@/seo/components/SeoHead';
 import { StructuredData } from '@/seo/components/StructuredData';
 import { getPageMeta } from '@/seo/metadata';
@@ -142,6 +144,7 @@ function HomeRoute() {
       'ksa-soft': '/softwares/ksa',
       'ksa-api': '/apis/ksa',
       accounting: '/softwares/accounting',
+      'notice-mgmt': '/notice-management',
     };
     if (map[route]) routerNav(map[route]);
   };
@@ -311,6 +314,12 @@ export function AppRouter() {
         <Route path="/tools/gst-tax-calculator" element={<GstTaxCalculator />} />
         <Route path="/tools/multiple-gst-search" element={<MultiGstSearch />} />
         <Route path="/tools/gst-hsn-sac-search" element={<GstHsnSacSearch />} />
+
+        {/* ── Notice Management ─────────────────────────────────────── */}
+        <Route path="/notice-management" element={<NoticeManagement />} />
+
+        {/* ── Status ────────────────────────────────────────────────── */}
+        <Route path="/status" element={<StatusPage />} />
 
         {/* ── Developer portal (nested layout) ─────────────────────── */}
         <Route path="/developer" element={<DevPortal />}>

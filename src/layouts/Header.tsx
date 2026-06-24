@@ -1,11 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Icon } from '@/components/icons/Icon';
+import { Plug } from 'lucide-react';
 import { Button, ButtonLink } from '@/components/ui/Button';
 import { SiteLogo } from '@/components/ui/SiteLogo';
 import { NavDropdown } from '@/components/nav/NavDropdown';
 import { MobileNavGroup } from '@/components/nav/MobileNavGroup';
-import { SOFT_ITEMS, API_ITEMS, SERVICES_ITEMS, RESOURCES_ITEMS, TOOLS_ITEMS, API_DEVELOPER_ITEMS } from '@/components/nav/navConfig';
+import { SOFT_ITEMS, API_ITEMS, SERVICES_ITEMS, RESOURCES_ITEMS, TOOLS_ITEMS, API_DEVELOPER_ITEMS, CONNECTORS_SAP_ITEMS, CONNECTORS_TALLY_ITEMS } from '@/components/nav/navConfig';
 import type { HeaderMode } from '@/types/components';
 import homeIcon from '@/assets/home.svg';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
@@ -15,7 +16,7 @@ interface HeaderProps {
   mode?: HeaderMode;
 }
 
-function AuthButtons() {
+export function AuthButtons() {
   return (
     <div className="flex items-center gap-2">
       <ButtonLink
@@ -38,7 +39,7 @@ function AuthButtons() {
   );
 }
 
-function ContactUsDropdown() {
+export function ContactUsDropdown() {
   const [open, setOpen] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout>>();
 
@@ -170,6 +171,15 @@ export function Header({ mode = 'home' }: HeaderProps) {
                 secondaryGroup={{ label: 'API Guides', items: API_DEVELOPER_ITEMS }}
               />
               <NavDropdown
+                label="Connectors"
+                triggerIcon={<Plug size={15} strokeWidth={1.6} />}
+                hubHref="/connectors/sap-e-invoicing"
+                items={CONNECTORS_SAP_ITEMS}
+                isActive={false}
+                primaryLabel="SAP"
+                secondaryGroup={{ label: 'Tally', items: CONNECTORS_TALLY_ITEMS }}
+              />
+              <NavDropdown
                 label="Resources"
                 triggerIcon={<Icon.Resources />}
                 hubHref="/resources/partners"
@@ -216,6 +226,7 @@ export function Header({ mode = 'home' }: HeaderProps) {
           <div className="min-[1100px]:hidden border-t border-[var(--line)] bg-[var(--bg)] px-5 py-4 flex flex-col gap-3 overflow-y-auto max-h-[calc(100svh-4rem)]">
             <MobileNavGroup label="Softwares" icon={<Icon.Box />} items={SOFT_ITEMS} onNavigate={() => setMenuOpen(false)} />
             <MobileNavGroup label="APIs" icon={<Icon.Code />} items={API_ITEMS} onNavigate={() => setMenuOpen(false)} />
+            <MobileNavGroup label="Connectors" icon={<Plug size={16} strokeWidth={1.6} />} items={CONNECTORS_SAP_ITEMS} onNavigate={() => setMenuOpen(false)} primaryLabel="SAP" secondaryGroup={{ label: 'Tally', items: CONNECTORS_TALLY_ITEMS }} />
             <MobileNavGroup label="Services" icon={<Icon.Services />} items={SERVICES_ITEMS} onNavigate={() => setMenuOpen(false)} />
             <MobileNavGroup label="Resources" icon={<Icon.Resources />} items={RESOURCES_ITEMS} onNavigate={() => setMenuOpen(false)} secondaryGroup={{ label: 'Tools', items: TOOLS_ITEMS }} />
             <div className="flex flex-col gap-1.5 pt-1 border-t border-[var(--line)]">

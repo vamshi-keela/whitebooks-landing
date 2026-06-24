@@ -17,7 +17,7 @@ export const SOFT_ITEMS: NavItem[] = [
   { label: 'GST Software', href: '/softwares/gst', icon: <GST {...ico} /> },
   { label: 'E-Invoice Software', href: '/softwares/e-invoice', icon: <EInvoice {...ico} /> },
   { label: 'E-Way Bill Software', href: '/softwares/e-way-bill', icon: <EWayBill {...ico} /> },
-  { label: 'KSA E-Invoicing Software', href: '/softwares/ksa', icon: <KSA {...ico} /> },
+  { label: 'Notice Management', href: '/notice-management', icon: <KSA {...ico} /> },
 ];
 
 export const API_ITEMS: NavItem[] = [
@@ -26,6 +26,17 @@ export const API_ITEMS: NavItem[] = [
   { label: 'E-Invoice APIs', href: '/apis/e-invoice', icon: <EInvoice {...ico} /> },
   { label: 'E-Way Bill APIs', href: '/apis/e-way-bill', icon: <EWayBill {...ico} /> },
   { label: 'KSA E-Invoice APIs', href: '/apis/ksa', icon: <KSA {...ico} /> },
+];
+
+export const CONNECTORS_SAP_ITEMS: NavItem[] = [
+  { label: 'SAP · e-Invoicing', href: '/connectors/sap-e-invoicing', icon: <EInvoice {...ico} /> },
+  { label: 'SAP · e-Way Bill', href: '/connectors/sap-e-way-bill', icon: <EWayBill {...ico} /> },
+  { label: 'SAP · GST Filing', href: '/connectors/sap-gst', icon: <GST {...ico} /> },
+];
+
+export const CONNECTORS_TALLY_ITEMS: NavItem[] = [
+  { label: 'Tally · e-Invoicing', href: '/connectors/tally-e-invoice', icon: <EInvoice {...ico} /> },
+  { label: 'Tally · e-Way Bill', href: '/connectors/tally-e-way-bill', icon: <EWayBill {...ico} /> },
 ];
 
 export const SERVICES_ITEMS: NavItem[] = [

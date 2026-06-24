@@ -924,7 +924,7 @@ export default function DpHome(): React.ReactElement {
         <QuickstartSection />
         <OnboardingSection />
         <AuthAndMetricsSection />
-        <SDKSection />
+        {/* <SDKSection /> */}
         {/* <UseCasesSection /> */}
         <SecurityHero />
         {/* apis <ApiArchitecture />*/}

@@ -22,9 +22,8 @@ export function ScrollToTopButton() {
       type="button"
       aria-label="Scroll to top"
       onClick={scrollToTop}
-      className={`fixed bottom-6 right-6 z-50 flex h-11 w-11 items-center justify-center rounded-full border border-[var(--accent)] bg-[var(--accent)] text-white shadow-[0_8px_24px_-8px_rgba(220,47,101,0.55)] transition-all duration-300 ease-in-out hover:bg-[#e8447a] hover:-translate-y-0.5 ${
-        visible ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-4 pointer-events-none'
-      }`}
+      className={`fixed bottom-6 right-6 z-50 flex h-10 w-10 items-center justify-center rounded-full border border-[var(--accent)] bg-[var(--accent)] text-white shadow-[0_8px_24px_-8px_rgba(220,47,101,0.55)] transition-all duration-300 ease-in-out hover:bg-[#e8447a] hover:-translate-y-0.5 ${visible ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-4 pointer-events-none'
+        }`}
     >
       <ArrowUp size={20} />
     </button>

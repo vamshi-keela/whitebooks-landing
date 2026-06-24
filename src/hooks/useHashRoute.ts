@@ -10,7 +10,8 @@ export type RouteKey =
   | 'eway-api'
   | 'ksa-soft'
   | 'ksa-api'
-  | 'accounting';
+  | 'accounting'
+  | 'notice-mgmt';
 
 function hashToRoute(hash: string): RouteKey {
   if (hash === '#/gst-software') return 'gst-soft';

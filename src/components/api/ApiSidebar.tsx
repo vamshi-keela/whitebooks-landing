@@ -23,10 +23,10 @@ interface ApiSwitchItem {
 }
 
 const API_SWITCH_ITEMS: ApiSwitchItem[] = [
-  { type: 'gst-api',           label: 'GST API',         path: '/developer/gst-api' },
-  { type: 'e-invoice-api',     label: 'e-Invoice API',   path: '/developer/e-invoice-api' },
-  { type: 'e-way-bill-api',    label: 'e-Way Bill API',  path: '/developer/e-way-bill-api' },
-  { type: 'ksa-e-invoice-api', label: 'KSA e-Invoice',   path: '/developer/ksa-e-invoice-api' },
+  { type: 'gst-api', label: 'GST API', path: '/developer/gst-api' },
+  { type: 'e-invoice-api', label: 'e-Invoice API', path: '/developer/e-invoice-api' },
+  { type: 'e-way-bill-api', label: 'e-Way Bill API', path: '/developer/e-way-bill-api' },
+  { type: 'ksa-e-invoice-api', label: 'KSA e-Invoice', path: '/developer/ksa-e-invoice-api' },
 ];
 
 interface Props {
@@ -83,6 +83,7 @@ const SidebarGroup = memo(function SidebarGroup({
             return (
               <div
                 key={op.id}
+                data-op-id={op.id}
                 onClick={() => onSelect(op.id)}
                 className={[
                   'flex items-center gap-2 pl-2.5 pr-1.5 py-[6px] rounded-md cursor-pointer',
@@ -275,6 +276,27 @@ export default function ApiSidebar({
     return () => document.removeEventListener('keydown', handle);
   }, [mobileOpen, closeNav]);
 
+  // Bring the active operation into view when it changes — e.g. when deep-linked
+  // from the overview "Jump into the API" cards. Scrolls each sidebar instance's
+  // own scroll container (desktop aside + mobile drawer) only if the item is
+  // off-screen, so an already-visible selection doesn't jump.
+  useEffect(() => {
+    if (!selectedOpId) return;
+    const raf = requestAnimationFrame(() => {
+      document.querySelectorAll<HTMLElement>('[data-op-id]').forEach(el => {
+        if (el.dataset.opId !== selectedOpId) return;
+        const container = el.closest<HTMLElement>('[data-sidebar-scroll]');
+        if (!container) return;
+        const cRect = container.getBoundingClientRect();
+        const eRect = el.getBoundingClientRect();
+        if (eRect.top >= cRect.top && eRect.bottom <= cRect.bottom) return; // already visible
+        const target = eRect.top - cRect.top + container.scrollTop - container.clientHeight / 2 + eRect.height / 2;
+        container.scrollTo({ top: Math.max(0, target), behavior: 'smooth' });
+      });
+    });
+    return () => cancelAnimationFrame(raf);
+  }, [selectedOpId]);
+
   const sidebarContent = (
     <>
       {/* API switcher — shown on both desktop sidebar and mobile drawer */}
@@ -285,7 +307,7 @@ export default function ApiSidebar({
       />
       <div className="mx-4 mb-1" style={{ height: 1, background: 'var(--dp-border)' }} />
 
-      <div className="px-3 pt-2 pb-6 overflow-y-auto flex-1">
+      <div data-sidebar-scroll className="px-3 pt-2 pb-6 overflow-y-auto flex-1">
         {staticGroups?.map(group => (
           <StaticGroup
             key={group.heading}

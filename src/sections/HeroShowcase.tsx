@@ -234,27 +234,27 @@ function StatsGlassCard() {
   return (
     <div
       style={cardSurface}
-      className="relative flex flex-col justify-center rounded-[20px] p-4 transition-transform duration-300 hover:-translate-y-1"
+      className="relative flex flex-col justify-center rounded-[20px] p-4 transition-transform duration-300 hover:-translate-y-1 max-md:p-3"
     >
       <ul className="flex flex-col">
         {STATS.map((stat, i) => (
           <li
             key={stat.label}
-            className={`flex items-center gap-3 py-3.5 first:pt-0 last:pb-0 ${i < STATS.length - 1
+            className={`flex items-center gap-3 py-3.5 first:pt-0 last:pb-0 max-md:gap-2 max-md:py-2.5 ${i < STATS.length - 1
               ? "border-b border-[rgba(255,255,255,0.07)]"
               : ""
               }`}
           >
             <DarkIconTile
               icon={stat.icon}
-              className="h-11 w-11 rounded-full"
-              iconClassName="h-[19px] w-[19px]"
+              className="h-11 w-11 rounded-full max-md:h-8 max-md:w-8"
+              iconClassName="h-[19px] w-[19px] max-md:h-3.5 max-md:w-3.5"
             />
             <div className="min-w-0">
-              <div className="font-display text-[22px] font-bold leading-none tracking-tight text-[#ff4f86] whitespace-nowrap">
+              <div className="font-display text-[22px] font-bold leading-none tracking-tight text-[#ff4f86] whitespace-nowrap max-md:text-[15px]">
                 {stat.value}
               </div>
-              <div className="mt-1 text-[12px] leading-tight text-white/70">
+              <div className="mt-1 text-[12px] leading-tight text-white/70 max-md:mt-0.5 max-md:text-[10px]">
                 {stat.label}
               </div>
             </div>
@@ -265,23 +265,34 @@ function StatsGlassCard() {
   );
 }
 
-function ApiStrip() {
+// "fixed"      — 5-up row, used inside the scaled desktop canvas (never reflows).
+// "responsive" — stacks 1-up / 2-up by viewport, used in the mobile block.
+function ApiStrip({ variant = "fixed" }: { variant?: "fixed" | "responsive" }) {
+  const responsive = variant === "responsive";
   return (
     <div
       style={cardSurface}
-      className="relative overflow-hidden rounded-[20px] px-5 pb-5 sm:px-8"
+      className={`relative overflow-hidden rounded-[20px] pb-5 ${responsive ? "px-5" : "px-8"
+        }`}
     >
       <div className="mb-4 text-center">
         <span className="font-display text-[12px] font-semibold uppercase tracking-[0.22em] text-white/90">
           Powerful APIs for Developers
         </span>
       </div>
-      {/* Horizontal scroll on very small screens, grid on larger */}
-      <div className="flex gap-3 overflow-x-auto pb-1 sm:grid sm:grid-cols-2 sm:gap-4 sm:overflow-visible sm:pb-0 lg:grid-cols-5 lg:gap-0">
+      <div
+        className={
+          responsive
+            ? "grid grid-cols-1 gap-x-4 gap-y-3 min-[400px]:grid-cols-2"
+            : "grid grid-cols-5"
+        }
+      >
         {APIS.map((api, i) => (
           <div
             key={api.title}
-            className={`flex min-w-[160px] shrink-0 items-center gap-2.5 sm:min-w-0 lg:px-4 ${i > 0 ? "lg:border-l lg:border-[rgba(255,255,255,0.07)]" : ""
+            className={`flex min-w-0 items-center gap-2.5 ${responsive
+              ? ""
+              : `px-4 ${i > 0 ? "border-l border-[rgba(255,255,255,0.07)]" : ""}`
               }`}
           >
             <DarkIconTile
@@ -311,7 +322,7 @@ function ConnectorWeb() {
       viewBox="0 0 600 480"
       fill="none"
       aria-hidden
-      className="absolute left-1/2 top-1/2 hidden h-[118%] w-[172%] -translate-x-1/2 -translate-y-1/2 overflow-visible xl:block"
+      className="absolute left-1/2 top-1/2 block h-[118%] w-[172%] -translate-x-1/2 -translate-y-1/2 overflow-visible"
     >
       {/* dashed ring around the person */}
       <circle
@@ -353,9 +364,12 @@ function ConnectorWeb() {
   );
 }
 
-function PersonStage() {
+function PersonStage({ align = "end" }: { align?: "center" | "end" }) {
   return (
-    <div className="relative flex min-h-[300px] items-end justify-center sm:min-h-[360px] xl:h-full xl:min-h-0">
+    <div
+      className={`relative flex h-full min-h-0 justify-center ${align === "center" ? "items-center" : "items-end"
+        }`}
+    >
       {/* Soft brand glow */}
       <div
         aria-hidden
@@ -385,82 +399,42 @@ export default function HeroShowcase() {
   const [gst, accounting, eway, einvoice, ksa] = PRODUCT_CARDS;
 
   return (
-    <div className="relative z-10 mx-auto mt-10 w-full max-w-[1500px] px-4 pb-20 md:mt-14 md:px-6">
+    <div className="relative z-10 mx-auto mt-10 w-full max-w-[1500px] px-4 pb-20 md:mt-14 md:px-6 [overflow-x:clip]">
 
       {/* ══════════════════════════════════════════════════════════════════════
-          MOBILE layout  (hidden on md+)
-          Person image centred, product cards flanking left & right,
-          stats + KSA in a 2-col row below, then ApiStrip at the bottom.
+          Both layouts live on a fixed-width canvas that is scaled down with a
+          single transform, so cards, text and the person all shrink together
+          to fit the viewport width.
+
+          --showcase-scale: scaled canvas width = (viewport − side padding),
+            capped at 1 once the canvas fits.
+          --showcase-h:    natural (unscaled) height of the canvas, used to
+            pull the following content up so the transform leaves no gap.
+
+          Desktop (md+): the full 5-card constellation + ApiStrip on a 1468px
+            canvas. Mobile (<md): only the person + 4 product cards on a smaller
+            760px canvas; Stats, KSA and the ApiStrip render full-size below it.
       ══════════════════════════════════════════════════════════════════════ */}
-      <div className="md:hidden">
+      <style>{`
+        .hero-canvas-desk {
+          --showcase-scale: clamp(0.2, calc((min(100vw, 1500px) - 48px) / 1468px), 1);
+          --showcase-h: 645px;
+        }
+        .hero-canvas-mob {
+          --showcase-scale: clamp(0.2, calc((100vw - 32px) / 760px), 1);
+          --showcase-h: 734px;
+        }
+      `}</style>
 
-        {/* 3-column constellation: left cards | person | right cards */}
-        <div
-          className="grid"
-          style={{
-            gridTemplateColumns: "1fr 1.15fr 1fr",
-            gap: "8px",
-            alignItems: "stretch",
-          }}
-        >
-          {/* LEFT column: GST (row 1) · E-Way (row 2) */}
-          <div className="col-start-1 row-start-1">
-            <ProductGlassCard card={gst} />
-          </div>
-          <div className="col-start-1 row-start-2">
-            <ProductGlassCard card={eway} />
-          </div>
-
-          {/* CENTRE: PersonStage spans both rows */}
-          <div className="col-start-2 row-start-1 row-end-3 self-stretch">
-            <PersonStage />
-          </div>
-
-          {/* RIGHT column: Accounting (row 1) · E-Invoice (row 2) */}
-          <div className="col-start-3 row-start-1">
-            <ProductGlassCard card={accounting} />
-          </div>
-          <div className="col-start-3 row-start-2">
-            <ProductGlassCard card={einvoice} />
-          </div>
-        </div>
-
-        {/* Bottom row: Stats card + KSA card side-by-side */}
-        <div className="mt-2 grid grid-cols-2 gap-2">
-          <StatsGlassCard />
-          <ProductGlassCard card={ksa} />
-        </div>
-
-        {/* ApiStrip — below the whole grid on mobile */}
-        <div className="mt-3">
-          <ApiStrip />
-        </div>
-      </div>
-
-      {/* ══════════════════════════════════════════════════════════════════════
-          DESKTOP / LAPTOP layout  (hidden below md)
-          Fixed 1468px inner canvas scaled down to fit the viewport width.
-          clamp(0.50, 100vw/1500px, 1):
-            ≥1500px  → scale 1.0  (full size)
-            ~1280px  → ~0.85
-            ~900px   → ~0.60
-            768px    → 0.50  (minimum)
-          ApiStrip is inside the scale wrapper so it scales with the grid.
-      ══════════════════════════════════════════════════════════════════════ */}
+      {/* ── Desktop / laptop (md+) ─────────────────────────────────────────── */}
       <div
-        className="hidden md:block w-full origin-top"
+        className="hero-canvas-desk hidden origin-top-left md:block"
         style={{
+          width: "1468px",
           transform: "scale(var(--showcase-scale, 1))",
-          marginBottom: "calc((var(--showcase-scale, 1) - 1) * 620px)",
+          marginBottom: "calc((var(--showcase-scale, 1) - 1) * var(--showcase-h, 0px))",
         } as React.CSSProperties}
       >
-        <style>{`
-          :root {
-            --showcase-scale: clamp(0.50, calc(100vw / 1500px), 1);
-          }
-        `}</style>
-
-        {/* Constellation grid */}
         <div
           className="grid items-start"
           style={{
@@ -500,9 +474,59 @@ export default function HeroShowcase() {
           </div>
         </div>
 
-        {/* ApiStrip — docked below the constellation, inside the scale wrapper */}
         <div style={{ width: "1468px", marginTop: "12px" }}>
-          <ApiStrip />
+          <ApiStrip variant="fixed" />
+        </div>
+      </div>
+
+      {/* ── Mobile (<md) ───────────────────────────────────────────────────── */}
+      <div className="md:hidden">
+        {/* Scaled core: person flanked by the four product cards. */}
+        <div
+          className="hero-canvas-mob origin-top-left"
+          style={{
+            width: "760px",
+            transform: "scale(var(--showcase-scale, 1))",
+            marginBottom: "calc((var(--showcase-scale, 1) - 1) * var(--showcase-h, 0px))",
+          } as React.CSSProperties}
+        >
+          <div
+            className="grid items-start"
+            style={{
+              gridTemplateColumns: "1fr 1.2fr 1fr",
+              gap: "10px 12px",
+              width: "760px",
+            }}
+          >
+            <div className="col-start-1 row-start-1">
+              <ProductGlassCard card={gst} />
+            </div>
+            <div className="col-start-1 row-start-2">
+              <ProductGlassCard card={eway} />
+            </div>
+
+            <div className="col-start-2 row-start-1 row-end-3 self-stretch">
+              <PersonStage align="center" />
+            </div>
+
+            <div className="col-start-3 row-start-1">
+              <ProductGlassCard card={accounting} />
+            </div>
+            <div className="col-start-3 row-start-2">
+              <ProductGlassCard card={einvoice} />
+            </div>
+          </div>
+        </div>
+
+        {/* Stats + KSA — full-size, readable, side by side. */}
+        <div className="mt-3 grid grid-cols-2 gap-3">
+          <StatsGlassCard />
+          <ProductGlassCard card={ksa} />
+        </div>
+
+        {/* ApiStrip — full-size, responsive. */}
+        <div className="mt-3">
+          <ApiStrip variant="responsive" />
         </div>
       </div>
     </div>

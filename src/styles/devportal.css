@@ -22,7 +22,7 @@
   /* ── Borders ──────────────────────────── */
   --dp-border: rgba(255, 255, 255, 0.08);
   --dp-border-strong: rgba(255, 255, 255, 0.14);
-
+  --dp-horizontal-border: rgba(57, 58, 64, 1);
   /* ── Input fields ─────────────────────── */
   --dp-input-bg: #1a1a20;
   --dp-input-border: rgba(255, 255, 255, 0.16);
@@ -107,6 +107,8 @@
 
   --dp-border: rgba(0, 0, 0, 0.08);
   --dp-border-strong: rgba(0, 0, 0, 0.13);
+  --dp-horizontal-border: rgba(57, 58, 64, 1);
+
 
   /* ── Input fields (light) ─────────────── */
   --dp-input-bg: #ffffff;

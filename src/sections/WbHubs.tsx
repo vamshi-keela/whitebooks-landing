@@ -133,14 +133,14 @@ export function HubSection({ tab, setTab, navigate }: HubSectionProps) {
             onClick={() => navigate('accounting')}
           />
           <ProductPillarCard
-            tag="KSA e-Invoicing"
-            title="ZATCA-approved, same platform."
-            body="One of the few GSPs operating KSA e-invoicing — real-time clearance and cryptographic stamping, all from the same account you use for India."
-            cta="Explore KSA"
+            tag="Notice Management"
+            title="Never miss a tax notice again."
+            body="Auto-fetch GST, Income Tax, and TDS notices from GSTN, ITD, and TRACES. Track every deadline, get alerts, and keep your whole team aligned — all from the same WhiteBooks account."
+            cta="Explore Notice Management"
             tone="amber"
             metricValue="100%"
-            metricLabel="real-time ZATCA clearance"
-            onClick={() => navigate('ksa-soft')}
+            metricLabel="notices auto-fetched"
+            onClick={() => navigate('notice-mgmt')}
             wide
           />
         </div>

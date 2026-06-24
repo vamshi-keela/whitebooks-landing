@@ -14,6 +14,8 @@ interface NavDropdownProps {
   items: NavItem[];
   isActive: boolean;
   secondaryGroup?: SecondaryGroup;
+  /** Header for the primary column in two-column mode. Defaults to `label`. */
+  primaryLabel?: string;
 }
 
 function NavItemLink({ item, accentColor, hoverBg, onClose }: {
@@ -41,7 +43,7 @@ function NavItemLink({ item, accentColor, hoverBg, onClose }: {
   );
 }
 
-export function NavDropdown({ label, triggerIcon, hubHref, items, isActive, secondaryGroup }: NavDropdownProps) {
+export function NavDropdown({ label, triggerIcon, hubHref, items, isActive, secondaryGroup, primaryLabel }: NavDropdownProps) {
   const [open, setOpen] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout>>();
 
@@ -103,7 +105,7 @@ export function NavDropdown({ label, triggerIcon, hubHref, items, isActive, seco
               <div className="flex-1 min-w-0">
                 <p className="px-3 pt-[10px] pb-[6px] text-[10px] font-semibold uppercase tracking-[0.12em]"
                   style={{ color: 'var(--brand)' }}>
-                  {label}
+                  {primaryLabel ?? label}
                 </p>
                 {items.map(item => (
                   <NavItemLink

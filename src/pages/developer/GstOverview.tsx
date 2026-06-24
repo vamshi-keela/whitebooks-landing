@@ -7,7 +7,7 @@ import {
   Database, Terminal, Network, Activity, Users, Building2,
   BarChart3, Check, Code, GitBranch, Truck, QrCode,
   Headphones, TrendingUp, Star, Box, FileSpreadsheet, Braces,
-  Eye, AlertCircle
+  Eye, AlertCircle, LayoutGrid
 } from 'lucide-react';
 import GstResources from './GstResources';
 import sdkPostman from '../../assets/logos/postman.svg';
@@ -17,6 +17,8 @@ import { FinalCTA } from './EinvoiceApiOverview';
 import { SIGNUP_URL } from '@/utils/contants';
 import { Button, ButtonLink } from '@/components/ui/Button';
 import { fadeUp, stagger, scaleIn, SectionLabel, SectionHeading, GlassCard, Divider } from './GstShared';
+import { OverviewLayout, type OverviewNavSection } from './OverviewLayout';
+import { ApiReferenceJump, type FeaturedApiTag } from './ApiReferenceJump';
 
 export { Divider };
 
@@ -207,7 +209,8 @@ export function HeroSection({ title, description }: { title: string; description
             transition={{ duration: 0.5 }}
             className="flex gap-2 mb-6 flex-wrap"
           >
-            {['GST Suvidha Provider', 'ISO 27001:2013 Certified'].map(b => (
+
+            {['GST Suvidha Provider', 'ISO 27001:2022 Certified'].map(b => (
               <span
                 key={b}
                 className="inline-flex items-center gap-[5px] px-2.5 py-1 rounded-full text-[10px] font-semibold tracking-[0.04em]"
@@ -221,6 +224,18 @@ export function HeroSection({ title, description }: { title: string; description
                 <ShieldCheck size={10} />{b}
               </span>
             ))}
+            {/* Free sandbox — highlighted in success green so it reads as a perk */}
+            <span
+              className="inline-flex items-center gap-[5px] px-2.5 py-1 rounded-full text-[10px] font-semibold tracking-[0.04em]"
+              style={{
+                background: 'rgba(34,197,94,0.1)',
+                border: '1px solid rgba(34,197,94,0.3)',
+                color: '#22c55e',
+                fontFamily: 'var(--dp-font-mono)',
+              }}
+            >
+              <Zap size={10} />Free Sandbox · No Card
+            </span>
           </motion.div>
 
           {/* Headline */}
@@ -1180,6 +1195,18 @@ export function SandboxSection({ title, subTitle, setupSteps, showOTPBlock = tru
                   </p>
                 </div>
               </div>
+
+              {/* Free badge — sandbox costs nothing, say so loudly */}
+              <div
+                className="flex items-center gap-2 px-3.5 py-2 rounded-xl flex-shrink-0 self-start"
+                style={{ background: 'rgba(34,197,94,0.08)', border: '1px solid rgba(34,197,94,0.28)' }}
+              >
+                <span className="block w-[7px] h-[7px] rounded-full" style={{ background: '#22c55e', boxShadow: '0 0 8px #22c55e' }} />
+                <div className="leading-none">
+                  <div className="text-[13px] font-bold" style={{ color: '#22c55e', fontFamily: 'var(--dp-font-display)' }}>100% Free</div>
+                  <div className="text-[10px] mt-[3px]" style={{ color: 'var(--dp-fg-dim)', fontFamily: 'var(--dp-font-mono)' }}>No credit card</div>
+                </div>
+              </div>
             </div>
 
             {/* ── Steps grid ── */}
@@ -1280,7 +1307,7 @@ export function SandboxSection({ title, subTitle, setupSteps, showOTPBlock = tru
                 }}
                 onClick={() => window.open('https://accounts.whitebooks.in/signup?type=Developer&subscrid=&inviteId=', '_blank')}
               >
-                <Zap size={14} /> Get Sandbox Access
+                <Zap size={14} /> Get Free Sandbox Access
               </button>
             </div>
           </div>
@@ -1538,7 +1565,7 @@ const BEST_PRACTICES = [
     icon: Terminal,
     title: 'Use Sandbox Before Production',
     body: 'Always validate integration against the sandbox environment. The sandbox mirrors production schema exactly. No surprises at go-live.',
-    tip: 'Set BASE_URL=https://sandbox.whitebooks.in/api/v2',
+    tip: 'Set BASE_URL=https://api.sandbox.whitebooks.in/',
   },
   {
     icon: Clock,
@@ -1859,51 +1886,77 @@ export function SdkLibrariesSection({ sdkItems }: { sdkItems: SdkType[] }) {
   );
 }
 
+// ─── Featured API categories (Jump Into the API) ─────────────────────────────
+// Curated, highest-traffic GST tags surfaced as cards. The remaining ~22 spec
+// tags (GSTR variants, ITC, CMP, …) fold into the "Browse all" overflow.
+
+const GST_FEATURED_APIS: FeaturedApiTag[] = [
+  { tag: 'Public', label: 'Public APIs', blurb: 'GSTIN lookup, taxpayer search & HSN/SAC validation — no authentication required.', icon: Globe },
+  { tag: 'Authentication', label: 'Authentication', blurb: 'OTP & token-based taxpayer authentication for the GSTN channel.', icon: Key },
+  { tag: 'GSTR1', label: 'GSTR-1 Filing', blurb: 'Outward supplies return — save, submit & file B2B / B2C invoice data.', icon: FileText },
+  { tag: 'GSTR3B', label: 'GSTR-3B Filing', blurb: 'Monthly summary return with tax payment, ITC offset & e-filing.', icon: FileSpreadsheet },
+  { tag: 'GSTR2A', label: 'GSTR-2A / ITC', blurb: 'Auto-drafted inward supplies for input-tax-credit reconciliation.', icon: RefreshCw },
+  { tag: 'Ledger', label: 'Ledgers', blurb: 'Electronic cash, credit & liability ledger balances and history.', icon: Database },
+];
+
 // ─── Root export ──────────────────────────────────────────────────────────────
 
 export default function GstOverview(): React.ReactElement {
+  const sections: OverviewNavSection[] = [
+    {
+      id: 'overview',
+      label: 'Overview',
+      icon: BookOpen,
+      element: (
+        <HeroSection title='GST APIs for' description='The WhiteBooks GST API gives developers programmatic access to GSTR-1 / GSTR-3B / GSTR-9 filing, GSTR-2B fetch, GSTIN verification, and HSN/SAC lookup through the certified GSP channel to the GSTN.' />
+      ),
+    },
+    { id: 'stats', label: 'Stats', icon: TrendingUp, hideFromNav: true, element: <StatsSection /> },
+    { id: 'architecture', label: 'Architecture', icon: Network, element: <GuideArchitecture /> },
+    { id: 'getting-started', label: 'How To Start', icon: Zap, element: <GettingStartedSection steps={STEPS_GST} /> },
+    {
+      id: 'sandbox',
+      label: 'Sandbox API',
+      icon: Terminal,
+      element: (
+        <SandboxSection
+          title='WhiteBooks GST API Sandbox Information'
+          subTitle='To use GST API Sandbox Credentials, follow the steps below to generate your API keys from the developer dashboard.'
+          setupSteps={GST_SANDBOX_SETUP_STEPS}
+        />
+      ),
+    },
+    {
+      id: 'api-reference',
+      label: 'Jump Into the API',
+      icon: LayoutGrid,
+      element: <ApiReferenceJump apiType="gst-api" apiSlug="gst-api" featured={GST_FEATURED_APIS} />,
+    },
+    { id: 'best-practices', label: 'Best Practices', icon: ShieldCheck, element: <BestPracticesSection /> },
+    { id: 'sdks', label: 'SDKs & Libraries', icon: Package, element: <SdkLibrariesSection sdkItems={GST_SDK_ITEMS} /> },
+    { id: 'resources', label: 'Resources & FAQ', icon: FileText, element: <GstResources resources={GST_RESOURCE_ITEMS} faqs={GST_FAQS} /> },
+    {
+      id: 'get-started',
+      label: 'Get Started',
+      icon: ArrowRight,
+      element: (
+        <FinalCTA
+          eyebrowLabel="GST SUVIDHA PROVIDER | ISO 27001:2013"
+          headingStart='Scale '
+          headingAccent='GST Compliance'
+          headingEnd='with Powerful APIs'
+          description='Integrate WhiteBooks GST APIs into your ERP, accounting software, fintech platform, or SaaS application to automate GST filing, GSTIN verification, reconciliation, invoicing, and tax compliance workflows with scalable production-ready APIs.'
+          trustItems={['GST Return Filing APIs', 'GSTIN Verification', 'Sandbox & Production Access']}
+          primaryButton={{ label: 'Get API Access', href: SIGNUP_URL }}
+          secondaryButton={{ label: 'Read API Docs', href: '#' }}
+        />
+      ),
+    },
+  ];
+
   return (
     <div className="min-h-screen" style={{ background: 'var(--dp-bg)' }}>
-      <HeroSection title='GST APIs for' description='The WhiteBooks GST API gives developers programmatic access to GSTR-1 / GSTR-3B / GSTR-9 filing, GSTR-2B fetch, GSTIN verification, and HSN/SAC lookup through the certified GSP channel to the GSTN.' />
-      <Divider />
-      <StatsSection />
-      <Divider />
-      <GuideArchitecture />
-      <Divider />
-      {/* <BuildSection />
-      <Divider />
-      <CapabilitiesSection />
-      <Divider /> */}
-      <GettingStartedSection steps={STEPS_GST} />
-      <Divider />
-      <SandboxSection
-        title='WhiteBooks GST API Sandbox Information'
-        subTitle='To use GST API Sandbox Credentials, follow the steps below to generate your API keys from the developer dashboard.'
-        setupSteps={GST_SANDBOX_SETUP_STEPS}
-      />
-      <Divider />
-      <BestPracticesSection />
-      {/* <Divider />
-      <ResourcesSection /> */}
-      {/* <Divider />
-      <GstGetStarted /> */}
-      <Divider />
-      <SdkLibrariesSection sdkItems={GST_SDK_ITEMS} />
-      <Divider />
-      {/* gst resources */}
-      <GstResources resources={GST_RESOURCE_ITEMS} faqs={GST_FAQS} />
-      <Divider />
-      {/* <CtaSection /> */}
-      <FinalCTA
-        eyebrowLabel="GST SUVIDHA PROVIDER | ISO 27001:2013"
-        headingStart='Scale '
-        headingAccent='GST Compliance'
-        headingEnd='with Powerful APIs'
-        description='Integrate WhiteBooks GST APIs into your ERP, accounting software, fintech platform, or SaaS application to automate GST filing, GSTIN verification, reconciliation, invoicing, and tax compliance workflows with scalable production-ready APIs.'
-        trustItems={['GST Return Filing APIs', 'GSTIN Verification', 'Sandbox & Production Access']}
-        primaryButton={{ label: 'Get API Access', href: SIGNUP_URL }}
-        secondaryButton={{ label: 'Read API Docs', href: '#' }}
-      />
+      <OverviewLayout sections={sections} />
     </div>
   );
 }

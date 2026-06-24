@@ -130,23 +130,39 @@ export const EWAYBILL_RESOURCE_ITEMS: ResourceItem[] = [
 ];
 export const EWAYBILL_FAQS: FaqType[] = [
     {
-        q: 'Is this API compliant with the latest GST laws?',
-        a: 'Yes. WhiteBooks GST API is updated within 24 hours of any GSTN notification or legal amendment. Our compliance team monitors all GST council updates and the API schema is versioned to ensure backward compatibility during transitions.',
+        q: 'What is an e-Way Bill, and why is it important for businesses?',
+        a: 'An e-Way Bill is an electronic document essential for the movement of goods in India, ensuring tax compliance and reducing paperwork. Using an e-Way Bill API automates generation and simplifies logistics. With options like the Tally e-Way Bill API, businesses can enhance efficiency in their supply chain management.',
     },
     {
-        q: 'How is API security and data privacy handled?',
-        a: 'All API communication is encrypted via TLS 1.3. Client credentials are stored as salted hashes. We maintain SOC 2 Type II compliance and conduct quarterly penetration tests. Taxpayer data is never stored beyond the session window and is processed in ISO 27001-certified data centers.',
+        q: 'Is your e-Way Bill API integrated with major transportation management systems (TMS) and ERP software?',
+        a: 'Yes. The WhiteBooks e-Way Bill API is designed to seamlessly integrate with leading TMS and ERP systems in India, providing a smooth and efficient eWaybill generation process. Our API offers pre-built integrations with popular software solutions, simplifying the process of generating and managing e-Way Bills for businesses.',
     },
     {
-        q: 'Do you support global compliance formats?',
-        a: 'In addition to the Indian GST API, WhiteBooks offers a dedicated KSA e-Invoice API compliant with ZATCA Phase 2 requirements, with ZatcaXML generation and cryptographic stamp verification built in.',
+        q: 'Can your e-Way Bill API automatically calculate tax liabilities and generate eWaybills in compliance with the latest regulations?',
+        a: 'Absolutely. The WhiteBooks e-Way Bill API automates tax calculations and ensures that eWaybills are generated in compliance with the most current GST regulations in India. Our API simplifies the e-Waybill generation process, saving businesses time and reducing the risk of non-compliance penalties.',
     },
     {
-        q: 'What rate limits apply to the Sandbox environment?',
-        a: 'The Sandbox tier has no rate limits on test requests. Production API limits depend on your subscription plan. Starter plans include 10,000 requests/month, while Enterprise plans offer custom quotas with SLA guarantees.',
+        q: 'Can your e-Way Bill API handle high volumes of eWaybill generation for businesses with substantial daily shipments?',
+        a: 'Yes. The WhiteBooks e-Way Bill API is designed to efficiently handle high volumes of eWaybill generation, even for businesses with large-scale operations in India. Our API is built on a scalable infrastructure that can accommodate fluctuating workloads, ensuring uninterrupted service and optimal performance.',
     },
     {
-        q: 'Can I use the API for bulk GSTR filing?',
-        a: 'Yes. The GST API supports bulk operations for GSTR-1, GSTR-3B, and reconciliation workflows. You can submit up to 1,000 invoice records in a single batch request using the /bulk endpoints documented in the API reference.',
+        q: 'Is my information safe when using your e-Way Bill API?',
+        a: 'Absolutely. WhiteBooks prioritizes the security of your data. We employ advanced encryption and robust access controls to safeguard your sensitive information. Our e-Way Bill API adheres to the highest security standards, ensuring the confidentiality and integrity of your data.',
+    },
+    {
+        q: 'What happens if I need to change the destination of my goods after creating an e-Way Bill?',
+        a: 'You can update the e-Way Bill with the new destination. Our e-Way Bill API provides the flexibility to accommodate changes in your transportation plans. Simply follow the guidelines outlined in the API documentation to modify the destination information.',
+    },
+    {
+        q: 'Can your e-Way Bill API help in tracking the location of my goods during transit?',
+        a: 'While our primary focus is on e-Way Bill generation, you can integrate our API with third-party tracking systems to monitor the location of your goods during transit in India. This integration allows you to gain real-time visibility into the movement of your shipments, enhancing supply chain efficiency and ensuring timely delivery.',
+    },
+    {
+        q: 'Can your e-Way Bill API assist with customs documentation for international shipments?',
+        a: 'While our e-Way Bill API primarily focuses on domestic shipments within India, you can integrate it with third-party customs documentation systems to streamline the process for international shipments. By automating certain aspects of customs clearance, such as generating required documents or tracking shipment status, you can save time and reduce administrative burdens.',
+    },
+    {
+        q: 'Are there any plans for future enhancements or features in your e-Way Bill API that we should be aware of?',
+        a: 'Yes, we have a roadmap of planned enhancements and features to further improve the functionality and convenience of our e-Way Bill API for businesses in India. We are committed to staying ahead of industry trends and regulatory changes, and we will keep you informed about our upcoming updates.',
     },
 ];

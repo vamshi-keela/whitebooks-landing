@@ -46,41 +46,114 @@ export function generateCurl(op: NormalizedOperation, baseUrl: string, spec: Ope
   return lines.join(' \\\n');
 }
 
-export function generateJavaScript(op: NormalizedOperation, baseUrl: string, spec: OpenApiSpec): string {
+/** Shared fetch-based snippet used by both the Node.js and TypeScript tabs. */
+function generateFetch(op: NormalizedOperation, baseUrl: string, spec: OpenApiSpec, typed: boolean): string {
   const url = `${baseUrl}${op.path}${getQueryParams(op)}`;
   const headers = { ...getHeaderParams(op), ...(op.requestBody ? { 'Content-Type': 'application/json' } : {}) };
   const body = getRequestBodyExample(op, spec);
 
   const headerObj = JSON.stringify(headers, null, 2).replace(/"([^"]+)":/g, '$1:');
 
-  let code = `const response = await fetch('${url}', {\n`;
+  let code = `const response${typed ? ': Response' : ''} = await fetch('${url}', {\n`;
   code += `  method: '${op.method}',\n`;
   code += `  headers: ${headerObj},\n`;
   if (body) code += `  body: JSON.stringify(${body}),\n`;
-  code += `});\n\nconst data = await response.json();\nconsole.log(data);`;
+  code += `});\n\nconst data${typed ? ': unknown' : ''} = await response.json();\nconsole.log(data);`;
   return code;
 }
 
-export function generateAxios(op: NormalizedOperation, baseUrl: string, spec: OpenApiSpec): string {
-  const url = `${baseUrl}${op.path}`;
+export function generateNode(op: NormalizedOperation, baseUrl: string, spec: OpenApiSpec): string {
+  return generateFetch(op, baseUrl, spec, false);
+}
+
+export function generateTypeScript(op: NormalizedOperation, baseUrl: string, spec: OpenApiSpec): string {
+  return generateFetch(op, baseUrl, spec, true);
+}
+
+export function generateJava(op: NormalizedOperation, baseUrl: string, spec: OpenApiSpec): string {
+  const url = `${baseUrl}${op.path}${getQueryParams(op)}`;
   const headers = getHeaderParams(op);
   const body = getRequestBodyExample(op, spec);
-  const params = (op.parameters ?? []).filter(p => p.in === 'query');
 
-  let code = `import axios from 'axios';\n\n`;
-  code += `const { data } = await axios.${op.method.toLowerCase()}(\n  '${url}',\n`;
-
-  if (body) code += `  ${body},\n`;
-
-  const config: Record<string, unknown> = {};
-  if (Object.keys(headers).length) config.headers = headers;
-  if (params.length) config.params = Object.fromEntries(params.map(p => [p.name, p.example ?? 'value']));
-
-  if (Object.keys(config).length) {
-    code += `  ${JSON.stringify(config, null, 2)}\n`;
+  let code = `import java.net.URI;\n`;
+  code += `import java.net.http.HttpClient;\n`;
+  code += `import java.net.http.HttpRequest;\n`;
+  code += `import java.net.http.HttpResponse;\n\n`;
+  code += `HttpClient client = HttpClient.newHttpClient();\n\n`;
+  code += `HttpRequest request = HttpRequest.newBuilder()\n`;
+  code += `    .uri(URI.create("${url}"))\n`;
+  for (const [k, v] of Object.entries(headers)) {
+    code += `    .header("${k}", "${v}")\n`;
   }
+  if (body) {
+    code += `    .header("Content-Type", "application/json")\n`;
+    const payload = body.replace(/\n/g, '\n            ').replace(/"/g, '\\"');
+    code += `    .method("${op.method}", HttpRequest.BodyPublishers.ofString("${payload}"))\n`;
+  } else {
+    code += `    .method("${op.method}", HttpRequest.BodyPublishers.noBody())\n`;
+  }
+  code += `    .build();\n\n`;
+  code += `HttpResponse<String> response = client.send(\n`;
+  code += `    request, HttpResponse.BodyHandlers.ofString());\n\n`;
+  code += `System.out.println(response.body());`;
+  return code;
+}
 
-  code += `);\n\nconsole.log(data);`;
+export function generateGo(op: NormalizedOperation, baseUrl: string, spec: OpenApiSpec): string {
+  const url = `${baseUrl}${op.path}${getQueryParams(op)}`;
+  const headers = getHeaderParams(op);
+  const body = getRequestBodyExample(op, spec);
+
+  let code = `package main\n\n`;
+  code += `import (\n`;
+  code += `\t"fmt"\n`;
+  code += `\t"io"\n`;
+  code += `\t"net/http"\n`;
+  if (body) code += `\t"strings"\n`;
+  code += `)\n\n`;
+  code += `func main() {\n`;
+  if (body) {
+    code += `\tpayload := strings.NewReader(\`${body}\`)\n\n`;
+    code += `\treq, _ := http.NewRequest("${op.method}", "${url}", payload)\n`;
+  } else {
+    code += `\treq, _ := http.NewRequest("${op.method}", "${url}", nil)\n`;
+  }
+  for (const [k, v] of Object.entries(headers)) {
+    code += `\treq.Header.Set("${k}", "${v}")\n`;
+  }
+  if (body) code += `\treq.Header.Set("Content-Type", "application/json")\n`;
+  code += `\n\tres, _ := http.DefaultClient.Do(req)\n`;
+  code += `\tdefer res.Body.Close()\n\n`;
+  code += `\tdata, _ := io.ReadAll(res.Body)\n`;
+  code += `\tfmt.Println(string(data))\n`;
+  code += `}`;
+  return code;
+}
+
+export function generatePHP(op: NormalizedOperation, baseUrl: string, spec: OpenApiSpec): string {
+  const url = `${baseUrl}${op.path}${getQueryParams(op)}`;
+  const headers = getHeaderParams(op);
+  const body = getRequestBodyExample(op, spec);
+
+  const headerLines = Object.entries(headers).map(([k, v]) => `    "${k}: ${v}"`);
+  if (body) headerLines.push(`    "Content-Type: application/json"`);
+
+  let code = `<?php\n\n`;
+  code += `$curl = curl_init();\n\n`;
+  code += `curl_setopt_array($curl, [\n`;
+  code += `    CURLOPT_URL => "${url}",\n`;
+  code += `    CURLOPT_RETURNTRANSFER => true,\n`;
+  code += `    CURLOPT_CUSTOMREQUEST => "${op.method}",\n`;
+  if (body) {
+    const payload = body.replace(/\n/g, '\n        ').replace(/"/g, '\\"');
+    code += `    CURLOPT_POSTFIELDS => "${payload}",\n`;
+  }
+  if (headerLines.length) {
+    code += `    CURLOPT_HTTPHEADER => [\n${headerLines.join(',\n')}\n    ],\n`;
+  }
+  code += `]);\n\n`;
+  code += `$response = curl_exec($curl);\ncurl_close($curl);\n\n`;
+  code += `echo $response;`;
   return code;
 }
 
@@ -114,10 +187,13 @@ export function generatePython(op: NormalizedOperation, baseUrl: string, spec: O
 
 export function getAllExamples(op: NormalizedOperation, baseUrl: string, spec: OpenApiSpec) {
   return {
-    cURL: generateCurl(op, baseUrl, spec),
-    JavaScript: generateJavaScript(op, baseUrl, spec),
-    Axios: generateAxios(op, baseUrl, spec),
+    'Node.js': generateNode(op, baseUrl, spec),
     Python: generatePython(op, baseUrl, spec),
+    TypeScript: generateTypeScript(op, baseUrl, spec),
+    Java: generateJava(op, baseUrl, spec),
+    Go: generateGo(op, baseUrl, spec),
+    PHP: generatePHP(op, baseUrl, spec),
+    cURL: generateCurl(op, baseUrl, spec),
   };
 }
 

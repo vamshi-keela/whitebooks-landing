@@ -62,23 +62,39 @@ export const INV_RESOURCE_ITEMS: ResourceItem[] = [
 ];
 export const INV_FAQS: FaqType[] = [
     {
-        q: 'Is this API compliant with the latest GST laws?',
-        a: 'Yes. WhiteBooks GST API is updated within 24 hours of any GSTN notification or legal amendment. Our compliance team monitors all GST council updates and the API schema is versioned to ensure backward compatibility during transitions.',
+        q: 'What is an e-Invoice, and why is it essential for businesses?',
+        a: 'An e-Invoice is a digital invoice generated electronically, offering several advantages. The ecosystem includes options like e-Invoice API providers, low-cost e-Invoice API providers, and specialized GST e-Invoice API software. These tools help developers integrate e-Invoicing into their applications seamlessly, using resources like the e-Invoice API developer portal for guidance and support.',
     },
     {
-        q: 'How is API security and data privacy handled?',
-        a: 'All API communication is encrypted via TLS 1.3. Client credentials are stored as salted hashes. We maintain SOC 2 Type II compliance and conduct quarterly penetration tests. Taxpayer data is never stored beyond the session window and is processed in ISO 27001-certified data centers.',
+        q: 'Is my invoicing data secure when using your e-Invoice API?',
+        a: 'Yes, your invoicing data is highly secure when using our e-Invoice API. We employ advanced encryption and robust access controls to protect your sensitive information. Our API adheres to the highest security standards, ensuring the confidentiality and integrity of your data.',
     },
     {
-        q: 'Do you support global compliance formats?',
-        a: 'In addition to the Indian GST API, WhiteBooks offers a dedicated KSA e-Invoice API compliant with ZATCA Phase 2 requirements, with ZatcaXML generation and cryptographic stamp verification built in.',
+        q: 'Can your e-Invoice API handle a high volume of invoices, even during peak business periods?',
+        a: 'Yes. The WhiteBooks e-Invoice API is designed to efficiently handle a large number of invoices, even during peak business times in India. Our API is built on a scalable infrastructure that can accommodate fluctuating workloads, ensuring uninterrupted service and optimal performance, even during periods of high invoice volume or GST compliance deadlines.',
     },
     {
-        q: 'What rate limits apply to the Sandbox environment?',
-        a: 'The Sandbox tier has no rate limits on test requests. Production API limits depend on your subscription plan. Starter plans include 10,000 requests/month, while Enterprise plans offer custom quotas with SLA guarantees.',
+        q: 'Can your e-Invoice API help in automating the entire invoicing process, from generation to delivery?',
+        a: 'Yes. The WhiteBooks e-Invoice API can automate the complete invoicing cycle, from invoice generation to delivery and payment tracking. Our API streamlines the invoicing process, saving businesses time, reducing manual errors, and improving overall efficiency.',
     },
     {
-        q: 'Can I use the API for bulk GSTR filing?',
-        a: 'Yes. The GST API supports bulk operations for GSTR-1, GSTR-3B, and reconciliation workflows. You can submit up to 1,000 invoice records in a single batch request using the /bulk endpoints documented in the API reference.',
+        q: 'How does your e-Invoice API ensure that invoices are accurate and comply with tax regulations?',
+        a: 'The WhiteBooks e-Invoice API uses built-in validation checks to ensure the accuracy and compliance of your invoices before they are sent. Our API verifies that all required fields are accurately filled, calculations are correct, and the invoice adheres to the latest GST rules and regulations. This helps businesses avoid penalties and maintain compliance with Indian tax laws.',
+    },
+    {
+        q: 'Does your e-Invoice API offer multi-language support for businesses operating in diverse regions?',
+        a: 'Yes. The WhiteBooks e-Invoice API provides multi-language support, allowing you to create invoices in multiple languages for international operations, including businesses based in India. This feature enables you to effectively communicate with customers and suppliers worldwide, expanding your market reach and improving global business efficiency.',
+    },
+    {
+        q: 'Can I use your e-Invoice API on mobile devices for invoicing on the go?',
+        a: 'Yes. The WhiteBooks e-Invoice API is fully mobile-friendly, allowing you to create and manage invoices directly from your smartphone in India. Our API is designed to work seamlessly on various mobile platforms, providing you with the flexibility to invoice anytime and anywhere.',
+    },
+    {
+        q: 'How often do you release updates and enhancements to improve the functionality of your e-Invoice API?',
+        a: 'We regularly update our e-Invoice API to enhance its features and offer a more efficient experience to our users in India. Our commitment to continuous improvement ensures that our API stays updated with the latest industry trends and regulatory requirements, providing businesses with a reliable and cutting-edge invoicing solution.',
+    },
+    {
+        q: 'How does your e-Invoice API assist businesses in reducing the time it takes to get paid and improving cash flow?',
+        a: 'Our e-Invoice API streamlines the invoicing process, automating tasks and speeding up the delivery of invoices to customers. By offering convenient payment options, we facilitate faster payments, ultimately improving cash flow for businesses in India.',
     },
 ];

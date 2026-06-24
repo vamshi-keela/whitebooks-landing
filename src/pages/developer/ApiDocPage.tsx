@@ -184,7 +184,7 @@ export default function ApiDocPage({ apiType }: Props): React.ReactElement {
         case 'gst-api': return <GstOverview />;
         case 'e-invoice-api': return <InvoiceApiOverview />;
         case 'e-way-bill-api': return <EWayBillApiOverview />;
-        case 'ksa-e-invoice-api': return <KsaApiOverview />;
+        // case 'ksa-e-invoice-api': return <KsaApiOverview />;
       }
     }
 

@@ -7,7 +7,7 @@ const STEPS = [
     title: 'Create GSTIN Sandbox',
     description:
       'Before connecting to WhiteBooks, you must register a test GSTIN on the official developer portal provided by BVM IT Consulting.',
-    cta: { label: 'Register Sandbox GSTIN', href: 'https://sandbox.whitebooks.in', external: true, variant: 'link' as const },
+    cta: { label: 'Register Sandbox GSTIN', href: 'https://api.sandbox.whitebooks.in', external: true, variant: 'link' as const },
   },
   {
     num: 2,

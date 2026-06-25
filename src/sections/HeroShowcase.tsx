@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import heroImage from "../assets/hero-image.png";
 import {
   FileText,
@@ -32,8 +32,11 @@ const cardSurface: React.CSSProperties = {
     "0 12px 44px rgba(0,0,0,0.62)", // deep drop shadow
     "0 0 28px rgba(220,47,101,0.08)", // pink ambient glow
   ].join(", "),
-  backdropFilter: "blur(20px)",
-  WebkitBackdropFilter: "blur(20px)",
+  // NOTE: backdrop-filter was intentionally removed. The card background above
+  // is already 95–98% opaque, so the blur had almost no visible effect while
+  // being one of the most expensive paint ops on the page — 7 of these on a
+  // scaled canvas forced a full, slow re-raster every time the hero scrolled
+  // back into view (the 1–2s stall).
 };
 
 // Subdued dark-glass tile used for the stats card + API strip icons.
@@ -370,14 +373,24 @@ function PersonStage({ align = "end" }: { align?: "center" | "end" }) {
       className={`relative flex h-full min-h-0 justify-center ${align === "center" ? "items-center" : "items-end"
         }`}
     >
-      {/* Soft brand glow */}
+      {/* Soft brand glow — rendered as radial-gradients instead of blurred solid
+          fills. A large filter: blur() is an expensive per-raster pass; a
+          gradient reproduces the same falloff for ~free on the GPU. */}
       <div
         aria-hidden
-        className="absolute bottom-[4%] left-1/2 h-[80%] w-[78%] -translate-x-1/2 rounded-[46%] bg-[#dc2f65] opacity-30 blur-[84px]"
+        className="absolute bottom-[4%] left-1/2 h-[80%] w-[78%] -translate-x-1/2"
+        style={{
+          background:
+            "radial-gradient(ellipse 50% 50% at 50% 50%, rgba(220,47,101,0.30) 0%, rgba(220,47,101,0.12) 45%, transparent 72%)",
+        }}
       />
       <div
         aria-hidden
-        className="absolute bottom-[12%] left-1/2 h-[50%] w-[54%] -translate-x-1/2 rounded-full bg-[#ff3d77] opacity-40 blur-[64px]"
+        className="absolute bottom-[12%] left-1/2 h-[50%] w-[54%] -translate-x-1/2"
+        style={{
+          background:
+            "radial-gradient(ellipse 50% 50% at 50% 50%, rgba(255,61,119,0.40) 0%, rgba(255,61,119,0.16) 45%, transparent 72%)",
+        }}
       />
 
       {/* Dashed connector constellation (desktop only) */}
@@ -395,7 +408,10 @@ function PersonStage({ align = "end" }: { align?: "center" | "end" }) {
   );
 }
 
-export default function HeroShowcase() {
+// Memoized: HeroShowcase takes no props and its data is module-level constant,
+// so it only ever needs to render once. This stops the parent <Hero>'s
+// scroll/state-driven re-renders from re-running this entire (heavy) subtree.
+const HeroShowcase = memo(function HeroShowcase() {
   const [gst, accounting, eway, einvoice, ksa] = PRODUCT_CARDS;
 
   return (
@@ -531,4 +547,6 @@ export default function HeroShowcase() {
       </div>
     </div>
   );
-}
+});
+
+export default HeroShowcase;

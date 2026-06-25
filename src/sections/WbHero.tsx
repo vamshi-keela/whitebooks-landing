@@ -37,7 +37,7 @@ export const Hero = memo(function Hero(): JSX.Element {
             </h1>
             <div className="mt-9 flex flex-wrap gap-3 justify-center">
               <Button onClick={() => { setDemoOpen(true); }} size="lg">
-                Book a 20-min Demo -
+                Book a 20-min Demo
                 <DpIcon name="arrow-right" size={14} />
               </Button>
             </div>

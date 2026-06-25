@@ -74,6 +74,7 @@ import { TallyConnectorPage } from '@/pages/connectors/TallyConnectorPage';
 import WbStats from '@/sections/WbStats';
 import SecurityHero from '@/components/security/SecurityHero';
 import UseCasesAndPartners from '@/components/usecases-and-partners/UseCasesAndPartners';
+import LogoWallCarousel from '@/components/ui/LogoWall';
 
 /* ─── Slug maps ─────────────────────────────────────────────────────────── */
 
@@ -156,6 +157,7 @@ function HomeRoute() {
       <Header mode="home" />
       <main>
         <Hero />
+        <LogoWallCarousel />
         <LogoWall />
         <HubSection tab={tab} setTab={setTab} navigate={navigate} />
         <HubAPIsSection />

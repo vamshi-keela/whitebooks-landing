@@ -1,44 +1,17 @@
-import React, { useEffect, useState } from "react";
-import heroImage from "../assets/hero-image.png";
-import heroImageMobile from "../assets/hero-image-mobile.png";
+import { memo, useEffect, useState } from "react";
 import complianceTrust from "../assets/elements/complaince-trust.jpeg";
 import { useIsMobile } from "@/hooks/useIsMobile";
-import { FluidBackground, HeroFluidBackground } from "@/layouts/SiteShell";
+import { HeroFluidBackground } from "@/layouts/SiteShell";
 import { Button } from "@/components/ui/Button";
 import EyebrowPill from "@/components/ui/EyebrowPill";
 import LogoWallCarousel from "@/components/ui/LogoWall";
 import { BookDemoModal } from "@/components/modals/BookDemoModal";
 import DpIcon from "@/pages/developer/DpIcon";
 import HeroShowcase from "./HeroShowcase";
-import WbStats from "./WbStats";
-import TickMark from "@/components/ui/TickMark";
-export default function HeroBackground() {
-  return (
-    <div className="absolute inset-0 overflow-hidden bg-white">
-      {/* Top border */}
-      <div className="absolute top-0 left-[-50vw] w-[200vw] h-px bg-gray-200" />
 
-      {/* Bottom border */}
-      <div className="absolute bottom-0 left-[-50vw] w-[200vw] h-px bg-gray-200" />
-
-      {/* Wave layer 1 */}
-      <div className="wave wave-primary" />
-
-      {/* Wave layer 2 */}
-      <div className="wave wave-secondary" />
-
-      {/* Glow */}
-      <div className="glow glow-left" />
-      <div className="glow glow-right" />
-
-      {/* Noise overlay */}
-      <div className="noise" />
-    </div>
-  );
-}
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 
-export function Hero() {
+export const Hero = memo(function Hero(): JSX.Element {
   const isMobile = useIsMobile();
   const [demoOpen, setDemoOpen] = useState(false);
 
@@ -90,7 +63,7 @@ export function Hero() {
       {demoOpen && <BookDemoModal onClose={() => setDemoOpen(false)} />}
     </>
   );
-}
+});
 
 // ─── DashboardCard ────────────────────────────────────────────────────────────
 
@@ -192,33 +165,10 @@ const wrap = "w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-s
 // ─── LogoWall ─────────────────────────────────────────────────────────────────
 
 export function LogoWall() {
-  const row1 = [
-    "P&G",
-    "IBM",
-    "Razorpay",
-    "Pharmeasy",
-    "KPMG",
-    "Cars24",
-    "Hindustan Unilever",
-    "Aditya Birla",
-    "SBI",
-  ];
-  const row2 = [
-    "Accenture",
-    "Philips",
-    "TVS",
-    "Yamaha",
-    "WheelsEye",
-    "PepsiCo",
-    "Coca-Cola",
-    "EaseMyTrip",
-    "Grant Thornton",
-  ];
 
   return (
     <section className="relative border-b border-[var(--hairline)] pb-24 max-md:pb-16 max-sm:pb-12" data-reveal>
 
-      <LogoWallCarousel />
       {/* <div className="wb-logo-wall-header mb-10"> */}
       <div className={`${wrap} grid md:grid-cols-2 grid-cols-1 gap-12 items-center pt-24 max-md:pt-16 max-sm:pt-12`}>
         {/* Left: eyebrow + heading + body */}

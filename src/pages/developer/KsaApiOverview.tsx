@@ -160,7 +160,7 @@ export default function KsaApiOverview(): React.ReactElement {
       <Divider />
       <SdkLibrariesSection sdkItems={KSA_SDK_ITEMS} />
       <Divider />
-      <GstResources resources={KSA_RESOURCE_ITEMS} faqs={KSA_FAQS} />
+      {/* <GstResources resources={KSA_RESOURCE_ITEMS} faqs={KSA_FAQS} /> */}
       <Divider />
       <FinalCTA
         eyebrowLabel="ZATCA PHASE 2 | CRYPTOGRAPHIC SIGNING"

@@ -1,7 +1,7 @@
 
 import {
     Download, Shield, FileText, AlertCircle, ChevronDown,
-    Phone, ExternalLink, Braces, Building2, MapPin, Users, Eye,
+    Phone, ExternalLink, Braces, Building2, Users, Eye,
     type LucideIcon,
     Building,
     Key,
@@ -88,44 +88,32 @@ export const EWAYBILL_RESOURCE_ITEMS: ResourceItem[] = [
     },
     {
         icon: FileText,
-        title: 'E-Invoice API Reference Docs',
-        subtitle: '.DOCX',
-        actions: [{ label: 'Download', href: 'https://whitebooks.in/static/pdfs/e-invoice-api-reference-documentation.pdf', variant: 'download' }],
-    },
-    {
-        icon: AlertCircle,
-        title: 'E-Invoice Error Codes',
-        subtitle: '.PDF',
-        actions: [{ label: 'Download', href: '/static/pdfs/gst-api-error-codes.pdf', variant: 'download' }],
-    },
-    {
-        icon: Braces,
-        title: 'Generate IRN Arrtibute Details',
-        subtitle: '.PDF',
-        actions: [{ label: 'Download', href: '/static/pdfs/new-reurn-file-doc.pdf', variant: 'download' }],
+        title: 'e-Way Bill API Documentation',
+        actions: [{ label: 'Visit', href: 'https://docs.ewaybillgst.gov.in/apidocs/index.html', variant: 'online' }],
     },
     {
         icon: Building,
-        title: 'E-Invoice API Production Credential Setup',
-        desc: 'Production credential creation and onboarding process guide',
-        actions: [
-            { label: 'Download', href: '/static/pdfs/return-filing-through-api-v1.1.pdf', variant: 'download' },
-        ],
+        title: 'e-Way Bill API Production Credentials Creation Process',
+        subtitle: '.PDF',
+        actions: [{ label: 'Download', href: '/static/pdfs/e-way-bill-production-access.pdf', variant: 'download' }],
     },
     {
-        icon: MapPin,
-        title: 'State Codes',
-        desc: 'E-Invoice Sytem Master Codes',
-        actions: [
-            { label: 'Visit', href: 'https://einvoice1.gst.gov.in/Others/MasterCodes', variant: 'online' },
-        ],
+        icon: FileText,
+        title: 'e-Way Bill API Help Document',
+        subtitle: '.XLSX',
+        actions: [{ label: 'Download', href: '/static/pdfs/e-way-bill-help-document.xlsx', variant: 'download' }],
     },
     {
-        icon: Users,
-        title: 'Join GSP/ASP Community',
-        subtitle: 'GOOGLE GROUP',
-        actions: [{ label: 'Join', href: 'https://groups.google.com/forum/#!forum/gst-suvidha-provider-gsp-discussion-group', variant: 'join' }],
-        accent: true,
+        icon: AlertCircle,
+        title: 'e-Way Bill Error Codes List',
+        subtitle: '.PDF',
+        actions: [{ label: 'Download', href: '/static/pdfs/e-way-bill-error-codes-list.pdf', variant: 'download' }],
+    },
+    {
+        icon: Braces,
+        title: 'e-Way Bill API Reference Document',
+        subtitle: '.PDF',
+        actions: [{ label: 'Download', href: '/static/pdfs/e-way-bill-api-reference-document.pdf', variant: 'download' }],
     },
 ];
 export const EWAYBILL_FAQS: FaqType[] = [

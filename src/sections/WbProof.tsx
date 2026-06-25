@@ -41,7 +41,10 @@ function Stars() {
 
 function TestimonialCard({ quote, name, role, photo }: (typeof testimonials)[0]) {
   return (
-    <div className="group relative flex flex-col rounded-[20px] p-9 bg-[var(--bg-elev)] border border-[var(--line-2)] overflow-hidden transition-[border-color,box-shadow] duration-300 hover:border-[var(--brand-border)] hover:shadow-[0_8px_32px_-12px_rgba(220,47,101,0.18)]">
+    <div
+      className="group relative flex flex-col rounded-[20px] p-9 backdrop-blur-xl border border-[var(--line-2)] overflow-hidden shadow-[0_1px_0_0_rgba(255,255,255,0.04)_inset,0_20px_50px_-24px_rgba(0,0,0,0.45)] transition-[border-color,box-shadow,transform] duration-300 hover:border-[var(--brand-border)] hover:-translate-y-0.5 hover:shadow-[0_12px_40px_-12px_rgba(220,47,101,0.22)]"
+      style={{ background: 'color-mix(in srgb, var(--bg-elev) 82%, transparent)' }}
+    >
 
       {/* Hover radial glow */}
       <div
@@ -95,31 +98,58 @@ export function ProofSection() {
   const visible = [testimonials[startIndex], testimonials[(startIndex + 1) % total]];
 
   return (
-    <section className="relative bg-[var(--bg-2)] py-24 overflow-hidden">
+    <section className="relative bg-[var(--bg-2)] py-24 overflow-hidden isolate">
+
+      {/* Base depth wash — subtle vertical lift off the flat background */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 pointer-events-none z-0"
+        style={{ background: 'linear-gradient(180deg, var(--bg-3) 0%, var(--bg-2) 38%, var(--bg-2) 100%)', opacity: 0.55 }}
+      />
 
       {/* Top hairline — brand gradient */}
       <div
         aria-hidden="true"
         className="absolute top-0 left-0 right-0 h-px pointer-events-none z-[1]"
-        style={{ background: 'linear-gradient(90deg, transparent 8%, rgba(220,47,101,0.45) 50%, transparent 92%)' }}
+        style={{ background: 'linear-gradient(90deg, transparent 8%, rgba(220,47,101,0.55) 50%, transparent 92%)' }}
       />
 
-      {/* Ambient glow — top center */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 pointer-events-none z-0"
-        style={{ background: 'radial-gradient(ellipse 60% 38% at 50% 0%, rgba(220,47,101,0.07), transparent 70%)' }}
-      />
-
-      {/* Dot grid — masked to center */}
+      {/* Premium gradient mesh — layered brand + plum/violet glows echoing the Stats sunset palette */}
       <div
         aria-hidden="true"
         className="absolute inset-0 pointer-events-none z-0"
         style={{
-          backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(220,47,101,0.13) 1px, transparent 0)',
+          background:
+            'radial-gradient(48% 42% at 50% -8%, rgba(220,47,101,0.16), transparent 68%),' +
+            'radial-gradient(40% 55% at 8% 4%, rgba(199,183,244,0.12), transparent 60%),' +
+            'radial-gradient(42% 60% at 95% 18%, rgba(231,162,226,0.10), transparent 62%),' +
+            'radial-gradient(55% 45% at 50% 118%, rgba(220,47,101,0.10), transparent 70%)',
+        }}
+      />
+
+      {/* Fine guideline grid — masked to fade at the edges */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 pointer-events-none z-0"
+        style={{
+          backgroundImage:
+            'linear-gradient(rgba(220,47,101,0.05) 1px, transparent 1px),' +
+            'linear-gradient(90deg, rgba(220,47,101,0.05) 1px, transparent 1px)',
+          backgroundSize: '56px 56px',
+          maskImage: 'radial-gradient(ellipse 80% 70% at 50% 45%, #000 5%, transparent 85%)',
+          WebkitMaskImage: 'radial-gradient(ellipse 80% 70% at 50% 45%, #000 5%, transparent 85%)',
+        }}
+      />
+
+      {/* Dot grid accent — masked to center for fine texture */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 pointer-events-none z-0"
+        style={{
+          backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(220,47,101,0.16) 1px, transparent 0)',
           backgroundSize: '28px 28px',
-          maskImage: 'radial-gradient(ellipse 75% 65% at 50% 50%, #000 10%, transparent 80%)',
-          WebkitMaskImage: 'radial-gradient(ellipse 75% 65% at 50% 50%, #000 10%, transparent 80%)',
+          maskImage: 'radial-gradient(ellipse 60% 50% at 50% 40%, #000 8%, transparent 78%)',
+          WebkitMaskImage: 'radial-gradient(ellipse 60% 50% at 50% 40%, #000 8%, transparent 78%)',
         }}
       />
 

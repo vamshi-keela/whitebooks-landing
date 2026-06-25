@@ -21,6 +21,7 @@ import {
 import { Header, Footer, FluidBackground } from '@/layouts/SiteShell';
 import { ButtonLink } from '@/components/ui/Button';
 import { LOGIN_URL } from '@/utils/contants';
+import gstDashboard1 from '@/assets/product-images/gst-software/gst-dashboard-1.png';
 
 /* ─── Data ─────────────────────────────────────────────────────────────────── */
 
@@ -187,6 +188,7 @@ export default function NoticeManagement() {
       <main className="font-[var(--font-body)] leading-relaxed text-[var(--text)]">
         {/* ── Hero ──────────────────────────────────────────────────────────── */}
         <section className="relative overflow-hidden border-b border-[var(--line)] bg-[var(--bg-2)] pt-[140px]">
+          <FluidBackground />
 
           <div className="relative z-[2] mx-auto grid max-w-[1180px] grid-cols-1 items-start gap-12 px-8 md:grid-cols-2 lg:gap-16">
             <div className="pb-20">
@@ -214,45 +216,11 @@ export default function NoticeManagement() {
             </div>
 
             {/* Live inbox preview */}
-            <div className="mt-4 overflow-hidden rounded-t-2xl border border-b-0 border-[var(--line)] bg-[var(--bg-elev)]">
-              <div className="flex items-center justify-between border-b border-[var(--line)] px-4 py-3">
-                <div className="flex gap-1.5">
-                  {['#ff5f57', '#febc2e', '#28c840'].map((c) => (
-                    <span key={c} className="inline-block h-3 w-3 rounded-full" style={{ background: c }} />
-                  ))}
-                </div>
-                <span className="text-xs font-medium text-[var(--muted)]">WhiteBooks · Notice Inbox</span>
-                <span className="text-[11px] font-semibold text-[var(--brand)]">3 urgent</span>
-              </div>
-              {notices.slice(0, 4).map((n, i) => {
-                const sc = statusColors[n.status];
-                const tc = typeColors[n.type];
-                return (
-                  <div key={i} className="flex items-center gap-3 border-b border-[var(--line)] px-4 py-[13px]">
-                    <span
-                      className="min-w-[52px] whitespace-nowrap rounded px-[7px] py-[3px] text-center text-[10px] font-semibold"
-                      style={{ background: tc.bg, color: tc.text }}
-                    >
-                      {n.type}
-                    </span>
-                    <div className="min-w-0 flex-1">
-                      <div className="overflow-hidden text-ellipsis whitespace-nowrap text-[13px] font-semibold text-[var(--text)]">{n.title}</div>
-                      <div className="text-[11px] text-[var(--muted)]">{n.section} · Due {n.due}</div>
-                    </div>
-                    <span
-                      className="flex items-center gap-[5px] whitespace-nowrap rounded-full px-2.5 py-[3px] text-[11px] font-semibold"
-                      style={{ background: sc.bg, color: sc.text }}
-                    >
-                      <span className="h-1.5 w-1.5 rounded-full" style={{ background: sc.dot }} />
-                      {n.status}
-                    </span>
-                  </div>
-                );
-              })}
-              <div className="bg-[var(--bg-2)] px-4 py-2.5 text-center text-xs text-[var(--muted)]">
-                Showing 4 of 24 notices · <span className="font-medium text-[var(--brand)]">View all →</span>
-              </div>
-            </div>
+            <img
+              src={gstDashboard1}
+              alt="WhiteBooks Notice Inbox dashboard"
+              className="mt-4 w-full rounded-2xl border border-[var(--line)] object-cover aspect-[1.62/1]"
+            />
           </div>
         </section>
 

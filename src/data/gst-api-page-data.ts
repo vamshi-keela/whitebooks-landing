@@ -1,7 +1,7 @@
 
 import {
     Download, Shield, FileText, AlertCircle, ChevronDown,
-    Phone, ExternalLink, Braces, Building2, MapPin, Users, Eye,
+    Phone, ExternalLink, Braces, MapPin, Users, Eye,
     type LucideIcon,
     Building,
 } from 'lucide-react';
@@ -39,43 +39,43 @@ export const GST_RESOURCE_ITEMS: ResourceItem[] = [
     },
     {
         icon: FileText,
-        title: 'GST API Reference Docs',
-        subtitle: '.DOCX',
-        actions: [{ label: 'Download', href: '/static/pdfs/whitebooks-gst-api-documentation.docx', variant: 'download' }],
+        title: 'GST API Reference Documentation',
+        subtitle: '.PDF',
+        actions: [{ label: 'Download', href: '/static/pdfs/gst-api-reference-documentation.pdf', variant: 'download' }],
     },
     {
         icon: AlertCircle,
-        title: 'Error Codes Schema',
+        title: 'GST API Error Codes',
         subtitle: '.PDF',
-        actions: [{ label: 'Download', href: '/static/pdfs/gst-api-error-codes.pdf', variant: 'download' }],
+        actions: [{ label: 'Download', href: '/static/pdfs/gst-error-codes.pdf', variant: 'download' }],
     },
     {
         icon: Braces,
-        title: 'New GSTR1 Returns Filing Approach.',
-        subtitle: '.PDF',
-        actions: [{ label: 'Download', href: '/static/pdfs/new-reurn-file-doc.pdf', variant: 'download' }],
+        title: 'GST API Attribute Details',
+        subtitle: '.XLSX',
+        actions: [{ label: 'Download', href: '/static/pdfs/gst-api-attribute-details.xlsx', variant: 'download' }],
     },
     {
         icon: Building,
-        title: 'Return Filing Through API',
+        title: 'GST API Production Credentials Creation Process',
         subtitle: '.PDF',
         actions: [
-            { label: 'Download', href: '/static/pdfs/return-filing-through-api-v1.1.pdf', variant: 'download' },
+            { label: 'Download', href: '/static/pdfs/production-credentials-creation-process.pdf', variant: 'download' },
         ],
     },
     {
-        icon: Building2,
-        title: 'GSTIN API Documentation',
-        desc: 'Visit GST Gov Portal for GSTIN API Documentation',
+        icon: MapPin,
+        title: 'State Codes',
+        desc: 'View the list of GST state codes',
         actions: [
-            { label: 'Visit', href: 'https://developer.gst.gov.in/apiportal/taxpayer/returns', variant: 'online' },
+            { label: 'View', href: '/docs/gst', variant: 'online' },
         ],
     },
     {
         icon: Users,
         title: 'Join GSP/ASP Community',
         subtitle: 'GOOGLE GROUP',
-        actions: [{ label: 'Join', href: 'https://groups.google.com/forum/#!forum/gst-suvidha-provider-gsp-discussion-group', variant: 'join' }],
+        actions: [{ label: 'Follow', href: 'https://groups.google.com/forum/#!forum/gst-suvidha-provider-gsp-discussion-group', variant: 'join' }],
         accent: true,
     },
 ];

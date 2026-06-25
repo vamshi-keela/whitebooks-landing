@@ -4,6 +4,7 @@ import {
   Phone, ExternalLink, Eye,
 } from 'lucide-react';
 import { FaqType, GST_FAQS, GST_RESOURCE_ITEMS, ResourceAction, ResourceItem } from '@/data/gst-api-page-data';
+import { Divider } from './GstShared';
 
 
 /* ─── Sub-components ────────────────────────────────────────────────────────── */
@@ -146,72 +147,78 @@ function FaqItem({ item, }: { item: FaqType }) {
 
 /* ─── Page ──────────────────────────────────────────────────────────────────── */
 
-export default function GstResources({ resources, faqs }: { resources: ResourceItem[], faqs: FaqType[] }): React.ReactElement {
+export default function GstResources({ apiType, resources, faqs }: { apiType: string, resources: ResourceItem[], faqs: FaqType[] }): React.ReactElement {
 
   return (
-    <section className="py-10 px-4 sm:px-0 max-w-[980px] sm:mx-auto">
+    <section className="max-w-[980px] sm:mx-auto">
       {/* Header */}
-      <div className="mb-5">
+      <div className="px-6 sm:px-10 lg:px-12 py-12 sm:py-14 lg:py-[60px]">
         <h1
           className="text-[2rem] font-bold leading-tight mb-3"
           style={{ fontFamily: 'var(--dp-font-display)', color: 'var(--dp-fg)' }}
         >
-          Additional Resources
+          Developer Resources & Documentation
         </h1>
-      </div>
+        <p className="text-base leading-relaxed" style={{ color: 'var(--dp-fg-muted)' }}>
+          Everything you need to integrate the {apiType} — certificates, reference docs, help guides, and error codes.
+        </p>
 
-      {/* Resource cards grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-12">
-        {resources.map(item => (
-          <div key={item.title} className={item.wide ? 'sm:col-span-2' : ''}>
-            <ResourceCard item={item} />
-          </div>
-        ))}
-      </div>
-
-      {/* FAQs */}
-      <div className="mb-12">
-        <h2
-          className="text-3xl sm:text-2xl font-bold mb-6"
-          style={{ fontFamily: 'var(--dp-font-display)', color: 'var(--dp-fg)' }}
-        >
-          Frequently Asked Questions
-        </h2>
-        <div className="space-y-2">
-          {faqs.map(faq => (
-            <FaqItem key={faq.q} item={faq} />
+        {/* Resource cards grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {resources.map(item => (
+            <div key={item.title} className={item.wide ? 'sm:col-span-2' : ''}>
+              <ResourceCard item={item} />
+            </div>
           ))}
         </div>
       </div>
-
-      {/* Support CTA */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div
-          className="rounded-[12px] p-5 flex items-start gap-4"
-          style={{ background: 'var(--dp-surface-2)', border: '1px solid var(--dp-border)' }}
-        >
-          <div
-            className="w-9 h-9 rounded-[9px] flex items-center justify-center shrink-0"
-            style={{ background: 'rgba(220,47,101,0.1)', border: '1px solid rgba(220,47,101,0.2)' }}
+      <Divider />
+      <div className='px-6 sm:px-10 lg:px-12 py-12 sm:py-14 lg:py-[60px]'>
+        {/* FAQs */}
+        <div className="mb-12">
+          <h2
+            className="text-3xl sm:text-2xl font-bold mb-6"
+            style={{ fontFamily: 'var(--dp-font-display)', color: 'var(--dp-fg)' }}
           >
-            <Phone size={16} style={{ color: 'var(--dp-accent-2)' }} />
-          </div>
-          <div>
-            <div className="font-semibold text-base sm:text-sm mb-1" style={{ color: 'var(--dp-fg)' }}>
-              Talk to Sales
-            </div>
-            <div className="text-base sm:text-sm mb-2" style={{ color: 'var(--dp-fg-muted)' }}>
-              Need enterprise limits or custom integration support?
-            </div>
-            <a
-              href="tel:+919032111788"
-              className="text-base sm:text-xs font-semibold"
-              style={{ color: 'var(--dp-accent-2)', textDecoration: 'none' }}
-            >
-              +91 9032111788
-            </a>
+            Frequently Asked Questions
+          </h2>
+          <div className="space-y-2">
+            {faqs.map(faq => (
+              <FaqItem key={faq.q} item={faq} />
+            ))}
           </div>
         </div>
+
+        {/* Support CTA */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div
+            className="rounded-[12px] p-5 flex items-start gap-4"
+            style={{ background: 'var(--dp-surface-2)', border: '1px solid var(--dp-border)' }}
+          >
+            <div
+              className="w-9 h-9 rounded-[9px] flex items-center justify-center shrink-0"
+              style={{ background: 'rgba(220,47,101,0.1)', border: '1px solid rgba(220,47,101,0.2)' }}
+            >
+              <Phone size={16} style={{ color: 'var(--dp-accent-2)' }} />
+            </div>
+            <div>
+              <div className="font-semibold text-base sm:text-sm mb-1" style={{ color: 'var(--dp-fg)' }}>
+                Talk to Sales
+              </div>
+              <div className="text-base sm:text-sm mb-2" style={{ color: 'var(--dp-fg-muted)' }}>
+                Need enterprise limits or custom integration support?
+              </div>
+              <a
+                href="tel:+919032111788"
+                className="text-base sm:text-xs font-semibold"
+                style={{ color: 'var(--dp-accent-2)', textDecoration: 'none' }}
+              >
+                +91 9032111788
+              </a>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
   );

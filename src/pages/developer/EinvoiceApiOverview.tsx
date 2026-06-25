@@ -234,7 +234,7 @@ export default function InvoiceApiOverview() {
         },
         { id: 'best-practices', label: 'Best Practices', icon: ShieldCheck, element: <BestPracticesSection /> },
         { id: 'sdks', label: 'SDKs & Libraries', icon: Package, element: <SdkLibrariesSection sdkItems={INV_SDK_ITEMS} /> },
-        { id: 'resources', label: 'Resources & FAQ', icon: FileText, element: <GstResources resources={INV_RESOURCE_ITEMS} faqs={INV_FAQS} /> },
+        { id: 'resources', label: 'Resources & FAQ', icon: FileText, element: <GstResources apiType='e-invoice-api' resources={INV_RESOURCE_ITEMS} faqs={INV_FAQS} /> },
         {
             id: 'get-started',
             label: 'Get Started',

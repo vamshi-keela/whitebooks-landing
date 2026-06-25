@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 import GstResources from './GstResources';
 import sdkPostman from '../../assets/logos/postman.svg';
-import { SurfaceCard } from './DpComponents';
+import { SurfaceCard, Badge } from './DpComponents';
 import { GST_FAQS, GST_RESOURCE_ITEMS } from '@/data/gst-api-page-data';
 import { FinalCTA } from './EinvoiceApiOverview';
 import { SIGNUP_URL } from '@/utils/contants';
@@ -211,31 +211,10 @@ export function HeroSection({ title, description }: { title: string; description
           >
 
             {['GST Suvidha Provider', 'ISO 27001:2022 Certified'].map(b => (
-              <span
-                key={b}
-                className="inline-flex items-center gap-[5px] px-2.5 py-1 rounded-full text-[10px] font-semibold tracking-[0.04em]"
-                style={{
-                  background: 'rgba(220,47,101,0.07)',
-                  border: '1px solid rgba(220,47,101,0.2)',
-                  color: 'var(--dp-accent-2)',
-                  fontFamily: 'var(--dp-font-mono)',
-                }}
-              >
-                <ShieldCheck size={10} />{b}
-              </span>
+              <Badge key={b} icon={<ShieldCheck size={10} />}>{b}</Badge>
             ))}
             {/* Free sandbox — highlighted in success green so it reads as a perk */}
-            <span
-              className="inline-flex items-center gap-[5px] px-2.5 py-1 rounded-full text-[10px] font-semibold tracking-[0.04em]"
-              style={{
-                background: 'rgba(34,197,94,0.1)',
-                border: '1px solid rgba(34,197,94,0.3)',
-                color: '#22c55e',
-                fontFamily: 'var(--dp-font-mono)',
-              }}
-            >
-              <Zap size={10} />Free Sandbox · No Card
-            </span>
+            <Badge tone="success" icon={<Zap size={10} />}>Free Sandbox · No Card</Badge>
           </motion.div>
 
           {/* Headline */}
@@ -1934,7 +1913,7 @@ export default function GstOverview(): React.ReactElement {
     },
     { id: 'best-practices', label: 'Best Practices', icon: ShieldCheck, element: <BestPracticesSection /> },
     { id: 'sdks', label: 'SDKs & Libraries', icon: Package, element: <SdkLibrariesSection sdkItems={GST_SDK_ITEMS} /> },
-    { id: 'resources', label: 'Resources & FAQ', icon: FileText, element: <GstResources resources={GST_RESOURCE_ITEMS} faqs={GST_FAQS} /> },
+    { id: 'resources', label: 'Resources & FAQ', icon: FileText, element: <GstResources apiType='GST APIs' resources={GST_RESOURCE_ITEMS} faqs={GST_FAQS} /> },
     {
       id: 'get-started',
       label: 'Get Started',

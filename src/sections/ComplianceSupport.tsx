@@ -24,6 +24,7 @@ import {
   FeatureCard,
   SectionHeader,
   SectionShell,
+  fadeUp,
   staggerParent,
   type FlowStep,
 } from "@/components/ui/SectionKit";
@@ -57,34 +58,43 @@ function InfrastructureAnimationPlaceholder({ flow }: { flow: ComplianceSupportD
 export function ComplianceSupport({ data = COMPLIANCE_SUPPORT }: { data?: ComplianceSupportData }) {
   return (
     <SectionShell>
-      <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-16">
-        {/* Left — 40% */}
+      <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:gap-16">
+        {/* Left — header, CTA, responsive feature grid */}
         <div className="flex flex-col gap-7">
           <SectionHeader eyebrow={data.eyebrow} title={data.title} subtitle={data.subtitle} />
           <CTAButton href={data.cta.href}>{data.cta.label}</CTAButton>
-          <InfrastructureAnimationPlaceholder flow={data.flow} />
+
+          <motion.div
+            variants={staggerParent}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-80px" }}
+            className="grid grid-cols-1 gap-4 sm:grid-cols-2"
+          >
+            {data.features.map((f, i) => {
+              const Icon = FEATURE_ICON[f.icon] ?? ShieldCheck;
+              return (
+                <FeatureCard
+                  key={f.title}
+                  index={i}
+                  icon={<Icon size={19} />}
+                  title={f.title}
+                  description={f.detail}
+                />
+              );
+            })}
+          </motion.div>
         </div>
 
-        {/* Right — 60%: floating feature cards */}
+        {/* Right — infrastructure flow visual, vertically centered */}
         <motion.div
-          variants={staggerParent}
+          variants={fadeUp}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-80px" }}
-          className="flex flex-col justify-center gap-4"
+          className="flex flex-col justify-center"
         >
-          {data.features.map((f, i) => {
-            const Icon = FEATURE_ICON[f.icon] ?? ShieldCheck;
-            return (
-              <FeatureCard
-                key={f.title}
-                index={i}
-                icon={<Icon size={19} />}
-                title={f.title}
-                description={f.detail}
-              />
-            );
-          })}
+          <InfrastructureAnimationPlaceholder flow={data.flow} />
         </motion.div>
       </div>
     </SectionShell>

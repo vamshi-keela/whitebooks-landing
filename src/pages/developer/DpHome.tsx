@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button, ButtonLink } from '@/components/ui/Button';
 import { Header, Footer, FluidBackground, Breadcrumb } from '@/layouts/SiteShell';
-import { CodeBlock, SurfaceCard, Status, InlineCode, Pill, MethodBadge } from './DpComponents';
+import { CodeBlock, SurfaceCard, Status, InlineCode, Pill, MethodBadge, Badge } from './DpComponents';
 import DpIcon from './DpIcon';
 import { heroTabs, quickstartReqTabs, quickstartRespTabs } from './DpHomeData';
 import LogoWallCarousel from '@/components/ui/LogoWall';
@@ -10,7 +10,8 @@ import DeveloperExperience from '@/sections/DeveloperExperience';
 import IntegrationPartners from '@/sections/IntegrationPartners';
 import ComplianceSupport from '@/sections/ComplianceSupport';
 import SecurityHero from '@/components/security/SecurityHero';
-import { DeveloperSection } from '../apis/ApiSuitePage';
+import { DeveloperSection, IndustriesSection } from '../apis/ApiSuitePage';
+import { Zap } from 'lucide-react';
 
 const wrap = "w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4";
 
@@ -310,6 +311,7 @@ const STEPS = [
 ];
 
 function OnboardingSection(): React.ReactElement {
+  const navigate = useNavigate();
   return (
     <section className="py-12 md:py-20 relative overflow-hidden">
       <div
@@ -351,6 +353,38 @@ function OnboardingSection(): React.ReactElement {
               </SurfaceCard>
             </React.Fragment>
           ))}
+        </div>
+
+        {/* Free sandbox highlight */}
+        <div
+          className="mt-3 rounded-[12px] border border-[var(--dp-accent-line)] overflow-hidden bg-[var(--dp-surface)]"
+          style={{
+            backgroundImage: 'radial-gradient(ellipse 50% 120% at 0% 50%, rgba(220,47,101,0.10), transparent)',
+          }}
+        >
+          <div className="flex flex-col md:flex-row md:items-center gap-5 md:gap-8 px-6 py-6 md:px-8 md:py-7">
+            <div className="flex-1">
+              <Badge tone="success" icon={<Zap size={10} />}>Free Forever · No Card</Badge>
+              {/* <span className="inline-flex items-center gap-[6px] text-[0.6875rem] font-[var(--font-mono)] text-[var(--dp-accent-2)] tracking-[0.1em] uppercase bg-[var(--dp-accent-soft)] border border-[var(--dp-accent-line)] rounded-full px-[10px] py-[3px] mb-3">
+                <DpIcon name="terminal" size={11} />
+              </span> */}
+              <h3 className="font-[var(--font-display)] text-[1.0625rem] md:text-[1.25rem] font-semibold text-[var(--dp-fg)] mt-1 mb-1 tracking-[-0.01em]">
+                The sandbox is free — no credit card required.
+              </h3>
+              <p className="text-[var(--dp-fg-muted)] text-[0.8125rem] md:text-[0.875rem] m-0 leading-[1.55] max-w-[560px]">
+                Test GSTINs, mock GSTN responses, and full request logs — explore every API end to end before you ever pay a rupee.
+              </p>
+            </div>
+            <div className="shrink-0">
+              <Button
+                variant="developerPrimary"
+                onClick={() => navigate('/developer/overview')}
+              >
+                <DpIcon name="book" size={14} />
+                Read guides
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -622,13 +656,8 @@ function SandboxSection(): React.ReactElement {
         <div className="grid grid-cols-1 md:grid-cols-2">
           {/* Left */}
           <div className="px-6 py-8 md:px-10 md:py-12 border-b md:border-b-0 md:border-r border-[var(--dp-border)]">
-            <Pill style={{ marginBottom: 16, display: 'inline-flex' }}>
-              <span className="flex items-center gap-[5px]">
-                <DpIcon name="terminal" size={11} />
-                Sandbox Environment
-              </span>
-            </Pill>
-            <h2 className="font-[var(--font-display)] text-[1.375rem] md:text-[1.75rem] font-semibold text-[var(--dp-fg)] mt-0 mb-3 leading-[1.25] tracking-[-0.02em]">
+            <Badge tone="success" icon={<Zap size={10} />}>Free Sandbox Forever · No Card</Badge>
+            <h2 className="font-[var(--font-display)] text-[1.375rem] mt-1 md:text-[1.75rem] font-semibold text-[var(--dp-fg)] mt-0 mb-3 leading-[1.25] tracking-[-0.02em]">
               Test everything before going live.
             </h2>
             <p className="text-[var(--dp-fg-muted)] text-[0.875rem] md:text-[0.9375rem] mb-6 md:mb-7 leading-[1.65]">
@@ -930,10 +959,11 @@ export default function DpHome(): React.ReactElement {
         {/* apis <ApiArchitecture />*/}
         {/* apis */}<DeveloperExperience />
 
-        <DeveloperSection />
+        {/* <DeveloperSection /> */}
         {/* apis */}<IntegrationPartners />
         {/* apis */}<ComplianceSupport />
         <SandboxSection />
+        <IndustriesSection />
         <CTASection />
       </main>
       <Footer />

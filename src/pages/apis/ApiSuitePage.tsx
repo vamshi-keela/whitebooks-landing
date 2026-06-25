@@ -798,7 +798,7 @@ const INDUSTRIES = [
   { n: 'Energy & Utilities', d: 'Power, gas, water — bulk subscriber IRN + RCM' },
 ];
 
-function IndustriesSection() {
+export function IndustriesSection() {
   return (
     <section className={SECTION}>
       <div className={WRAP}>
@@ -824,7 +824,7 @@ function IndustriesSection() {
           ))}
         </Reveal>
         <div className="mt-9">
-          <ButtonLink href="#" arrow>
+          <ButtonLink href="https://whitebooks.in/use-cases/logistics-bulk-eway-bill/" arrow>
             Browse all use cases
           </ButtonLink>
         </div>

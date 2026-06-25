@@ -114,7 +114,7 @@ export default function EWayBillApiOverview() {
         },
         { id: 'best-practices', label: 'Best Practices', icon: ShieldCheck, element: <BestPracticesSection /> },
         { id: 'sdks', label: 'SDKs & Libraries', icon: Package, element: <SdkLibrariesSection sdkItems={EWAYBILL_SDK_ITEMS} /> },
-        { id: 'resources', label: 'Resources & FAQ', icon: FileText, element: <GstResources resources={EWAYBILL_RESOURCE_ITEMS} faqs={EWAYBILL_FAQS} /> },
+        { id: 'resources', label: 'Resources & FAQ', icon: FileText, element: <GstResources apiType='e-way-bill-api' resources={EWAYBILL_RESOURCE_ITEMS} faqs={EWAYBILL_FAQS} /> },
         {
             id: 'get-started',
             label: 'Get Started',

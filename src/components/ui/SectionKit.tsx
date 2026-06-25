@@ -231,12 +231,15 @@ export function FeatureCard({
   description,
   className,
   index = 0,
+  trailing,
 }: {
   icon: ReactNode;
   title: string;
   description?: string;
   className?: string;
   index?: number;
+  /** Optional element pinned to the card's right edge (e.g. a step index). */
+  trailing?: ReactNode;
 }) {
   return (
     <motion.div
@@ -260,12 +263,13 @@ export function FeatureCard({
       >
         <span className="text-[var(--brand)]">{icon}</span>
       </span>
-      <div className="min-w-0">
+      <div className="min-w-0 flex-1">
         <h3 className="m-0 text-[15px] font-semibold leading-[1.35] text-[var(--fg-primary)]">{title}</h3>
         {description && (
           <p className="m-0 mt-1 text-[13px] leading-[1.5] text-[var(--fg-tertiary)]">{description}</p>
         )}
       </div>
+      {trailing && <span className="ml-3 self-center shrink-0">{trailing}</span>}
     </motion.div>
   );
 }

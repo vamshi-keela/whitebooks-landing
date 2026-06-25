@@ -22,34 +22,34 @@ export const INV_RESOURCE_ITEMS: ResourceItem[] = [
         icon: FileText,
         title: 'E-Invoice API Reference Docs',
         subtitle: '.DOCX',
-        actions: [{ label: 'Download', href: 'https://whitebooks.in/static/pdfs/e-invoice-api-reference-documentation.pdf', variant: 'download' }],
+        actions: [{ label: 'Download', href: '/static/pdfs/e-invoice-api-reference-documentation.pdf', variant: 'download' }],
     },
     {
         icon: AlertCircle,
         title: 'E-Invoice Error Codes',
         subtitle: '.PDF',
-        actions: [{ label: 'Download', href: '/static/pdfs/gst-api-error-codes.pdf', variant: 'download' }],
+        actions: [{ label: 'Download', href: '/static/pdfs/e-invoicing-error-codes.pdf', variant: 'download' }],
     },
     {
         icon: Braces,
-        title: 'Generate IRN Arrtibute Details',
-        subtitle: '.PDF',
-        actions: [{ label: 'Download', href: '/static/pdfs/new-reurn-file-doc.pdf', variant: 'download' }],
+        title: 'Generate IRN Attribute Details',
+        subtitle: '.XLSX',
+        actions: [{ label: 'Download', href: '/static/pdfs/e-invoice-generate-irn-attribute-details.xlsx', variant: 'download' }],
     },
     {
         icon: Building,
-        title: 'E-Invoice API Production Credential Setup',
+        title: 'E-Invoice API Production Credentials Creation Process',
         desc: 'Production credential creation and onboarding process guide',
         actions: [
-            { label: 'Download', href: '/static/pdfs/return-filing-through-api-v1.1.pdf', variant: 'download' },
+            { label: 'Download', href: '/static/pdfs/production-credentials-creation-process.pdf', variant: 'download' },
         ],
     },
     {
         icon: MapPin,
         title: 'State Codes',
-        desc: 'E-Invoice Sytem Master Codes',
+        desc: 'E-Invoice System Master Codes',
         actions: [
-            { label: 'Visit', href: 'https://einvoice1.gst.gov.in/Others/MasterCodes', variant: 'online' },
+            { label: 'Visit', href: '/docs/einvoice', variant: 'online' },
         ],
     },
     {

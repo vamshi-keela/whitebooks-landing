@@ -144,6 +144,9 @@ export function IntegrationPartners({ data = INTEGRATION_PARTNERS }: { data?: In
 
       <div className="mt-14 flex flex-col">
         {/* Layer 1 — partner logos */}
+        <p className="mb-5 text-center text-[12px] font-semibold uppercase tracking-[0.16em] text-[var(--fg-secondary)]">
+          {data.partnersLabel}
+        </p>
         <LogoGrid logos={data.partners} />
         <LayerConnector />
         {/* Layer 2 — integration hub */}

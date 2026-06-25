@@ -79,10 +79,6 @@ const SOCIAL_LINKS = [
   },
 ] as const;
 
-/* ─── Newsletter status types ────────────────────────────────────────────── */
-
-type SubStatus = 'idle' | 'loading' | 'success' | 'error';
-
 /* ─── Sub-components ─────────────────────────────────────────────────────── */
 
 function FooterCol({ title, items }: FooterColProps) {
@@ -108,33 +104,12 @@ function FooterCol({ title, items }: FooterColProps) {
 
 export function Footer() {
   const [demoOpen, setDemoOpen] = useState(false);
-  const [email, setEmail] = useState('');
-  const [subStatus, setSubStatus] = useState<SubStatus>('idle');
 
   useEffect(() => {
     if (demoOpen) document.body.style.overflow = 'hidden';
     else document.body.style.overflow = '';
     return () => { document.body.style.overflow = ''; };
   }, [demoOpen]);
-
-  async function handleSubscribe(e: React.FormEvent) {
-    e.preventDefault();
-    const trimmed = email.trim();
-    if (!trimmed || subStatus === 'loading') return;
-    setSubStatus('loading');
-    try {
-      const res = await fetch('https://whitebooks.in/newsletter_subscribe.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: trimmed }),
-      });
-      if (!res.ok) throw new Error();
-      setSubStatus('success');
-      setEmail('');
-    } catch {
-      setSubStatus('error');
-    }
-  }
 
   return (
     <>
@@ -201,53 +176,50 @@ export function Footer() {
               {/* Schedule Demo */}
               <button
                 onClick={() => setDemoOpen(true)}
-                className="w-full sm:w-auto shrink-0 px-6 py-3 rounded-full text-sm font-medium text-[var(--muted-2)] hover:text-[var(--text)] transition-colors duration-150 cursor-pointer"
-                style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.09)' }}
+                className="w-full sm:w-auto shrink-0 px-6 py-3 rounded-full text-sm font-medium text-[var(--muted-2)] hover:text-[var(--text)] hover:border-[var(--brand-border)] transition-colors duration-150 cursor-pointer"
+                style={{ background: 'var(--bg-2)', border: '1px solid var(--line-2)' }}
               >
                 Schedule Demo
               </button>
 
               {/* Mobile divider */}
-              <div className="sm:hidden h-px" style={{ background: 'rgba(255,255,255,0.06)' }} />
+              <div className="sm:hidden h-px" style={{ background: 'var(--line)' }} />
 
-              {/* Newsletter form */}
-              <form
-                onSubmit={handleSubscribe}
-                className="flex-1 flex flex-col gap-2.5 sm:flex-row sm:items-center sm:gap-3"
+              {/* Newsletter — a clear link to the contact page (no fake input) */}
+              <Link
+                to="/about/contact-us"
+                aria-label="Get monthly GST & product updates — go to contact page"
+                className="group flex-1 flex items-center justify-between gap-4 px-4 py-2.5 rounded-2xl transition-colors duration-150 hover:border-[var(--brand-border)]"
+                style={{ background: 'var(--bg-2)', border: '1px solid var(--line-2)' }}
               >
-                <p className="text-[13px] text-[var(--muted-2)] shrink-0 sm:whitespace-nowrap">
-                  Sign up for our monthly newsletter
-                </p>
-                <div className="flex gap-2 flex-1 min-w-0">
-                  <input
-                    type="email"
-                    required
-                    value={email}
-                    onChange={e => { setEmail(e.target.value); if (subStatus !== 'idle') setSubStatus('idle'); }}
-                    placeholder="Enter your Email"
-                    disabled={subStatus === 'loading' || subStatus === 'success'}
-                    className="flex-1 min-w-0 px-4 py-2.5 rounded-xl text-sm text-[var(--text)] placeholder:text-[var(--muted)] outline-none transition-colors duration-150 disabled:opacity-50"
-                    style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.09)' }}
-                  />
-                  <button
-                    type="submit"
-                    disabled={subStatus === 'loading' || subStatus === 'success'}
-                    className="shrink-0 px-5 py-2.5 rounded-full text-sm font-medium text-[var(--muted-2)] hover:text-[var(--text)] transition-colors duration-150 disabled:opacity-50 cursor-pointer"
-                    style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.09)' }}
+                <span className="flex items-center gap-3 min-w-0">
+                  <span
+                    className="shrink-0 w-9 h-9 rounded-full flex items-center justify-center text-[var(--brand)]"
+                    style={{ background: 'var(--brand-soft)', border: '1px solid var(--brand-border)' }}
                   >
-                    {subStatus === 'loading' ? 'Subscribing…' : subStatus === 'success' ? 'Subscribed!' : 'Subscribe'}
-                  </button>
-                </div>
-              </form>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                      <polyline points="22,6 12,13 2,6" />
+                    </svg>
+                  </span>
+                  <span className="flex flex-col min-w-0 leading-tight">
+                    <span className="text-sm font-medium text-[var(--text)]">Stay in the loop</span>
+                    <span className="text-[12px] text-[var(--muted)] truncate">Monthly GST updates &amp; product news</span>
+                  </span>
+                </span>
+                <span className="shrink-0 inline-flex items-center gap-1.5 text-[13px] font-medium text-[var(--muted-2)] group-hover:text-[var(--text)] transition-colors duration-150">
+                  Subscribe
+                  <svg
+                    width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                    className="-translate-x-0.5 transition-transform duration-200 group-hover:translate-x-0 group-hover:text-[var(--brand)]"
+                    aria-hidden="true"
+                  >
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                  </svg>
+                </span>
+              </Link>
             </div>
-
-            {/* Status messages */}
-            {subStatus === 'error' && (
-              <p className="text-[11px] text-red-400 mt-2.5">Something went wrong. Try again.</p>
-            )}
-            {subStatus === 'success' && (
-              <p className="text-[11px] text-emerald-400 mt-2.5">You're subscribed!</p>
-            )}
           </div>
 
           {/* ── Social + contact row ───────────────────────────────────── */}
@@ -261,8 +233,8 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="w-9 h-9 flex items-center justify-center rounded-lg text-[var(--muted)] hover:text-[var(--text)] transition-colors duration-150"
-                  style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.07)' }}
+                  className="w-9 h-9 flex items-center justify-center rounded-lg text-[var(--muted)] hover:text-[var(--text)] hover:border-[var(--brand-border)] transition-colors duration-150"
+                  style={{ background: 'var(--bg-2)', border: '1px solid var(--line)' }}
                 >
                   {icon}
                 </a>

@@ -2,10 +2,14 @@
  * Integrations Ecosystem — content for the Stripe-ecosystem style section:
  * three layers — partner logos → WhiteBooks Integration Layer (animated hub
  * with API nodes) → destination systems.
- *
- * Partner logos & destination icons reference placeholders; replace the `src`
- * paths and icon assets with the real marks.
  */
+
+import sapLogo from "@/assets/logos/sap.svg";
+import oracleLogo from "@/assets/logos/oracle.svg";
+import dynamicsLogo from "@/assets/logos/Dynamics365_scalable.svg";
+import tallyLogo from "@/assets/logos/tally.svg";
+import margLogo from "@/assets/logos/marg-the-business-backbone-logo.png";
+import odooLogo from "@/assets/logos/odoo.svg";
 
 export interface ApiNode {
   /** Keyed to API_ICON in the component. */
@@ -26,14 +30,14 @@ export const INTEGRATION_PARTNERS = {
     "Integrate with ERPs, accounting software, POS systems and custom applications.",
   cta: { label: "Explore Integrations", href: "/apis" },
 
-  // PLACEHOLDER partner logos — replace `src` with real marks.
+  partnersLabel: "Trusted Partners",
   partners: [
-    { name: "SAP", src: "/assets/logos/sap.svg" },
-    { name: "Oracle", src: "/assets/logos/oracle.svg" },
-    { name: "Dynamics", src: "/assets/logos/dynamics-365.svg" },
-    { name: "Tally", src: "/assets/logos/tally.svg" },
-    { name: "Marg", src: "/assets/logos/marg.svg" },
-    { name: "Odoo", src: "/assets/logos/odoo.svg" },
+    { name: "SAP", src: sapLogo },
+    { name: "Oracle", src: oracleLogo },
+    { name: "Dynamics 365", src: dynamicsLogo },
+    { name: "Tally", src: tallyLogo },
+    { name: "Marg", src: margLogo },
+    { name: "Odoo", src: odooLogo },
   ],
 
   hubTitle: "WhiteBooks Integration Layer",

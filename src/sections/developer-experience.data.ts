@@ -4,6 +4,10 @@
  * floating feature cards (right).
  */
 
+import nodejsLogo from "@/assets/logos/nodejs-logo.svg";
+import pythonLogo from "@/assets/logos/python.png";
+import swaggerLogo from "@/assets/logos/Swagger.svg";
+
 export interface DeveloperFeature {
   /** Keyed to DEV_ICON in the component. */
   icon: string;
@@ -33,13 +37,10 @@ export const DEVELOPER_EXPERIENCE = {
     { icon: "monitoring", title: "Usage monitoring", detail: "Live dashboard for usage & issues" },
   ] as DeveloperFeature[],
 
-  // PLACEHOLDER language icons — replace `src` with real marks.
   languages: [
-    { name: "Node.js", src: "/assets/logos/nodejs-logo.svg" },
-    { name: "Python", src: "/assets/logos/python.svg" },
-    { name: "Java", src: "/assets/logos/java.svg" },
-    { name: "PHP", src: "/assets/logos/php-logo.svg" },
-    { name: "Go", src: "/assets/logos/go.svg" },
+    { name: "Node.js", src: nodejsLogo },
+    { name: "Python", src: pythonLogo },
+    { name: "Swagger", src: swaggerLogo },
   ] as LanguageSdk[],
 
   /** Request → response flow for the code animation placeholder. */

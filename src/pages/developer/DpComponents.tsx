@@ -315,6 +315,41 @@ export function Pill({ children, style }: PillProps): React.ReactElement {
   );
 }
 
+/* ─── Badge ─────────────────────────────────────────────────────────────────── */
+export type BadgeTone = 'accent' | 'success';
+
+interface BadgeProps {
+  children: React.ReactNode;
+  /** Leading icon, e.g. <Zap size={10} />. */
+  icon?: React.ReactNode;
+  tone?: BadgeTone;
+  className?: string;
+  style?: React.CSSProperties;
+}
+
+const badgeTones: Record<BadgeTone, { bg: string; border: string; color: string }> = {
+  accent:  { bg: 'rgba(220,47,101,0.07)', border: 'rgba(220,47,101,0.2)', color: 'var(--dp-accent-2)' },
+  success: { bg: 'rgba(34,197,94,0.1)',   border: 'rgba(34,197,94,0.3)',  color: '#22c55e' },
+};
+
+export function Badge({ children, icon, tone = 'accent', className, style }: BadgeProps): React.ReactElement {
+  const t = badgeTones[tone];
+  return (
+    <span
+      className={`inline-flex items-center gap-[5px] px-2.5 py-1 rounded-full text-[10px] font-semibold tracking-[0.04em]${className ? ` ${className}` : ''}`}
+      style={{
+        background: t.bg,
+        border: `1px solid ${t.border}`,
+        color: t.color,
+        fontFamily: 'var(--dp-font-mono)',
+        ...style,
+      }}
+    >
+      {icon}{children}
+    </span>
+  );
+}
+
 /* ─── MethodBadge ───────────────────────────────────────────────────────────── */
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
 

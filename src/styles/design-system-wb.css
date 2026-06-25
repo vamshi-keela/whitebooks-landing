@@ -421,6 +421,14 @@ img {
   transform: translateZ(0);
 }
 
+/* Hero scrolled out of view: freeze every animated layer so the background
+   stops consuming GPU/compositor time and holding raster memory. This is what
+   lets the hero re-paint instantly instead of stalling 1–2s on scroll-back. */
+.wb-fluid.is-paused,
+.wb-fluid.is-paused * {
+  animation-play-state: paused !important;
+}
+
 .wb-fluid-mesh {
   position: absolute;
   inset: -10%;
@@ -1738,7 +1746,8 @@ img {
   animation-duration: 54s;
 }
 
-.wb-logos:hover .wb-ticker {
+.wb-logos:hover .wb-ticker,
+.wb-logos.is-paused .wb-ticker {
   animation-play-state: paused;
 }
 
@@ -1790,6 +1799,11 @@ img {
   align-items: center;
   gap: 10px;
   flex-shrink: 0;
+  /* Pin each logo onto its own stable raster layer. Without this, the per-logo
+     filter combined with the parent's translateX animation lets the browser
+     skip repaints and the logos blank out mid-scroll. */
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 /* ── Logo image — sizing & transitions ───────────────────────────────────── */

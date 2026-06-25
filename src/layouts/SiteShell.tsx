@@ -12,9 +12,11 @@ export { SiteLogo } from '@/components/ui/SiteLogo';
 interface FluidBackgroundProps {
   variant?: 'right' | 'center' | 'left';
   gradientOpacity?: number;
+  /** When true, all background animations are paused (e.g. hero scrolled off-screen). */
+  paused?: boolean;
 }
 
-export function HeroFluidBackground({ variant = 'right', gradientOpacity = 1 }: FluidBackgroundProps) {
+export function HeroFluidBackground({ variant = 'right', gradientOpacity = 1, paused = false }: FluidBackgroundProps) {
   const variantClass = variant === 'center' ? 'wb-fluid-center' : variant === 'left' ? 'wb-fluid-left' : '';
   return (
     <React.Fragment>
@@ -39,7 +41,7 @@ export function HeroFluidBackground({ variant = 'right', gradientOpacity = 1 }: 
       </svg>
 
       <div
-        className={`wb-fluid ${variantClass}`}
+        className={`wb-fluid ${variantClass}${paused ? ' is-paused' : ''}`}
         style={{ opacity: gradientOpacity }}
         aria-hidden="true"
       >

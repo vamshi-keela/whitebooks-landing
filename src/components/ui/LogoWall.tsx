@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { memo, useMemo, useState } from 'react';
+import { useInView } from '@/hooks/useInView';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -91,7 +92,7 @@ interface BrandLogoProps {
  * so CSS can apply the correct filter for each theme without any JS theme
  * detection — the right filter fires automatically via [data-theme] selectors.
  */
-export function BrandLogo({ logo, className }: BrandLogoProps) {
+export const BrandLogo = memo(function BrandLogo({ logo, className }: BrandLogoProps) {
   const [imgError, setImgError] = useState(false);
   const src = getLogoSrc(logo.key);
   const variant = logo.variant ?? 'color';
@@ -100,10 +101,13 @@ export function BrandLogo({ logo, className }: BrandLogoProps) {
   if (src && !imgError) {
     return (
       <div className={cls} role="img" aria-label={logo.name}>
+        {/* eager, not lazy: in a continuously translating marquee the browser's
+            lazy-load observer treats off-viewport copies as off-screen and drops
+            them, so logos blank out mid-scroll. These are small above-fold marks. */}
         <img
           src={src}
           alt={logo.name}
-          loading="lazy"
+          loading="eager"
           decoding="async"
           onError={() => setImgError(true)}
         />
@@ -118,7 +122,7 @@ export function BrandLogo({ logo, className }: BrandLogoProps) {
       <span className="wb-logo-sep" aria-hidden="true">·</span>
     </span>
   );
-}
+});
 
 // ─── LogoWallCarousel ─────────────────────────────────────────────────────────
 
@@ -156,16 +160,23 @@ function TickerRow({ logos, reverse }: { logos: LogoEntry[]; reverse?: boolean }
   );
 }
 
-export function LogoWallCarousel({ caption }: LogoWallCarouselProps) {
-  const [row1, row2] = splitRows(LOGOS);
+export const LogoWallCarousel = memo(function LogoWallCarousel({ caption }: LogoWallCarouselProps) {
+  const [row1, row2] = useMemo(() => splitRows(LOGOS), []);
+  // Pause the marquee animation while it's scrolled out of view so the
+  // compositor isn't doing per-frame transform work the user can't see.
+  const [ref, inView] = useInView<HTMLDivElement>();
 
   return (
-    <div className="wb-logos" aria-label="Our clients">
+    <div
+      ref={ref}
+      className={`wb-logos${inView ? '' : ' is-paused'}`}
+      aria-label="Our clients"
+    >
       {caption && <p className="wb-logos-caption">{caption}</p>}
       <TickerRow logos={row1} />
       <TickerRow logos={row2} reverse />
     </div>
   );
-}
+});
 
 export default LogoWallCarousel;

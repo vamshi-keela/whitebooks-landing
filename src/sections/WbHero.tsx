@@ -1,6 +1,6 @@
 import { memo, useEffect, useState } from "react";
 import complianceTrust from "../assets/elements/complaince-trust.jpeg";
-import { useIsMobile } from "@/hooks/useIsMobile";
+import { useInView } from "@/hooks/useInView";
 import { HeroFluidBackground } from "@/layouts/SiteShell";
 import { Button } from "@/components/ui/Button";
 import EyebrowPill from "@/components/ui/EyebrowPill";
@@ -12,8 +12,10 @@ import HeroShowcase from "./HeroShowcase";
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 
 export const Hero = memo(function Hero(): JSX.Element {
-  const isMobile = useIsMobile();
   const [demoOpen, setDemoOpen] = useState(false);
+  // Pause the (expensive) animated fluid background once the hero scrolls away,
+  // so it stops holding GPU memory and the section re-paints instantly on return.
+  const [heroRef, heroInView] = useInView<HTMLElement>();
 
   useEffect(() => {
     if (demoOpen) document.body.style.overflow = 'hidden';
@@ -23,8 +25,8 @@ export const Hero = memo(function Hero(): JSX.Element {
 
   return (
     <>
-      <section className="relative bg-[var(--bg-2)] pt-[9rem] overflow-hidden hero-horizon">
-        <HeroFluidBackground variant="left" gradientOpacity={0.6} />
+      <section ref={heroRef} className="relative bg-[var(--bg-2)] pt-[9rem] overflow-hidden hero-horizon">
+        <HeroFluidBackground variant="left" gradientOpacity={0.6} paused={!heroInView} />
 
         <div className="relative z-10 max-w-[1240px] mx-auto px-8 max-sm:px-5 justiy-center">
           <div className="max-w-[960px] mx-auto text-center">

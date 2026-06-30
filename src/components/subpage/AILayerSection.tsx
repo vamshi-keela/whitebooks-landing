@@ -121,7 +121,7 @@ export function AILayerSection({ data }: Props) {
             <AISpark />
             <h2 className="wb-ail2-heading">{data.heading}</h2>
             <p className="wb-ail2-sub">
-              Whitebooks runs a shared AI engine across every product. Trained on Indian compliance data, tuned for finance teams, and embedded in the workflows you already use.
+              WhiteBooks runs a shared AI engine across every product. Trained on Indian compliance data, tuned for finance teams, and embedded in the workflows you already use.
             </p>
             {data.note && (
               <div className="wb-ail2-note">

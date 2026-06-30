@@ -88,8 +88,8 @@ function CodeSample() {
       </div>
       <div className="wb-term-body" style={{ minHeight: 200 }}>
         <div><span className="wb-term-comment"># 5 lines from zero to a signed IRN</span></div>
-        <div><span className="wb-term-key">import</span> {`{ Whitebooks }`} <span className="wb-term-key">from</span> <span className="wb-term-str">"@whitebooks/sdk"</span>;</div>
-        <div><span className="wb-term-key">const</span> wb = <span className="wb-term-key">new</span> Whitebooks({`{`} apiKey: process.env.WB_KEY {`}`});</div>
+        <div><span className="wb-term-key">import</span> {`{ WhiteBooks }`} <span className="wb-term-key">from</span> <span className="wb-term-str">"@whitebooks/sdk"</span>;</div>
+        <div><span className="wb-term-key">const</span> wb = <span className="wb-term-key">new</span> WhiteBooks({`{`} apiKey: process.env.WB_KEY {`}`});</div>
         <div style={{ height: 6 }}></div>
         <div><span className="wb-term-key">const</span> irn = <span className="wb-term-key">await</span> wb.einvoice.create({`{`}</div>
         <div>{"  "}<span className="wb-term-key">seller_gstin</span>: <span className="wb-term-str">"29AABCT1332L1ZA"</span>,</div>
@@ -125,7 +125,7 @@ export function HubAPIs() {
           <div className="wb-wrap wb-hero-inner">
             <div className="wb-subhero-grid">
               <div>
-                <EyebrowPill label={'Whitebooks APIs | v1'} />
+                <EyebrowPill label={'WhiteBooks APIs | v1'} />
                 <h1 className="wb-display" style={{ fontSize: "clamp(38px, 5.4vw, 68px)" }}>
                   Compliance APIs that <span className="accent">don't make you build the compliance.</span>
                 </h1>
@@ -159,13 +159,13 @@ export function HubAPIs() {
 
         {/* Why */}
         <PlainSection
-          label="Why Whitebooks APIs"
+          label="Why WhiteBooks APIs"
           heading={<><span>What </span><span className="accent">"directly licensed GSP"</span><span> actually buys you.</span></>}
         >
           <ColumnGrid items={[
             {
               title: "Direct pipe, not resold capacity",
-              body: "Whitebooks holds its GSP license directly from GSTN. Most API providers in India resell capacity from a licensee. The difference shows up in latency (we're faster), uptime (we're more reliable), and roadmap (we ship on day one of every GSTN release).",
+              body: "WhiteBooks holds its GSP license directly from GSTN. Most API providers in India resell capacity from a licensee. The difference shows up in latency (we're faster), uptime (we're more reliable), and roadmap (we ship on day one of every GSTN release).",
             },
             {
               title: "Production-grade from sandbox onwards",
@@ -207,7 +207,7 @@ export function HubAPIs() {
         <PlainSection
           label="Pricing"
           heading="Pay for calls, not for seats."
-          sub="Whitebooks API pricing scales with your call volume, not your team size. Free sandbox for unlimited testing. Production starts at the Startup tier."
+          sub="WhiteBooks API pricing scales with your call volume, not your team size. Free sandbox for unlimited testing. Production starts at the Startup tier."
         >
           <div style={{ marginTop: 28 }}>
             <ButtonLink href="#" variant="ghost" arrow>See full API pricing</ButtonLink>

@@ -310,15 +310,8 @@ export default function SecurityHero() {
                     </div>
                 </div>
 
-                {/* feature row */}
-                <div className="mt-9 grid grid-cols-2 gap-y-8 sm:grid-cols-4 sm:divide-x sm:divide-gray-200 dark:sm:divide-[var(--hairline-strong)]">
-                    {features.map((f) => (
-                        <TrustFeature key={f.title} {...f} />
-                    ))}
-                </div>
-
                 {/* CTAs */}
-                <div className="mt-9 flex flex-wrap items-center gap-5">
+                <div className="mt-5 flex flex-wrap items-center gap-5">
 
                     <Button
                         className="inline-flex items-center gap-3 rounded-full px-8 py-4 text-base font-semibold text-white shadow-[0_18px_35px_-12px_rgba(231,52,118,0.6)] transition hover:brightness-105"
@@ -338,6 +331,14 @@ export default function SecurityHero() {
                         <ShieldCheck className="h-5 w-5" />
                         View Security Docs
                     </a>
+                </div>
+
+
+                {/* feature row */}
+                <div className="mt-10 grid grid-cols-2 gap-y-8 sm:grid-cols-4 sm:divide-x sm:divide-gray-200 dark:sm:divide-[var(--hairline-strong)]">
+                    {features.map((f) => (
+                        <TrustFeature key={f.title} {...f} />
+                    ))}
                 </div>
                 {/* ---------- bottom: highlights + compliance ---------- */}
                 <div className="mt-10 grid gap-6 lg:grid-cols-1">

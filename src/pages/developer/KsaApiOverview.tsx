@@ -22,8 +22,8 @@ const KSA_STEPS = [
   {
     n: '01',
     icon: Users,
-    title: 'Sign up with Whitebooks',
-    desc: 'Create your Whitebooks developer account to get API credentials and sandbox access.',
+    title: 'Sign up with WhiteBooks',
+    desc: 'Create your WhiteBooks developer account to get API credentials and sandbox access.',
     link: { label: 'Sign up', href: SIGNUP_URL },
   },
   {
@@ -44,7 +44,7 @@ const KSA_STEPS = [
     n: '04',
     icon: Zap,
     title: 'Generate Your First e-Invoice',
-    desc: 'Call POST /ksa/einvoice/clearance with your CSID and invoice payload. Whitebooks signs and submits to ZATCA, returning the cleared invoice and QR code.',
+    desc: 'Call POST /ksa/einvoice/clearance with your CSID and invoice payload. WhiteBooks signs and submits to ZATCA, returning the cleared invoice and QR code.',
     link: null,
   },
   {
@@ -59,7 +59,7 @@ const KSA_STEPS = [
 const KSA_SANDBOX_STEPS = [
   {
     n: 1,
-    title: 'Create your Whitebooks account',
+    title: 'Create your WhiteBooks account',
     desc: 'Register at accounts.whitebooks.in and select Developer plan.',
     link: { label: 'Sign up →', href: SIGNUP_URL },
     icon: Users,
@@ -101,16 +101,16 @@ const KSA_FAQS: FaqType[] = [
     a: 'A Cryptographic Stamp Identifier (CSID) is a ZATCA-issued certificate tied to your taxpayer unit. You generate a Certificate Signing Request (CSR) via the /ksa/onboarding/csr endpoint, submit it to the ZATCA Fatoorah portal, and ZATCA returns your production CSID.',
   },
   {
-    q: 'Does Whitebooks support B2C (simplified) invoices?',
+    q: 'Does WhiteBooks support B2C (simplified) invoices?',
     a: 'Yes. The KSA e-Invoice API supports both Standard (B2B, clearance flow) and Simplified (B2C, reporting flow) invoice types as defined by ZATCA.',
   },
   {
     q: 'What languages does the invoice XML support?',
-    a: 'ZATCA requires invoice data in Arabic. Whitebooks also supports bilingual Arabic + English output, attaching the translated fields automatically when you provide both language payloads.',
+    a: 'ZATCA requires invoice data in Arabic. WhiteBooks also supports bilingual Arabic + English output, attaching the translated fields automatically when you provide both language payloads.',
   },
   {
     q: 'Is there a sandbox environment for testing?',
-    a: 'Yes. Whitebooks provides a full sandbox connected to ZATCA\'s Simulation Environment. Sandbox CSIDs, clearances, and QR codes mirror production schema exactly.',
+    a: 'Yes. WhiteBooks provides a full sandbox connected to ZATCA\'s Simulation Environment. Sandbox CSIDs, clearances, and QR codes mirror production schema exactly.',
   },
 ];
 
@@ -142,7 +142,7 @@ export default function KsaApiOverview(): React.ReactElement {
     <div className="min-h-screen" style={{ background: 'var(--dp-bg)' }}>
       <HeroSection
         title="KSA e-Invoice API for"
-        description="The Whitebooks KSA e-Invoice API gives developers programmatic access to ZATCA Phase 2 e-invoice generation, CSID lifecycle management, cryptographic signing, and Fatoorah clearance — from a single REST endpoint."
+        description="The WhiteBooks KSA e-Invoice API gives developers programmatic access to ZATCA Phase 2 e-invoice generation, CSID lifecycle management, cryptographic signing, and Fatoorah clearance — from a single REST endpoint."
       />
       <Divider />
       <StatsSection />
@@ -167,7 +167,7 @@ export default function KsaApiOverview(): React.ReactElement {
         headingStart="Integrate "
         headingAccent="KSA e-Invoicing"
         headingEnd="into Your Platform"
-        description="Whitebooks KSA e-Invoice API handles ZATCA Phase 2 clearance, CSID lifecycle, bilingual invoice generation, and QR code embedding — so you can focus on building, not compliance."
+        description="WhiteBooks KSA e-Invoice API handles ZATCA Phase 2 clearance, CSID lifecycle, bilingual invoice generation, and QR code embedding — so you can focus on building, not compliance."
         trustItems={['ZATCA Phase 2 Certified', 'Fatoorah Clearance', 'Sandbox Included']}
         primaryButton={{ label: 'Get API Access', href: SIGNUP_URL }}
         secondaryButton={{ label: 'Read API Docs', href: '/developer/ksa-e-invoice-api' }}

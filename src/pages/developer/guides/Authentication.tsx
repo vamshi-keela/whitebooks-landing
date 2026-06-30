@@ -21,8 +21,8 @@ export default function Authentication(): React.ReactElement {
   return (
     <DocArticle>
       <SeoHead
-        title="Authentication — Whitebooks Developer Portal"
-        description="How to authenticate with the Whitebooks APIs using OAuth 2.0 bearer tokens, API keys, token refresh, and production security controls."
+        title="Authentication — WhiteBooks Developer Portal"
+        description="How to authenticate with the WhiteBooks APIs using OAuth 2.0 bearer tokens, API keys, token refresh, and production security controls."
         canonical={`${SITE.baseUrl}/developer/authentication`}
         robots={SITE.defaultRobots}
       />
@@ -30,7 +30,7 @@ export default function Authentication(): React.ReactElement {
       <DocEyebrow>Essentials</DocEyebrow>
       <DocTitle>Authentication</DocTitle>
       <DocLead>
-        Every Whitebooks API call is authenticated with OAuth 2.0. You exchange your application
+        Every WhiteBooks API call is authenticated with OAuth 2.0. You exchange your application
         credentials for a short-lived bearer token, then send that token with each request.
       </DocLead>
 

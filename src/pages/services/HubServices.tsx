@@ -196,7 +196,7 @@ export function HubServices() {
 
               {/* Left: copy */}
               <div>
-                <EyebrowPill label="Whitebooks Services" />
+                <EyebrowPill label="WhiteBooks Services" />
                 <h1
                   className="[font-family:var(--font-display)] font-medium leading-[1.05] tracking-[-0.025em] mt-[18px] max-w-[880px] text-[var(--text)]"
                   style={{ fontSize: 'clamp(32px, 5vw, 60px)' }}
@@ -219,7 +219,7 @@ export function HubServices() {
               <div className="mt-[10px]">
                 <div className="bg-[var(--bg-2)] border border-[var(--brand-border)] rounded-[14px] shadow-[0_20px_50px_-20px_rgba(0,0,0,0.7)] overflow-hidden p-6 sm:p-7 flex flex-col gap-4">
                   <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-[var(--muted)] m-0">
-                    Why choose Whitebooks Services
+                    Why choose WhiteBooks Services
                   </p>
                   {[
                     { stat: "25,000+", label: "Active clients on the platform" },
@@ -262,11 +262,11 @@ export function HubServices() {
           </div>
         </section>
 
-        {/* ── Why Whitebooks Services ───────────────────────────────────── */}
+        {/* ── Why WhiteBooks Services ───────────────────────────────────── */}
         <section className="relative py-[120px] max-[700px]:py-[72px]" data-reveal>
           <div className="w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4">
             <p className="block text-xs font-medium tracking-[0.18em] uppercase text-[var(--muted)] mb-4">
-              Why Whitebooks Services
+              Why WhiteBooks Services
             </p>
             <h2
               className="[font-family:var(--font-display)] font-medium leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px] text-[var(--text)]"
@@ -279,11 +279,11 @@ export function HubServices() {
               {[
                 {
                   title: "Platform-native, not a separate engagement",
-                  body: "Your Whitebooks services team works directly inside your Whitebooks account. Filings, documents, and compliance status are visible to you in real time — not buried in email threads.",
+                  body: "Your WhiteBooks services team works directly inside your WhiteBooks account. Filings, documents, and compliance status are visible to you in real time — not buried in email threads.",
                 },
                 {
                   title: "GSP-licensed infrastructure underneath",
-                  body: "Every compliance service runs on Whitebooks' directly-licensed GSP infrastructure. Faster turnaround, fewer errors, and an independent channel to GSTN — not routed through a third party.",
+                  body: "Every compliance service runs on WhiteBooks' directly-licensed GSP infrastructure. Faster turnaround, fewer errors, and an independent channel to GSTN — not routed through a third party.",
                 },
                 {
                   title: "Fixed-team ownership, not ticket queues",
@@ -337,7 +337,7 @@ export function HubServices() {
                 },
                 {
                   title: "CA firms & finance teams",
-                  body: "White-label compliance services for your clients, powered by Whitebooks' platform. Scale your practice without scaling headcount.",
+                  body: "White-label compliance services for your clients, powered by WhiteBooks' platform. Scale your practice without scaling headcount.",
                 },
               ].map((item, i) => (
                 <article
@@ -394,7 +394,7 @@ export function HubServices() {
               <span className="text-[var(--brand)]">One team, one platform.</span>
             </h2>
             <p className="mx-auto mt-[18px] mb-7 max-w-[580px] text-[var(--muted-2)] text-[16px] leading-[1.55]">
-              Whitebooks Services pairs expert compliance professionals with the same
+              WhiteBooks Services pairs expert compliance professionals with the same
               GSP-licensed platform your finance team already runs on. No handoffs, no
               gaps, no surprises at filing time.
             </p>

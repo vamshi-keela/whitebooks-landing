@@ -42,7 +42,7 @@ function OneContractVisual() {
           </svg>
         </div>
         <div className="px-4 py-3 border-b border-[var(--line)]">
-          <div className="font-display font-medium text-[12.5px] text-[var(--text)]">Whitebooks & Acme Industries Pvt Ltd</div>
+          <div className="font-display font-medium text-[12.5px] text-[var(--text)]">WhiteBooks & Acme Industries Pvt Ltd</div>
         </div>
         <ul className="px-4 py-2.5 flex flex-col gap-1.5">
           {['Accounting', 'GST', 'e-Invoice', 'e-Way Bill', 'KSA e-Invoicing'].map((item, i) => (

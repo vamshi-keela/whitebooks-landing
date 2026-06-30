@@ -212,6 +212,9 @@ function EndpointSelect({
 
 const envAccent = (env: Environment) => (env.color === 'blue' ? 'var(--dp-info)' : 'var(--dp-success)');
 
+/* OTP-style auth params (otp, evcotp, …) get prefilled with the env's test OTP. */
+const isOtpParam = (name: string) => name.toLowerCase().includes('otp');
+
 function UrlComposer({
   method, path, selectedEnv, onEnvChange,
 }: {
@@ -354,9 +357,24 @@ function PlaygroundInner({
     return JSON.stringify(generateExampleFromSchema(resolved, spec), null, 2);
   }, [operation, spec]);
 
+  // Prefill OTP/EVC params with the selected environment's test OTP (sandbox only).
+  const otpPrefill = useMemo(
+    () => (params: typeof queryParams): Record<string, string> =>
+      Object.fromEntries(
+        params.filter(p => isOtpParam(p.name)).map(p => [p.name, selectedEnv.defaultOtp ?? '']),
+      ),
+    [selectedEnv.defaultOtp],
+  );
+
   const [pathVals, setPathVals] = useState<Record<string, string>>({});
-  const [queryVals, setQueryVals] = useState<Record<string, string>>({});
-  const [headerVals, setHeaderVals] = useState<Record<string, string>>({});
+  const [queryVals, setQueryVals] = useState<Record<string, string>>(() => otpPrefill(queryParams));
+  const [headerVals, setHeaderVals] = useState<Record<string, string>>(() => otpPrefill(headerParams));
+
+  // Re-sync OTP fields when the environment changes (clears them in production).
+  useEffect(() => {
+    setQueryVals(s => ({ ...s, ...otpPrefill(queryParams) }));
+    setHeaderVals(s => ({ ...s, ...otpPrefill(headerParams) }));
+  }, [selectedEnv.key]); // eslint-disable-line react-hooks/exhaustive-deps
   const [body, setBody] = useState(defaultBody);
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState<LiveResponse | null>(null);
@@ -427,32 +445,34 @@ function PlaygroundInner({
   return (
     <>
       {/* ── Top bar ──────────────────────────────────────────────────────── */}
-      <div className="flex flex-wrap items-center gap-2.5 px-3 sm:px-4 py-3 border-b border-[var(--dp-border)] shrink-0">
+      <div className="flex flex-col sm:flex-row sm:items-center gap-2.5 px-3 sm:px-4 py-3 border-b border-[var(--dp-border)] shrink-0">
         <EndpointSelect activeApiType={apiType} activeOp={operation} onSelect={onSelect} />
         <UrlComposer method={operation.method} path={operation.path} selectedEnv={selectedEnv} onEnvChange={onEnvChange} />
-        <button
-          onClick={handleSend}
-          disabled={loading}
-          aria-disabled={!canSend}
-          className={[
-            'flex items-center justify-center gap-1.5 px-5 py-2 rounded-lg shrink-0',
-            'text-white font-[family-name:var(--dp-font-body)] text-[13px] font-semibold',
-            'transition-[background,box-shadow] duration-200',
-            loading || !canSend
-              ? 'bg-[rgba(220,47,101,0.45)] cursor-not-allowed'
-              : 'bg-[var(--dp-accent)] cursor-pointer hover:bg-[#e84a78] shadow-[0_1px_2px_rgba(0,0,0,0.3)]',
-          ].join(' ')}
-          style={{ border: 'none' }}
-        >
-          {loading ? <><Loader2 size={14} className="animate-spin" /> Sending</> : <>Send <Play size={13} /></>}
-        </button>
-        <button
-          onClick={onClose}
-          className="w-9 h-9 flex items-center justify-center rounded-lg cursor-pointer border border-[var(--dp-border)] bg-[var(--dp-surface)] text-[var(--dp-fg-muted)] shrink-0 transition-colors duration-150 hover:text-[var(--dp-fg)]"
-          aria-label="Close playground"
-        >
-          <X size={17} />
-        </button>
+        <div className="flex items-center gap-2.5 shrink-0">
+          <button
+            onClick={handleSend}
+            disabled={loading}
+            aria-disabled={!canSend}
+            className={[
+              'flex flex-1 sm:flex-initial items-center justify-center gap-1.5 px-5 py-2 rounded-lg shrink-0',
+              'text-white font-[family-name:var(--dp-font-body)] text-[13px] font-semibold',
+              'transition-[background,box-shadow] duration-200',
+              loading || !canSend
+                ? 'bg-[rgba(220,47,101,0.45)] cursor-not-allowed'
+                : 'bg-[var(--dp-accent)] cursor-pointer hover:bg-[#e84a78] shadow-[0_1px_2px_rgba(0,0,0,0.3)]',
+            ].join(' ')}
+            style={{ border: 'none' }}
+          >
+            {loading ? <><Loader2 size={14} className="animate-spin" /> Sending</> : <>Send <Play size={13} /></>}
+          </button>
+          <button
+            onClick={onClose}
+            className="w-9 h-9 flex items-center justify-center rounded-lg cursor-pointer border border-[var(--dp-border)] bg-[var(--dp-surface)] text-[var(--dp-fg-muted)] shrink-0 transition-colors duration-150 hover:text-[var(--dp-fg)]"
+            aria-label="Close playground"
+          >
+            <X size={17} />
+          </button>
+        </div>
       </div>
 
       {/* ── Required-fields warning ──────────────────────────────────────── */}
@@ -555,7 +575,7 @@ function PlaygroundInner({
         </div>
 
         {/* Right: code + response — always dark (Fern style) */}
-        <div className="dp-code-panel lg:w-[42%] xl:w-[44%] lg:shrink-0 lg:overflow-y-auto border-t lg:border-t-0 lg:border-l border-[var(--dp-border)] p-4 flex flex-col gap-4">
+        <div className="dp-code- lg:w-[42%] xl:w-[44%] lg:shrink-0 lg:overflow-y-auto border-t lg:border-t-0 lg:border-l border-[var(--dp-border)] p-4 flex flex-col gap-4">
           <CodeExampleTabs operation={operation} />
           <ResponseCard operation={operation} live={response} maxHeight={360} />
         </div>
@@ -616,7 +636,7 @@ export default function Playground({ open, onClose, operation, apiType }: Playgr
       onClick={onClose}
     >
       <div
-        className="flex flex-col w-full h-full sm:h-[90vh] sm:max-w-[1320px] sm:rounded-2xl bg-[var(--dp-bg)] border border-[var(--dp-border-strong)] shadow-[0_32px_100px_rgba(0,0,0,0.55)] overflow-hidden"
+        className="dp-playground-panel flex flex-col w-full h-full sm:h-[85vh] sm:max-w-[1320px] sm:rounded-2xl bg-[var(--dp-bg)] shadow-[0_32px_100px_rgba(0,0,0,0.55)] overflow-hidden"
         onClick={e => e.stopPropagation()}
       >
         <SpecContext.Provider value={specCtx}>

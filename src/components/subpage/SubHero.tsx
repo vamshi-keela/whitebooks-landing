@@ -22,7 +22,7 @@ export default function SubHero({ eyebrow, title, sub, primaryCta, secondaryCta,
       <FluidBackground />
 
       {breadcrumb && (
-        <section className="pt-[30px] pb-[70px]">
+        <section style={{ paddingTop: 30, paddingBottom: 20 }}>
           <div className={wrap}>
             <SeoBreadcrumb items={breadcrumb} />
           </div>
@@ -33,7 +33,8 @@ export default function SubHero({ eyebrow, title, sub, primaryCta, secondaryCta,
         <div className="grid grid-cols-[1.05fr_1fr] gap-10 items-end max-[1000px]:grid-cols-1">
           <div>
             <EyebrowPill label={eyebrow} />
-            <h1 className="font-[var(--font-display)] font-semibold text-[clamp(34px,5vw,60px)] leading-[1.05] tracking-[-0.025em] mt-[18px] mb-0 max-w-[880px] text-balance">
+            <h1 className="font-[var(--font-display)] font-semibold leading-[1.05] tracking-[-0.025em] mb-0 max-w-[880px] text-balance"
+              style={{ fontSize: "clamp(32px, 4.5vw, 68px)" }}>
               {title}
             </h1>
             <p className="mt-[22px] mb-0 max-w-[620px] text-[17px] text-[var(--muted-2)] leading-[1.55] [&_strong]:text-[var(--text)] [&_strong]:font-medium max-md:max-w-full">

@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { Accounting, GST, EInvoice, EWayBill, KSA } from '@/components/icons/Icon';
+import { Accounting, GST, EInvoice, EWayBill, NoticeManagement } from '@/components/icons/Icon';
 import { Home, FileText, ShieldCheck, Search, Briefcase, Users, LifeBuoy, PlayCircle, BookOpen, Calculator, Hash, Layers } from 'lucide-react';
 import DpIcon from '@/pages/developer/DpIcon';
 
@@ -17,7 +17,7 @@ export const SOFT_ITEMS: NavItem[] = [
   { label: 'GST Software', href: '/softwares/gst', icon: <GST {...ico} /> },
   { label: 'E-Invoice Software', href: '/softwares/e-invoice', icon: <EInvoice {...ico} /> },
   { label: 'E-Way Bill Software', href: '/softwares/e-way-bill', icon: <EWayBill {...ico} /> },
-  { label: 'Notice Management', href: '/notice-management', icon: <KSA {...ico} /> },
+  { label: 'Notice Management', href: '/softwares/notice-management', icon: <NoticeManagement {...ico} /> },
 ];
 
 export const API_ITEMS: NavItem[] = [
@@ -25,7 +25,7 @@ export const API_ITEMS: NavItem[] = [
   { label: 'GST APIs', href: '/apis/gst', icon: <GST {...ico} /> },
   { label: 'E-Invoice APIs', href: '/apis/e-invoice', icon: <EInvoice {...ico} /> },
   { label: 'E-Way Bill APIs', href: '/apis/e-way-bill', icon: <EWayBill {...ico} /> },
-  { label: 'KSA E-Invoice APIs', href: '/apis/ksa', icon: <KSA {...ico} /> },
+  { label: 'KSA E-Invoice APIs', href: '/apis/ksa', icon: <NoticeManagement {...ico} /> },
 ];
 
 export const CONNECTORS_SAP_ITEMS: NavItem[] = [

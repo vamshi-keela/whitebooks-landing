@@ -85,7 +85,7 @@ export const EWayBill = (p: SvgProps) => (
   </svg>
 );
 
-export const KSA = (p: SvgProps) => (
+export const NoticeManagement = (p: SvgProps) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...p}>
     <circle cx="12" cy="12" r="9" />
     <path d="M3 12h18" />
@@ -175,7 +175,7 @@ export const Icon = {
   GST,
   EInvoice,
   EWayBill,
-  KSA,
+  KSA: NoticeManagement,
   GstApi,
   Seal,
   Brain,

@@ -50,8 +50,8 @@ export default function Quickstart(): React.ReactElement {
   return (
     <DocArticle>
       <SeoHead
-        title="Quickstart — Whitebooks Developer Portal"
-        description="Authenticate and make your first Whitebooks API call in under five minutes using the free sandbox environment."
+        title="Quickstart — WhiteBooks Developer Portal"
+        description="Authenticate and make your first WhiteBooks API call in under five minutes using the free sandbox environment."
         canonical={`${SITE.baseUrl}/developer/quickstart`}
         robots={SITE.defaultRobots}
       />
@@ -64,7 +64,7 @@ export default function Quickstart(): React.ReactElement {
       </DocLead>
 
       <Callout type="info" title="Before you begin">
-        You’ll need a Whitebooks developer account. Sign up at{' '}
+        You’ll need a WhiteBooks developer account. Sign up at{' '}
         <DocLink to="https://accounts.whitebooks.in/signup?type=Developer">accounts.whitebooks.in</DocLink>{' '}
         and choose <strong>Developer</strong> to receive your sandbox credentials.
       </Callout>
@@ -90,7 +90,7 @@ export default function Quickstart(): React.ReactElement {
 
         <Step title="Exchange your keys for an access token">
           <DocP>
-            Whitebooks uses OAuth 2.0. Call the authentication endpoint to receive a short-lived
+            WhiteBooks uses OAuth 2.0. Call the authentication endpoint to receive a short-lived
             bearer token (valid for one hour).
           </DocP>
           <CodeSample tabs={[{ label: 'cURL', code: AUTH_CURL }]} />

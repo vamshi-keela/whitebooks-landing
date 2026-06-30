@@ -26,8 +26,8 @@ export default function ApiReferenceLanding(): React.ReactElement {
   return (
     <div className="min-h-[calc(100vh_-_var(--dp-nav-h))] bg-[var(--dp-bg)]">
       <SeoHead
-        title="API Reference — Whitebooks Developer Portal"
-        description="Explore the Whitebooks API suite: GST, e-Invoice, e-Way Bill, and KSA e-Invoicing. Full endpoint reference with schemas and a live playground."
+        title="API Reference — WhiteBooks Developer Portal"
+        description="Explore the WhiteBooks API suite: GST, e-Invoice, e-Way Bill, and KSA e-Invoicing. Full endpoint reference with schemas and a live playground."
         canonical={`${SITE.baseUrl}/developer/api-reference`}
         robots={SITE.defaultRobots}
       />
@@ -38,7 +38,7 @@ export default function ApiReferenceLanding(): React.ReactElement {
           API Reference
         </div>
         <h1 className="font-[family-name:var(--dp-font-display)] text-[30px] sm:text-[34px] font-semibold text-[var(--dp-fg)] m-0 leading-[1.15] tracking-[-0.02em]">
-          The Whitebooks API suite
+          The WhiteBooks API suite
         </h1>
         <p className="text-[16px] leading-[1.7] text-[var(--dp-fg-muted)] mt-4 mb-0 max-w-[680px]">
           Four production REST APIs over a directly GSTN-licensed GSP channel. Pick an API to browse

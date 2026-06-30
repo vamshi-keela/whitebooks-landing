@@ -4,9 +4,9 @@ import EyebrowPill from '@/components/ui/EyebrowPill';
 import { FaqList, SubClose } from '@/layouts/SubpageShell';
 import { ProofSection } from '@/sections/WbProof';
 import { CheckCircle } from 'lucide-react';
-import addImportImg from '@/assets/resources/Add-Import-Multiple-GST-Numbers.webp';
+import addImportImg from '@/assets/resources/add-import-multiple-gst-numbers.png';
 import validateImg from '@/assets/resources/Validate-Multiple-GST-Numbers-in-One-Click.webp';
-import viewDownloadImg from '@/assets/resources/View- Download-Complete-Details-of-GST-Number.webp';
+import viewDownloadImg from '@/assets/resources/view-download-complete-details.png';
 
 /* ─── Constants ──────────────────────────────────────────────────────────── */
 
@@ -147,7 +147,7 @@ export function MultiGstSearch() {
                 <img
                   src={addImportImg}
                   alt="Add or import multiple GST numbers into WhiteBooks"
-                  className="w-full h-auto"
+                  className="w-full h-auto  aspect-[4/2] object-fill"
                   loading="lazy"
                   decoding="async"
                 />
@@ -232,7 +232,7 @@ export function MultiGstSearch() {
                 <img
                   src={viewDownloadImg}
                   alt="View and download complete GST number details"
-                  className="w-full h-auto"
+                  className="w-full h-auto  aspect-[4/2] object-fill"
                   loading="lazy"
                   decoding="async"
                 />

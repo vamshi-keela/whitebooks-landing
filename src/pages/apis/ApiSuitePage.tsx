@@ -18,7 +18,7 @@ import ComplianceSupport from '@/sections/ComplianceSupport';
 
 /* ════════════════════════════════════════════════════════════════════════════
    WhiteBooks API Suite — enterprise redesign (enhanced visual layer)
-   Built on the Whitebooks design system + scoped `aps-*` animation layer.
+   Built on the WhiteBooks design system + scoped `aps-*` animation layer.
    All imagery uses <Placeholder/> / <BrowserFrame/> blocks — swap in real art.
    ════════════════════════════════════════════════════════════════════════════ */
 

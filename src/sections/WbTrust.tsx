@@ -34,7 +34,7 @@ const CATEGORIES: Category[] = [
 const wrap = "w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4";
 
 /**
- * Whitebooks "Compliance & Security KPIs" — a tabbed trust band. Each product
+ * WhiteBooks "Compliance & Security KPIs" — a tabbed trust band. Each product
  * tab swaps the metrics; the headline (Active clients) rides an animated aurora
  * feature tile while the four shared proof points sit in a bento card grid.
  * Theme-aware, keeps the gradient-clipped numbers across both themes.

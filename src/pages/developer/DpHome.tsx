@@ -12,11 +12,13 @@ import ComplianceSupport from '@/sections/ComplianceSupport';
 import SecurityHero from '@/components/security/SecurityHero';
 import { DeveloperSection, IndustriesSection } from '../apis/ApiSuitePage';
 import { Zap } from 'lucide-react';
+import EyebrowPill from '@/components/ui/EyebrowPill';
 
 const wrap = "w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4";
 
 /* ─── Hero Section ───────────────────────────────────────────────────────────── */
 function HeroSection(): React.ReactElement {
+  const navigate = useNavigate();
   return (
     <section className="pt-[70px] pb-[72px] relative overflow-hidden bg-[var(--bg-2)] maxl-xl:min-h-screen">
       <FluidBackground />
@@ -31,7 +33,7 @@ function HeroSection(): React.ReactElement {
           maskImage: 'radial-gradient(ellipse 80% 80% at 50% 0%, black 20%, transparent 100%)',
         }}
       /> */}
-      <section style={{ paddingTop: 30, paddingBottom: 40 }}>
+      <section style={{ paddingTop: 30, paddingBottom: 20 }}>
         <div className={wrap}>
           <Breadcrumb items={[
             { label: "Home", href: "/" },
@@ -42,6 +44,8 @@ function HeroSection(): React.ReactElement {
       <div className={`grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-[60px] items-center relative ${wrap}`}>
         {/* Left */}
         <div>
+          <EyebrowPill label={'WhiteBooks APIs'} />
+
           <h1 className="font-[var(--font-display)] font-semibold leading-[1.1] tracking-[-0.02em] text-[2rem] sm:text-[2.625rem] md:text-[4rem] text-[var(--dp-fg)] mb-4">
             The compliance{' '}
             <span className="relative inline-block">
@@ -87,7 +91,7 @@ function HeroSection(): React.ReactElement {
             </Link>
             <button
               className="bg-transparent border-none px-[14px] py-[10px] text-[0.875rem] text-[var(--dp-fg-muted)] cursor-pointer hidden sm:flex items-center gap-[6px]"
-              onClick={() => window.location.href = 'https://whitebooks.in/resources/product-videos/'}
+              onClick={() => navigate('/resources/videos')}
             >
               <DpIcon name="play" size={13} />
               5-min quickstart
@@ -513,7 +517,7 @@ const SDKS = [
   { name: 'Ruby', glyph: 'RB', install: 'gem install whitebooks', color: '#f87171' },
   { name: 'PHP', glyph: 'PHP', install: 'composer require whitebooks/sdk', color: '#a78bfa' },
   { name: 'Java', glyph: 'JV', install: 'mvn whitebooks:whitebooks-java', color: '#fb923c' },
-  { name: '.NET', glyph: '.NET', install: 'dotnet add package Whitebooks', color: '#818cf8' },
+  { name: '.NET', glyph: '.NET', install: 'dotnet add package WhiteBooks', color: '#818cf8' },
   { name: 'OpenAPI', glyph: 'OA', install: 'Download openapi.yaml', color: '#fbbf24' },
 ];
 

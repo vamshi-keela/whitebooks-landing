@@ -22,6 +22,9 @@ import { Header, Footer, FluidBackground } from '@/layouts/SiteShell';
 import { ButtonLink } from '@/components/ui/Button';
 import { LOGIN_URL } from '@/utils/contants';
 import gstDashboard1 from '@/assets/product-images/gst-software/gst-dashboard-1.png';
+import { SeoBreadcrumb } from '@/seo/components/SeoBreadcrumb';
+import { BreadcrumbItem } from '@/types/pages';
+import EyebrowPill from '@/components/ui/EyebrowPill';
 
 /* ─── Data ─────────────────────────────────────────────────────────────────── */
 
@@ -173,8 +176,14 @@ const typeColors: Record<Notice['type'], { bg: string; text: string }> = {
 };
 
 /* ─── Page ─────────────────────────────────────────────────────────────────── */
+const wrap = "w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4";
 
 export default function NoticeManagement() {
+  const breadcrumb: BreadcrumbItem[] = [
+    { label: "Home", href: "/" },
+    { label: "Softwares", href: "/softwares" },
+    { label: "Notice Management", },
+  ]
   const [activeTab, setActiveTab] = useState<TabKey>('GST');
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [filter, setFilter] = useState<'All' | TabKey>('All');
@@ -187,40 +196,54 @@ export default function NoticeManagement() {
 
       <main className="font-[var(--font-body)] leading-relaxed text-[var(--text)]">
         {/* ── Hero ──────────────────────────────────────────────────────────── */}
-        <section className="relative overflow-hidden border-b border-[var(--line)] bg-[var(--bg-2)] pt-[140px]">
+        <section className="relative overflow-hidden border-b border-[var(--line)] bg-[var(--bg-2)] pt-[70px] pb-[72px]">
           <FluidBackground />
 
-          <div className="relative z-[2] mx-auto grid max-w-[1180px] grid-cols-1 items-start gap-12 px-8 md:grid-cols-2 lg:gap-16">
-            <div className="pb-20">
-              {/* <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[var(--brand-border)] bg-[var(--brand-soft)] px-[14px] py-1.5">
-                <span className="inline-block h-[7px] w-[7px] rounded-full bg-[var(--brand)]" />
-                <span className="text-xs font-medium tracking-[0.04em] text-[var(--brand)]">NEW FEATURE</span>
-              </div> */}
-              <h1 className="m-0 mb-5 font-[var(--font-display)] text-[40px] font-semibold leading-[1.1] tracking-[-0.025em] text-[var(--text)] sm:text-[48px]">
-                Never miss a<br />
-                <span className="text-[var(--brand)]">tax notice</span> again.
-              </h1>
-              <p className="m-0 mb-8 max-w-[460px] text-lg text-[var(--muted-2)]">
-                WhiteBooks auto-fetches GST, Income Tax, and TDS notices from government portals — tracks
-                deadlines, sends alerts, and keeps your entire team aligned.
-              </p>
-              <div className="flex flex-wrap gap-3">
-                <ButtonLink className="cursor-pointer rounded-lg border-none bg-[var(--brand)] px-7 py-[13px] text-[15px] font-medium text-white transition-colors hover:bg-[#e8447a]"
-                  href={LOGIN_URL}>
-                  Try Notice Management Free
-                </ButtonLink>
+          {breadcrumb && (
+            <section style={{ paddingTop: 30, paddingBottom: 20 }}>
+              <div className={wrap}>
+                <SeoBreadcrumb items={breadcrumb} />
               </div>
-              <p className="mt-4 text-[13px] text-[var(--muted)]">
-                No setup fees · Works with your existing WhiteBooks account
-              </p>
-            </div>
+            </section>
+          )}
+          <div className={`${wrap} relative z-[2]`}>
+            <div className="grid grid-cols-[1.05fr_1fr] gap-10 items-end max-[1000px]:grid-cols-1">
+              <div>
+                {/* <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[var(--brand-border)] bg-[var(--brand-soft)] px-[14px] py-1.5">
+                  <span className="inline-block h-[7px] w-[7px] rounded-full bg-[var(--brand)]" />
+                  <span className="text-xs font-medium tracking-[0.04em] text-[var(--brand)]">NEW FEATURE</span>
+                </div> */}
+                <EyebrowPill label="Notice Management" />
 
-            {/* Live inbox preview */}
-            <img
-              src={gstDashboard1}
-              alt="WhiteBooks Notice Inbox dashboard"
-              className="mt-4 w-full rounded-2xl border border-[var(--line)] object-cover aspect-[1.62/1]"
-            />
+                <h1 className="font-[var(--font-display)] font-semibold leading-[1.05] tracking-[-0.025em] mb-0 max-w-[880px] text-balance"
+                  style={{ fontSize: "clamp(32px, 4.5vw, 68px)" }}>
+                  Never miss a<br />
+                  <span className="text-[var(--brand)]">tax notice</span> again.
+                </h1>
+                <p className="m-0 mb-8 max-w-[460px] text-lg text-[var(--muted-2)]">
+                  WhiteBooks auto-fetches GST, Income Tax, and TDS notices from government portals — tracks
+                  deadlines, sends alerts, and keeps your entire team aligned.
+                </p>
+                <div className="flex flex-wrap gap-3">
+                  <ButtonLink className="cursor-pointer rounded-lg border-none bg-[var(--brand)] px-7 py-[13px] text-[15px] font-medium text-white transition-colors hover:bg-[#e8447a]"
+                    href={LOGIN_URL}>
+                    Try Notice Management Free
+                  </ButtonLink>
+                </div>
+                <p className="mt-4 text-[13px] text-[var(--muted)]">
+                  No setup fees · Works with your existing WhiteBooks account
+                </p>
+              </div>
+
+              {/* Live inbox preview */}
+              <div className="mt-[10px] max-[1000px]:mt-0">
+                <img
+                  src={gstDashboard1}
+                  alt="WhiteBooks Notice Inbox dashboard"
+                  className="w-full rounded-2xl border border-[var(--line)] object-cover aspect-[1.62/1]"
+                />
+              </div>
+            </div>
           </div>
         </section>
 

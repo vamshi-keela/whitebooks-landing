@@ -5,7 +5,7 @@ import { Header, Footer } from '@/layouts/SiteShell';
 import { Hero, LogoWall } from '@/sections/WbHero';
 import { HubAPIsSection, HubSection } from '@/sections/WbHubs';
 import { ConnectorsSection } from '@/sections/ConnectorsSection';
-import { WhyWhitebooks } from '@/sections/WhyWhitebooks';
+import { WhyWhiteBooks } from '@/sections/WhyWhitebooks.tsx';
 import { ExploreShowcase } from '@/sections/ExploreShowcase';
 import { ProblemSection } from '@/sections/WbProblem';
 import { FinanceTeamsSection } from '@/sections/WbFinanaceTeams';
@@ -75,6 +75,7 @@ import WbStats from '@/sections/WbStats';
 import SecurityHero from '@/components/security/SecurityHero';
 import UseCasesAndPartners from '@/components/usecases-and-partners/UseCasesAndPartners';
 import LogoWallCarousel from '@/components/ui/LogoWall';
+import ShippingPage from '@/pages/about/ShippingPage';
 
 /* ─── Slug maps ─────────────────────────────────────────────────────────── */
 
@@ -97,24 +98,24 @@ const API_SLUG_MAP: Record<string, string> = {
 
 const HOME_FAQ_ITEMS: SchemaFaqItem[] = [
   {
-    question: 'What is Whitebooks?',
+    question: 'What is WhiteBooks?',
     answer:
-      'Whitebooks is a GST Suvidha Provider (GSP) licensed by GSTN, offering cloud software and REST APIs for GST filing, e-invoicing, e-way bills, and KSA e-invoicing. It serves 25,000+ active clients, 8K CAs, 9Cr IRNs, and 12,000+ businesses including P&G, IBM, and Razorpay.',
+      'WhiteBooks is a GST Suvidha Provider (GSP) licensed by GSTN, offering cloud software and REST APIs for GST filing, e-invoicing, e-way bills, and KSA e-invoicing. It serves 25,000+ active clients, 8K CAs, 9Cr IRNs, and 12,000+ businesses including P&G, IBM, and Razorpay.',
   },
   {
-    question: 'Is Whitebooks a direct GSP or does it resell another GSP\'s capacity?',
+    question: 'Is WhiteBooks a direct GSP or does it resell another GSP\'s capacity?',
     answer:
-      'Whitebooks holds its GSP license directly from GSTN under BVM IT Consulting Services India Pvt. Ltd. It does not resell capacity from another licensee, which means faster latency, better uptime, and an independent roadmap.',
+      'WhiteBooks holds its GSP license directly from GSTN under BVM IT Consulting Services India Pvt. Ltd. It does not resell capacity from another licensee, which means faster latency, better uptime, and an independent roadmap.',
   },
   {
-    question: 'Which products does Whitebooks offer?',
+    question: 'Which products does WhiteBooks offer?',
     answer:
-      'Whitebooks offers two product stacks: Softwares (Accounting, GST, e-Invoice, e-Way Bill, KSA e-Invoicing) for finance teams and CA firms; and APIs (GST API, e-Invoice API, e-Way Bill API, KSA e-Invoice API) for developers.',
+      'WhiteBooks offers two product stacks: Softwares (Accounting, GST, e-Invoice, e-Way Bill, KSA e-Invoicing) for finance teams and CA firms; and APIs (GST API, e-Invoice API, e-Way Bill API, KSA e-Invoice API) for developers.',
   },
   {
-    question: 'Does Whitebooks support e-invoicing for Saudi Arabia?',
+    question: 'Does WhiteBooks support e-invoicing for Saudi Arabia?',
     answer:
-      'Yes. Whitebooks is ZATCA-approved for Phase 2 e-invoicing in Saudi Arabia (FATOORAH integration, cryptographic signing, bilingual Arabic+English invoices). It is one of the few platforms handling both India GST and KSA e-invoicing on one workspace.',
+      'Yes. WhiteBooks is ZATCA-approved for Phase 2 e-invoicing in Saudi Arabia (FATOORAH integration, cryptographic signing, bilingual Arabic+English invoices). It is one of the few platforms handling both India GST and KSA e-invoicing on one workspace.',
   },
 ];
 
@@ -145,7 +146,7 @@ function HomeRoute() {
       'ksa-soft': '/softwares/ksa',
       'ksa-api': '/apis/ksa',
       accounting: '/softwares/accounting',
-      'notice-mgmt': '/notice-management',
+      'notice-mgmt': '/softwares/notice-management',
     };
     if (map[route]) routerNav(map[route]);
   };
@@ -162,7 +163,7 @@ function HomeRoute() {
         <HubSection tab={tab} setTab={setTab} navigate={navigate} />
         <HubAPIsSection />
         <ConnectorsSection />
-        <WhyWhitebooks />
+        <WhyWhiteBooks />
         <WbStats />
         <WbTrust />
         <SecurityHero />
@@ -176,7 +177,7 @@ function HomeRoute() {
         <ClosingCTA
           eyebrow="One platform"
           eyebrowSubTitle="India + GCC"
-          title="Build your India compliance once."
+          title={`Everything India compliance.\n One platform.`}
           body="GSP-licensed, AI-native, used by P&G, IBM, Razorpay, and 12,000+ more. Twenty minutes to see it run on your own data."
           primary="Book a 20-min Demo"
           secondary="Talk to sales: +91 90321 11788"
@@ -309,6 +310,7 @@ export function AppRouter() {
         <Route path="/about/about-us" element={<AboutUs />} />
         <Route path="/about/contact-us" element={<ContactUs />} />
         <Route path="/about/pricing" element={<Pricing />} />
+        <Route path="/about/shipping" element={<ShippingPage />} />
         <Route path="/about/terms" element={<Terms />} />
         <Route path="/about/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/about/refund-cancellation" element={<RefundCancellation />} />
@@ -318,7 +320,7 @@ export function AppRouter() {
         <Route path="/tools/gst-hsn-sac-search" element={<GstHsnSacSearch />} />
 
         {/* ── Notice Management ─────────────────────────────────────── */}
-        <Route path="/notice-management" element={<NoticeManagement />} />
+        <Route path="/softwares/notice-management" element={<NoticeManagement />} />
 
         {/* ── Status ────────────────────────────────────────────────── */}
         <Route path="/status" element={<StatusPage />} />
@@ -332,6 +334,7 @@ export function AppRouter() {
           <Route element={<GuidesLayout />}>
             <Route path="overview" element={<GuideOverview />} />
             <Route path="quickstart" element={<GuideQuickstart />} />
+            <Route path="api-reference" element={<ApiReferenceLanding />} /><Route path="api-reference" element={<ApiReferenceLanding />} />
             <Route path="authentication" element={<GuideAuthentication />} />
             <Route path="errors" element={<GuideErrors />} />
           </Route>

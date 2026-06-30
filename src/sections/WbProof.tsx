@@ -159,7 +159,7 @@ export function ProofSection() {
         <div className="flex items-end justify-between mb-14 max-sm:flex-col max-sm:items-start max-sm:gap-6">
           <div>
             <h2 className="font-display text-[clamp(28px,3vw,42px)] leading-[1.2] tracking-[-0.02em] text-primary mb-3">
-              What Our Customers Say
+              What Our <span className='text-[var(--brand)]'>Customers Say</span>
             </h2>
             <p className="text-[15.5px] text-secondary max-w-[400px] leading-[1.6]">
               Trusted by finance controllers and IT heads across the country.

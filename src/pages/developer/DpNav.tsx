@@ -22,7 +22,7 @@ const NAV_ITEMS: NavTab[] = [
 
 /* External resources surfaced in the far-right "Resources" dropdown of row 2.
    These mirror the developer hub's resource menu; swap the hrefs for the
-   Whitebooks equivalents as they come online. */
+   WhiteBooks equivalents as they come online. */
 interface ResourceItem { icon: IconName; label: string; href: string; internal?: boolean }
 
 const RESOURCE_ITEMS: ResourceItem[] = [
@@ -392,7 +392,7 @@ export default function DpNav({ onOpenPalette }: DpNavProps): React.ReactElement
             <DpIcon name="search" size={16} />
           </button>
           {/* <AuthButtons /> */}
-          <ContactUsDropdown />
+          <ContactUsDropdown cardType='API Team' />
           <ThemeToggle size={32} />
 
           {/* Mobile menu — only when the page has a left sub-nav */}

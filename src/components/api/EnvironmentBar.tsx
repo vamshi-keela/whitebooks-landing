@@ -1,5 +1,5 @@
 import React from 'react';
-import { Check, Copy, Globe } from 'lucide-react';
+import { Check, Copy, Globe, KeyRound } from 'lucide-react';
 import type { Environment as Env } from '../../data/environments';
 import CopyButton from './CopyButton';
 
@@ -63,6 +63,24 @@ export default function EnvironmentBar({ environments, selected, onChange }: Pro
       <div className="shrink-0">
         <CopyButton text={selected.baseUrl} size={12} label={false} />
       </div>
+
+      {/* Sandbox-only default OTP — disappears in production where it is invalid */}
+      {selected.defaultOtp && (
+        <div
+          className="flex items-center gap-1.5 min-w-0 rounded-[10px] pl-2 pr-1 py-0.5"
+          style={{ background: 'rgba(251,191,36,0.07)', border: '1px solid rgba(251,191,36,0.22)' }}
+          title="Default OTP for OTP / EVC authentication in sandbox"
+        >
+          <KeyRound size={12} color="#fbbf24" className="shrink-0" />
+          <span className="text-[11px] font-body shrink-0" style={{ color: '#fbbf24' }}>
+            Default OTP
+          </span>
+          <code className="font-[family-name:var(--dp-font-mono)] text-[12.5px] sm:text-[13px] shrink-0" style={{ color: '#fbbf24' }}>
+            {selected.defaultOtp}
+          </code>
+          <CopyButton text={selected.defaultOtp} size={12} label={false} />
+        </div>
+      )}
 
     </div>
   );

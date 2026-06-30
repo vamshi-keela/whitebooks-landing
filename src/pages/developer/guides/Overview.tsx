@@ -18,14 +18,14 @@ export default function Overview(): React.ReactElement {
   return (
     <DocArticle>
       <SeoHead
-        title="Developer Docs — Whitebooks Developer Portal"
+        title="Developer Docs — WhiteBooks Developer Portal"
         description="Integrate GST, e-Invoice, e-Way Bill, and KSA e-Invoicing compliance into your product with REST APIs from a directly GSTN-licensed GSP."
         canonical={`${SITE.baseUrl}/developer/overview`}
         robots={SITE.defaultRobots}
       />
 
       <DocEyebrow>Documentation</DocEyebrow>
-      <DocTitle>Whitebooks Developer Docs</DocTitle>
+      <DocTitle>WhiteBooks Developer Docs</DocTitle>
       <DocLead>
         Build GST, e-Invoice, e-Way Bill, and KSA e-Invoicing compliance directly into your
         product. Our REST APIs run over a directly GSTN-licensed GSP channel — no intermediaries,

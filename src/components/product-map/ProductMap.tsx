@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Icon } from "../icons/Icon";
 
-export type ProductMapKey = "accounting" | "gst" | "e-invoice" | "e-way-bill" | "ksa";
+export type ProductMapKey = "accounting" | "gst" | "e-invoice" | "e-way-bill" | "notice-management";
 
 interface ProductMapProps {
   active?: ProductMapKey;
@@ -12,7 +12,7 @@ const PRODUCTS: { id: ProductMapKey; label: string; href: string; Icon: typeof I
   { id: "gst", label: "GST", href: "/softwares/gst", Icon: Icon.GST },
   { id: "e-invoice", label: "e-Invoice", href: "/softwares/e-invoice", Icon: Icon.EInvoice },
   { id: "e-way-bill", label: "e-Way Bill", href: "/softwares/e-way-bill", Icon: Icon.EWayBill },
-  { id: "ksa", label: "KSA e-Invoice", href: "/softwares/ksa", Icon: Icon.KSA },
+  { id: "notice-management", label: "Notice Management", href: "/softwares/notice-management", Icon: Icon.KSA },
 ];
 
 const COLUMN_X = ["10%", "30%", "50%", "70%", "90%"];
@@ -143,7 +143,7 @@ export function ProductMap({ active }: ProductMapProps) {
           {/* Connector SVG */}
           <svg className="block w-full h-[72px]" width="100%" height="72" preserveAspectRatio="none" aria-hidden="true">
             {COLUMN_X.map((x, i) => {
-              const ids: ProductMapKey[] = ["accounting", "gst", "e-invoice", "e-way-bill", "ksa"];
+              const ids: ProductMapKey[] = ["accounting", "gst", "e-invoice", "e-way-bill", "notice-management"];
               const isActive = ids[i] === active;
               return (
                 <line

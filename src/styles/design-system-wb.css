@@ -1,4 +1,4 @@
-/* ---------- Whitebooks Homepage — dark, infrastructure-grade ---------- */
+/* ---------- WhiteBooks Homepage — dark, infrastructure-grade ---------- */
 
 /* Register CSS custom properties used in wb-mesh-drift so they interpolate smoothly */
 @property --m1x {
@@ -80,7 +80,7 @@
   --muted-2: #9a9ab0;
 
   /* ── Brand ───────────────────────────────────────────────── */
-  --brand: #dc2f65;
+  --brand: #d33568;
   --brand-soft: rgba(220, 47, 101, 0.1);
   --brand-softer: rgba(220, 47, 101, 0.05);
   --brand-border: rgba(220, 47, 101, 0.25);
@@ -2542,7 +2542,7 @@ img {
   gap: 10px;
 }
 
-/* ---------- Why Whitebooks ---------- */
+/* ---------- Why WhiteBooks ---------- */
 .wb-why-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -2959,6 +2959,31 @@ img {
   background: var(--bg);
   padding: 80px 0 36px;
   border-top: 1px solid var(--line);
+}
+
+/* Demo + newsletter CTA cards — neutral elevation tuned per theme so they
+   read as raised surfaces without the blue tint of --bg-elev on dark. */
+.wb-footer-cta {
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--line-2);
+  border-radius: 16px;
+  transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.wb-footer-cta:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--brand-border);
+}
+
+[data-theme="light"] .wb-footer-cta {
+  background: var(--bg-elev);
+  box-shadow: 0 1px 2px rgba(13, 13, 20, 0.04), 0 6px 16px rgba(13, 13, 20, 0.05);
+}
+
+[data-theme="light"] .wb-footer-cta:hover {
+  background: var(--bg-elev);
+  border-color: var(--brand-border);
+  box-shadow: 0 2px 4px rgba(13, 13, 20, 0.05), 0 10px 24px rgba(13, 13, 20, 0.07);
 }
 
 .wb-footer-grid {
@@ -6387,6 +6412,47 @@ img {
   background: rgba(255, 255, 255, 0.02);
 }
 
+.codeblock .dots span {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ---- ForDevelopers section backdrop ----
+   Layered, theme-aware, intentionally subtle:
+   - a soft "stage" spotlight from the top for depth
+   - a low, warm accent glow anchored to the bottom-right
+   - a fine dot grid that fades out toward the edges (::before) */
+.wb-dev-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(115% 75% at 50% -25%, rgba(255, 255, 255, 0.045), transparent 58%),
+    radial-gradient(48% 52% at 92% 112%, var(--accent-glow), transparent 60%),
+    radial-gradient(42% 46% at 2% -10%, rgba(255, 168, 120, 0.06), transparent 64%);
+}
+
+.wb-dev-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1.1px, transparent 1.1px);
+  background-size: 30px 30px;
+  -webkit-mask-image: radial-gradient(ellipse 82% 78% at 50% 34%, #000 6%, transparent 76%);
+  mask-image: radial-gradient(ellipse 82% 78% at 50% 34%, #000 6%, transparent 76%);
+}
+
+[data-theme="light"] .wb-dev-bg {
+  background:
+    radial-gradient(115% 75% at 50% -25%, rgba(0, 0, 0, 0.028), transparent 58%),
+    radial-gradient(48% 52% at 92% 112%, var(--accent-glow), transparent 60%),
+    radial-gradient(42% 46% at 2% -10%, rgba(220, 47, 101, 0.05), transparent 64%);
+}
+
+[data-theme="light"] .wb-dev-bg::before {
+  background-image: radial-gradient(rgba(0, 0, 0, 0.06) 1.1px, transparent 1.1px);
+}
+
 .lang-tab {
   font-family: var(--font-mono);
   font-size: 11px;
@@ -6434,6 +6500,36 @@ img {
 
 .codeblock-body .fn {
   color: #80cbc4;
+}
+
+/* ---- Light theme: code block chrome + syntax tokens ---- */
+[data-theme="light"] .codeblock-hd {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+[data-theme="light"] .codeblock .dots span {
+  background: rgba(0, 0, 0, 0.14);
+}
+
+[data-theme="light"] .lang-tab.active {
+  color: var(--fg-primary);
+  background: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .codeblock-body .kw {
+  color: #8b3fd6;
+}
+
+[data-theme="light"] .codeblock-body .str {
+  color: #15803d;
+}
+
+[data-theme="light"] .codeblock-body .num {
+  color: #b45309;
+}
+
+[data-theme="light"] .codeblock-body .fn {
+  color: #0d7d74;
 }
 
 /* ---------- Animated elements ---------- */

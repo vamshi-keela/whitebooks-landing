@@ -191,7 +191,7 @@ export function LogoWall() {
             <span className="text-[var(--brand)]">can't afford to get it wrong.</span>
           </h2>
           <p className="body">
-            Whitebooks runs GST, e-invoicing, and e-way bill operations for
+            WhiteBooks runs GST, e-invoicing, and e-way bill operations for
             India's largest enterprises and the CA firms that audit them. We
             already helped 3,000+ Customers across India.
           </p>

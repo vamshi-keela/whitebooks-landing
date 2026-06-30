@@ -1,4 +1,4 @@
-// src/pages/gst-software/PageGSTSoftware.tsx — Whitebooks GST Software product page
+// src/pages/gst-software/PageGSTSoftware.tsx — WhiteBooks GST Software product page
 
 import React from 'react';
 import type { RouteKey } from '@/hooks/useHashRoute';
@@ -58,9 +58,9 @@ export function PageGSTSoftware({ motion, intensity, navigate }: PageGSTSoftware
           </h2>
           <div className="grid-3">
             {[
-              { mono: 'reconciliation', title: 'Reconciliation is still a nightmare.', body: 'ClearTax and Tally hand you a mismatch report and walk away. Whitebooks\' matching engine handles fuzzy vendor names, rounded values, partially settled invoices, and split GSTINs — the cases where exact-match logic fails. 95%+ of mismatches resolve without human review.' },
-              { mono: 'validation', title: 'You only see errors after the portal rejects them.', body: 'Whitebooks validates against the 47 most common GSTN rejection codes before you click file. If GSTR-3B will fail, you know on screen — not at 11:47pm when the portal returns a cryptic error.' },
-              { mono: 'shipping_lag', title: "Your software doesn't know what year it is.", body: 'GST 2.0 rates went live September 2025. The 30-day IRN window arrived. IMS launched. Rule 37A reversal logic changed. Whitebooks shipped each of these inside 72 hours of notification. Most competitors are still catching up.' },
+              { mono: 'reconciliation', title: 'Reconciliation is still a nightmare.', body: 'ClearTax and Tally hand you a mismatch report and walk away. WhiteBooks\' matching engine handles fuzzy vendor names, rounded values, partially settled invoices, and split GSTINs — the cases where exact-match logic fails. 95%+ of mismatches resolve without human review.' },
+              { mono: 'validation', title: 'You only see errors after the portal rejects them.', body: 'WhiteBooks validates against the 47 most common GSTN rejection codes before you click file. If GSTR-3B will fail, you know on screen — not at 11:47pm when the portal returns a cryptic error.' },
+              { mono: 'shipping_lag', title: "Your software doesn't know what year it is.", body: 'GST 2.0 rates went live September 2025. The 30-day IRN window arrived. IMS launched. Rule 37A reversal logic changed. WhiteBooks shipped each of these inside 72 hours of notification. Most competitors are still catching up.' },
             ].map((p, i) => (
               <div key={i}>
                 <div className="mono-tag"><span className="dot" style={{ background: 'var(--warn)' }}></span>{p.mono}</div>
@@ -84,8 +84,8 @@ export function PageGSTSoftware({ motion, intensity, navigate }: PageGSTSoftware
           </div>
           <div className="grid-3">
             {[
-              { n: '01', title: 'Bring your data', body: 'Push from Tally, SAP, Zoho, or 40+ other ERPs via native connector. Or upload Excel. Or use the API. Or hand-enter — Whitebooks auto-completes from your master data after the first letter.' },
-              { n: '02', title: 'Auto-reconcile', body: 'Whitebooks pulls your GSTR-2A and 2B from GSTN automatically, matches against your purchase register, and surfaces only the rows that need a human decision. Average review queue: 3% of total invoices.' },
+              { n: '01', title: 'Bring your data', body: 'Push from Tally, SAP, Zoho, or 40+ other ERPs via native connector. Or upload Excel. Or use the API. Or hand-enter — WhiteBooks auto-completes from your master data after the first letter.' },
+              { n: '02', title: 'Auto-reconcile', body: 'WhiteBooks pulls your GSTR-2A and 2B from GSTN automatically, matches against your purchase register, and surfaces only the rows that need a human decision. Average review queue: 3% of total invoices.' },
               { n: '03', title: 'Validate and file', body: 'Pre-submission validator catches every common rejection. Push to GSTN with one click. ARN comes back to your inbox and the working paper logs itself.' },
             ].map((s, i) => (
               <div key={i} className="card">
@@ -147,7 +147,7 @@ export function PageGSTSoftware({ motion, intensity, navigate }: PageGSTSoftware
             <div>
               <h2 className="h2">SAP, Tally, and 40+ ERPs.<br /><em>Zero CSV uploads.</em><br />Production-grade reliability.</h2>
               <p className="body" style={{ marginTop: 24, maxWidth: 460 }}>
-                Push transactional data from your ERP to GSTN in real time, without middleware, without scheduled jobs, without anyone exporting a CSV. Native connectors are built by Whitebooks engineers — not third-party plugins that break with every ERP upgrade.
+                Push transactional data from your ERP to GSTN in real time, without middleware, without scheduled jobs, without anyone exporting a CSV. Native connectors are built by WhiteBooks engineers — not third-party plugins that break with every ERP upgrade.
               </p>
               <p className="body" style={{ marginTop: 18, maxWidth: 460 }}>
                 For SAP shops specifically: e-invoicing and e-way bill generation happen inside the SAP transaction. The IRN comes back as a field on the invoice, posted to the same document. Your accounts team never opens a second tool.
@@ -199,14 +199,14 @@ export function PageGSTSoftware({ motion, intensity, navigate }: PageGSTSoftware
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'end', marginBottom: 56 }}>
             <h2 className="h1">GSTR-2A, 2B, IMS, and bank statement reconciliation —<br /><em>in one engine.</em></h2>
             <p className="lede" style={{ maxWidth: 460, justifySelf: 'end' }}>
-              Reconciliation in GST isn't one job — it's four overlapping ones. Whitebooks handles each.
+              Reconciliation in GST isn't one job — it's four overlapping ones. WhiteBooks handles each.
             </p>
           </div>
           <div style={{ border: '1px solid var(--hairline)', borderRadius: 'var(--radius-lg)', overflow: 'hidden' }}>
             {[
               { num: '01', name: 'GSTR-2B vs. Purchase Register', mono: '2b · pr · match', body: 'Match every booked purchase invoice against what your vendor filed in GSTR-1. Surface vendors who haven\'t filed, invoices missing entirely, and ITC at risk under Rule 37A.' },
-              { num: '02', name: 'GSTR-2A trend tracking', mono: '2a · trend · 12mo', body: '2A is dynamic. Whitebooks tracks every vendor\'s filing pattern over 12 months and flags falling compliance scores — so you know which vendors to chase before their next missed filing costs you ITC.' },
-              { num: '03', name: 'Invoice Management System (IMS)', mono: 'ims · oct 2025', body: 'Live from October 2025. Whitebooks pulls your IMS dashboard, lets you accept/reject/hold invoices in bulk, and tracks rejected credit notes that increase your 3B liability.' },
+              { num: '02', name: 'GSTR-2A trend tracking', mono: '2a · trend · 12mo', body: '2A is dynamic. WhiteBooks tracks every vendor\'s filing pattern over 12 months and flags falling compliance scores — so you know which vendors to chase before their next missed filing costs you ITC.' },
+              { num: '03', name: 'Invoice Management System (IMS)', mono: 'ims · oct 2025', body: 'Live from October 2025. WhiteBooks pulls your IMS dashboard, lets you accept/reject/hold invoices in bulk, and tracks rejected credit notes that increase your 3B liability.' },
               { num: '04', name: 'Bank reconciliation', mono: 'bank · ledger', body: 'Match your bank statement to receivables and payables. Auto-clear matched transactions. Surface unbooked income before audit, not during.' },
             ].map((r, i) => (
               <div key={i} style={{
@@ -235,12 +235,12 @@ export function PageGSTSoftware({ motion, intensity, navigate }: PageGSTSoftware
         <div className="container relative">
           <SectionLabel num="06">The AI layer</SectionLabel>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'end', marginBottom: 56 }}>
-            <h2 className="h1">What the AI <em className="grad-text" style={{ fontStyle: 'italic' }}>actually does</em> inside Whitebooks GST.</h2>
+            <h2 className="h1">What the AI <em className="grad-text" style={{ fontStyle: 'italic' }}>actually does</em> inside WhiteBooks GST.</h2>
           </div>
           <div className="grid-2">
             {[
               { tag: 'fuzzy_match', title: 'Fuzzy vendor matching', body: 'A model trained on 10 crore+ Indian invoices reconciles "M/s. RAJESH ENTERPRISES" with "Rajesh Enterprises Pvt Ltd" with "RAJESH ENT." — without you maintaining alias tables.' },
-              { tag: 'risk_score', title: 'Notice risk scoring', body: 'Each GSTR-3B you\'re about to file gets a 0–100 notice risk score, based on ITC variance, turnover trend, HSN concentration, and prior notice history. Above 70, Whitebooks suggests what to recheck.' },
+              { tag: 'risk_score', title: 'Notice risk scoring', body: 'Each GSTR-3B you\'re about to file gets a 0–100 notice risk score, based on ITC variance, turnover trend, HSN concentration, and prior notice history. Above 70, WhiteBooks suggests what to recheck.' },
               { tag: 'nl_query', title: 'Natural-language queries', body: 'Type "show me all October vendors with ITC variance above 10%" or "which clients haven\'t filed 3B for September?" — answers draw from your live data with source rows linked.' },
               { tag: 'classify', title: 'Auto-categorization of unmatched invoices', body: 'Mismatches get auto-classified: vendor unfiled, invoice missing in PR, rate mismatch, GSTIN typo, time-of-supply error. Each class routes to a different resolution workflow. You stop sorting; you start resolving.' },
             ].map((c, i) => (
@@ -311,12 +311,12 @@ export function PageGSTSoftware({ motion, intensity, navigate }: PageGSTSoftware
           <div style={{ display: 'grid', gridTemplateColumns: '0.7fr 1.3fr', gap: 64, alignItems: 'start' }}>
             <h2 className="h2">Common<br />questions.</h2>
             <FAQ items={[
-              { q: 'Does Whitebooks GST Software file GSTR-9 and 9C?', a: 'Yes. Whitebooks supports GSTR-1, 1A, 3B, 4, 5, 6, 7, 8, 9, 9A, 9C, IFF, ITC-04, and CMP-08. Bulk filing across multiple GSTINs is included on CA Firm and Enterprise plans.' },
-              { q: 'Can I file from Tally without exporting CSVs?', a: 'Yes. The Whitebooks Tally Connector pushes data directly from Tally Prime to Whitebooks every 5 minutes. No CSV exports, no manual mapping, no broken reconciliations from version mismatches.' },
-              { q: 'How does Whitebooks handle the IMS (Invoice Management System) that went live in October 2025?', a: 'Whitebooks pulls your IMS dashboard automatically, lets you accept/reject/hold inward invoices in bulk, and tracks the impact of any rejection on your GSTR-3B liability. Rule 37A reversals are flagged before they hit your books.' },
-              { q: 'What\'s the difference between Whitebooks and ClearTax for GST filing?', a: 'Three differences. Whitebooks holds a direct GSP license from GSTN; ClearTax operates through a different GSP arrangement. Whitebooks builds its own SAP and Tally connectors in-house; most ClearTax integrations are partner-built. Whitebooks has not discontinued any product line in 2025 — CAs migrating from ClearTax TaxCloud cite continuity as a primary reason for switching.' },
-              { q: 'How long does migration from another GST tool take?', a: 'For a CA firm with up to 100 clients, typical migration takes 30–60 minutes. Whitebooks imports prior 36 months of GSTR filings, working papers, vendor masters, and client master data. White-glove migration is free on CA Firm and Enterprise plans.' },
-              { q: 'Is my data secure?', a: 'All data is hosted in ISO 27001-certified Indian data centers. Whitebooks operates under direct GSTN oversight as a licensed GSP, audited annually. AES-256 at rest, TLS 1.3 in transit, no third-party data sharing, no use of customer data for AI model training.' },
+              { q: 'Does WhiteBooks GST Software file GSTR-9 and 9C?', a: 'Yes. WhiteBooks supports GSTR-1, 1A, 3B, 4, 5, 6, 7, 8, 9, 9A, 9C, IFF, ITC-04, and CMP-08. Bulk filing across multiple GSTINs is included on CA Firm and Enterprise plans.' },
+              { q: 'Can I file from Tally without exporting CSVs?', a: 'Yes. The WhiteBooks Tally Connector pushes data directly from Tally Prime to WhiteBooks every 5 minutes. No CSV exports, no manual mapping, no broken reconciliations from version mismatches.' },
+              { q: 'How does WhiteBooks handle the IMS (Invoice Management System) that went live in October 2025?', a: 'WhiteBooks pulls your IMS dashboard automatically, lets you accept/reject/hold inward invoices in bulk, and tracks the impact of any rejection on your GSTR-3B liability. Rule 37A reversals are flagged before they hit your books.' },
+              { q: 'What\'s the difference between WhiteBooks and ClearTax for GST filing?', a: 'Three differences. WhiteBooks holds a direct GSP license from GSTN; ClearTax operates through a different GSP arrangement. WhiteBooks builds its own SAP and Tally connectors in-house; most ClearTax integrations are partner-built. WhiteBooks has not discontinued any product line in 2025 — CAs migrating from ClearTax TaxCloud cite continuity as a primary reason for switching.' },
+              { q: 'How long does migration from another GST tool take?', a: 'For a CA firm with up to 100 clients, typical migration takes 30–60 minutes. WhiteBooks imports prior 36 months of GSTR filings, working papers, vendor masters, and client master data. White-glove migration is free on CA Firm and Enterprise plans.' },
+              { q: 'Is my data secure?', a: 'All data is hosted in ISO 27001-certified Indian data centers. WhiteBooks operates under direct GSTN oversight as a licensed GSP, audited annually. AES-256 at rest, TLS 1.3 in transit, no third-party data sharing, no use of customer data for AI model training.' },
             ]} />
           </div>
         </div>
@@ -324,7 +324,7 @@ export function PageGSTSoftware({ motion, intensity, navigate }: PageGSTSoftware
 
       <ClosingCTA
         eyebrow="GST Software"
-        eyebrowSubTitle="Whitebooks"
+        eyebrowSubTitle="WhiteBooks"
         title="File faster than your portal can keep up."
         body="14-day free trial. White-glove migration. Median 14 minutes per GSTIN per month."
         primary="Start free trial"

@@ -36,7 +36,7 @@ interface WhyItem {
 
 export function WhySection() {
   const items: WhyItem[] = [
-    { n: '01', icon: <Icon.Seal />, title: 'Direct GSP license', body: "Whitebooks holds its GSP license directly from GSTN — not a resold pipe. Faster latency, better uptime, and a roadmap that doesn't depend on someone else's release cycle." },
+    { n: '01', icon: <Icon.Seal />, title: 'Direct GSP license', body: "WhiteBooks holds its GSP license directly from GSTN — not a resold pipe. Faster latency, better uptime, and a roadmap that doesn't depend on someone else's release cycle." },
     { n: '02', icon: <Icon.Brain />, title: 'AI that does the work', body: 'Anomaly detection, fuzzy invoice reconciliation, notice prediction, and a compliance copilot — built into the products from day one. Trained on 10 crore+ Indian invoices.' },
     { n: '03', icon: <Icon.Globe />, title: 'India + KSA on one platform', body: 'One of the few GSPs to also operate ZATCA-approved e-invoicing in Saudi Arabia. One platform, one contract, one support team across two regulators.' },
   ];
@@ -44,8 +44,8 @@ export function WhySection() {
   return (
     <section className="wb-section wb-reveal" data-reveal>
       <div className="wb-wrap">
-        <p className="wb-section-label">Why Whitebooks</p>
-        <h2 className="wb-h2">Three reasons finance teams move to Whitebooks.</h2>
+        <p className="wb-section-label">Why WhiteBooks</p>
+        <h2 className="wb-h2">Three reasons finance teams move to WhiteBooks.</h2>
         <div className="wb-why-grid">
           {items.map((it, i) => (
             <article key={i} className="wb-why-card">
@@ -120,7 +120,7 @@ export function CopilotCard() {
         </div>
         <div className="wb-msg-row">
           <div className="wb-msg ai">
-            <span className="wb-msg-label">Whitebooks AI</span>
+            <span className="wb-msg-label">WhiteBooks AI</span>
             October ITC fell ₹4,20,840 vs. September because <strong>3 vendors</strong> didn't file GSTR-1 by the 13th. Their invoices flowed to your purchase register but not to 2B.
             <div style={{ marginTop: 8 }}>
               <a className="wb-msg-link">Pinnacle Foods · ₹2,94,180</a>
@@ -186,7 +186,7 @@ export function ProofSection() {
           <div className="wb-quote-card">
             <span className="wb-quote-mark" aria-hidden="true">"</span>
             <p className="wb-quote-text">
-              We moved our entire India e-invoicing and e-way bill stack onto Whitebooks' SAP connector. What took three steps inside SAP plus a portal upload is now one button.
+              We moved our entire India e-invoicing and e-way bill stack onto WhiteBooks' SAP connector. What took three steps inside SAP plus a portal upload is now one button.
             </p>
             <p className="wb-quote-attr">
               <strong>B V Srinivasababu</strong> — Senior Manager, IT Applications · NSL
@@ -194,9 +194,9 @@ export function ProofSection() {
           </div>
 
           <div className="wb-stat-stack">
-            <CountStat target={10} suffix=" Cr+" label="Invoices filed via Whitebooks" started={started} />
+            <CountStat target={10} suffix=" Cr+" label="Invoices filed via WhiteBooks" started={started} />
             <CountStat target={12000} suffix="+" label="Businesses on the platform" started={started} />
-            <CountStat target={5000} suffix="+" label="CA firms using Whitebooks" started={started} />
+            <CountStat target={5000} suffix="+" label="CA firms using WhiteBooks" started={started} />
             <CountStat target={99.95} suffix="%" decimals={2} label="API uptime SLA" started={started} />
           </div>
         </div>
@@ -214,7 +214,7 @@ export function ClosingCTA() {
       <div className="wb-wrap wb-closing-inner">
         <h2>One license. One platform. Every Indian filing.</h2>
         <p className="wb-closing-body">
-          Whitebooks gives finance teams and developers a directly licensed GSP, an AI-native product, and a developer API that doesn't make you build the compliance yourself.
+          WhiteBooks gives finance teams and developers a directly licensed GSP, an AI-native product, and a developer API that doesn't make you build the compliance yourself.
         </p>
         <div className="wb-closing-cta-row">
           <ButtonLink href="#" variant="white" size="lg" arrow>Book a 20-min Demo</ButtonLink>

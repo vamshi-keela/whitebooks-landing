@@ -39,12 +39,113 @@ export function AuthButtons() {
   );
 }
 
-export function ContactUsDropdown() {
+type ContactRole = 'Sales' | 'Support';
+
+interface ContactTeam {
+  name: string;
+  accent: 'brand' | 'indigo';
+  icon: 'code' | 'desktop';
+  contacts: { role: ContactRole; label: string; tel: string }[];
+}
+
+const CONTACT_TEAMS: ContactTeam[] = [
+  {
+    name: 'API Team',
+    accent: 'brand',
+    icon: 'code',
+    contacts: [
+      { role: 'Sales', label: '+91 81064 33737', tel: '+918106433737' },
+      { role: 'Support', label: '+91 90321 11388', tel: '+919032111388' },
+    ],
+  },
+  {
+    name: 'Software Team',
+    accent: 'indigo',
+    icon: 'desktop',
+    contacts: [
+      { role: 'Sales', label: '+91 81065 31717', tel: '+918106531717' },
+      { role: 'Support', label: '+91 90321 11788', tel: '+919032111788' },
+    ],
+  },
+];
+
+const ACCENT = {
+  brand: { bg: 'bg-[var(--brand-soft)]', border: 'border-[var(--brand-border)]', stroke: 'var(--brand)' },
+  indigo: { bg: 'bg-[rgba(99,102,241,0.12)]', border: 'border-[rgba(99,102,241,0.25)]', stroke: '#818cf8' },
+} as const;
+
+function TeamIcon({ icon, stroke }: { icon: ContactTeam['icon']; stroke: string }) {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={stroke} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      {icon === 'code' ? (
+        <polyline points="16 18 22 12 16 6 8 18 2 12 8 6" />
+      ) : (
+        <>
+          <rect x="2" y="3" width="20" height="14" rx="2" />
+          <path d="M8 21h8M12 17v4" />
+        </>
+      )}
+    </svg>
+  );
+}
+
+function RoleIcon({ role }: { role: ContactRole }) {
+  return role === 'Support' ? (
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.86 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.77 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.18 6.18l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+    </svg>
+  ) : (
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M20.59 13.41 13.42 20.58a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" />
+      <line x1="7" y1="7" x2="7.01" y2="7" />
+    </svg>
+  );
+}
+
+function TeamCard({ team }: { team: ContactTeam }) {
+  const accent = ACCENT[team.accent];
+  return (
+    <div className="flex flex-col">
+      <div className="flex items-center gap-2.5 px-2 pb-2">
+        <div className={`w-8 h-8 rounded-lg ${accent.bg} border ${accent.border} flex items-center justify-center shrink-0`}>
+          <TeamIcon icon={team.icon} stroke={accent.stroke} />
+        </div>
+        <p className="text-[15px] font-semibold text-[var(--text)]">{team.name}</p>
+      </div>
+      <div className="flex flex-col gap-0.5">
+        {team.contacts.map((c) => (
+          <a
+            key={c.role}
+            href={`tel:${c.tel}`}
+            className="group flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-[var(--bg-2)] transition-colors duration-100 no-underline"
+          >
+            <span className="w-7 h-7 rounded-md bg-[var(--bg-2)] text-[var(--muted-2)] group-hover:text-[var(--brand)] flex items-center justify-center shrink-0 transition-colors duration-100">
+              <RoleIcon role={c.role} />
+            </span>
+            <span className="flex flex-col gap-0.5 leading-tight">
+              <span className="text-[11px] font-semibold text-[var(--muted-2)] tracking-wide uppercase">{c.role}</span>
+              <span className="text-[15px] font-semibold text-[var(--text)] group-hover:text-[var(--brand)] transition-colors duration-100">{c.label}</span>
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+type ContactCardType = 'API Team' | 'Software Team' | 'All';
+
+export function ContactUsDropdown({ cardType = 'All' }: { cardType?: ContactCardType } = {}) {
   const [open, setOpen] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout>>();
 
   const show = () => { clearTimeout(timer.current); setOpen(true); };
   const hide = () => { timer.current = setTimeout(() => setOpen(false), 150); };
+
+  const teams = cardType === 'All'
+    ? CONTACT_TEAMS
+    : CONTACT_TEAMS.filter((team) => team.name === cardType);
+  const single = teams.length === 1;
 
   return (
     <div className="hidden min-[1100px]:block relative" onMouseEnter={show} onMouseLeave={hide}>
@@ -60,38 +161,16 @@ export function ContactUsDropdown() {
         className={`absolute right-0 top-full pt-[6px] z-50 transition-all duration-150 ease-out
           ${open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
       >
-        <div className={`relative w-60 rounded-xl border border-[var(--line-2)] bg-[var(--bg-3)] shadow-[0_20px_60px_-10px_rgba(0,0,0,0.5)] overflow-hidden transition-transform duration-150 ease-out ${open ? 'translate-y-0' : '-translate-y-1'}`}>
-          <div className="px-3 border-b border-[var(--line)]">
+        <div className={`relative ${single ? 'w-[240px]' : 'w-[420px]'} rounded-xl border border-[var(--line-2)] bg-[var(--bg-3)] shadow-[0_20px_60px_-10px_rgba(0,0,0,0.5)] overflow-hidden transition-transform duration-150 ease-out ${open ? 'translate-y-0' : '-translate-y-1'}`}>
+          <div className="px-4 py-2.5 border-b border-[var(--line)]">
             <p className="text-[10px] font-medium text-[var(--muted)] tracking-wider uppercase">Get in touch</p>
           </div>
-          <div className="px-3 flex flex-col gap-0">
-            <div className="flex items-start gap-3 p-2.5 rounded-lg hover:bg-[var(--bg-2)] transition-colors duration-100">
-              <div className="mt-0.5 w-7 h-7 rounded-md bg-[var(--brand-soft)] border border-[var(--brand-border)] flex items-center justify-center shrink-0">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.86 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.77 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.18 6.18l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
-                </svg>
+          <div className={`grid ${single ? 'grid-cols-1' : 'grid-cols-2'} divide-x divide-[var(--line)]`}>
+            {teams.map((team) => (
+              <div key={team.name} className="p-2.5">
+                <TeamCard team={team} />
               </div>
-              <div>
-                <p className="text-[11px] font-medium text-[var(--muted)] mb-0.5">Support Team</p>
-                <a href="tel:+919032111388" className="text-sm font-semibold text-[var(--text)] hover:text-[var(--brand)] transition-colors duration-100 no-underline">
-                  +91 90321 11388
-                </a>
-              </div>
-            </div>
-            <div className="flex items-start gap-3 p-2.5 rounded-lg hover:bg-[var(--bg-2)] transition-colors duration-100">
-              <div className="mt-0.5 w-7 h-7 rounded-md bg-[rgba(99,102,241,0.12)] border border-[rgba(99,102,241,0.25)] flex items-center justify-center shrink-0">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#818cf8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="2" y="3" width="20" height="14" rx="2" />
-                  <path d="M8 21h8M12 17v4" />
-                </svg>
-              </div>
-              <div>
-                <p className="text-[11px] font-medium text-[var(--muted)] mb-0.5">Sales Team</p>
-                <a href="tel:+919032111788" className="text-sm font-semibold text-[var(--text)] hover:text-[var(--brand)] transition-colors duration-100 no-underline">
-                  +91 90321 11788
-                </a>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
@@ -226,36 +305,32 @@ export function Header({ mode = 'home' }: HeaderProps) {
           <div className="min-[1100px]:hidden border-t border-[var(--line)] bg-[var(--bg)] px-5 py-4 flex flex-col gap-3 overflow-y-auto max-h-[calc(100svh-4rem)]">
             <MobileNavGroup label="Softwares" icon={<Icon.Box />} items={SOFT_ITEMS} onNavigate={() => setMenuOpen(false)} />
             <MobileNavGroup label="APIs" icon={<Icon.Code />} items={API_ITEMS} onNavigate={() => setMenuOpen(false)} />
-            <MobileNavGroup label="Connectors" icon={<Plug size={16} strokeWidth={1.6} />} items={CONNECTORS_SAP_ITEMS} onNavigate={() => setMenuOpen(false)} primaryLabel="SAP" secondaryGroup={{ label: 'Tally', items: CONNECTORS_TALLY_ITEMS }} />
+            <MobileNavGroup label="Connectors" icon={<Icon.Code />} items={CONNECTORS_SAP_ITEMS} onNavigate={() => setMenuOpen(false)} primaryLabel="SAP" secondaryGroup={{ label: 'Tally', items: CONNECTORS_TALLY_ITEMS }} />
             <MobileNavGroup label="Services" icon={<Icon.Services />} items={SERVICES_ITEMS} onNavigate={() => setMenuOpen(false)} />
             <MobileNavGroup label="Resources" icon={<Icon.Resources />} items={RESOURCES_ITEMS} onNavigate={() => setMenuOpen(false)} secondaryGroup={{ label: 'Tools', items: TOOLS_ITEMS }} />
-            <div className="flex flex-col gap-1.5 pt-1 border-t border-[var(--line)]">
+            <div className="flex flex-col gap-2 pt-1 border-t border-[var(--line)]">
               <p className="text-[10px] font-medium text-[var(--muted)] tracking-wider uppercase px-1 pt-1">Contact Us</p>
-              <div className="flex flex-col gap-2">
-                <div className="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-[var(--bg-elev)] border border-[var(--line)]">
-                  <div className="w-7 h-7 rounded-md bg-[var(--brand-soft)] border border-[var(--brand-border)] flex items-center justify-center shrink-0">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.86 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.77 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.18 6.18l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
-                    </svg>
+              {CONTACT_TEAMS.map((team) => {
+                const accent = ACCENT[team.accent];
+                return (
+                  <div key={team.name} className="rounded-lg bg-[var(--bg-elev)] border border-[var(--line)] p-3">
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className={`w-6 h-6 rounded-md ${accent.bg} border ${accent.border} flex items-center justify-center shrink-0`}>
+                        <TeamIcon icon={team.icon} stroke={accent.stroke} />
+                      </div>
+                      <p className="text-[12px] font-semibold text-[var(--text)]">{team.name}</p>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2">
+                      {team.contacts.map((c) => (
+                        <a key={c.role} href={`tel:${c.tel}`} className="flex flex-col leading-tight no-underline">
+                          <span className="text-[10px] font-medium text-[var(--muted)]">{c.role}</span>
+                          <span className="text-[13px] font-semibold text-[var(--text)]">{c.label}</span>
+                        </a>
+                      ))}
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-[10px] font-medium text-[var(--muted)] mb-0.5">Support Team</p>
-                    <a href="tel:+919032111388" className="text-sm font-semibold text-[var(--text)] no-underline">+91 90321 11388</a>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-[var(--bg-elev)] border border-[var(--line)]">
-                  <div className="w-7 h-7 rounded-md bg-[rgba(99,102,241,0.12)] border border-[rgba(99,102,241,0.25)] flex items-center justify-center shrink-0">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#818cf8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <rect x="2" y="3" width="20" height="14" rx="2" />
-                      <path d="M8 21h8M12 17v4" />
-                    </svg>
-                  </div>
-                  <div>
-                    <p className="text-[10px] font-medium text-[var(--muted)] mb-0.5">Sales Team</p>
-                    <a href="tel:+919032111788" className="text-sm font-semibold text-[var(--text)] no-underline">+91 90321 11788</a>
-                  </div>
-                </div>
-              </div>
+                );
+              })}
             </div>
             <Button onClick={() => { setMenuOpen(false); setDemoOpen(true); }} className="mt-1 w-full">
               Book a 20-min Demo

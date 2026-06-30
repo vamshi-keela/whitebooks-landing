@@ -143,8 +143,8 @@ export default function ApiDocPage({ apiType }: Props): React.ReactElement {
     : `${SITE.baseUrl}/developer/${apiSlug}`;
 
   const pageTitle = selectedOp
-    ? `${selectedOp.summary} — ${apiLabel} Reference | Whitebooks`
-    : `${apiLabel} Documentation — Whitebooks Developer Portal`;
+    ? `${selectedOp.summary} — ${apiLabel} Reference | WhiteBooks`
+    : `${apiLabel} Documentation — WhiteBooks Developer Portal`;
 
   const pageDesc = selectedOp
     ? (selectedOp.description
@@ -158,7 +158,7 @@ export default function ApiDocPage({ apiType }: Props): React.ReactElement {
         canonicalUrl,
         title: pageTitle,
         description: pageDesc,
-        keywords: `${apiLabel}, ${selectedOp.summary}, ${selectedOp.path}, API reference, Whitebooks developer docs`,
+        keywords: `${apiLabel}, ${selectedOp.summary}, ${selectedOp.path}, API reference, WhiteBooks developer docs`,
       }),
       buildBreadcrumbSchema([
         { label: 'Home', href: '/' },

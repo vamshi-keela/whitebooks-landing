@@ -244,6 +244,19 @@ body {
   color-scheme: dark;
 }
 
+/* Playground modal panel — border tokens so it reads against the page. */
+.dp-playground-panel {
+  --dp-border: rgba(255, 255, 255, 0.09);
+  --dp-border-strong: rgba(255, 255, 255, 0.16);
+  border: 1px solid var(--dp-border-strong);
+}
+
+[data-theme="light"] .dp-playground-panel {
+  --dp-border: rgba(0, 0, 0, 0.08);
+  --dp-border-strong: rgba(0, 0, 0, 0.12);
+  border: 1px solid var(--dp-border-strong);
+}
+
 .dp-root * {
   box-sizing: border-box;
 }

@@ -1,4 +1,4 @@
-// WhyWhitebooks.tsx — premium "Why WhiteBooks" capability section.
+// WhyWhiteBooks.tsx — premium "Why WhiteBooks" capability section.
 //
 // Answers "Why choose WhiteBooks?" with four capability pillars in an
 // asymmetric bento grid (Stripe / Linear / Ramp / Vercel language), each
@@ -380,14 +380,14 @@ function ExcelCTA() {
   );
 }
 
-// ─── WhyWhitebooks ──────────────────────────────────────────────────────────────
+// ─── WhyWhiteBooks ──────────────────────────────────────────────────────────────
 
-export function WhyWhitebooks() {
+export function WhyWhiteBooks() {
   const { resolvedTheme } = useTheme();
   const isDark = resolvedTheme === 'dark';
 
   return (
-    <section className="relative overflow-hidden border-b border-[var(--hairline)] py-16 sm:py-20 md:py-24 lg:py-28">
+    <section className="relative overflow-hidden border-b border-[var(--hairline)] py-16 sm:py-20 md:py-24 lg:py-16">
       {/* Plain, unique backdrop — one soft brand glow behind the heading, no grid/mesh */}
       <div
         aria-hidden
@@ -468,4 +468,4 @@ export function WhyWhitebooks() {
   );
 }
 
-export default WhyWhitebooks;
+export default WhyWhiteBooks;

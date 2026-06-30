@@ -18,7 +18,7 @@ const easeInOut = (t: number) =>
   t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 
 // colour stops travelled by each particle's `c` factor (0 → cool, 1 → warm).
-// Brand-led spectrum: periwinkle → Whitebooks pink → warm rose (no Stripe orange).
+// Brand-led spectrum: periwinkle → WhiteBooks pink → warm rose (no Stripe orange).
 const STOPS: [number, number, number][] = [
   [146, 128, 240], // periwinkle violet
   [220, 47, 101], // brand pink (#dc2f65)

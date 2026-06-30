@@ -17,8 +17,8 @@ export default function Errors(): React.ReactElement {
   return (
     <DocArticle>
       <SeoHead
-        title="Errors & Status Codes — Whitebooks Developer Portal"
-        description="HTTP status codes, the standard error envelope, and common error codes returned by the Whitebooks APIs."
+        title="Errors & Status Codes — WhiteBooks Developer Portal"
+        description="HTTP status codes, the standard error envelope, and common error codes returned by the WhiteBooks APIs."
         canonical={`${SITE.baseUrl}/developer/errors`}
         robots={SITE.defaultRobots}
       />

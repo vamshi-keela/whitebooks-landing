@@ -12,15 +12,16 @@ export const GUIDE_NAV: GuideSection[] = [
   {
     heading: 'Get Started',
     items: [
-      { label: 'Overview',   path: '/developer/overview',   icon: 'compass' },
+      { label: 'Overview', path: '/developer/overview', icon: 'compass' },
       { label: 'Quickstart', path: '/developer/quickstart', icon: 'bolt' },
+      { label: 'Explore the APIs', path: '/developer/api-reference', icon: 'code' },
     ],
   },
   {
     heading: 'Essentials',
     items: [
-      { label: 'Authentication',      path: '/developer/authentication', icon: 'key' },
-      { label: 'Errors & Status Codes', path: '/developer/errors',        icon: 'warning' },
+      { label: 'Authentication', path: '/developer/authentication', icon: 'key' },
+      { label: 'Errors & Status Codes', path: '/developer/errors', icon: 'warning' },
     ],
   },
 ];

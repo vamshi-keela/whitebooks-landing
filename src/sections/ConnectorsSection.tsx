@@ -247,7 +247,7 @@ export function ConnectorsSection() {
       <div className="w-full max-w-[1280px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-16">
 
         {/* Heading */}
-        <div className="grid grid-cols-1 gap-3 items-end mb-7 sm:mb-9 md:grid-cols-[1.3fr_0.7fr] md:gap-10 md:mb-10 lg:gap-16 lg:mb-14">
+        <div className="grid grid-cols-1 gap-3 items-start mb-7 sm:mb-9 md:grid-cols-[1.3fr_0.7fr] md:gap-10 md:mb-10 lg:gap-16 lg:mb-14">
           <h2 className="font-serif font-semibold text-[clamp(24px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 text-balance">
             Enterprise-Ready <span className='text-[var(--brand)]'> Connectors for SAP & Tally</span>
           </h2>

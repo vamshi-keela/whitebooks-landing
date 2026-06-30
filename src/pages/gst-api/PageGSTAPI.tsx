@@ -1,4 +1,4 @@
-// src/pages/gst-api/PageGSTAPI.tsx — Whitebooks GST API (developer page)
+// src/pages/gst-api/PageGSTAPI.tsx — WhiteBooks GST API (developer page)
 
 import React from "react";
 import type { RouteKey } from "@/hooks/useHashRoute";
@@ -22,8 +22,8 @@ interface PageGSTAPIProps {
 export function PageGSTAPI({ motion, intensity, navigate }: PageGSTAPIProps) {
   const CODE_SAMPLES = {
     node: `<span class="com">// Node.js — generate an IRN</span>
-<span class="kw">import</span> { Whitebooks } <span class="kw">from</span> <span class="str">'@whitebooks/sdk'</span>;
-<span class="kw">const</span> wb = <span class="kw">new</span> <span class="fn">Whitebooks</span>(process.env.WHITEBOOKS_KEY);
+<span class="kw">import</span> { WhiteBooks } <span class="kw">from</span> <span class="str">'@whitebooks/sdk'</span>;
+<span class="kw">const</span> wb = <span class="kw">new</span> <span class="fn">WhiteBooks</span>(process.env.WHITEBOOKS_KEY);
 
 <span class="kw">const</span> { irn, qr_code, ack_no } = <span class="kw">await</span> wb.einvoice.<span class="fn">create</span>({
   supplier_gstin: <span class="str">'29AAACR5055K1Z5'</span>,
@@ -35,8 +35,8 @@ export function PageGSTAPI({ motion, intensity, navigate }: PageGSTAPIProps) {
 
 <span class="com">// 200 OK · 180ms (p50, production, last 30 days)</span>`,
     python: `<span class="com"># Python — generate an IRN</span>
-<span class="kw">from</span> whitebooks <span class="kw">import</span> Whitebooks
-wb = <span class="fn">Whitebooks</span>(api_key=os.environ[<span class="str">'WHITEBOOKS_KEY'</span>])
+<span class="kw">from</span> whitebooks <span class="kw">import</span> WhiteBooks
+wb = <span class="fn">WhiteBooks</span>(api_key=os.environ[<span class="str">'WHITEBOOKS_KEY'</span>])
 
 response = wb.einvoice.<span class="fn">create</span>(
     supplier_gstin=<span class="str">'29AAACR5055K1Z5'</span>,
@@ -57,7 +57,7 @@ response = wb.einvoice.<span class="fn">create</span>(
     <span class="str">"items"</span>:          [...]
   }'`,
     php: `<span class="com">// PHP — generate an IRN</span>
-<span class="kw">use</span> Whitebooks\\Client;
+<span class="kw">use</span> WhiteBooks\\Client;
 $wb = <span class="kw">new</span> <span class="fn">Client</span>(getenv(<span class="str">'WHITEBOOKS_KEY'</span>));
 
 $response = $wb->einvoice-><span class="fn">create</span>([
@@ -460,7 +460,7 @@ $response = $wb->einvoice-><span class="fn">create</span>([
               <thead>
                 <tr>
                   <th style={{ width: "32%" }}></th>
-                  <th style={{ color: "var(--accent-bright)" }}>Whitebooks</th>
+                  <th style={{ color: "var(--accent-bright)" }}>WhiteBooks</th>
                   <th>Resold GSP APIs</th>
                   <th>Build-your-own</th>
                 </tr>
@@ -530,7 +530,7 @@ $response = $wb->einvoice-><span class="fn">create</span>([
               fontFamily: "var(--font-mono)",
             }}
           >
-            ⤷ Comparison reflects publicly available data and Whitebooks
+            ⤷ Comparison reflects publicly available data and WhiteBooks
             production metrics for FY 2024–25. Numbers update quarterly.
           </div>
         </div>
@@ -541,7 +541,7 @@ $response = $wb->einvoice-><span class="fn">create</span>([
         <div className="container">
           <SectionLabel num="04">Production stories</SectionLabel>
           <h2 className="h1" style={{ marginBottom: 48 }}>
-            What developers have <em>shipped</em> on Whitebooks.
+            What developers have <em>shipped</em> on WhiteBooks.
           </h2>
           <div className="grid-3">
             {[
@@ -558,7 +558,7 @@ $response = $wb->einvoice-><span class="fn">create</span>([
               {
                 co: "WheelsEye",
                 mono: "gstin · 50k/mo",
-                body: "Validates 50,000+ GSTINs per month for fleet onboarding and reconciles transporter invoices against GSTR-2B via the Whitebooks API.",
+                body: "Validates 50,000+ GSTINs per month for fleet onboarding and reconciles transporter invoices against GSTR-2B via the WhiteBooks API.",
               },
             ].map((c, i) => (
               <div key={i} className="card" style={{ padding: 32 }}>
@@ -586,7 +586,7 @@ $response = $wb->einvoice-><span class="fn">create</span>([
           <div style={{ marginTop: 48 }}>
             <QuoteCard
               big
-              quote="Whitebooks is solving GST complex problems like e-Invoicing and e-way bills with simple APIs. I'd recommend incorporating Whitebooks for any team that wants its system future-ready."
+              quote="WhiteBooks is solving GST complex problems like e-Invoicing and e-way bills with simple APIs. I'd recommend incorporating WhiteBooks for any team that wants its system future-ready."
               name="CA Atul Garg"
               role="Finance Controller · WheelsEye"
             />
@@ -961,7 +961,7 @@ $response = $wb->einvoice-><span class="fn">create</span>([
               {
                 mono: "wb-dev.slack.com",
                 title: "Developer Slack",
-                body: "1,200+ engineers building on Whitebooks. Engineering team in-channel.",
+                body: "1,200+ engineers building on WhiteBooks. Engineering team in-channel.",
               },
             ].map((r, i) => (
               <div
@@ -1029,8 +1029,8 @@ $response = $wb->einvoice-><span class="fn">create</span>([
             <FAQ
               items={[
                 {
-                  q: "Is Whitebooks a GSP or do you resell another GSP's API?",
-                  a: "Whitebooks holds a direct GSP license from GSTN, held by BVM IT Consulting Services India Private Limited. We do not resell another GSP's pipe. This is the reason for the latency and uptime difference versus most other API providers.",
+                  q: "Is WhiteBooks a GSP or do you resell another GSP's API?",
+                  a: "WhiteBooks holds a direct GSP license from GSTN, held by BVM IT Consulting Services India Private Limited. We do not resell another GSP's pipe. This is the reason for the latency and uptime difference versus most other API providers.",
                 },
                 {
                   q: "How fast can I get production access?",
@@ -1050,7 +1050,7 @@ $response = $wb->einvoice-><span class="fn">create</span>([
                 },
                 {
                   q: "Can I use the API to file returns for my clients (as a CA firm)?",
-                  a: "Yes. The API supports multi-GSTIN operation with delegated authentication. Each client GSTIN's credentials are stored encrypted with explicit consent. White-label CA firm products built on the Whitebooks API include several tax-tech startups.",
+                  a: "Yes. The API supports multi-GSTIN operation with delegated authentication. Each client GSTIN's credentials are stored encrypted with explicit consent. White-label CA firm products built on the WhiteBooks API include several tax-tech startups.",
                 },
                 {
                   q: "What languages and frameworks have SDKs?",
@@ -1068,9 +1068,9 @@ $response = $wb->einvoice-><span class="fn">create</span>([
 
       <ClosingCTA
         eyebrow="GST API"
-        eyebrowSubTitle="Whitebooks"
+        eyebrowSubTitle="WhiteBooks"
         title="Build your India compliance once."
-        body="Whitebooks gives developer teams what they wish ClearTax and the others had built: a real API, real docs, real SLAs, and a real GSP license sitting underneath. Five minutes to your first sandbox call."
+        body="WhiteBooks gives developer teams what they wish ClearTax and the others had built: a real API, real docs, real SLAs, and a real GSP license sitting underneath. Five minutes to your first sandbox call."
         primary="Get sandbox keys"
         secondary="Read API Docs"
       />

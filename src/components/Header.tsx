@@ -55,7 +55,7 @@ export default function Header({ mode = 'home' }: HeaderProps) {
             className="relative w-[22px] h-[22px] rounded-[5px] bg-[#dc2f65] shadow-[0_0_0_1px_rgba(220,47,101,0.4),0_0_20px_rgba(220,47,101,0.3)] after:absolute after:inset-1 after:border-[1.5px] after:border-white/85 after:rounded-[2px]"
             aria-hidden="true"
           />
-          Whitebooks
+          WhiteBooks
         </Link>
         <div>
 

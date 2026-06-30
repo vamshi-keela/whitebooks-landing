@@ -65,12 +65,12 @@ const RELEASES: Release[] = [
 ];
 
 const typeStyle: Record<EntryType, { color: string; bg: string; border: string }> = {
-  Added:      { color: 'var(--dp-success)', bg: 'rgba(34,197,94,0.10)',  border: 'rgba(34,197,94,0.28)' },
-  Improved:   { color: 'var(--dp-info)',    bg: 'rgba(96,165,250,0.10)', border: 'rgba(96,165,250,0.28)' },
-  Fixed:      { color: 'var(--dp-info)',    bg: 'rgba(96,165,250,0.10)', border: 'rgba(96,165,250,0.28)' },
-  Changed:    { color: 'var(--dp-warning)', bg: 'rgba(245,158,11,0.10)', border: 'rgba(245,158,11,0.28)' },
+  Added: { color: 'var(--dp-success)', bg: 'rgba(34,197,94,0.10)', border: 'rgba(34,197,94,0.28)' },
+  Improved: { color: 'var(--dp-info)', bg: 'rgba(96,165,250,0.10)', border: 'rgba(96,165,250,0.28)' },
+  Fixed: { color: 'var(--dp-info)', bg: 'rgba(96,165,250,0.10)', border: 'rgba(96,165,250,0.28)' },
+  Changed: { color: 'var(--dp-warning)', bg: 'rgba(245,158,11,0.10)', border: 'rgba(245,158,11,0.28)' },
   Deprecated: { color: 'var(--dp-warning)', bg: 'rgba(245,158,11,0.10)', border: 'rgba(245,158,11,0.28)' },
-  Breaking:   { color: 'var(--dp-danger)',  bg: 'rgba(239,68,68,0.10)',  border: 'rgba(239,68,68,0.28)' },
+  Breaking: { color: 'var(--dp-danger)', bg: 'rgba(239,68,68,0.10)', border: 'rgba(239,68,68,0.28)' },
 };
 
 function Badge({ type }: { type: EntryType }): React.ReactElement {
@@ -89,8 +89,8 @@ export default function Changelog(): React.ReactElement {
   return (
     <div className="min-h-[calc(100vh_-_var(--dp-nav-h))] bg-[var(--dp-bg)]">
       <SeoHead
-        title="Changelog — Whitebooks Developer Portal"
-        description="API releases, fixes, deprecations, and breaking-change notices for the Whitebooks developer platform."
+        title="Changelog — WhiteBooks Developer Portal"
+        description="API releases, fixes, deprecations, and breaking-change notices for the WhiteBooks developer platform."
         canonical={`${SITE.baseUrl}/developer/changelog`}
         robots={SITE.defaultRobots}
       />
@@ -103,7 +103,7 @@ export default function Changelog(): React.ReactElement {
           What’s new
         </h1>
         <p className="text-[16px] leading-[1.7] text-[var(--dp-fg-muted)] mt-4 mb-0 max-w-[640px]">
-          Releases, fixes, deprecations, and breaking changes across the Whitebooks APIs. Breaking
+          Releases, fixes, deprecations, and breaking changes across the WhiteBooks APIs. Breaking
           changes are always announced here before they ship.
         </p>
 

@@ -14,7 +14,7 @@ export function KSASection() {
               Indian <br />compliance is hard. Saudi compliance is harder.<br />We do both.
             </h2>
             <p className="text-[18px] text-[var(--fg-secondary)] leading-[1.55] max-w-[600px] m-0 mt-[26px]">
-              Whitebooks is one of the few GSPs operating ZATCA-approved e-invoicing infrastructure in Saudi Arabia. If your company files in India and the GCC, this is one platform, one contract, one team.
+              WhiteBooks is one of the few GSPs operating ZATCA-approved e-invoicing infrastructure in Saudi Arabia. If your company files in India and the GCC, this is one platform, one contract, one team.
             </p>
             <div className="mt-8">
               <ButtonLink

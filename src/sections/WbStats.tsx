@@ -8,7 +8,7 @@ interface StatItem {
 }
 
 const STATS: StatItem[] = [
-  { val: "10 Cr+", lbl: "invoices filed through Whitebooks" },
+  { val: "10 Cr+", lbl: "invoices filed through WhiteBooks" },
   { val: "12,000+", lbl: "businesses run compliance on us" },
   { val: "5,000+", lbl: "CAs & tax professionals onboard" },
   { val: "99.95%", lbl: "API uptime SLA, measured monthly" },
@@ -17,7 +17,7 @@ const STATS: StatItem[] = [
 const CYCLE_MS = 4600;
 
 /**
- * Whitebooks "by the numbers" — a Stripe-style section: a horizontal stat bar
+ * WhiteBooks "by the numbers" — a Stripe-style section: a horizontal stat bar
  * with a traveling underline indicator over a morphing particle field on an
  * animated sunset gradient. Auto-cycles, pauses on hover/focus.
  */
@@ -49,7 +49,7 @@ export default function WbStats() {
   }, [paused]);
 
   return (
-    <section className="wb-stats" aria-label="Whitebooks by the numbers">
+    <section className="wb-stats" aria-label="WhiteBooks by the numbers">
 
       <div className="wb-stats__inner">
         <h2 className="font-serif font-semibold text-[clamp(24px,3.8vw,44px)] text-center">

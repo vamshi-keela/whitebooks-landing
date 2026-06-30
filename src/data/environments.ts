@@ -4,6 +4,8 @@ export interface Environment {
   swaggerUrl: string;
   baseUrl: string;
   color: 'blue' | 'emerald';
+  /** Default OTP for OTP/EVC authentication. Only valid in test environments. */
+  defaultOtp?: string;
 }
 
 export const environments: Environment[] = [
@@ -13,6 +15,7 @@ export const environments: Environment[] = [
     swaggerUrl: 'SWAGGER_SANDBOX_URL_PLACEHOLDER',
     baseUrl: 'https://apisandbox.whitebooks.in',
     color: 'blue',
+    defaultOtp: '575757',
   },
   {
     name: 'Production',

@@ -1,4 +1,4 @@
-// src/pages/home/PageHome.tsx — Whitebooks homepage
+// src/pages/home/PageHome.tsx — WhiteBooks homepage
 
 import React from 'react';
 import type { RouteKey } from '@/hooks/useHashRoute';
@@ -47,7 +47,7 @@ export function PageHome({ motion, intensity, heroVariant, navigate }: PageHomeP
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, marginBottom: 56, alignItems: 'end' }}>
             <h2 className="h2">Compliance for the companies that <em>can't afford</em> to get it wrong.</h2>
             <p className="body" style={{ maxWidth: 460, justifySelf: 'end' }}>
-              Whitebooks runs GST, e-invoicing, and e-way bill operations for India's largest enterprises and the CA firms that audit them.
+              WhiteBooks runs GST, e-invoicing, and e-way bill operations for India's largest enterprises and the CA firms that audit them.
             </p>
           </div>
           <LogoWallCarousel />
@@ -81,14 +81,14 @@ export function PageHome({ motion, intensity, heroVariant, navigate }: PageHomeP
                 Indian compliance changed more in 2025 than in the previous five years combined. GST 2.0 collapsed five slabs into three. E-invoicing thresholds dropped to <strong>₹5 crore AATO</strong>. IMS went live. Rule 37A tightened ITC. The 30-day IRN window arrived. Your software hasn't kept up.
               </p>
               <p className="body" style={{ fontSize: 16, lineHeight: 1.7, marginTop: 20 }}>
-                Most GST tools still treat compliance as data entry. Whitebooks treats it as an <strong>inference problem</strong> — match invoices, flag anomalies, predict notices, and file in one keystroke. Built on the only thing that should be doing this work: AI plus a GSP license direct from GSTN.
+                Most GST tools still treat compliance as data entry. WhiteBooks treats it as an <strong>inference problem</strong> — match invoices, flag anomalies, predict notices, and file in one keystroke. Built on the only thing that should be doing this work: AI plus a GSP license direct from GSTN.
               </p>
               <div style={{ marginTop: 32, display: 'flex', gap: 28, flexWrap: 'wrap' }}>
                 {[
                   { k: '5 → 3', v: 'GST 2.0 slabs' },
                   { k: '₹5 Cr', v: 'AATO threshold' },
                   { k: '30 days', v: 'IRN window' },
-                  { k: '72 hours', v: 'Whitebooks shipping lag' },
+                  { k: '72 hours', v: 'WhiteBooks shipping lag' },
                 ].map((s, i) => (
                   <div key={i} style={{ borderLeft: '1px solid var(--hairline)', paddingLeft: 16 }}>
                     <div style={{ fontFamily: 'var(--font-serif)', fontSize: 26, color: 'var(--fg-primary)', letterSpacing: '-0.015em' }}>{s.k}</div>
@@ -220,14 +220,14 @@ export function PageHome({ motion, intensity, heroVariant, navigate }: PageHomeP
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'end', marginBottom: 56 }}>
             <h2 className="h2">Built for finance teams running<br /><em>₹50Cr to ₹5,000Cr</em> in turnover.</h2>
             <p className="body" style={{ maxWidth: 460, justifySelf: 'end' }}>
-              Direct SAP and Tally connectors. Zero CSV uploads. Your ERP stays the source of truth — Whitebooks handles the rest.
+              Direct SAP and Tally connectors. Zero CSV uploads. Your ERP stays the source of truth — WhiteBooks handles the rest.
             </p>
           </div>
           <div className="grid-3">
             {[
               { title: 'SAP-native integration', body: 'Push invoices from SAP S/4HANA or ECC to GSTN in real time. Generate IRNs and e-way bills inside the SAP transaction. No middleware, no separate ETL, no CSV fallbacks.', mono: 'sap_s4hana · sap_ecc' },
               { title: 'ITC optimization, not just matching', body: 'Match 6,000+ invoices per minute against GSTR-2B. Surface every blocked credit, every Rule 37A risk, every vendor with a falling compliance score — before you file 3B.', mono: '6,000 inv/min · Rule 37A' },
-              { title: 'AATO-aware automation', body: 'Whitebooks reads your AATO and applies the right e-invoicing threshold, the right 30-day IRN window, the right ISD rule. The software adapts to the law, not the other way around.', mono: 'aato_threshold · 30d_window' },
+              { title: 'AATO-aware automation', body: 'WhiteBooks reads your AATO and applies the right e-invoicing threshold, the right 30-day IRN window, the right ISD rule. The software adapts to the law, not the other way around.', mono: 'aato_threshold · 30d_window' },
             ].map((f, i) => (
               <div key={i} className="card">
                 <div className="mono-tag accent"><span className="dot"></span>{f.mono}</div>
@@ -273,7 +273,7 @@ export function PageHome({ motion, intensity, heroVariant, navigate }: PageHomeP
               </div>
             </div>
             <CodeBlock samples={{
-              curl: `<span class="com"># Generate an IRN with the Whitebooks REST API</span>
+              curl: `<span class="com"># Generate an IRN with the WhiteBooks REST API</span>
 <span class="kw">curl</span> https://api.whitebooks.in/v1/einvoice \\
   -H <span class="str">"Authorization: Bearer $WHITEBOOKS_KEY"</span> \\
   -H <span class="str">"Content-Type: application/json"</span> \\
@@ -286,8 +286,8 @@ export function PageHome({ motion, intensity, heroVariant, navigate }: PageHomeP
   }'
 
 <span class="com">→ 200 OK · 182ms · IRN a4f2c91e8b7d3...</span>`,
-              node: `<span class="kw">import</span> { Whitebooks } <span class="kw">from</span> <span class="str">'@whitebooks/sdk'</span>;
-<span class="kw">const</span> wb = <span class="kw">new</span> <span class="fn">Whitebooks</span>(process.env.WHITEBOOKS_KEY);
+              node: `<span class="kw">import</span> { WhiteBooks } <span class="kw">from</span> <span class="str">'@whitebooks/sdk'</span>;
+<span class="kw">const</span> wb = <span class="kw">new</span> <span class="fn">WhiteBooks</span>(process.env.WHITEBOOKS_KEY);
 
 <span class="kw">const</span> { irn, qr_code, ack_no } = <span class="kw">await</span> wb.einvoice.<span class="fn">create</span>({
   supplier_gstin: <span class="str">'29AAACR5055K1Z5'</span>,
@@ -296,8 +296,8 @@ export function PageHome({ motion, intensity, heroVariant, navigate }: PageHomeP
   invoice_date:   <span class="str">'2026-05-16'</span>,
   items:          [<span class="com">/* line items */</span>]
 });`,
-              python: `<span class="kw">from</span> whitebooks <span class="kw">import</span> Whitebooks
-wb = <span class="fn">Whitebooks</span>(api_key=os.environ[<span class="str">'WHITEBOOKS_KEY'</span>])
+              python: `<span class="kw">from</span> whitebooks <span class="kw">import</span> WhiteBooks
+wb = <span class="fn">WhiteBooks</span>(api_key=os.environ[<span class="str">'WHITEBOOKS_KEY'</span>])
 
 response = wb.einvoice.<span class="fn">create</span>(
     supplier_gstin=<span class="str">'29AAACR5055K1Z5'</span>,
@@ -319,14 +319,14 @@ response = wb.einvoice.<span class="fn">create</span>(
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'end', marginBottom: 56 }}>
             <h2 className="h1">AI that <em className="grad-text" style={{ fontStyle: 'italic' }}>reconciles, predicts, and explains</em> — not just a chatbot in the corner.</h2>
             <p className="lede" style={{ maxWidth: 460, justifySelf: 'end' }}>
-              Whitebooks uses purpose-built models for four jobs that humans have been doing manually since GST launched in 2017.
+              WhiteBooks uses purpose-built models for four jobs that humans have been doing manually since GST launched in 2017.
             </p>
           </div>
           <div className="grid-4">
             {[
               { num: '01', tag: 'reconcile', title: 'Invoice matching at scale', body: 'A model trained on 10 crore+ invoices matches your purchase register against GSTR-2B in seconds. Handles fuzzy vendor names, rounding deltas, and split invoices that exact-match logic gives up on.' },
               { num: '02', tag: 'detect', title: 'Anomaly detection before filing', body: 'Every return is scanned for the 47 most common GSTN rejection causes before submission. Flagged before you click file. Not after the portal returns an error at 11:47pm on the 20th.' },
-              { num: '03', tag: 'predict', title: 'Notice prediction', body: 'Whitebooks reads your filing pattern and flags returns likely to trigger a Section 61 scrutiny notice — based on ITC mismatch trends, turnover variance, and HSN distribution anomalies.' },
+              { num: '03', tag: 'predict', title: 'Notice prediction', body: 'WhiteBooks reads your filing pattern and flags returns likely to trigger a Section 61 scrutiny notice — based on ITC mismatch trends, turnover variance, and HSN distribution anomalies.' },
               { num: '04', tag: 'explain', title: 'Copilot for compliance', body: 'Ask "Why did my ITC drop ₹4.2L in October?" or "Which vendors are unfiled for September?" — get an answer drawn from your live data, with source rows linked. Built on the Anthropic API.' },
             ].map((c, i) => (
               <div key={i} className="card" style={{ position: 'relative' }}>
@@ -353,7 +353,7 @@ response = wb.einvoice.<span class="fn">create</span>(
         <div className="container">
           <SectionLabel num="08">Proof</SectionLabel>
           <StatStrip motion={motion} stats={[
-            { value: <Counter value={10} format={(n) => n.toFixed(0)} motion={motion} />, unit: 'cr+', label: 'Invoices filed via Whitebooks' },
+            { value: <Counter value={10} format={(n) => n.toFixed(0)} motion={motion} />, unit: 'cr+', label: 'Invoices filed via WhiteBooks' },
             { value: <Counter value={12000} motion={motion} />, unit: '+', label: '12,000+ businesses · 5,000+ CA firms' },
             { value: <Counter value={30000} motion={motion} />, unit: '+', label: 'Users across 8,000+ Indian cities' },
             { prefix: '₹', value: '0', label: 'Customer data shared with third parties' },
@@ -361,16 +361,16 @@ response = wb.einvoice.<span class="fn">create</span>(
           <div className="grid-3" style={{ marginTop: 48 }}>
             <QuoteCard
               big
-              quote="We moved our entire India e-invoicing and e-way bill stack onto Whitebooks' SAP connector. What took three steps inside SAP plus a portal upload is now one button. The cost savings paid back the year-one license in six weeks."
+              quote="We moved our entire India e-invoicing and e-way bill stack onto WhiteBooks' SAP connector. What took three steps inside SAP plus a portal upload is now one button. The cost savings paid back the year-one license in six weeks."
               name="B V Srinivasababu"
               role="Senior Manager, IT Applications · NSL" />
             <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
               <QuoteCard
-                quote="Whitebooks made the GSP integration so much faster and smoother than the others we'd evaluated. Support is round-the-clock — not a ticket queue."
+                quote="WhiteBooks made the GSP integration so much faster and smoother than the others we'd evaluated. Support is round-the-clock — not a ticket queue."
                 name="Sahil Jain"
                 role="Director · Smartbiz Technologies" />
               <QuoteCard
-                quote="Whitebooks is solving the hard parts of GST — e-invoicing, e-way bills, IMS — with simple APIs. I'd recommend any finance team make their stack future-ready with it."
+                quote="WhiteBooks is solving the hard parts of GST — e-invoicing, e-way bills, IMS — with simple APIs. I'd recommend any finance team make their stack future-ready with it."
                 name="CA Atul Garg"
                 role="Finance Controller · WheelsEye" />
             </div>
@@ -387,7 +387,7 @@ response = wb.einvoice.<span class="fn">create</span>(
             <div>
               <h2 className="h1">Indian compliance is hard.<br /><em>Saudi compliance is harder.</em><br />We do both.</h2>
               <p className="lede" style={{ marginTop: 26 }}>
-                Whitebooks is one of the few GSPs operating ZATCA-approved e-invoicing infrastructure in Saudi Arabia. If your company files in India and the GCC, this is one platform, one contract, one team.
+                WhiteBooks is one of the few GSPs operating ZATCA-approved e-invoicing infrastructure in Saudi Arabia. If your company files in India and the GCC, this is one platform, one contract, one team.
               </p>
               <div style={{ marginTop: 32 }}>
                 <ButtonLink href="#" variant="ghost" arrow onClick={(e) => e.preventDefault()}>Explore KSA e-Invoicing</ButtonLink>
@@ -502,16 +502,16 @@ response = wb.einvoice.<span class="fn">create</span>(
             <div>
               <h2 className="h2">Frequently<br />asked.</h2>
               <p className="body" style={{ marginTop: 18 }}>
-                JSON-LD schema embedded — these answers are what ChatGPT, Perplexity, and Google AI Overviews pull when someone asks about Whitebooks.
+                JSON-LD schema embedded — these answers are what ChatGPT, Perplexity, and Google AI Overviews pull when someone asks about WhiteBooks.
               </p>
             </div>
             <FAQ items={[
-              { q: 'Is Whitebooks a licensed GSP or a reseller?', a: 'Whitebooks is a directly licensed GST Suvidha Provider (GSP) under GSTN. The license is held by BVM IT Consulting Services India Private Limited, the parent entity. No intermediary, no resold infrastructure.' },
-              { q: 'How is Whitebooks different from ClearTax, Tally, or Zoho Books?', a: 'Three differences. First, Whitebooks holds its own GSP license — most competitors resell GSP capacity. Second, Whitebooks has native SAP S/4HANA and Tally connectors built in-house, not third-party. Third, Whitebooks operates KSA e-invoicing on the same platform, which no Indian-headquartered competitor currently does.' },
-              { q: 'Can I migrate from ClearTax TaxCloud to Whitebooks?', a: 'Yes. ClearTax discontinued TaxCloud access for many CA firms in late 2025. Whitebooks runs a guided migration that imports all prior-year GSTR records, working papers, and client masters. Most firms migrate in under 45 minutes.' },
-              { q: 'Does Whitebooks support the new GST 2.0 rates (5%, 18%, 40%)?', a: 'Yes. Whitebooks applied the GST 2.0 rate structure from September 22, 2025, in line with the 56th GST Council notifications. HSN-level rate mapping, post-sale discount handling (revised Section 15), and the new refund mechanisms are all live.' },
-              { q: 'Is e-invoicing mandatory for my business?', a: 'From 1st April 2026, e-invoicing is mandatory for any business with AATO above ₹5 crore in FY 2025–26. For businesses above ₹10 crore AATO, invoices must be reported to the IRP within 30 days of the invoice date — invoices reported later are invalid for ITC. Whitebooks enforces this window automatically.' },
-              { q: 'Where is my data stored?', a: 'All data is stored in ISO 27001-certified Indian data centers. Whitebooks is a GSP under direct GSTN oversight, audited annually. Data is encrypted at rest (AES-256) and in transit (TLS 1.3). No data is shared with third parties. No data is used to train AI models without explicit opt-in.' },
+              { q: 'Is WhiteBooks a licensed GSP or a reseller?', a: 'WhiteBooks is a directly licensed GST Suvidha Provider (GSP) under GSTN. The license is held by BVM IT Consulting Services India Private Limited, the parent entity. No intermediary, no resold infrastructure.' },
+              { q: 'How is WhiteBooks different from ClearTax, Tally, or Zoho Books?', a: 'Three differences. First, WhiteBooks holds its own GSP license — most competitors resell GSP capacity. Second, WhiteBooks has native SAP S/4HANA and Tally connectors built in-house, not third-party. Third, WhiteBooks operates KSA e-invoicing on the same platform, which no Indian-headquartered competitor currently does.' },
+              { q: 'Can I migrate from ClearTax TaxCloud to WhiteBooks?', a: 'Yes. ClearTax discontinued TaxCloud access for many CA firms in late 2025. WhiteBooks runs a guided migration that imports all prior-year GSTR records, working papers, and client masters. Most firms migrate in under 45 minutes.' },
+              { q: 'Does WhiteBooks support the new GST 2.0 rates (5%, 18%, 40%)?', a: 'Yes. WhiteBooks applied the GST 2.0 rate structure from September 22, 2025, in line with the 56th GST Council notifications. HSN-level rate mapping, post-sale discount handling (revised Section 15), and the new refund mechanisms are all live.' },
+              { q: 'Is e-invoicing mandatory for my business?', a: 'From 1st April 2026, e-invoicing is mandatory for any business with AATO above ₹5 crore in FY 2025–26. For businesses above ₹10 crore AATO, invoices must be reported to the IRP within 30 days of the invoice date — invoices reported later are invalid for ITC. WhiteBooks enforces this window automatically.' },
+              { q: 'Where is my data stored?', a: 'All data is stored in ISO 27001-certified Indian data centers. WhiteBooks is a GSP under direct GSTN oversight, audited annually. Data is encrypted at rest (AES-256) and in transit (TLS 1.3). No data is shared with third parties. No data is used to train AI models without explicit opt-in.' },
               { q: 'Do you have a free trial?', a: 'Yes — 14 days, full features, no card required. CA firms get an extended 30-day trial including white-glove migration support.' },
               { q: 'What\'s the typical onboarding time?', a: 'Self-serve SMB: same day. CA firm with up to 100 clients: 1–2 days. Enterprise with SAP integration: 2–4 weeks including UAT.' },
             ]} />

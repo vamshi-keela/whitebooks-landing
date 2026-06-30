@@ -29,7 +29,7 @@ export function buildOrganizationSchema() {
       'https://twitter.com/whitebooks_in',
     ],
     description:
-      'Whitebooks is a GST Suvidha Provider (GSP) licensed by GSTN, building AI-native compliance infrastructure for GST, e-invoicing, e-way bills, and KSA e-invoicing.',
+      'WhiteBooks is a GST Suvidha Provider (GSP) licensed by GSTN, building AI-native compliance infrastructure for GST, e-invoicing, e-way bills, and KSA e-invoicing.',
     foundingLocation: {
       '@type': 'Place',
       name: 'India',

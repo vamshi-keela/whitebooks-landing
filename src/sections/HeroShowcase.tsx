@@ -1,4 +1,5 @@
 import React, { memo } from "react";
+import { useNavigate } from "react-router-dom";
 import heroImage from "../assets/hero-image.png";
 import {
   FileText,
@@ -6,6 +7,7 @@ import {
   FileCheck2,
   Truck,
   Globe,
+  BellRing,
   Users,
   Briefcase,
   MapPin,
@@ -53,6 +55,7 @@ interface ProductCard {
   icon: LucideIcon;
   items: string[];
   tags: string[];
+  route: string;
 }
 
 const PRODUCT_CARDS: ProductCard[] = [
@@ -62,11 +65,12 @@ const PRODUCT_CARDS: ProductCard[] = [
     items: [
       "All GSTR Returns (1 / 3B / 9 / 2B)",
       "Auto Data Fetch & Reconciliation",
-      "E-Invoicing & E-Way Bill Integration",
+      "E-Invoicing, E-Way Bill Integration",
       "HSN / SAC & ITC Management",
       "Multi-GSTIN Management",
     ],
     tags: ["Accurate", "Fast", "Hassle-Free"],
+    route: "/softwares/gst",
   },
   {
     title: "Accounting Software",
@@ -79,6 +83,7 @@ const PRODUCT_CARDS: ProductCard[] = [
       "Financial Reports & MIS",
     ],
     tags: ["Simple", "Automated", "Powerful"],
+    route: "/softwares/accounting",
   },
   {
     title: "E-Way Bill Software",
@@ -91,6 +96,7 @@ const PRODUCT_CARDS: ProductCard[] = [
       "Consolidated EWB Reports",
     ],
     tags: ["Fast", "Reliable", "Compliant"],
+    route: "/softwares/e-way-bill",
   },
   {
     title: "E-Invoice Software",
@@ -103,17 +109,20 @@ const PRODUCT_CARDS: ProductCard[] = [
       "Credit / Debit Note Support",
     ],
     tags: ["Instant", "Secure", "Compliant"],
+    route: "/softwares/e-invoice",
   },
   {
-    title: "KSA e-Invoicing",
-    icon: Globe,
+    title: "Notice Management",
+    icon: BellRing,
     items: [
-      "ZATCA Phase 2 Compliant",
-      "IRN Generation",
-      "Real-time Reporting",
-      "For KSA Businesses",
+      "Auto-Fetch from GSTN, ITD & TRACES",
+      "Smart Deadline Tracking & Alerts",
+      // "Centralised Notice Repository",
+      "CA & Team Collaboration",
+      "Document Management & Audit Trail",
     ],
-    tags: ["Global", "Compliant", "Ready"],
+    tags: ["Automated", "Timely", "Organised"],
+    route: "/softwares/notice-management",
   },
 ];
 
@@ -185,11 +194,21 @@ function DarkIconTile({
 
 // Cards size to their content — no h-full so the grid rows stay tight.
 function ProductGlassCard({ card }: { card: ProductCard }) {
-  const { icon, title, items, tags } = card;
+  const { icon, title, items, tags, route } = card;
+  const navigate = useNavigate();
   return (
     <div
       style={cardSurface}
-      className="group relative flex flex-col rounded-[20px] p-4 transition-transform duration-300 hover:-translate-y-1"
+      onClick={() => navigate(route)}
+      role="link"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          navigate(route);
+        }
+      }}
+      className="group relative flex cursor-pointer flex-col rounded-[20px] p-4 transition-transform duration-300 hover:-translate-y-1"
     >
       <div className="flex items-center gap-2.5">
         <IconTile
@@ -279,7 +298,7 @@ function ApiStrip({ variant = "fixed" }: { variant?: "fixed" | "responsive" }) {
         }`}
     >
       <div className="mb-4 text-center">
-        <span className="font-display text-[12px] font-semibold uppercase tracking-[0.22em] text-white/90">
+        <span className="font-display text-[13.5px] font-semibold mt-1 uppercase tracking-[0.05em] text-white/95 xl:whitespace-nowrap">
           Powerful APIs for Developers
         </span>
       </div>
@@ -464,28 +483,29 @@ const HeroShowcase = memo(function HeroShowcase() {
             <StatsGlassCard />
           </div>
 
-          <div className="col-start-2 row-start-1">
-            <ProductGlassCard card={gst} />
-          </div>
-
-          {/* Person stage — spans both rows */}
-          <div className="col-start-3 row-start-1 row-end-3 self-stretch">
-            <PersonStage />
-          </div>
-
-          <div className="col-start-4 row-start-1">
+          <div className="col-start-2 row-start-1 relative z-10">
             <ProductGlassCard card={accounting} />
           </div>
 
-          <div className="col-start-2 row-start-2">
+          {/* Person stage — spans both rows. z-0 keeps the overflowing
+              ConnectorWeb behind every product card (which sit at z-10). */}
+          <div className="col-start-3 row-start-1 row-end-3 self-stretch relative z-0">
+            <PersonStage />
+          </div>
+
+          <div className="col-start-4 row-start-1 relative z-10">
+            <ProductGlassCard card={gst} />
+          </div>
+
+          <div className="col-start-2 row-start-2 self-end relative z-10">
             <ProductGlassCard card={eway} />
           </div>
 
-          <div className="col-start-4 row-start-2">
+          <div className="col-start-4 row-start-2 self-end relative z-10">
             <ProductGlassCard card={einvoice} />
           </div>
 
-          <div className="col-start-5 row-start-2">
+          <div className="col-start-5 row-start-2 self-end relative z-10">
             <ProductGlassCard card={ksa} />
           </div>
         </div>
@@ -514,21 +534,21 @@ const HeroShowcase = memo(function HeroShowcase() {
               width: "760px",
             }}
           >
-            <div className="col-start-1 row-start-1">
-              <ProductGlassCard card={gst} />
+            <div className="col-start-1 row-start-1 relative z-10">
+              <ProductGlassCard card={accounting} />
             </div>
-            <div className="col-start-1 row-start-2">
+            <div className="col-start-1 row-start-2 relative z-10">
               <ProductGlassCard card={eway} />
             </div>
 
-            <div className="col-start-2 row-start-1 row-end-3 self-stretch">
+            <div className="col-start-2 row-start-1 row-end-3 self-stretch relative z-0">
               <PersonStage align="center" />
             </div>
 
-            <div className="col-start-3 row-start-1">
-              <ProductGlassCard card={accounting} />
+            <div className="col-start-3 row-start-1 relative z-10">
+              <ProductGlassCard card={gst} />
             </div>
-            <div className="col-start-3 row-start-2">
+            <div className="col-start-3 row-start-2 relative z-10">
               <ProductGlassCard card={einvoice} />
             </div>
           </div>

@@ -130,7 +130,7 @@ export function SiteFooter({ navigate }: SiteFooterProps) {
         </div>
 
         <div className="legal">
-          Whitebooks is a product of BVM IT Consulting Services India Pvt. Ltd. — a GST Suvidha
+          WhiteBooks is a product of BVM IT Consulting Services India Pvt. Ltd. — a GST Suvidha
           Provider licensed by GSTN, Government of India. © 2026.
         </div>
       </div>

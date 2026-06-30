@@ -6,7 +6,7 @@ import {
 
 /* ─── Data ───────────────────────────────────────────────────────────────────
    Live status of every component customers depend on. Figures mirror the
-   published Whitebooks status page; wire these to the real status feed when the
+   published WhiteBooks status page; wire these to the real status feed when the
    monitoring API is available. */
 
 interface Metric { value: string; label: string }
@@ -101,7 +101,7 @@ export function StatusPage() {
               All systems operational
             </span>
             <h1 className="mt-5 text-3xl sm:text-4xl font-semibold tracking-tight text-[var(--text)]">
-              Whitebooks Status
+              WhiteBooks Status
             </h1>
             <p className="mt-3 max-w-2xl text-base sm:text-lg text-[var(--muted)]">
               Live status of every component customers depend on — GST API, e-Invoice IRN, e-Way Bill,

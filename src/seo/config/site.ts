@@ -1,6 +1,6 @@
 export const SITE = {
   baseUrl: 'https://whitebooks.in',
-  name: 'Whitebooks',
+  name: 'WhiteBooks',
   legalName: 'BVM IT Consulting Services India Pvt. Ltd.',
   tagline: 'Compliance Infrastructure for India and KSA',
   phone: '+91 90321 11788',
@@ -10,7 +10,7 @@ export const SITE = {
   twitterHandle: '@whitebooks_in',
   defaultKeywords:
     'GST software, e-invoicing, e-way bill, GST filing, GSTN, GSP, IRP, IRN, ZATCA, compliance, India, Saudi Arabia',
-  author: 'Whitebooks',
+  author: 'WhiteBooks',
   themeColor: '#dc2f65',
   locale: 'en_IN',
   defaultRobots: 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1',

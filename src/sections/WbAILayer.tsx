@@ -14,14 +14,14 @@ export function AILayerSection() {
             {' '}— not just a chatbot in the corner.
           </h2>
           <p className="text-[18px] text-[var(--fg-secondary)] leading-[1.55] max-w-[460px] m-0 justify-self-end max-[900px]:justify-self-start max-[900px]:max-w-full">
-            Whitebooks uses purpose-built models for four jobs that humans have been doing manually since GST launched in 2017.
+            WhiteBooks uses purpose-built models for four jobs that humans have been doing manually since GST launched in 2017.
           </p>
         </div>
         <div className="grid grid-cols-4 gap-[18px] mt-12 max-[1100px]:grid-cols-2 max-[768px]:grid-cols-1">
           {[
             { num: '01', tag: 'reconcile', title: 'Invoice matching at scale', body: 'A model trained on 10 crore+ invoices matches your purchase register against GSTR-2B in seconds. Handles fuzzy vendor names, rounding deltas, and split invoices that exact-match logic gives up on.' },
             { num: '02', tag: 'detect', title: 'Anomaly detection before filing', body: 'Every return is scanned for the 47 most common GSTN rejection causes before submission. Flagged before you click file. Not after the portal returns an error at 11:47pm on the 20th.' },
-            { num: '03', tag: 'predict', title: 'Notice prediction', body: 'Whitebooks reads your filing pattern and flags returns likely to trigger a Section 61 scrutiny notice — based on ITC mismatch trends, turnover variance, and HSN distribution anomalies.' },
+            { num: '03', tag: 'predict', title: 'Notice prediction', body: 'WhiteBooks reads your filing pattern and flags returns likely to trigger a Section 61 scrutiny notice — based on ITC mismatch trends, turnover variance, and HSN distribution anomalies.' },
             { num: '04', tag: 'explain', title: 'Copilot for compliance', body: 'Ask "Why did my ITC drop ₹4.2L in October?" or "Which vendors are unfiled for September?" — get an answer drawn from your live data, with source rows linked. Built on the Anthropic API.' },
           ].map((c, i) => (
             <div key={i} className="relative bg-[var(--bg-card)] border border-[var(--hairline)] rounded-[14px] p-7 transition-[border-color,background] duration-200 ease-[ease] hover:border-[var(--hairline-bright)] hover:bg-[var(--bg-elev)]">

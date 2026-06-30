@@ -130,7 +130,7 @@ export function HubSoftwares() {
           <section className="pt-[70px] pb-[72px] relative overflow-hidden bg-[var(--bg-2)]">
             <FluidBackground />
 
-            <section style={{ paddingTop: 30, paddingBottom: 40 }}>
+            <section style={{ paddingTop: 30, paddingBottom: 20 }}>
               <div className={wrap}>
                 <Breadcrumb items={[
                   { label: "Home", href: "/" },
@@ -140,7 +140,7 @@ export function HubSoftwares() {
             </section>
             <div className={`${wrap} relative z-[2]`}>
               <div className="w-[50%] max-lg:w-[70%] max-md:w-[85%] gap-10 max-sm:w-full">
-                <EyebrowPill label={'Whitebooks Softwares'} />
+                <EyebrowPill label={'WhiteBooks Softwares'} />
                 <h1
                   className="font-display font-semibold tracking-[-0.02em] leading-[1.04]"
                   style={{ fontSize: "clamp(32px, 4.5vw, 68px)" }}
@@ -187,7 +187,7 @@ export function HubSoftwares() {
           <PlainSection
             label="Integrations"
             heading="Connect to the tools your finance team already uses."
-            sub="Whitebooks Softwares integrate with 40+ ERPs and accounting systems via native connectors. Push data in, pull reports out, file to GSTN — no CSV uploads in between."
+            sub="WhiteBooks Softwares integrate with 40+ ERPs and accounting systems via native connectors. Push data in, pull reports out, file to GSTN — no CSV uploads in between."
           >
             <IntegrationStrip logos={[
               "SAP S/4HANA", "SAP ECC", "Tally Prime", "Oracle NetSuite", "Microsoft Dynamics 365",
@@ -196,9 +196,9 @@ export function HubSoftwares() {
           </PlainSection>
 
           <SharedAILayer
-            h2={<>Every Whitebooks software ships with the same AI engine.</>}
-            body="Invoice matching, anomaly detection, notice prediction, and the compliance copilot run across all five products — not as features per product but as a shared layer over your unified data. The longer your data lives in Whitebooks, the smarter each product gets."
-            primaryCta={{ label: 'Read more about Whitebooks AI' }}
+            h2={<>Every WhiteBooks software ships with the same AI engine.</>}
+            body="Invoice matching, anomaly detection, notice prediction, and the compliance copilot run across all five products — not as features per product but as a shared layer over your unified data. The longer your data lives in WhiteBooks, the smarter each product gets."
+            primaryCta={{ label: 'Read more about WhiteBooks AI' }}
           // secondaryCta={{ label: 'Talk to sales' }}
           />
 
@@ -206,7 +206,7 @@ export function HubSoftwares() {
           <PlainSection
             label="Pricing"
             heading="Buy what you need. Bundle pricing when you need more."
-            sub="Each Whitebooks software is priced independently — start with one, add others as you scale. Bundle discounts apply automatically when you license two or more softwares on the same contract."
+            sub="Each WhiteBooks software is priced independently — start with one, add others as you scale. Bundle discounts apply automatically when you license two or more softwares on the same contract."
           >
             <div className="mt-6">
               <ButtonLink href="#" variant="ghost" arrow>See full pricing</ButtonLink>

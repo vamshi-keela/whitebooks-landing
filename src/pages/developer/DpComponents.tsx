@@ -8,7 +8,7 @@ export function Logo(): React.ReactElement {
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="logo-grad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stopColor="#dc2f65" />
+            <stop offset="0%" stopColor="#d33568" />
             <stop offset="100%" stopColor="#ff4d80" />
           </linearGradient>
         </defs>
@@ -328,8 +328,8 @@ interface BadgeProps {
 }
 
 const badgeTones: Record<BadgeTone, { bg: string; border: string; color: string }> = {
-  accent:  { bg: 'rgba(220,47,101,0.07)', border: 'rgba(220,47,101,0.2)', color: 'var(--dp-accent-2)' },
-  success: { bg: 'rgba(34,197,94,0.1)',   border: 'rgba(34,197,94,0.3)',  color: '#22c55e' },
+  accent: { bg: 'rgba(220,47,101,0.07)', border: 'rgba(220,47,101,0.2)', color: 'var(--dp-accent-2)' },
+  success: { bg: 'rgba(34,197,94,0.1)', border: 'rgba(34,197,94,0.3)', color: '#22c55e' },
 };
 
 export function Badge({ children, icon, tone = 'accent', className, style }: BadgeProps): React.ReactElement {
@@ -358,11 +358,11 @@ interface MethodBadgeProps {
 }
 
 const methodColors: Record<HttpMethod, { bg: string; text: string }> = {
-  GET:    { bg: 'rgba(34,197,94,0.12)',  text: '#4ade80' },
-  POST:   { bg: 'rgba(96,165,250,0.12)', text: '#60a5fa' },
-  PUT:    { bg: 'rgba(251,191,36,0.12)', text: '#fbbf24' },
-  DELETE: { bg: 'rgba(239,68,68,0.12)',  text: '#f87171' },
-  PATCH:  { bg: 'rgba(167,139,250,0.12)',text: '#a78bfa' },
+  GET: { bg: 'rgba(34,197,94,0.12)', text: '#4ade80' },
+  POST: { bg: 'rgba(96,165,250,0.12)', text: '#60a5fa' },
+  PUT: { bg: 'rgba(251,191,36,0.12)', text: '#fbbf24' },
+  DELETE: { bg: 'rgba(239,68,68,0.12)', text: '#f87171' },
+  PATCH: { bg: 'rgba(167,139,250,0.12)', text: '#a78bfa' },
 };
 
 export function MethodBadge({ method }: MethodBadgeProps): React.ReactElement {

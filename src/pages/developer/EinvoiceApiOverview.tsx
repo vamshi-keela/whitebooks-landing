@@ -138,7 +138,7 @@ export function FinalCTA({
                     style={{ fontFamily: 'var(--dp-font-display)', color: 'var(--dp-fg)' }}
                 >
                     {headingStart}{" "}
-                    <span className="bg-gradient-to-r from-[#ff7aa5] to-[#dc2f65] bg-clip-text text-transparent">
+                    <span className="bg-gradient-to-r from-[#ff7aa5] to-[#d33568] bg-clip-text text-transparent">
                         {headingAccent}
                     </span>{" "}
                     {headingEnd}

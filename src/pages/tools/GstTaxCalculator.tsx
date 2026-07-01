@@ -132,11 +132,11 @@ function FormulaBlock() {
       </p>
       <div className="flex flex-col gap-4">
         {[
-          { label: 'GST Amount',        formula: '( Original Cost  ×  GST% )  ÷  100', color: '#dc2f65' },
-          { label: 'Total Amount',      formula: 'Original Cost  +  GST Amount',        color: '#22d3ee' },
-          { label: 'CGST (Intra-state)',formula: 'GST Amount  ÷  2',                    color: '#a78bfa' },
-          { label: 'SGST (Intra-state)',formula: 'GST Amount  ÷  2',                    color: '#a78bfa' },
-          { label: 'IGST (Inter-state)',formula: 'Full GST Amount',                     color: '#f59e0b' },
+          { label: 'GST Amount', formula: '( Original Cost  ×  GST% )  ÷  100', color: '#d33568' },
+          { label: 'Total Amount', formula: 'Original Cost  +  GST Amount', color: '#22d3ee' },
+          { label: 'CGST (Intra-state)', formula: 'GST Amount  ÷  2', color: '#a78bfa' },
+          { label: 'SGST (Intra-state)', formula: 'GST Amount  ÷  2', color: '#a78bfa' },
+          { label: 'IGST (Inter-state)', formula: 'Full GST Amount', color: '#f59e0b' },
         ].map((row) => (
           <div
             key={row.label}
@@ -169,11 +169,10 @@ function OutputRow({
 }) {
   return (
     <div
-      className={`flex items-center justify-between px-5 py-4 rounded-xl border ${
-        highlight
+      className={`flex items-center justify-between px-5 py-4 rounded-xl border ${highlight
           ? 'bg-[var(--brand-soft)] border-[var(--brand-border)]'
           : 'bg-[var(--bg-elev)] border-[var(--line)]'
-      }`}
+        }`}
     >
       <span className={`text-[13px] font-medium ${muted ? 'text-[var(--muted-2)]' : 'text-[var(--text)]'}`}>
         {label}
@@ -248,11 +247,10 @@ function GstCalculatorWidget() {
                 key={opt.id}
                 type="button"
                 onClick={() => { setSupplyType(opt.id as 'intra' | 'inter'); setCalculated(false); }}
-                className={`flex flex-col items-start px-4 py-3 rounded-xl border text-left transition-all ${
-                  supplyType === opt.id
+                className={`flex flex-col items-start px-4 py-3 rounded-xl border text-left transition-all ${supplyType === opt.id
                     ? 'bg-[var(--brand-soft)] border-[var(--brand-border)]'
                     : 'bg-[var(--bg-elev)] border-[var(--line)]'
-                }`}
+                  }`}
               >
                 <span className={`text-[13px] font-semibold ${supplyType === opt.id ? 'text-[var(--brand)]' : 'text-[var(--text)]'}`}>
                   {opt.label}
@@ -288,9 +286,8 @@ function GstCalculatorWidget() {
             <select
               value={rateIdx ?? ''}
               onChange={(e) => { setRateIdx(e.target.value === '' ? null : Number(e.target.value)); setCalculated(false); }}
-              className={`w-full appearance-none px-4 py-3.5 rounded-xl text-[14px] outline-none transition-all cursor-pointer bg-[var(--bg-elev)] [border:1.5px_solid_var(--line-2)] focus:[border-color:var(--brand)] ${
-                rateIdx === null ? 'text-[var(--muted)]' : 'text-[var(--text)]'
-              }`}
+              className={`w-full appearance-none px-4 py-3.5 rounded-xl text-[14px] outline-none transition-all cursor-pointer bg-[var(--bg-elev)] [border:1.5px_solid_var(--line-2)] focus:[border-color:var(--brand)] ${rateIdx === null ? 'text-[var(--muted)]' : 'text-[var(--text)]'
+                }`}
             >
               <option value="">— Select Tax Rate —</option>
               {TAX_RATES.map((r, i) => (
@@ -310,11 +307,10 @@ function GstCalculatorWidget() {
             type="button"
             onClick={handleCalculate}
             disabled={!canCalculate}
-            className={`flex-1 inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-semibold text-[14px] transition-all ${
-              canCalculate
+            className={`flex-1 inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-semibold text-[14px] transition-all ${canCalculate
                 ? 'bg-[var(--brand)] text-white cursor-pointer'
                 : 'bg-[var(--bg-elev)] text-[var(--muted)] cursor-not-allowed [border:1.5px_solid_var(--line)]'
-            }`}
+              }`}
           >
             <Calculator size={16} />
             Calculate GST
@@ -331,9 +327,8 @@ function GstCalculatorWidget() {
       </div>
 
       {/* Results */}
-      <div className={`border-t border-[var(--line-2)] px-6 py-5 flex flex-col gap-3 transition-all ${
-        calculated ? 'opacity-100 pointer-events-auto' : 'opacity-[0.38] pointer-events-none'
-      }`}>
+      <div className={`border-t border-[var(--line-2)] px-6 py-5 flex flex-col gap-3 transition-all ${calculated ? 'opacity-100 pointer-events-auto' : 'opacity-[0.38] pointer-events-none'
+        }`}>
         <p className="text-[11px] font-semibold uppercase tracking-wider text-[var(--muted)] mb-1">
           Tax Breakdown
         </p>

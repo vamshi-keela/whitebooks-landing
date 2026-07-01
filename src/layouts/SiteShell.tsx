@@ -30,12 +30,12 @@ export function HeroFluidBackground({ variant = 'right', gradientOpacity = 1, pa
           <linearGradient id="wb-stream-grad" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#ff8aa8" stopOpacity={0} />
             <stop offset="50%" stopColor="#ff5a8d" stopOpacity={0.8} />
-            <stop offset="100%" stopColor="#dc2f65" stopOpacity={0} />
+            <stop offset="100%" stopColor="#d33568" stopOpacity={0} />
           </linearGradient>
           <linearGradient id="wb-stream-grad-2" x1="100%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stopColor="#ffb786" stopOpacity={0} />
             <stop offset="50%" stopColor="#ff7a9d" stopOpacity={0.6} />
-            <stop offset="100%" stopColor="#dc2f65" stopOpacity={0} />
+            <stop offset="100%" stopColor="#d33568" stopOpacity={0} />
           </linearGradient>
         </defs>
       </svg>
@@ -129,12 +129,12 @@ export function FluidBackground({ variant = 'right', gradientOpacity = 1 }: Flui
           <linearGradient id="wb-stream-grad" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#ff8aa8" stopOpacity={0} />
             <stop offset="50%" stopColor="#ff5a8d" stopOpacity={0.9 * gradientOpacity} />
-            <stop offset="100%" stopColor="#dc2f65" stopOpacity={0} />
+            <stop offset="100%" stopColor="#d33568" stopOpacity={0} />
           </linearGradient>
           <linearGradient id="wb-stream-grad-2" x1="100%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stopColor="#ffb786" stopOpacity={0} />
             <stop offset="50%" stopColor="#ff7a9d" stopOpacity={0.7 * gradientOpacity} />
-            <stop offset="100%" stopColor="#dc2f65" stopOpacity={0} />
+            <stop offset="100%" stopColor="#d33568" stopOpacity={0} />
           </linearGradient>
         </defs>
       </svg>

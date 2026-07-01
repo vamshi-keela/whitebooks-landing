@@ -16,8 +16,10 @@ export function ApiCard({ icon: Icon, title, subtitle, enterDelay = 0 }: ApiCard
       animate={{ opacity: 1, y: 0 }}
       whileHover={{ scale: 1.05, y: -5 }}
       whileTap={{ scale: 0.97 }}
-      transition={{ duration: 0.5, delay: enterDelay, ease: "easeOut",
-        type: "spring", stiffness: 260, damping: 18 }}
+      transition={{
+        duration: 0.5, delay: enterDelay, ease: "easeOut",
+        type: "spring", stiffness: 260, damping: 18
+      }}
       className="group relative flex cursor-pointer flex-col items-center gap-2 rounded-xl p-4 text-center"
       style={{
         backdropFilter: "blur(14px)",
@@ -34,7 +36,7 @@ export function ApiCard({ icon: Icon, title, subtitle, enterDelay = 0 }: ApiCard
       />
 
       {/* Icon */}
-      <div className="relative flex h-10 w-10 items-center justify-center rounded-lg bg-[#dc2f65]/[0.12] ring-1 ring-[#dc2f65]/[0.22] transition-all duration-300 group-hover:bg-[#dc2f65]/[0.22] group-hover:ring-[#dc2f65]/[0.45] group-hover:shadow-[0_0_14px_rgba(220,47,101,0.28)]">
+      <div className="relative flex h-10 w-10 items-center justify-center rounded-lg bg-[#d33568]/[0.12] ring-1 ring-[#d33568]/[0.22] transition-all duration-300 group-hover:bg-[#d33568]/[0.22] group-hover:ring-[#d33568]/[0.45] group-hover:shadow-[0_0_14px_rgba(220,47,101,0.28)]">
         <Icon size={17} className="text-[#ff4f87]" />
       </div>
 

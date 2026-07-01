@@ -77,7 +77,7 @@ const FAQS = [
 const GST_THRESHOLDS = [
   { turnover: 'Under ₹1.5 crore', required: 'Not required', color: '#22c55e' },
   { turnover: '₹1.5 crore – ₹5 crore', required: '2-digit HSN', color: '#f59e0b' },
-  { turnover: 'Above ₹5 crore', required: '4-digit HSN', color: '#dc2f65' },
+  { turnover: 'Above ₹5 crore', required: '4-digit HSN', color: '#d33568' },
   { turnover: 'Import / Export', required: '8-digit mandatory', color: '#a78bfa' },
 ];
 
@@ -86,7 +86,7 @@ const GST_SLABS = [
   { rate: '5%', label: 'Low Rate', desc: 'Packaged food, economy transport, healthcare', color: '#22d3ee' },
   { rate: '12%', label: 'Standard', desc: 'Processed food, computers, business services', color: '#a78bfa' },
   { rate: '18%', label: 'Standard+', desc: 'IT services, electronics, hotel accommodation', color: '#f59e0b' },
-  { rate: '28%', label: 'Luxury', desc: 'Automobiles, tobacco, luxury goods + cess', color: '#dc2f65' },
+  { rate: '28%', label: 'Luxury', desc: 'Automobiles, tobacco, luxury goods + cess', color: '#d33568' },
 ];
 
 const wrap = 'w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4';
@@ -95,7 +95,7 @@ const wrap = 'w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-s
 
 function HsnFormatDiagram() {
   const segments = [
-    { chars: 'XX', label: 'Chapter', color: '#dc2f65', bg: 'rgba(220,47,101,0.12)', border: 'rgba(220,47,101,0.3)' },
+    { chars: 'XX', label: 'Chapter', color: '#d33568', bg: 'rgba(220,47,101,0.12)', border: 'rgba(220,47,101,0.3)' },
     { chars: 'XX', label: 'Heading', color: '#22d3ee', bg: 'rgba(34,211,238,0.1)', border: 'rgba(34,211,238,0.3)' },
     { chars: 'XX', label: 'Product', color: '#a78bfa', bg: 'rgba(167,139,250,0.1)', border: 'rgba(167,139,250,0.3)' },
     { chars: 'XX', label: 'Subdivision', color: '#22c55e', bg: 'rgba(34,197,94,0.1)', border: 'rgba(34,197,94,0.3)' },
@@ -126,7 +126,7 @@ function HsnFormatDiagram() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {[
-          { label: 'Digits 1–2', desc: 'Chapter — broad goods category (e.g. Ch. 85: Electrical machinery)', color: '#dc2f65' },
+          { label: 'Digits 1–2', desc: 'Chapter — broad goods category (e.g. Ch. 85: Electrical machinery)', color: '#d33568' },
           { label: 'Digits 3–4', desc: 'Heading — specific product group (e.g. 8528: Monitors & projectors)', color: '#22d3ee' },
           { label: 'Digits 5–6', desc: 'Subheading — international 6-digit level used in 200+ countries', color: '#a78bfa' },
           { label: 'Digits 7–8', desc: 'National tariff — India-specific extension of the international code', color: '#22c55e' },
@@ -145,7 +145,7 @@ function HsnFormatDiagram() {
 
 function SacFormatDiagram() {
   const segments = [
-    { chars: 'XX', label: 'Major Category', color: '#dc2f65', bg: 'rgba(220,47,101,0.12)', border: 'rgba(220,47,101,0.3)' },
+    { chars: 'XX', label: 'Major Category', color: '#d33568', bg: 'rgba(220,47,101,0.12)', border: 'rgba(220,47,101,0.3)' },
     { chars: 'XX', label: 'Sub-Category', color: '#f59e0b', bg: 'rgba(245,158,11,0.1)', border: 'rgba(245,158,11,0.3)' },
     { chars: 'XX', label: 'Specific Service', color: '#22c55e', bg: 'rgba(34,197,94,0.1)', border: 'rgba(34,197,94,0.3)' },
   ];
@@ -175,7 +175,7 @@ function SacFormatDiagram() {
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
         {[
-          { label: 'Digits 1–2', desc: 'Major service category (all services begin with 99)', color: '#dc2f65' },
+          { label: 'Digits 1–2', desc: 'Major service category (all services begin with 99)', color: '#d33568' },
           { label: 'Digits 3–4', desc: 'Sub-category identifies the type of service', color: '#f59e0b' },
           { label: 'Digits 5–6', desc: 'Specific service — most granular classification level', color: '#22c55e' },
         ].map((item, i) => (

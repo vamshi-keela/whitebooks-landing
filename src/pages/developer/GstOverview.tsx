@@ -1841,7 +1841,7 @@ export function SdkLibrariesSection({ sdkItems }: { sdkItems: SdkType[] }) {
           </p>
           <p className="text-base leading-[1.75] mb-2" style={{ color: 'var(--dp-fg-muted)' }}>
             Download and unzip the file and open it with the related application.
-            <span className="text-[#dc2f65] underline pl-1" >Please Login/Sign up to download the files.</span>
+            <span className="text-[#d33568] underline pl-1" >Please Login/Sign up to download the files.</span>
           </p>
 
         </motion.div>

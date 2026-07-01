@@ -18,7 +18,7 @@ interface MobileNavGroupProps {
   primaryLabel?: string;
 }
 
-function MobileNavItemList({ items, onNavigate, accentColor = '#dc2f65', hoverBg = 'rgba(220,47,101,0.08)' }: {
+function MobileNavItemList({ items, onNavigate, accentColor = '#d33568', hoverBg = 'rgba(220,47,101,0.08)' }: {
   items: NavItem[];
   onNavigate: () => void;
   accentColor?: string;
@@ -73,14 +73,14 @@ export function MobileNavGroup({ label, icon, items, onNavigate, secondaryGroup,
       {open && (
         <div className="mt-1 ml-3 pl-3 border-l border-[var(--line-2)] flex flex-col gap-0.5">
           {primaryLabel && (
-            <p className="px-2 pt-1 pb-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#dc2f65]">
+            <p className="px-2 pt-1 pb-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#d33568]">
               {primaryLabel}
             </p>
           )}
           <MobileNavItemList items={items} onNavigate={onNavigate} />
           {secondaryGroup && (
             <>
-              <p className="px-2 pt-2 pb-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#dc2f65]">
+              <p className="px-2 pt-2 pb-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#d33568]">
                 {secondaryGroup.label}
               </p>
               <MobileNavItemList

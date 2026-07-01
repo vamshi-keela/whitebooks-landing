@@ -109,7 +109,7 @@ export default function WhiteBooksHero() {
         {/* Header */}
         <div className="text-center">
           <div className="inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 backdrop-blur-xl">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#dc2f65] text-2xl font-bold">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#d33568] text-2xl font-bold">
               W
             </div>
             <div className="text-left">
@@ -119,7 +119,7 @@ export default function WhiteBooksHero() {
           </div>
 
           <h1 className="mt-10 text-balance text-5xl font-black leading-tight md:text-7xl">
-            <span className="bg-gradient-to-r from-pink-400 to-[#dc2f65] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-pink-400 to-[#d33568] bg-clip-text text-transparent">
               All-in-One Cloud Software
             </span>
             <br />
@@ -142,7 +142,7 @@ export default function WhiteBooksHero() {
                     key={idx}
                     className="flex items-center gap-4 border-b border-white/10 pb-4 last:border-none"
                   >
-                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#dc2f65]/20">
+                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#d33568]/20">
                       <item.icon className="text-[#ff5b8d]" />
                     </div>
                     <div>
@@ -174,7 +174,7 @@ export default function WhiteBooksHero() {
             <div className="grid gap-6 lg:grid-cols-2">
               {softwareCards.slice(0, 2).map((card, idx) => (
                 <GlassCard key={idx} className="p-6">
-                  <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#dc2f65]/20">
+                  <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#d33568]/20">
                     <card.icon className="text-[#ff5b8d]" />
                   </div>
                   <h3 className="text-2xl font-bold">{card.title}</h3>
@@ -183,7 +183,7 @@ export default function WhiteBooksHero() {
                       <li key={point}>• {point}</li>
                     ))}
                   </ul>
-                  <div className="mt-5 inline-flex rounded-full bg-[#dc2f65]/15 px-4 py-2 text-sm text-[#ff5b8d]">
+                  <div className="mt-5 inline-flex rounded-full bg-[#d33568]/15 px-4 py-2 text-sm text-[#ff5b8d]">
                     {card.badge}
                   </div>
                 </GlassCard>
@@ -192,7 +192,7 @@ export default function WhiteBooksHero() {
 
             {/* Center Image */}
             <div className="relative mx-auto my-10 flex w-full max-w-md justify-center">
-              <div className="absolute inset-0 rounded-full bg-[#dc2f65]/30 blur-3xl" />
+              <div className="absolute inset-0 rounded-full bg-[#d33568]/30 blur-3xl" />
               <img
                 src="/hero-woman.webp"
                 alt="Business professional"
@@ -203,7 +203,7 @@ export default function WhiteBooksHero() {
             <div className="grid gap-6 lg:grid-cols-2">
               {softwareCards.slice(2).map((card, idx) => (
                 <GlassCard key={idx} className="p-6">
-                  <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#dc2f65]/20">
+                  <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#d33568]/20">
                     <card.icon className="text-[#ff5b8d]" />
                   </div>
                   <h3 className="text-2xl font-bold">{card.title}</h3>
@@ -212,7 +212,7 @@ export default function WhiteBooksHero() {
                       <li key={point}>• {point}</li>
                     ))}
                   </ul>
-                  <div className="mt-5 inline-flex rounded-full bg-[#dc2f65]/15 px-4 py-2 text-sm text-[#ff5b8d]">
+                  <div className="mt-5 inline-flex rounded-full bg-[#d33568]/15 px-4 py-2 text-sm text-[#ff5b8d]">
                     {card.badge}
                   </div>
                 </GlassCard>

@@ -111,7 +111,7 @@ export function NavDropdown({ label, triggerIcon, hubHref, items, isActive, seco
                   <NavItemLink
                     key={item.href}
                     item={item}
-                    accentColor="#dc2f65"
+                    accentColor="#d33568"
                     hoverBg="rgba(220,47,101,0.08)"
                     onClose={close}
                   />
@@ -124,14 +124,14 @@ export function NavDropdown({ label, triggerIcon, hubHref, items, isActive, seco
               {/* Secondary column — Tools */}
               <div className="flex-1 min-w-0">
                 <p className="px-3 pt-[10px] pb-[6px] text-[10px] font-semibold uppercase tracking-[0.12em]"
-                  style={{ color: '#dc2f65' }}>
+                  style={{ color: '#d33568' }}>
                   {secondaryGroup.label}
                 </p>
                 {secondaryGroup.items.map(item => (
                   <NavItemLink
                     key={item.href}
                     item={item}
-                    accentColor="#dc2f65"
+                    accentColor="#d33568"
                     hoverBg="rgba(220,47,101,0.08)"
                     onClose={close}
                   />
@@ -144,7 +144,7 @@ export function NavDropdown({ label, triggerIcon, hubHref, items, isActive, seco
                 <NavItemLink
                   key={item.href}
                   item={item}
-                  accentColor="#dc2f65"
+                  accentColor="#d33568"
                   hoverBg="rgba(220,47,101,0.08)"
                   onClose={close}
                 />

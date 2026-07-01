@@ -17,7 +17,7 @@ export interface CtaConfig {
 export default function SharedAILayer({ h2, body, primaryCta, secondaryCta }: ClosingConfig) {
     return (
         <section
-            className="relative bg-[#dc2f65] text-white py-[100px] max-sm:py-[64px] overflow-hidden"
+            className="relative bg-[#d33568] text-white py-[100px] max-sm:py-[64px] overflow-hidden"
             id="book-demo"
         >
             <div className="closing-pattern" aria-hidden="true" />

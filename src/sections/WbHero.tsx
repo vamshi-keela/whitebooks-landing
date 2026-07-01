@@ -33,7 +33,7 @@ export const Hero = memo(function Hero(): JSX.Element {
             <EyebrowPill label="Licensed GSP by GSTIN" subtitle="GST Suvidha Provider" />
             <h1 className="font-display font-semibold text-[clamp(36px,4vw,101px)] leading-[1.05] tracking-[-0.03em] mt-[22px] text-center text-[var(--text)]">
               Compliance infrastructure for{' '}
-              <span className="text-[#dc2f65]">India's largest finance teams.</span>
+              <span className="text-[#d33568]">India's largest finance teams.</span>
             </h1>
             <div className="mt-9 flex flex-wrap gap-3 justify-center">
               <Button onClick={() => { setDemoOpen(true); }} size="lg">
@@ -44,7 +44,7 @@ export const Hero = memo(function Hero(): JSX.Element {
             {/* 
           <p className="mt-4 text-[13.5px] italic text-[#6b6b80]">
             Migrating from ClearTax TaxCloud?{' '}
-            <a href="#migration" className="text-[#dc2f65] not-italic hover:underline">
+            <a href="#migration" className="text-[#d33568] not-italic hover:underline">
               We import your data in under 45 minutes →
             </a>
           </p> */}

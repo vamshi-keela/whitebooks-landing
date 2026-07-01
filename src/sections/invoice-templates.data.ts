@@ -40,7 +40,7 @@ export const TEMPLATES: InvoiceTemplate[] = [
     tagline: "Balanced typography and spacing",
     description:
       "Perfect for growing businesses with balanced spacing and professional typography.",
-    colors: ["#ff8ab8", "#dc2f65", "#7a1640"],
+    colors: ["#ff8ab8", "#d33568", "#7a1640"],
     usedBy: "8,000+",
     image: modernPreview,
   },

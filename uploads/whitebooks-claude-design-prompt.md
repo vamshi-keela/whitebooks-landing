@@ -4,15 +4,15 @@ Build the Whitebooks.in homepage as a production-grade React component — an AI
 
 ## Brand + Colour
 
-Primary brand colour: **#dc2f65** (a confident magenta-rose — not a soft pink, not a bright red. Treat it like Stripe treats their violet: one sharp accent on a mostly dark or mostly white canvas.)
+Primary brand colour: **#d33568** (a confident magenta-rose — not a soft pink, not a bright red. Treat it like Stripe treats their violet: one sharp accent on a mostly dark or mostly white canvas.)
 
 Palette to derive:
-- Use #dc2f65 for: active toggle state, primary CTA buttons, key stat highlights, animated underlines, hover accents
+- Use #d33568 for: active toggle state, primary CTA buttons, key stat highlights, animated underlines, hover accents
 - Background: deep near-black (#0a0a0f) — dark mode, editorial feel
-- Surface/card: #111118 with subtle #dc2f65/5% tint or a fine 1px border at #dc2f65/15%
+- Surface/card: #111118 with subtle #d33568/5% tint or a fine 1px border at #d33568/15%
 - Body text: #e8e8f0 (slightly warm white, not pure white — reduces harshness)
 - Muted text: #6b6b80
-- Code/monospace highlight: #dc2f65/20% background, #dc2f65 text
+- Code/monospace highlight: #d33568/20% background, #d33568 text
 - Success/matched: #22c55e
 - Warning/mismatch: #f59e0b
 - Never use purple gradients. Never use teal.
@@ -30,10 +30,10 @@ Typography:
 A sticky header component with:
 - Whitebooks wordmark (left)
 - Center: a two-pill toggle **[ Softwares ] [ APIs ]**
-  - Active pill: #dc2f65 background, white text, no border
-  - Inactive pill: transparent, muted text, 1px border at #dc2f65/30%, hover lifts to #dc2f65/10% bg
+  - Active pill: #d33568 background, white text, no border
+  - Inactive pill: transparent, muted text, 1px border at #d33568/30%, hover lifts to #d33568/10% bg
   - Clicking a pill scrolls to or reveals the corresponding hub section (or treat as tab state — Softwares content vs APIs content)
-- Right: "Book a 20-min Demo" CTA button (outlined, #dc2f65 border and text, fills on hover)
+- Right: "Book a 20-min Demo" CTA button (outlined, #d33568 border and text, fills on hover)
 - Header background: #0a0a0f at 90% opacity, backdrop-filter blur(12px), 1px bottom border at white/5%
 - On brand homepage: neither pill is active by default. Both equal weight.
 
@@ -42,25 +42,25 @@ A sticky header component with:
 ## Page sections to build (in order)
 
 ### 1. Hero
-- Eyebrow label: small pill — "GST Suvidha Provider · Licensed by GSTN" — #dc2f65/15% bg, #dc2f65 text, 11px uppercase tracking-widest
+- Eyebrow label: small pill — "GST Suvidha Provider · Licensed by GSTN" — #d33568/15% bg, #d33568 text, 11px uppercase tracking-widest
 - H1 (large, Syne, 64–80px desktop): "Compliance infrastructure for India's largest finance teams."
   - "Compliance infrastructure" — white
-  - "India's largest finance teams." — #dc2f65
+  - "India's largest finance teams." — #d33568
   - No gradient text. Solid colour split.
 - Subhead (DM Sans, 18px, muted): "A 5-product software suite and a 4-product API suite for GST, e-invoicing, e-way bills, and accounting — used by P&G, IBM, Razorpay, and 12,000+ businesses."
 - Two CTAs side by side:
-  - Primary: solid #dc2f65 button, white text — "Book a 20-min demo"
+  - Primary: solid #d33568 button, white text — "Book a 20-min demo"
   - Secondary: ghost button — "Browse the product suite ↓"
 - Microcopy below CTAs (small, muted, italic): "Migrating from ClearTax TaxCloud? We import your data in under 45 minutes →"
-- Background: dark. Add a very subtle radial gradient from #dc2f65/8% centred behind the H1. Add a fine grid pattern (CSS, 1px lines, white/3%) across the entire hero section for depth.
-- Hero visual: a fake but realistic "terminal + dashboard" split. Left half: dark terminal card showing a curl command to api.whitebooks.in returning an IRN JSON response (use JetBrains Mono, syntax-highlighted). Right half: a mock GSTR-2B reconciliation UI card showing "4,238 invoices matched ✓", "17 mismatches ⚠", "3 vendors flagged 🔴" — use real-looking data rows, not lorem ipsum. Both cards float slightly with a subtle drop shadow and a 1px #dc2f65/20% border. Animate them in on load (slide up + fade, staggered 200ms apart).
+- Background: dark. Add a very subtle radial gradient from #d33568/8% centred behind the H1. Add a fine grid pattern (CSS, 1px lines, white/3%) across the entire hero section for depth.
+- Hero visual: a fake but realistic "terminal + dashboard" split. Left half: dark terminal card showing a curl command to api.whitebooks.in returning an IRN JSON response (use JetBrains Mono, syntax-highlighted). Right half: a mock GSTR-2B reconciliation UI card showing "4,238 invoices matched ✓", "17 mismatches ⚠", "3 vendors flagged 🔴" — use real-looking data rows, not lorem ipsum. Both cards float slightly with a subtle drop shadow and a 1px #d33568/20% border. Animate them in on load (slide up + fade, staggered 200ms apart).
 
 ### 2. Logo wall
 - Section label: "The companies that can't afford to get compliance wrong."
 - Two-line logo ticker (infinite scroll animation, CSS): P&G · IBM · Razorpay · Pharmeasy · KPMG · Cars24 · Hindustan Unilever · Aditya Birla · SBI · Accenture · Philips · TVS · Yamaha · WheelsEye · PepsiCo · Coca-Cola · EaseMyTrip
 - Top row scrolls left. Bottom row scrolls right. Logos: white, 60% opacity, hover to 100%.
 - Fade masks on left and right edges (gradient from #0a0a0f to transparent).
-- Stat strip below: three stats in a row — "10 Cr+ invoices" · "12,000+ businesses" · "5,000+ CA firms" — each in Syne, large (36px), #dc2f65 number + white label below.
+- Stat strip below: three stats in a row — "10 Cr+ invoices" · "12,000+ businesses" · "5,000+ CA firms" — each in Syne, large (36px), #d33568 number + white label below.
 
 ### 3. Softwares / APIs hub cards (the routing section — ties to the toggle)
 
@@ -69,13 +69,13 @@ Tab state: "Softwares" shown by default.
 **Softwares tab — 5 product cards in a 3-2 grid:**
 
 Each card:
-- Dark surface (#111118), 1px border (#dc2f65/15%), border-radius 12px
+- Dark surface (#111118), 1px border (#d33568/15%), border-radius 12px
 - Icon (choose relevant SVG icon per product — not stock icons, geometric/line-style)
 - Product name (Syne, 18px, white)
 - One-liner description (DM Sans, 14px, muted)
-- Key feature pill (small, #dc2f65/10% bg, #dc2f65 text)
-- "Explore →" link (muted, hover: #dc2f65)
-- Hover state: border lifts to #dc2f65/40%, very subtle #dc2f65/5% background wash, card translates Y by -2px
+- Key feature pill (small, #d33568/10% bg, #d33568 text)
+- "Explore →" link (muted, hover: #d33568)
+- Hover state: border lifts to #d33568/40%, very subtle #d33568/5% background wash, card translates Y by -2px
 
 Cards (use this exact content):
 1. **Accounting Software** — "Auto-journalled books from sales, purchases, and bank feeds." · Pill: "Real-time bank reconciliation"
@@ -103,7 +103,7 @@ Three cards, full-width row:
 - Card 2: "AI that does the work" — icon: a circuit/neural node line icon
 - Card 3: "India + KSA on one platform" — icon: a globe with two pins line icon
 
-Each card: number in top-left corner ("01", "02", "03") in huge Syne text, 80px, #dc2f65/10% — decorative, not interactive. Card border glows very subtly on hover (box-shadow: 0 0 20px #dc2f65/15%).
+Each card: number in top-left corner ("01", "02", "03") in huge Syne text, 80px, #d33568/10% — decorative, not interactive. Card border glows very subtly on hover (box-shadow: 0 0 20px #d33568/15%).
 
 ### 5. AI layer section
 
@@ -117,33 +117,33 @@ Background for this section: slightly lighter surface (#13131a), full-bleed. Sub
 - Card 3: "Notice prediction" — body: "Flags returns likely to trigger Section 61 scrutiny — based on ITC mismatch, turnover variance, and HSN anomalies."
 - Card 4: "Compliance copilot" — body: "Ask 'Why did my ITC drop ₹4.2L in October?' Get an answer from your live data with source rows linked."
 
-Card 4 ("Compliance copilot") should visually look like a minimal chat UI — a dark input field at the bottom with a placeholder "Ask anything about your GST data...", and 1-2 mock Q&A messages above it. Use #dc2f65 for the "send" icon and the AI response label. This is the most important card — give it double column width on desktop or a slightly distinct elevated style.
+Card 4 ("Compliance copilot") should visually look like a minimal chat UI — a dark input field at the bottom with a placeholder "Ask anything about your GST data...", and 1-2 mock Q&A messages above it. Use #d33568 for the "send" icon and the AI response label. This is the most important card — give it double column width on desktop or a slightly distinct elevated style.
 
-Add small label under the section: "Built on the Anthropic API. Your data never used to train models." — small, muted, #dc2f65 dot prefix.
+Add small label under the section: "Built on the Anthropic API. Your data never used to train models." — small, muted, #d33568 dot prefix.
 
 ### 6. Proof — stats + quote
 
 Split layout: left = quote card, right = 4 stats stacked.
 
 Quote card:
-- Large opening quotation mark in #dc2f65, 80px, Syne
+- Large opening quotation mark in #d33568, 80px, Syne
 - Quote text: "We moved our entire India e-invoicing and e-way bill stack onto Whitebooks' SAP connector. What took three steps inside SAP plus a portal upload is now one button."
 - Attribution: B V Srinivasababu — Senior Manager, IT Applications · NSL
-- Card has a left border of 3px solid #dc2f65
+- Card has a left border of 3px solid #d33568
 
 Stats (right column):
 - 10 Cr+ invoices filed
 - 12,000+ businesses
 - 5,000+ CA firms
 - 99.95% API uptime SLA
-Each stat: Syne 48px #dc2f65 number, DM Sans 14px white label below. Animate count-up on scroll into view.
+Each stat: Syne 48px #d33568 number, DM Sans 14px white label below. Animate count-up on scroll into view.
 
 ### 7. Closing CTA section
 
-Full-bleed section. Background: #dc2f65. Dark text on brand colour.
+Full-bleed section. Background: #d33568. Dark text on brand colour.
 H2 (Syne, white): "One license. One platform. Every Indian filing."
 Body (DM Sans, white/80%): "Whitebooks gives finance teams and developers a directly licensed GSP, an AI-native product, and a developer API that doesn't make you build the compliance yourself."
-Two CTAs: "Book a 20-min Demo" (white bg, #dc2f65 text) + "Browse the product suite" (white outline, white text)
+Two CTAs: "Book a 20-min Demo" (white bg, #d33568 text) + "Browse the product suite" (white outline, white text)
 
 ---
 

@@ -20,7 +20,7 @@
 // import type { TweakDefaults, FontPairKey } from '@/types/tweaks';
 
 // const TWEAK_DEFAULTS: TweakDefaults = {
-//   accent: '#dc2f65',
+//   accent: '#d33568',
 //   fontPair: 'poppins_dmsans',
 //   heroVariant: 'reconciliation',
 //   motion: true,
@@ -48,7 +48,7 @@
 //   all_grotesk: 'All Geist (grotesk only)',
 // };
 
-// const ACCENTS = ['#dc2f65', '#7c3aed', '#0ea5e9', '#10b981', '#f59e0b'];
+// const ACCENTS = ['#d33568', '#7c3aed', '#0ea5e9', '#10b981', '#f59e0b'];
 
 // export function AppShell(): React.ReactElement {
 //   const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);

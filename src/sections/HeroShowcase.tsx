@@ -17,7 +17,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
-const BRAND = "#dc2f65";
+const BRAND = "#d33568";
 
 // Near-black glass card with a soft pink top-edge highlight and a faint
 // radial glow at the top — matches the "glass catching light" look in the comp.
@@ -165,7 +165,7 @@ function IconTile({
 }) {
   return (
     <span
-      className={`flex shrink-0 items-center justify-center bg-gradient-to-br from-[#ff5a8e] to-[#dc2f65] shadow-[0_6px_18px_rgba(220,47,101,0.45)] ring-1 ring-[rgba(255,255,255,0.15)] ${className}`}
+      className={`flex shrink-0 items-center justify-center bg-gradient-to-br from-[#ff5a8e] to-[#d33568] shadow-[0_6px_18px_rgba(220,47,101,0.45)] ring-1 ring-[rgba(255,255,255,0.15)] ${className}`}
     >
       <Icon className={`text-white ${iconClassName}`} strokeWidth={2.1} />
     </span>

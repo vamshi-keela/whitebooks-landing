@@ -10,10 +10,10 @@ interface RingConfig {
 }
 
 const RINGS: RingConfig[] = [
-  { size: 620,  border: "1px dashed rgba(220,47,101,0.18)", anim: "animate-orbit-cw"  },
-  { size: 900,  border: "1px dashed rgba(220,47,101,0.10)", anim: "animate-orbit-ccw" },
-  { size: 1180, border: "1px dashed rgba(139,92,246,0.07)", anim: ""                  },
-  { size: 1500, border: "1px dashed rgba(59,130,246,0.05)", anim: ""                  },
+  { size: 620, border: "1px dashed rgba(220,47,101,0.18)", anim: "animate-orbit-cw" },
+  { size: 900, border: "1px dashed rgba(220,47,101,0.10)", anim: "animate-orbit-ccw" },
+  { size: 1180, border: "1px dashed rgba(139,92,246,0.07)", anim: "" },
+  { size: 1500, border: "1px dashed rgba(59,130,246,0.05)", anim: "" },
 ];
 
 export function BackgroundEffects() {
@@ -45,7 +45,7 @@ export function BackgroundEffects() {
       {/* Ambient glow blobs */}
       <GlowOrb
         size={700}
-        color="#dc2f65"
+        color="#d33568"
         opacity={0.07}
         blur={140}
         className="left-1/2 top-1/3 -translate-x-1/2 -translate-y-1/2"

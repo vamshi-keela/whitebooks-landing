@@ -13,7 +13,7 @@
   --dp-surface-3: #212127;
 
   /* ── Brand ────────────────────────────── */
-  --dp-accent: #dc2f65;
+  --dp-accent: #d33568;
   --dp-accent-2: #ff5c8a;
   --dp-accent-soft: rgba(220, 47, 101, 0.12);
   --dp-accent-line: rgba(220, 47, 101, 0.25);
@@ -810,7 +810,7 @@ body {
 }
 
 .sdk-accent-glow {
-  background: #dc2f65;
+  background: #d33568;
   filter: blur(60px);
   pointer-events: none;
   transition: opacity 0.4s ease;

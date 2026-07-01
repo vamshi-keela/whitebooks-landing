@@ -27,7 +27,7 @@ const variantClasses: Record<ButtonVariant, string> = {
     outline:
         "border border-[rgba(220,47,101,0.5)] bg-transparent text-[var(--brand,var(--accent))] hover:bg-[var(--brand,var(--accent))] hover:text-white hover:border-[var(--brand,var(--accent))]",
     white:
-        "border border-white bg-white text-[#dc2f65] hover:bg-[#f3f3f5] hover:-translate-y-px",
+        "border border-white bg-white text-[#d33568] hover:bg-[#f3f3f5] hover:-translate-y-px",
     whiteOutline:
         "border border-white/60 bg-transparent text-white hover:bg-white/10 hover:border-white",
     developerPrimary:

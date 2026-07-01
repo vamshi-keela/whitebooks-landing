@@ -99,7 +99,7 @@ function AISpark() {
           return (
             <g key={i}>
               <circle cx={n.x} cy={n.y} r={halo} fill="rgba(220,47,101,0.30)" opacity={0.4 + pulse * 0.5} />
-              <circle cx={n.x} cy={n.y} r={base} fill="#dc2f65" />
+              <circle cx={n.x} cy={n.y} r={base} fill="#d33568" />
               <circle cx={n.x} cy={n.y} r={base - 1.2} fill="#ffd5e2" opacity="0.65" />
             </g>
           );
@@ -125,7 +125,7 @@ export function AILayerSection({ data }: Props) {
             </p>
             {data.note && (
               <div className="wb-ail2-note">
-                <TickMark fillColor={"#dc2f65cc"} width={12} height={12} />
+                <TickMark fillColor={"#d33568cc"} width={12} height={12} />
                 <div>{data.note}</div>
               </div>
             )}

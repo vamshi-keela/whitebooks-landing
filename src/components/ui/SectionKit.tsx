@@ -24,7 +24,7 @@ import { useTheme } from "@/contexts/ThemeContext";
  * ════════════════════════════════════════════════════════════════════════ */
 
 export const EASE = [0.22, 1, 0.36, 1] as const;
-export const BRAND = "var(--brand)"; // #dc2f65 — used sparingly, never as a blob
+export const BRAND = "var(--brand)"; // #d33568 — used sparingly, never as a blob
 
 /** Theme-aware section background — elegant, no glowing blobs. */
 export function sectionSurface(isDark: boolean): string {

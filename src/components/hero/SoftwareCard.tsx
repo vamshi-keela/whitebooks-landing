@@ -72,7 +72,7 @@ export function SoftwareCard({
         />
 
         {/* Icon */}
-        <div className="relative mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-[#dc2f65]/12 ring-1 ring-[#dc2f65]/25 transition-all duration-300 group-hover:bg-[#dc2f65]/22 group-hover:ring-[#dc2f65]/45 group-hover:shadow-[0_0_16px_rgba(220,47,101,0.3)]">
+        <div className="relative mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-[#d33568]/12 ring-1 ring-[#d33568]/25 transition-all duration-300 group-hover:bg-[#d33568]/22 group-hover:ring-[#d33568]/45 group-hover:shadow-[0_0_16px_rgba(220,47,101,0.3)]">
           <Icon size={20} className="text-[#ff4f87]" />
         </div>
 
@@ -83,15 +83,15 @@ export function SoftwareCard({
         <ul className="relative mt-3 space-y-1.5">
           {points.map((point) => (
             <li key={point} className="flex items-start gap-2 text-[13px] leading-snug text-white/60">
-              <span className="mt-[5px] h-1 w-1 shrink-0 rounded-full bg-[#dc2f65]/60" />
+              <span className="mt-[5px] h-1 w-1 shrink-0 rounded-full bg-[#d33568]/60" />
               {point}
             </li>
           ))}
         </ul>
 
         {/* Badge */}
-        <div className="relative mt-4 inline-flex items-center gap-1.5 rounded-full bg-[#dc2f65]/10 px-3 py-1 ring-1 ring-[#dc2f65]/18 transition-all duration-300 group-hover:bg-[#dc2f65]/18 group-hover:ring-[#dc2f65]/35">
-          <span className="h-1.5 w-1.5 rounded-full bg-[#dc2f65] animate-pulse" />
+        <div className="relative mt-4 inline-flex items-center gap-1.5 rounded-full bg-[#d33568]/10 px-3 py-1 ring-1 ring-[#d33568]/18 transition-all duration-300 group-hover:bg-[#d33568]/18 group-hover:ring-[#d33568]/35">
+          <span className="h-1.5 w-1.5 rounded-full bg-[#d33568] animate-pulse" />
           <span className="text-[11px] font-semibold tracking-wide text-[#ff4f87]">{badge}</span>
         </div>
       </motion.div>

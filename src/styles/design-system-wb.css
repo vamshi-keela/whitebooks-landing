@@ -2224,7 +2224,7 @@ img {
   padding-block: clamp(48px, 7vw, 88px);
 
   /* gradient-clipped numbers — dark text on light theme, bright on dark */
-  --tr-grad: linear-gradient(180deg, #1c1e40 0%, #dc2f65 135%);
+  --tr-grad: linear-gradient(180deg, #1c1e40 0%, #d33568 135%);
 }
 
 [data-theme="dark"] .wb-trust {
@@ -3941,7 +3941,7 @@ img {
  * new code. Both dark and light variants are provided.
  */
 :root {
-  --accent: #dc2f65;
+  --accent: #d33568;
   --ok: #22c55e;
   --fg-primary: #e8e8f0;
   --fg-secondary: #9a9ab0;
@@ -3953,7 +3953,7 @@ img {
   --bg-card: #000000;
   --font-serif: "Poppins", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-sans: "DM Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --gradient-1: #dc2f65;
+  --gradient-1: #d33568;
   --gradient-2: #ff6e9c;
   --accent-glow: rgba(220, 47, 101, 0.4);
   --accent-bright: #ff8ab8;
@@ -5506,7 +5506,7 @@ img {
   height: 8px;
   border-radius: 50%;
   background: var(--brand);
-  box-shadow: 0 0 10px #dc2f65cc;
+  box-shadow: 0 0 10px #d33568cc;
   flex-shrink: 0;
 }
 

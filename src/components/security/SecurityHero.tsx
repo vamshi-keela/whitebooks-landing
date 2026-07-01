@@ -89,165 +89,38 @@ function HighlightItem({ text }: { text: string }) {
 }
 
 /* ------------------------------------------------------------------ */
-/*  Compliance badges (custom SVGs)                                    */
+/*  Compliance & accreditation matrix                                  */
 /* ------------------------------------------------------------------ */
 
-function IsoBadge() {
-    return (
-        <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
-            <circle cx="30" cy="30" r="25" stroke={PINK} strokeWidth="2.5" />
-            <ellipse cx="30" cy="30" rx="10" ry="25" stroke={PINK} strokeWidth="1.8" />
-            <line x1="6" y1="21" x2="54" y2="21" stroke={PINK} strokeWidth="1.8" />
-            <line x1="6" y1="39" x2="54" y2="39" stroke={PINK} strokeWidth="1.8" />
-            <rect x="13" y="22" width="34" height="16" rx="2" fill="#fff" />
-            <text
-                x="30"
-                y="34"
-                textAnchor="middle"
-                fontSize="13"
-                fontWeight="800"
-                fill={PINK}
-                fontFamily="Poppins, sans-serif"
-            >
-                ISO
-            </text>
-        </svg>
-    );
-}
-
-function Soc2Badge() {
-    return (
-        <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
-            <circle cx="30" cy="30" r="25" stroke={PINK} strokeWidth="2.5" />
-            <text
-                x="30"
-                y="23"
-                textAnchor="middle"
-                fontSize="7"
-                fontWeight="700"
-                fill={PINK}
-                fontFamily="Poppins, sans-serif"
-            >
-                AICPA
-            </text>
-            <text
-                x="30"
-                y="34"
-                textAnchor="middle"
-                fontSize="11"
-                fontWeight="800"
-                fill={PINK}
-                fontFamily="Poppins, sans-serif"
-            >
-                SOC 2
-            </text>
-            <line x1="13" y1="38" x2="47" y2="38" stroke={PINK} strokeWidth="1.2" />
-            <text
-                x="30"
-                y="46"
-                textAnchor="middle"
-                fontSize="6"
-                fontWeight="700"
-                fill={PINK}
-                fontFamily="Poppins, sans-serif"
-            >
-                TYPE II
-            </text>
-        </svg>
-    );
-}
-
-function GdprBadge() {
-    const stars = Array.from({ length: 12 });
-    return (
-        <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
-            {stars.map((_, i) => {
-                const angle = (i / 12) * Math.PI * 2 - Math.PI / 2;
-                const cx = 30 + Math.cos(angle) * 25;
-                const cy = 30 + Math.sin(angle) * 25;
-                return (
-                    <path
-                        key={i}
-                        transform={`translate(${cx} ${cy})`}
-                        d="M0 -3 L0.9 -0.9 L3 -0.9 L1.2 0.6 L1.9 2.8 L0 1.5 L-1.9 2.8 L-1.2 0.6 L-3 -0.9 L-0.9 -0.9 Z"
-                        fill={PINK}
-                    />
-                );
-            })}
-            <rect x="20" y="28" width="20" height="16" rx="3" fill={PINK} />
-            <path
-                d="M23 28 V23 a7 7 0 0 1 14 0 V28"
-                fill="none"
-                stroke={PINK}
-                strokeWidth="3"
-            />
-            <circle cx="30" cy="35" r="2.6" fill="#fff" />
-            <rect x="29" y="36" width="2" height="5" rx="1" fill="#fff" />
-        </svg>
-    );
-}
-
-function DpdpaBadge() {
-    return (
-        <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
-            <path
-                d="M30 6 L50 14 C50 34 42 47 30 53 C18 47 10 34 10 14 Z"
-                fill="none"
-                stroke={PINK}
-                strokeWidth="2.5"
-            />
-            <path
-                d="M26 17 l6 1 4 4 5 3 -2 6 -6 1 -3 6 -5 -3 -5 1 1 -7 -5 -4 6 -4 Z"
-                fill={PINK}
-                opacity="0.9"
-            />
-            <circle cx="42" cy="40" r="8" fill="#fff" stroke={PINK} strokeWidth="2" />
-            <path
-                d="M38.5 40 l2.5 2.5 4-4.5"
-                fill="none"
-                stroke={PINK}
-                strokeWidth="2.2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-            />
-        </svg>
-    );
-}
-
-function MeityBadge() {
-    return (
-        <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
-            <circle cx="30" cy="18" r="7" fill={PINK} />
-            <circle cx="19" cy="20" r="6" fill={PINK} opacity="0.75" />
-            <circle cx="41" cy="20" r="6" fill={PINK} opacity="0.75" />
-            <rect x="15" y="26" width="30" height="4" rx="1" fill={PINK} />
-            <circle cx="30" cy="36" r="6.5" fill="none" stroke={PINK} strokeWidth="1.6" />
-            <line x1="30" y1="29.5" x2="30" y2="42.5" stroke={PINK} strokeWidth="1.1" />
-            <line x1="23.5" y1="36" x2="36.5" y2="36" stroke={PINK} strokeWidth="1.1" />
-            <line x1="25.4" y1="31.4" x2="34.6" y2="40.6" stroke={PINK} strokeWidth="1.1" />
-            <line x1="25.4" y1="40.6" x2="34.6" y2="31.4" stroke={PINK} strokeWidth="1.1" />
-            <rect x="19" y="43" width="22" height="3.5" rx="1" fill={PINK} />
-            <text
-                x="30"
-                y="55"
-                textAnchor="middle"
-                fontSize="5"
-                fontWeight="600"
-                fill={PINK}
-                fontFamily="Poppins, sans-serif"
-            >
-                सत्यमेव जयते
-            </text>
-        </svg>
-    );
-}
-
-const compliance: { badge: JSX.Element; title: string; sub: string }[] = [
-    { badge: <IsoBadge />, title: "ISO 27001", sub: "Certified" },
-    { badge: <Soc2Badge />, title: "SOC 2 Type II", sub: "Certified" },
-    { badge: <GdprBadge />, title: "GDPR", sub: "Compliant" },
-    { badge: <DpdpaBadge />, title: "DPDPA", sub: "Compliant" },
-    // { badge: <MeityBadge />, title: "MeitY", sub: "Compliant" },
+const complianceMatrix: { title: string; desc: string }[] = [
+    {
+        title: "GSP",
+        desc: "GSTN-licensed GST Suvidha Provider — direct API channel to GSTN",
+    },
+    {
+        title: "NIC IRP",
+        desc: "Authorised access to NIC Invoice Registration Portal for IRN generation",
+    },
+    {
+        title: "NIC e-Way Bill",
+        desc: "Authorised access to NIC e-Way Bill system",
+    },
+    {
+        title: "ZATCA Phase 2",
+        desc: "ZATCA-compliant XAdES-BES signing + Fatoora clearance / reporting",
+    },
+    {
+        title: "ISO 27001:2022",
+        desc: "Information Security Management System certified — current 2022 revision",
+    },
+    {
+        title: "CERT-In Empanelled Auditor",
+        desc: "Annual security audit by CERT-In empanelled firm",
+    },
+    {
+        title: "SHA-256 + TLS 1.2+",
+        desc: "Modern cryptography on every endpoint",
+    },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -357,30 +230,36 @@ export default function SecurityHero() {
                         </ul>
                     </div>
 
-                    {/* Compliance */}
+                    {/* Compliance & accreditation matrix */}
                     <div className="rounded-[28px] bg-white p-8 shadow-[0_30px_70px_-40px_rgba(15,23,42,0.25)] dark:border dark:border-[var(--hairline-strong)] dark:bg-[color-mix(in_srgb,var(--fg-primary)_4%,transparent)] dark:shadow-none dark:backdrop-blur-xl">
                         <h3
                             className="text-xl font-semibold"
                             style={{ color: PINK }}
                         >
-                            Compliant with Industry Standards
+                            Compliance &amp; Accreditation Matrix
                         </h3>
-                        <div className="mt-7 grid grid-cols-3 items-start gap-y-7 sm:grid-cols-5">
-                            {compliance.map((c) => (
+                        <div className="mt-7 overflow-hidden rounded-2xl border border-pink-100 dark:border-[var(--hairline-strong)]">
+                            {complianceMatrix.map((item, i) => (
                                 <div
-                                    key={c.title}
-                                    className="flex flex-col items-center gap-3 text-center"
+                                    key={item.title}
+                                    className={`grid grid-cols-1 gap-x-8 gap-y-1.5 px-6 py-4 sm:grid-cols-[260px_1fr] sm:items-center ${
+                                        i % 2 === 0
+                                            ? "bg-pink-50/50 dark:bg-[color-mix(in_srgb,var(--fg-primary)_3%,transparent)]"
+                                            : "bg-transparent"
+                                    } ${
+                                        i !== 0
+                                            ? "border-t border-pink-100 dark:border-[var(--hairline-strong)]"
+                                            : ""
+                                    }`}
                                 >
-                                    <div className="flex h-16 items-center">
-                                        {c.badge}
+                                    <div
+                                        className="text-[15px] font-bold"
+                                        style={{ color: PINK }}
+                                    >
+                                        {item.title}
                                     </div>
-                                    <div className="leading-tight">
-                                        <div className="text-[15px] font-bold text-[#111827] dark:text-[var(--fg-primary)]">
-                                            {c.title}
-                                        </div>
-                                        <div className="text-sm text-gray-500 dark:text-[var(--fg-tertiary)]">
-                                            {c.sub}
-                                        </div>
+                                    <div className="text-[15px] leading-6 text-gray-600 dark:text-[var(--fg-secondary)]">
+                                        {item.desc}
                                     </div>
                                 </div>
                             ))}

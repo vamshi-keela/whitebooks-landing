@@ -21,7 +21,7 @@ const easeInOut = (t: number) =>
 // Brand-led spectrum: periwinkle → WhiteBooks pink → warm rose (no Stripe orange).
 const STOPS: [number, number, number][] = [
   [146, 128, 240], // periwinkle violet
-  [220, 47, 101], // brand pink (#dc2f65)
+  [220, 47, 101], // brand pink (#d33568)
   [255, 146, 176], // warm rose
 ];
 function sample(c: number): [number, number, number] {

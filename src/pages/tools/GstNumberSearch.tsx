@@ -95,7 +95,7 @@ const FAQS = [
 
 function GstinFormatDiagram() {
   const segments = [
-    { chars: '22', label: 'State Code', color: '#dc2f65', bg: 'rgba(220,47,101,0.12)', border: 'rgba(220,47,101,0.3)' },
+    { chars: '22', label: 'State Code', color: '#d33568', bg: 'rgba(220,47,101,0.12)', border: 'rgba(220,47,101,0.3)' },
     { chars: 'AAAAA', label: 'PAN – Letters', color: '#22d3ee', bg: 'rgba(34,211,238,0.1)', border: 'rgba(34,211,238,0.3)' },
     { chars: '1111', label: 'PAN – Digits', color: '#22d3ee', bg: 'rgba(34,211,238,0.1)', border: 'rgba(34,211,238,0.3)' },
     { chars: 'A', label: 'PAN – Check', color: '#22d3ee', bg: 'rgba(34,211,238,0.1)', border: 'rgba(34,211,238,0.3)' },
@@ -128,7 +128,7 @@ function GstinFormatDiagram() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
         {[
-          { label: 'Digits 1–2', desc: 'State Code — identifies the state of registration (e.g. 27 = Maharashtra, 29 = Karnataka)', color: '#dc2f65' },
+          { label: 'Digits 1–2', desc: 'State Code — identifies the state of registration (e.g. 27 = Maharashtra, 29 = Karnataka)', color: '#d33568' },
           { label: 'Digits 3–12', desc: 'PAN of the taxpayer — the core identity linked to income tax records', color: '#22d3ee' },
           { label: 'Digit 13', desc: 'Entity number — represents the number of registrations under the same PAN in the state', color: '#a78bfa' },
           { label: 'Digits 14–15', desc: '"Z" by default for all, followed by an alphanumeric check digit computed by GSTN', color: '#22c55e' },

@@ -52,7 +52,7 @@ export default function Header({ mode = 'home' }: HeaderProps) {
         {/* Brand */}
         <Link to="/" className="flex items-center gap-2.5 font-display font-bold text-[17px] tracking-[-0.01em] text-[#e8e8f0] shrink-0">
           <span
-            className="relative w-[22px] h-[22px] rounded-[5px] bg-[#dc2f65] shadow-[0_0_0_1px_rgba(220,47,101,0.4),0_0_20px_rgba(220,47,101,0.3)] after:absolute after:inset-1 after:border-[1.5px] after:border-white/85 after:rounded-[2px]"
+            className="relative w-[22px] h-[22px] rounded-[5px] bg-[#d33568] shadow-[0_0_0_1px_rgba(220,47,101,0.4),0_0_20px_rgba(220,47,101,0.3)] after:absolute after:inset-1 after:border-[1.5px] after:border-white/85 after:rounded-[2px]"
             aria-hidden="true"
           />
           WhiteBooks
@@ -125,7 +125,7 @@ function ToggleBtn({ href, active, icon, children }: ToggleBtnProps) {
       className={[
         'inline-flex items-center gap-2 px-[18px] py-[7px] rounded-full text-[13.5px] font-medium transition-all duration-[180ms]',
         active
-          ? 'bg-[#dc2f65] text-white shadow-[0_6px_18px_-6px_rgba(220,47,101,0.55)]'
+          ? 'bg-[#d33568] text-white shadow-[0_6px_18px_-6px_rgba(220,47,101,0.55)]'
           : 'text-[#9a9ab0] hover:text-[#e8e8f0] hover:bg-[rgba(220,47,101,0.08)]',
       ].join(' ')}
     >
@@ -140,7 +140,7 @@ function MobileNav({ href, icon, children }: MobileNavProps) {
       to={href}
       className="flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-medium text-[#9a9ab0] hover:text-[#e8e8f0] hover:bg-white/[0.04] transition-colors"
     >
-      <span className="text-[#dc2f65]">{icon}</span>
+      <span className="text-[#d33568]">{icon}</span>
       {children}
     </Link>
   )

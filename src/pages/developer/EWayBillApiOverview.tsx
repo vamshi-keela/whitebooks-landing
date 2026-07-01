@@ -28,14 +28,14 @@ const E_WAY_BILL_FEATURED_APIS: FeaturedApiTag[] = [
 
 //       <div className="relative z-10 mx-auto max-w-4xl text-center">
 //         {/* Badge */}
-//         <div className="mb-6 inline-flex items-center rounded-full border border-[#dc2f65]/20 bg-[#dc2f65]/10 px-4 py-1.5 text-sm font-medium text-[#ff9fbc] backdrop-blur">
+//         <div className="mb-6 inline-flex items-center rounded-full border border-[#d33568]/20 bg-[#d33568]/10 px-4 py-1.5 text-sm font-medium text-[#ff9fbc] backdrop-blur">
 //           GST Compliant • Real-Time APIs • Logistics Ready
 //         </div>
 
 //         {/* Heading */}
 //         <h2 className="mx-auto max-w-3xl text-4xl font-bold tracking-tight text-white sm:text-5xl">
 //           Automate{" "}
-//           <span className="bg-gradient-to-r from-[#ff8fb2] to-[#dc2f65] bg-clip-text text-transparent">
+//           <span className="bg-gradient-to-r from-[#ff8fb2] to-[#d33568] bg-clip-text text-transparent">
 //             e-Way Bill Generation
 //           </span>{" "}
 //           with Powerful APIs
@@ -53,14 +53,14 @@ const E_WAY_BILL_FEATURED_APIS: FeaturedApiTag[] = [
 //         <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
 //           <a
 //             href="/contact"
-//             className="inline-flex items-center justify-center rounded-xl bg-[#dc2f65] px-6 py-3 text-sm font-semibold text-white transition-all duration-200 hover:scale-[1.02] hover:bg-[#c52859]"
+//             className="inline-flex items-center justify-center rounded-xl bg-[#d33568] px-6 py-3 text-sm font-semibold text-white transition-all duration-200 hover:scale-[1.02] hover:bg-[#c52859]"
 //           >
 //             Get API Access
 //           </a>
 
 //           <a
 //             href="/demo"
-//             className="inline-flex items-center justify-center rounded-xl border border-[#dc2f65]/30 bg-[#dc2f65]/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur transition-all duration-200 hover:bg-[#dc2f65]/20"
+//             className="inline-flex items-center justify-center rounded-xl border border-[#d33568]/30 bg-[#d33568]/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur transition-all duration-200 hover:bg-[#d33568]/20"
 //           >
 //             Book a Live Demo
 //           </a>

@@ -11,7 +11,7 @@ export const SITE = {
   defaultKeywords:
     'GST software, e-invoicing, e-way bill, GST filing, GSTN, GSP, IRP, IRN, ZATCA, compliance, India, Saudi Arabia',
   author: 'WhiteBooks',
-  themeColor: '#dc2f65',
+  themeColor: '#d33568',
   locale: 'en_IN',
   defaultRobots: 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1',
 } as const;

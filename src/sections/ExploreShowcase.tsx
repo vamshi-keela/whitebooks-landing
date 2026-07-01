@@ -78,7 +78,7 @@ function CTAButtons() {
         rel="noopener noreferrer"
         className="group inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-[15px] font-semibold text-white transition-all duration-300 hover:-translate-y-0.5"
         style={{
-          background: 'linear-gradient(135deg, #ff5a8e 0%, #dc2f65 100%)',
+          background: 'linear-gradient(135deg, #ff5a8e 0%, #d33568 100%)',
           boxShadow: '0 12px 30px -10px rgba(220,47,101,0.6)',
         }}
       >
@@ -270,7 +270,7 @@ function VideoCanvas({ feature, isDark }: { feature: ExploreShowCase; isDark: bo
                       aria-label={`Play ${feature.label} walkthrough`}
                       className="group flex h-16 w-16 items-center justify-center rounded-full transition-transform duration-300 hover:scale-105"
                       style={{
-                        background: 'linear-gradient(135deg, #ff5a8e 0%, #dc2f65 100%)',
+                        background: 'linear-gradient(135deg, #ff5a8e 0%, #d33568 100%)',
                         boxShadow: '0 14px 36px -10px rgba(220,47,101,0.65), 0 0 0 8px rgba(220,47,101,0.12)',
                       }}
                     >

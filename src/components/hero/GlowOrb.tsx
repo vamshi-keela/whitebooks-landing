@@ -9,7 +9,7 @@ interface GlowOrbProps {
 
 export function GlowOrb({
   size = 400,
-  color = "#dc2f65",
+  color = "#d33568",
   opacity = 0.15,
   blur = 80,
   className = "",

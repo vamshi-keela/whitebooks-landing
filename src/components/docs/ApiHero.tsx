@@ -70,7 +70,7 @@ export default function ApiHero(): React.ReactElement {
         GST API for{' '}
         <span
           style={{
-            background: 'linear-gradient(135deg, #dc2f65, #ff4d80)',
+            background: 'linear-gradient(135deg, #d33568, #ff4d80)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
           }}

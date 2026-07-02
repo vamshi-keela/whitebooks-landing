@@ -192,10 +192,31 @@ export interface CtaLink {
     href?: string;
     target?: '_blank' | '_self' | '_parent' | '_top';
 }
+export interface IntegrationHighlight {
+    icon: 'sync' | 'shield' | 'check' | 'lock';
+    title: string;
+    body: string;
+}
+
+export interface IntegrationStat {
+    value: string;
+    label: string;
+}
+
 export interface IntegrationSection {
+    /** Pill above heading, e.g. "40+ ERP Integrations". */
+    eyebrow?: string;
     heading: string;
+    /** Rendered on its own line below the heading in brand color, e.g. "Unify your business." */
+    headingAccent?: string;
     body?: string;
     logos: string[];
+    /** Trailing orbit node, e.g. "& 30+ More". */
+    logosOverflowLabel?: string;
+    /** Four icon+copy proof points under the body. Falls back to standard set. */
+    highlights?: IntegrationHighlight[];
+    /** Metric strip above the CTA. Falls back to standard set. */
+    stats?: IntegrationStat[];
     cta?: CtaLink;
     secondaryCta?: CtaLink;
 }

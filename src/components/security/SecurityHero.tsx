@@ -7,6 +7,13 @@ import {
     ArrowRightCircle,
     type LucideIcon,
     BrickWallShield,
+    BadgeCheck,
+    FileCheck2,
+    Truck,
+    Globe2,
+    Award,
+    ClipboardCheck,
+    KeyRound,
 } from "lucide-react";
 import securityShield from "@/assets/resources/security_shield.png";
 import { Button, ButtonLink } from "../ui/Button";
@@ -92,36 +99,125 @@ function HighlightItem({ text }: { text: string }) {
 /*  Compliance & accreditation matrix                                  */
 /* ------------------------------------------------------------------ */
 
-const complianceMatrix: { title: string; desc: string }[] = [
+interface Accreditation {
+    title: string;
+    desc: string;
+    status: string;
+    authority: string;
+    icon: LucideIcon;
+}
+
+/* Grouped the way a security reviewer reads them: what the government has
+   licensed us to touch, then what independent bodies have verified. */
+const govtAuthorisations: Accreditation[] = [
     {
         title: "GSP",
-        desc: "GSTN-licensed GST Suvidha Provider — direct API channel to GSTN",
+        desc: "GST Suvidha Provider — direct API channel to GSTN, no resold pipes",
+        status: "Licensed",
+        authority: "GSTN",
+        icon: BadgeCheck,
     },
     {
         title: "NIC IRP",
-        desc: "Authorised access to NIC Invoice Registration Portal for IRN generation",
+        desc: "Invoice Registration Portal access for IRN generation",
+        status: "Authorised",
+        authority: "NIC",
+        icon: FileCheck2,
     },
     {
         title: "NIC e-Way Bill",
-        desc: "Authorised access to NIC e-Way Bill system",
+        desc: "Direct access to the NIC e-Way Bill system",
+        status: "Authorised",
+        authority: "NIC",
+        icon: Truck,
     },
     {
         title: "ZATCA Phase 2",
-        desc: "ZATCA-compliant XAdES-BES signing + Fatoora clearance / reporting",
+        desc: "XAdES-BES signing + Fatoora clearance / reporting for KSA",
+        status: "Compliant",
+        authority: "ZATCA · KSA",
+        icon: Globe2,
     },
+];
+
+const certifications: Accreditation[] = [
     {
         title: "ISO 27001:2022",
-        desc: "Information Security Management System certified — current 2022 revision",
+        desc: "Information Security Management System — current 2022 revision",
+        status: "Certified",
+        authority: "ISO",
+        icon: Award,
     },
     {
         title: "CERT-In Empanelled Auditor",
-        desc: "Annual security audit by CERT-In empanelled firm",
+        desc: "Annual security audit by a CERT-In empanelled firm",
+        status: "Audited annually",
+        authority: "CERT-In",
+        icon: ClipboardCheck,
     },
     {
         title: "SHA-256 + TLS 1.2+",
-        desc: "Modern cryptography on every endpoint",
+        desc: "Modern cryptography enforced on every endpoint",
+        status: "Enforced",
+        authority: "All endpoints",
+        icon: KeyRound,
     },
 ];
+
+function AccreditationCard({ item }: { item: Accreditation }) {
+    const Icon = item.icon;
+    return (
+        <div className="group flex flex-col rounded-2xl border border-pink-100 bg-white p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-pink-200 hover:shadow-[0_18px_40px_-24px_rgba(231,52,118,0.45)] dark:border-[var(--hairline-strong)] dark:bg-[color-mix(in_srgb,var(--fg-primary)_4%,transparent)] dark:hover:border-[var(--hairline-bright)] dark:hover:shadow-none">
+            <div className="flex items-start justify-between gap-3">
+                {/* IMAGE PLACEHOLDER — replace this tile with the official
+                    accreditation mark (GSTN / NIC / ZATCA / ISO / CERT-In logo).
+                    Keep it ~44×44; the icon below is the interim fallback. */}
+                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl border border-dashed border-pink-200 bg-pink-50/60 dark:border-[var(--hairline-bright)] dark:bg-[color-mix(in_srgb,var(--fg-primary)_6%,transparent)]">
+                    <Icon className="h-5 w-5" style={{ color: PINK }} strokeWidth={1.75} />
+                </span>
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-pink-50 px-2.5 py-1 text-[11px] font-semibold tracking-[0.02em] dark:bg-[color-mix(in_srgb,var(--fg-primary)_7%,transparent)]" style={{ color: PINK }}>
+                    <span className="h-1 w-1 rounded-full" style={{ background: PINK }} />
+                    {item.status}
+                </span>
+            </div>
+            <h4 className="mt-2 mb-2 text-base font-bold text-[#111827] dark:text-[var(--fg-primary)]">
+                {item.title}
+            </h4>
+            <p className="mt-0 text-[13px] leading-5 text-gray-500 dark:text-[var(--fg-secondary)]">
+                {item.desc}
+            </p>
+            {/* <span className="mt-3 border-t border-pink-50 pt-2.5 font-mono text-[10.5px] uppercase tracking-[0.12em] text-gray-400 dark:border-[var(--hairline)] dark:text-[var(--fg-tertiary)]">
+                {item.authority}
+            </span> */}
+        </div>
+    );
+}
+
+function AccreditationGroup({
+    label,
+    items,
+    columns,
+}: {
+    label: string;
+    items: Accreditation[];
+    columns: string;
+}) {
+    return (
+        <div className="mt-7 first:mt-0">
+            {/* <div className="flex items-center gap-3">
+                <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-gray-400 dark:text-[var(--fg-tertiary)]">
+                    {label}
+                </span>
+                <span className="h-px flex-1 bg-pink-100 dark:bg-[var(--hairline-strong)]" />
+            </div> */}
+            <div className={`mt-4 grid gap-4 sm:grid-cols-2 ${columns}`}>
+                {items.map((item) => (
+                    <AccreditationCard key={item.title} item={item} />
+                ))}
+            </div>
+        </div>
+    );
+}
 
 /* ------------------------------------------------------------------ */
 /*  Main component                                                     */
@@ -232,37 +328,36 @@ export default function SecurityHero() {
 
                     {/* Compliance & accreditation matrix */}
                     <div className="rounded-[28px] bg-white p-8 shadow-[0_30px_70px_-40px_rgba(15,23,42,0.25)] dark:border dark:border-[var(--hairline-strong)] dark:bg-[color-mix(in_srgb,var(--fg-primary)_4%,transparent)] dark:shadow-none dark:backdrop-blur-xl">
-                        <h3
-                            className="text-xl font-semibold"
-                            style={{ color: PINK }}
-                        >
-                            Compliance &amp; Accreditation Matrix
-                        </h3>
-                        <div className="mt-7 overflow-hidden rounded-2xl border border-pink-100 dark:border-[var(--hairline-strong)]">
-                            {complianceMatrix.map((item, i) => (
-                                <div
-                                    key={item.title}
-                                    className={`grid grid-cols-1 gap-x-8 gap-y-1.5 px-6 py-4 sm:grid-cols-[260px_1fr] sm:items-center ${
-                                        i % 2 === 0
-                                            ? "bg-pink-50/50 dark:bg-[color-mix(in_srgb,var(--fg-primary)_3%,transparent)]"
-                                            : "bg-transparent"
-                                    } ${
-                                        i !== 0
-                                            ? "border-t border-pink-100 dark:border-[var(--hairline-strong)]"
-                                            : ""
-                                    }`}
+                        <div className="flex flex-wrap items-end justify-between gap-3">
+                            <div>
+                                <h3
+                                    className="text-xl font-semibold"
+                                    style={{ color: PINK }}
                                 >
-                                    <div
-                                        className="text-[15px] font-bold"
-                                        style={{ color: PINK }}
-                                    >
-                                        {item.title}
-                                    </div>
-                                    <div className="text-[15px] leading-6 text-gray-600 dark:text-[var(--fg-secondary)]">
-                                        {item.desc}
-                                    </div>
-                                </div>
-                            ))}
+                                    Compliance &amp; Accreditation Matrix
+                                </h3>
+                                {/* <p className="mt-1.5 text-[14px] leading-6 text-gray-500 dark:text-[var(--fg-secondary)]">
+                                    Every credential below is held directly by
+                                    WhiteBooks — licensed, certified, and audited.
+                                </p> */}
+                            </div>
+                            {/* <span className="inline-flex items-center gap-2 rounded-full border border-pink-100 bg-pink-50/60 px-3 py-1.5 text-[12px] font-semibold dark:border-[var(--hairline-strong)] dark:bg-[color-mix(in_srgb,var(--fg-primary)_6%,transparent)]" style={{ color: PINK }}>
+                                <ShieldCheck className="h-3.5 w-3.5" />
+                                7 credentials
+                            </span> */}
+                        </div>
+
+                        <div className="mt-7">
+                            <AccreditationGroup
+                                label="Government authorisations"
+                                items={govtAuthorisations}
+                                columns="lg:grid-cols-4"
+                            />
+                            <AccreditationGroup
+                                label="Certifications & cryptography"
+                                items={certifications}
+                                columns="lg:grid-cols-3"
+                            />
                         </div>
                     </div>
                 </div>

@@ -1,130 +1,70 @@
 /**
  * Enterprise Controls — typed content for the "Built for teams. Ready for
- * scale." section. Replaces the old diamond-card layout with a workflow
- * timeline hero + an icon-led bento grid of access/audit/compliance pillars,
- * in the spirit of Stripe Radar, Linear, Mercury and Rippling.
+ * scale." section. Two full-width accent-bar control cards (Role-Based
+ * Access & Control / Audit Trail & Compliance), mirroring the legacy
+ * whitebooks.in layout restyled onto the app's dark/light theme tokens.
  *
- * Capability/metric/feed copy is carried over from the legacy whitebooks.in
- * "Built for Teams. Ready for Scale." section (Role-Based Access & Control /
- * Audit Trail & Compliance cards) so the claims stay accurate.
+ * Copy is carried over verbatim from the legacy section so the claims
+ * stay accurate.
  */
 
-export const SECTION_HEADER = {
-  eyebrow: "ENTERPRISE CONTROLS",
-  heading: "Built for teams. Ready for scale.",
-  subtitle:
-    "Role permissions, approvals, audit trails and exportable evidence ensure your business stays secure as your team grows.",
-};
+export const SECTION_SUBTITLE =
+  "A unified platform experience that empowers collaboration, ensures transparency, and delivers performance at scale.";
 
-export type TimelineStatus = "created" | "pending" | "approved" | "logged" | "exported";
+export type ControlAccent = "brand" | "indigo";
 
-export interface TimelineEvent {
-  time: string;
+export type ControlTileIcon = "user-check" | "shield-check";
+
+export type ControlFeatureIcon =
+  | "users"
+  | "invoice-check"
+  | "audit-logs"
+  | "shield-user"
+  | "maker-checker-flow"
+  | "change-history"
+  | "filing-evidence"
+  | "export-reports";
+
+export interface ControlFeature {
+  icon: ControlFeatureIcon;
   title: string;
-  status: TimelineStatus;
+  sub: string;
 }
 
-export const TIMELINE_EVENTS: TimelineEvent[] = [
-  { time: "09:45 AM", title: "Invoice INV-2384 created by John", status: "created" },
-  { time: "09:47 AM", title: "Pending approval", status: "pending" },
-  { time: "09:49 AM", title: "Approved by Sarah", status: "approved" },
-  { time: "09:50 AM", title: "Audit log generated", status: "logged" },
-  { time: "09:51 AM", title: "Evidence exported", status: "exported" },
-];
-
-export type MetricSlot = "top-right" | "bottom-left" | "bottom-right";
-export type MetricIconKind = "audit" | "maker-checker" | "team";
-
-export interface FloatingMetric {
-  slot: MetricSlot;
-  icon: MetricIconKind;
-  title: string;
-  value: string;
-  note?: string;
-}
-
-export const FLOATING_METRICS: FloatingMetric[] = [
-  { slot: "top-right", icon: "audit", title: "Audit Trail", value: "Immutable logs", note: "99.9% integrity" },
-  { slot: "bottom-left", icon: "maker-checker", title: "Maker Checker", value: "Enabled" },
-  { slot: "bottom-right", icon: "team", title: "24 Team Members", value: "Role based access" },
-];
-
-export type BentoSize = "large" | "wide" | "small";
-export type BentoVariant = "capabilities" | "stat" | "feed";
-
-export interface BentoCardData {
+export interface ControlCardData {
   id: string;
-  size: BentoSize;
-  variant: BentoVariant;
-  eyebrow?: string;
+  accent: ControlAccent;
+  icon: ControlTileIcon;
   heading: string;
-  description?: string;
-  capabilities?: string[];
-  stat?: { value: string; label: string };
+  description: string;
+  features: ControlFeature[];
 }
 
-export const BENTO_CARDS: BentoCardData[] = [
+export const CONTROL_CARDS: ControlCardData[] = [
   {
     id: "access-control",
-    size: "large",
-    variant: "capabilities",
-    eyebrow: "Access control",
+    accent: "brand",
+    icon: "user-check",
     heading: "Role-Based Access & Control",
     description: "Work with your team. Keep control.",
-    capabilities: ["Multiple users with access roles", "Maker-Checker for invoices & payments", "Approval workflows"],
-  },
-  {
-    id: "evidence-export",
-    size: "small",
-    variant: "stat",
-    heading: "Evidence Export",
-    stat: { value: "1-click", label: "PDF & CSV exports" },
+    features: [
+      { icon: "users", title: "Multiple users", sub: "with access roles" },
+      { icon: "invoice-check", title: "Maker-Checker", sub: "for invoice & payments" },
+      { icon: "audit-logs", title: "Audit trail &", sub: "activity logs" },
+    ],
   },
   {
     id: "audit-trail",
-    size: "wide",
-    variant: "capabilities",
-    eyebrow: "Audit trail",
+    accent: "indigo",
+    icon: "shield-check",
     heading: "Audit Trail & Compliance",
     description: "Track every action with tamper-evident logs and exportable evidence.",
-    capabilities: ["Audit trail & activity logs", "Tamper-evident change history", "User-action audit & export reports"],
+    features: [
+      { icon: "shield-user", title: "Multiple users", sub: "with access roles" },
+      { icon: "maker-checker-flow", title: "Maker-Checker", sub: "for invoice & payments" },
+      { icon: "change-history", title: "Tamper-evident", sub: "change history" },
+      { icon: "filing-evidence", title: "Filing & ITC", sub: "compliance evidence" },
+      { icon: "export-reports", title: "User-action audit", sub: "& export reports" },
+    ],
   },
-  {
-    id: "audit-reports",
-    size: "small",
-    variant: "stat",
-    heading: "Audit Reports",
-    stat: { value: "100%", label: "Reconciled monthly" },
-  },
-  {
-    id: "compliance",
-    size: "wide",
-    variant: "capabilities",
-    eyebrow: "Compliance & security",
-    heading: "Compliance & Security",
-    description: "Maintain confidence with maker-checker workflows and GST evidence.",
-    capabilities: ["Filing & ITC compliance evidence", "GST evidence trail", "ITC reconciliation records"],
-  },
-  {
-    id: "activity-feed",
-    size: "large",
-    variant: "feed",
-    eyebrow: "Activity feed",
-    heading: "Every action, in real time",
-  },
-];
-
-export type FeedIconKind = "invoice" | "approval" | "export";
-
-export interface ActivityFeedEvent {
-  title: string;
-  subtitle: string;
-  time: string;
-  icon: FeedIconKind;
-}
-
-export const ACTIVITY_FEED_EVENTS: ActivityFeedEvent[] = [
-  { title: "Invoice INV-2384", subtitle: "Created by John", time: "11:42 AM", icon: "invoice" },
-  { title: "Payment Approved", subtitle: "By Sarah", time: "11:45 AM", icon: "approval" },
-  { title: "Evidence Generated", subtitle: "PDF Exported", time: "11:46 AM", icon: "export" },
 ];

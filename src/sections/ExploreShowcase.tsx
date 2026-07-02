@@ -91,6 +91,7 @@ function CTAButtons() {
         style={{ background: 'var(--bg-card)', border: '1px solid var(--hairline-strong)' }}
       >
         See live demo
+        <ArrowRight size={17} strokeWidth={2.4} className="transition-transform duration-300 group-hover:translate-x-1" />
       </a>
     </div>
   );

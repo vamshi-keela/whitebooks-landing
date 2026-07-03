@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { PillButton } from "@/components/ui/PillButton";
 import {
@@ -223,7 +224,26 @@ function FeatureTabs({
 }
 
 /* ── CTA row — primary + per-card "More features" ─────────────────────────── */
+const MotionLink = motion.create(Link);
+
 function CardCtas({ cta }: { cta: ShowcaseCta }) {
+  const target = href(cta.href);
+  const secondaryMotion = {
+    whileHover: { y: -2 },
+    whileTap: { y: 0 },
+    transition: { duration: 0.18, ease: EASE },
+    className:
+      "group inline-flex items-center justify-center gap-2 rounded-full border border-brand/40 bg-brand/[0.06] px-5 py-2.5 text-[13.5px] font-medium text-[var(--text)] hover:border-brand/70",
+  } as const;
+  const secondaryContent = (
+    <>
+      {cta.label}
+      <span aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-0.5">
+        →
+      </span>
+    </>
+  );
+
   return (
     <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
       <motion.a
@@ -236,18 +256,16 @@ function CardCtas({ cta }: { cta: ShowcaseCta }) {
         {SHOWCASE_PRIMARY_CTA.label}
         <span aria-hidden="true">→</span>
       </motion.a>
-      {/* <motion.a
-        href={href(cta.href)}
-        whileHover={{ y: -2 }}
-        whileTap={{ y: 0 }}
-        transition={{ duration: 0.18, ease: EASE }}
-        className="group inline-flex items-center justify-center gap-2 rounded-full border border-brand/40 bg-brand/[0.06] px-5 py-2.5 text-[13.5px] font-medium text-[var(--text)] hover:border-brand/70"
-      >
-        {cta.label}
-        <span aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-0.5">
-          →
-        </span>
-      </motion.a> */}
+      {/^https?:/.test(target) ? (
+        <motion.a href={target} {...secondaryMotion}>
+          {secondaryContent}
+        </motion.a>
+      ) : (
+        /* Internal feature deep-dive — SPA-navigate to /features/:slug */
+        <MotionLink to={target} {...secondaryMotion}>
+          {secondaryContent}
+        </MotionLink>
+      )}
     </div>
   );
 }

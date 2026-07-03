@@ -3,6 +3,7 @@ import { ButtonLink } from "@/components/ui/Button";
 import { useNavigate } from "react-router-dom";
 import DpIcon, { type IconName } from "@/pages/developer/DpIcon";
 import { cn } from "@/lib/cn";
+import DataStreamBackground from "@/components/DataStreamBackground";
 
 const METRICS: { k: string; v: string; icon: IconName }[] = [
     { k: 'Sub-200ms', v: 'IRN generation (P50)', icon: 'bolt' },
@@ -13,18 +14,23 @@ const METRICS: { k: string; v: string; icon: IconName }[] = [
 export function ForDevelopersSection() {
     const navigate = useNavigate();
     return (
-        <section className="relative overflow-hidden border-b border-[var(--hairline)] py-24 max-md:py-16 max-sm:py-12">
-            {/* Static, theme-aware backdrop — subtle fading grid + soft corner glow (Stripe / Razorpay inspired) */}
-            <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-                <div className="wb-dev-grid absolute inset-0" />
-                <div
-                    className="absolute inset-0"
-                    style={{
-                        background: `radial-gradient(58% 55% at 90% 104%, var(--accent-glow), transparent 60%),
-                            radial-gradient(48% 50% at 4% -6%, var(--accent-glow), transparent 64%)`,
-                        opacity: 0.7,
-                    } as React.CSSProperties}
-                />
+        <section
+            className="relative overflow-hidden border-b border-[var(--hairline)] py-24 max-md:py-16 max-sm:py-12"
+            style={{
+                // Pin the dark theme tokens so this near-black section stays
+                // readable regardless of the site's active (light/dark) theme.
+                backgroundColor: "#0B0B0F",
+                ["--fg-primary" as string]: "#e8e8f0",
+                ["--fg-secondary" as string]: "#9a9ab0",
+                ["--fg-tertiary" as string]: "#6b6b80",
+                ["--hairline" as string]: "rgba(255, 255, 255, 0.06)",
+                ["--accent-glow" as string]: "rgba(220, 47, 101, 0.4)",
+            } as React.CSSProperties}
+        >
+            {/* Animated backdrop — invisible streams of financial data quietly
+                flowing through the compliance network. */}
+            <div className="absolute inset-0 z-0 pointer-events-none">
+                <DataStreamBackground className="absolute inset-0" />
             </div>
 
             <div className="relative w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4">

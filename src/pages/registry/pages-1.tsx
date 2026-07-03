@@ -246,7 +246,7 @@ const PAGES: Record<string, SubPageData> = {
       eyebrow: "GST Software | GSP-Licensed",
       title: (
         <>
-          GST filing that <span className="text-[var(--brand)]">thinks before you click submit.</span>
+          GST compliance, <span className="text-[var(--brand)]">validated before you file.</span>
         </>
       ),
       sub: (

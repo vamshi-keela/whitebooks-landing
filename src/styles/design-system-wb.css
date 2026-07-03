@@ -5474,6 +5474,10 @@ img {
   text-wrap: balance;
 }
 
+.wb-ail2--blend .wb-ail2-heading {
+  color: var(--fg-primary);
+}
+
 .wb-ail2-heading .accent {
   color: var(--brand);
 }
@@ -5484,6 +5488,10 @@ img {
   line-height: 1.55;
   color: rgba(252, 231, 239, 0.68);
   max-width: 460px;
+}
+
+.wb-ail2--blend .wb-ail2-sub {
+  color: var(--fg-secondary);
 }
 
 .wb-ail2-note {
@@ -5499,6 +5507,12 @@ img {
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   box-shadow: 0 6px 18px -8px rgba(0, 0, 0, 0.35);
+}
+
+.wb-ail2--blend .wb-ail2-note {
+  background: color-mix(in srgb, var(--fg-primary) 5%, transparent);
+  border-color: var(--hairline-strong);
+  color: var(--fg-secondary);
 }
 
 .wb-ail2-note-dot {
@@ -5549,6 +5563,16 @@ img {
   transition: transform 220ms ease, box-shadow 220ms ease;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+}
+
+.wb-ail2--blend .wb-ail2-card {
+  background: linear-gradient(160deg,
+      color-mix(in srgb, var(--fg-primary) 6%, transparent) 0%,
+      color-mix(in srgb, var(--fg-primary) 3%, transparent) 100%);
+  border-color: var(--hairline-strong);
+  box-shadow:
+    0 1px 0 color-mix(in srgb, var(--fg-primary) 8%, transparent) inset,
+    0 18px 44px -28px rgba(0, 0, 0, 0.38);
 }
 
 .wb-ail2-card::after {
@@ -5612,6 +5636,10 @@ img {
   padding-top: 4px;
 }
 
+.wb-ail2--blend .wb-ail2-card-num {
+  color: var(--fg-quaternary);
+}
+
 .wb-ail2-card-title {
   font-family: var(--font-display);
   font-weight: 500;
@@ -5623,11 +5651,19 @@ img {
   text-wrap: balance;
 }
 
+.wb-ail2--blend .wb-ail2-card-title {
+  color: var(--fg-primary);
+}
+
 .wb-ail2-card-body {
   margin: 0;
   font-size: 13.5px;
   line-height: 1.55;
   color: rgba(252, 231, 239, 0.60);
+}
+
+.wb-ail2--blend .wb-ail2-card-body {
+  color: var(--fg-secondary);
 }
 
 .wb-ail2-card-body code {
@@ -6104,6 +6140,16 @@ img {
 }
 
 /* ---------- Developers section ---------- */
+.wb-dev-bg-grid {
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--fg-primary) 7%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--fg-primary) 7%, transparent) 1px, transparent 1px);
+  background-size: 44px 44px;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 74%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 74%, transparent 100%);
+  opacity: 0.32;
+}
+
 .wb-dev-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);

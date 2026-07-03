@@ -48,6 +48,7 @@ import { MultiGstSearch } from '@/pages/tools/MultiGstSearch';
 import { GstHsnSacSearch } from '@/pages/tools/GstHsnSacSearch';
 import { StatusPage } from '@/pages/status/StatusPage';
 import NoticeManagement from '@/pages/notices/NoticeManagement';
+import GstLedgerReports from '@/pages/softwares/GstLedgerReports';
 import { SeoHead } from '@/seo/components/SeoHead';
 import { StructuredData } from '@/seo/components/StructuredData';
 import { getPageMeta } from '@/seo/metadata';
@@ -76,6 +77,8 @@ import SecurityHero from '@/components/security/SecurityHero';
 import UseCasesAndPartners from '@/components/usecases-and-partners/UseCasesAndPartners';
 import LogoWallCarousel from '@/components/ui/LogoWall';
 import ShippingPage from '@/pages/about/ShippingPage';
+import MoreFeaturesExplore from '@/pages/features/MoreFeaturesExplore';
+import { getMoreFeaturesPage } from '@/data/more-features-explore.data';
 
 /* ─── Slug maps ─────────────────────────────────────────────────────────── */
 
@@ -276,6 +279,16 @@ function DevPortalIndex() {
   return <Navigate to="/developer/overview" replace />;
 }
 
+/* ─── Feature deep-dive pages (More features → /features/:slug) ──────────── */
+
+function MoreFeaturesRoute() {
+  const { slug } = useParams<{ slug: string }>();
+  const page = getMoreFeaturesPage(slug ?? '');
+  if (!page) return <Navigate to="/softwares" replace />;
+  // Key by slug so in-page state (nav, FAQ) resets when hopping between features.
+  return <MoreFeaturesExplore key={page.slug} data={page} />;
+}
+
 /* ─── Connector landing pages (SAP / Tally) ──────────────────────────────── */
 
 function ConnectorPageRoute() {
@@ -298,12 +311,14 @@ export function AppRouter() {
         {/* ── Marketing / product routes ────────────────────────────── */}
         <Route path="/" element={<HomeRoute />} />
         <Route path="/softwares" element={<SoftwaresHubRoute />} />
+        <Route path="/softwares/gst-detailes" element={<GstLedgerReports />} />
         <Route path="/softwares/:product" element={<SoftwareSubPageRoute />} />
         {/* <Route path="/apis" element={<ApiSuitePage />} /> */}
         <Route path="/apis" element={<ApisHubRoute />} />
         <Route path="/apis/:product" element={<ApiSubPageRoute />} />
         <Route path="/services" element={<ServicesHubRoute />} />
         <Route path="/connectors/:slug" element={<ConnectorPageRoute />} />
+        <Route path="/features/:slug" element={<MoreFeaturesRoute />} />
         <Route path="/resources/partners" element={<PartnerWithUs />} />
         <Route path="/resources/support" element={<SupportPage />} />
         <Route path="/resources/videos" element={<VideosPage />} />

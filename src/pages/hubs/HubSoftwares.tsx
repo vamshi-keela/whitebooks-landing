@@ -11,6 +11,7 @@ import SharedAILayer from './SharedAILayer';
 import { BookDemoModal } from '@/components/modals/BookDemoModal';
 import DpIcon from '../developer/DpIcon';
 import { SubClose } from '@/components/subpage/SubClose';
+import TrustStats from '@/sections/TrustStats';
 
 interface SoftwareProduct {
   icon: React.ReactNode;
@@ -165,6 +166,9 @@ export function HubSoftwares() {
               className="absolute bottom-0 right-0 h-full w-auto max-w-[55%] object-contain object-[bottom_right] pointer-events-none z-0 max-[1024px]:max-w-[40%] max-[1024px]:opacity-70 max-[700px]:hidden"
             />
           </section>
+
+
+          <TrustStats />
 
           {/* Five products (stacked rows) */}
           <section className="relative py-[120px] max-[700px]:py-[72px]" data-reveal>

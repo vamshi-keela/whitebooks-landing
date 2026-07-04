@@ -1,5 +1,8 @@
 import { memo, useEffect, useState } from "react";
 import complianceTrust from "../assets/elements/complaince-trust.jpeg";
+import gspProvider from "../assets/gsp-provider.svg";
+import isoCertified from "../assets/iso-certified-2022.svg";
+import sslSecure from "../assets/ssl-secure.png";
 import { useInView } from "@/hooks/useInView";
 import { HeroFluidBackground } from "@/layouts/SiteShell";
 import { Button } from "@/components/ui/Button";
@@ -30,6 +33,14 @@ export const Hero = memo(function Hero(): JSX.Element {
 
         <div className="relative z-10 max-w-[1240px] mx-auto px-8 max-sm:px-5 justiy-center">
           <div className="max-w-[960px] mx-auto text-center">
+            {/* Certification strip — quiet proof at the point of conversion.
+                Artwork tone per theme is handled by .hero-cert in
+                src/styles/design-system-wb.css. */}
+            <div className="mb-4 flex flex-wrap items-end justify-center gap-x-10 gap-y-4 max-sm:mt-9 max-sm:gap-x-6">
+              <img src={gspProvider} alt="Licensed GST Suvidha Provider" className="hero-cert h-11 w-auto max-sm:h-9" />
+              <img src={isoCertified} alt="ISO 27001:2022 certified" className="hero-cert h-11 w-auto max-sm:h-9" />
+              <img src={sslSecure} alt="SSL secured" className="hero-cert h-9 w-auto max-sm:h-7" />
+            </div>
             <EyebrowPill label="Licensed GSP by GSTIN" subtitle="GST Suvidha Provider" />
             <h1 className="font-display font-semibold text-[clamp(36px,4vw,101px)] leading-[1.05] tracking-[-0.03em] mt-[22px] text-center text-[var(--text)]">
               Compliance infrastructure for{' '}

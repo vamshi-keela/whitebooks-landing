@@ -19,36 +19,11 @@ import {
 
 const BRAND = "#d33568";
 
-// Near-black glass card with a soft pink top-edge highlight and a faint
-// radial glow at the top — matches the "glass catching light" look in the comp.
-const cardSurface: React.CSSProperties = {
-  background: [
-    "radial-gradient(120% 78% at 50% 0%, rgba(220,47,101,0.16) 0%, rgba(220,47,101,0) 46%)",
-    "linear-gradient(155deg, rgba(15,8,19,0.95) 0%, rgba(6,2,11,0.98) 100%)",
-  ].join(", "),
-  border: "1px solid rgba(220,47,101,0.26)",
-  boxShadow: [
-    "inset 0 1px 0 rgba(255,110,155,0.5)", // glass top edge
-    "inset 1px 0 0 rgba(255,90,140,0.16)", // glass left edge
-    "inset -1px 0 0 rgba(220,47,101,0.05)", // faint right edge
-    "0 12px 44px rgba(0,0,0,0.62)", // deep drop shadow
-    "0 0 28px rgba(220,47,101,0.08)", // pink ambient glow
-  ].join(", "),
-  // NOTE: backdrop-filter was intentionally removed. The card background above
-  // is already 95–98% opaque, so the blur had almost no visible effect while
-  // being one of the most expensive paint ops on the page — 7 of these on a
-  // scaled canvas forced a full, slow re-raster every time the hero scrolled
-  // back into view (the 1–2s stall).
-};
-
-// Subdued dark-glass tile used for the stats card + API strip icons.
-const darkTile: React.CSSProperties = {
-  background:
-    "linear-gradient(155deg, rgba(64,14,32,0.92) 0%, rgba(28,8,16,0.96) 100%)",
-  border: "1px solid rgba(220,47,101,0.42)",
-  boxShadow:
-    "inset 0 1px 0 rgba(255,120,160,0.28), 0 0 18px rgba(220,47,101,0.28)",
-};
+// The glass card + tile surfaces, their text colours, dividers, tags, stat
+// accents and the scaled-canvas vars all live as `.hero-*` classes in
+// src/styles/design-system-wb.css (imported globally in main.tsx), where a
+// single [data-theme="light"] override re-skins the whole hero for light mode
+// without touching the (carefully tuned) dark defaults.
 
 interface ProductCard {
   title: string;
@@ -160,7 +135,7 @@ const APIS: ApiItem[] = [
     route: '/developer/e-invoice-api/get-einvoice-authenticate',
   },
   {
-    icon: Code2, title: "Developer Friendly Docs", sub: "Swagger Docs, SDKs, Sandbox",
+    icon: Code2, title: "Developer Friendly Docs", sub: "Docs, SDKs, Sandbox",
     route: '/developer/overview'
   },
 
@@ -198,10 +173,10 @@ function DarkIconTile({
 }) {
   return (
     <span
-      style={darkTile}
-      className={`flex shrink-0 items-center justify-center ${className}`}
+      className={`hero-tile flex shrink-0 items-center justify-center ${className}`}
     >
-      <Icon className={iconClassName} color="#ff6a96" strokeWidth={2.1} />
+      {/* color comes from the tile's `color` (currentColor) so it flips per theme */}
+      <Icon className={iconClassName} color="currentColor" strokeWidth={2.1} />
     </span>
   );
 }
@@ -212,7 +187,6 @@ function ProductGlassCard({ card }: { card: ProductCard }) {
   const navigate = useNavigate();
   return (
     <div
-      style={cardSurface}
       onClick={() => navigate(route)}
       role="link"
       tabIndex={0}
@@ -222,7 +196,7 @@ function ProductGlassCard({ card }: { card: ProductCard }) {
           navigate(route);
         }
       }}
-      className="group relative flex cursor-pointer flex-col rounded-[20px] p-4 transition-transform duration-300 hover:-translate-y-1"
+      className="hero-card group relative flex cursor-pointer flex-col rounded-[20px] p-4 transition-transform duration-300 hover:-translate-y-1"
     >
       <div className="flex items-center gap-2.5">
         <IconTile
@@ -230,7 +204,7 @@ function ProductGlassCard({ card }: { card: ProductCard }) {
           className="h-9 w-9 rounded-[10px]"
           iconClassName="h-[18px] w-[18px]"
         />
-        <h3 className="font-display text-[13.5px] font-semibold uppercase tracking-[0.05em] text-white/95 xl:whitespace-nowrap">
+        <h3 className="hero-txt-strong font-display text-[13.5px] font-semibold uppercase tracking-[0.05em] xl:whitespace-nowrap">
           {title}
         </h3>
       </div>
@@ -239,7 +213,7 @@ function ProductGlassCard({ card }: { card: ProductCard }) {
         {items.map((item) => (
           <li
             key={item}
-            className="flex items-start gap-2 text-[12.5px] leading-snug text-white/70"
+            className="hero-txt-muted flex items-start gap-2 text-[12.5px] leading-snug"
           >
             <Check
               size={13}
@@ -256,7 +230,7 @@ function ProductGlassCard({ card }: { card: ProductCard }) {
         {tags.map((tag) => (
           <span
             key={tag}
-            className="rounded-full border border-[rgba(220,47,101,0.32)] bg-[rgba(220,47,101,0.10)] px-2.5 py-[4px] text-[11px] font-medium text-[#ff7197]"
+            className="hero-tag rounded-full px-2.5 py-[4px] text-[11px] font-medium"
           >
             {tag}
           </span>
@@ -269,15 +243,14 @@ function ProductGlassCard({ card }: { card: ProductCard }) {
 function StatsGlassCard() {
   return (
     <div
-      style={cardSurface}
-      className="relative flex flex-col justify-center rounded-[20px] p-4 transition-transform duration-300 hover:-translate-y-1 max-md:p-3"
+      className="hero-card relative flex flex-col justify-center rounded-[20px] p-4 transition-transform duration-300 hover:-translate-y-1 max-md:p-3"
     >
       <ul className="flex flex-col">
         {STATS.map((stat, i) => (
           <li
             key={stat.label}
             className={`flex items-center gap-3 py-3.5 first:pt-0 last:pb-0 max-md:gap-2 max-md:py-2.5 ${i < STATS.length - 1
-              ? "border-b border-[rgba(255,255,255,0.07)]"
+              ? "hero-divider border-b"
               : ""
               }`}
           >
@@ -287,10 +260,10 @@ function StatsGlassCard() {
               iconClassName="h-[19px] w-[19px] max-md:h-3.5 max-md:w-3.5"
             />
             <div className="min-w-0">
-              <div className="font-display text-[22px] font-bold leading-none tracking-tight text-[#ff4f86] whitespace-nowrap max-md:text-[15px]">
+              <div className="hero-stat-value font-display text-[22px] font-bold leading-none tracking-tight whitespace-nowrap max-md:text-[15px]">
                 {stat.value}
               </div>
-              <div className="mt-1 text-[12px] leading-tight text-white/70 max-md:mt-0.5 max-md:text-[10px]">
+              <div className="hero-txt-muted mt-1 text-[12px] leading-tight max-md:mt-0.5 max-md:text-[10px]">
                 {stat.label}
               </div>
             </div>
@@ -308,12 +281,11 @@ function ApiStrip({ variant = "fixed" }: { variant?: "fixed" | "responsive" }) {
   const responsive = variant === "responsive";
   return (
     <div
-      style={cardSurface}
-      className={`relative overflow-hidden rounded-[20px] pb-5 ${responsive ? "px-5" : "px-8"
+      className={`hero-card relative overflow-hidden rounded-[20px] pb-5 ${responsive ? "px-5" : "px-8"
         }`}
     >
       <div className="mb-4 mt-2 text-center">
-        <span className="font-display text-[13.5px] font-semibold mt-1 uppercase tracking-[0.05em] text-white/95 xl:whitespace-nowrap">
+        <span className="hero-txt-strong font-display text-[13.5px] font-semibold mt-1 uppercase tracking-[0.05em] xl:whitespace-nowrap">
           Powerful APIs for Developers
         </span>
       </div>
@@ -330,7 +302,7 @@ function ApiStrip({ variant = "fixed" }: { variant?: "fixed" | "responsive" }) {
             onClick={() => navigate(api.route || "/")}
             className={`flex min-w-0 items-center gap-2.5 cursor-pointer ${responsive
               ? ""
-              : `px-4 ${i > 0 ? "border-l border-[rgba(255,255,255,0.07)]" : ""}`
+              : `px-4 ${i > 0 ? "hero-divider border-l" : ""}`
               }`}
           >
             <DarkIconTile
@@ -339,10 +311,10 @@ function ApiStrip({ variant = "fixed" }: { variant?: "fixed" | "responsive" }) {
               iconClassName="h-[18px] w-[18px]"
             />
             <div className="min-w-0">
-              <div className="text-[13px] font-semibold text-white/95">
+              <div className="hero-txt-strong text-[13px] font-semibold">
                 {api.title}
               </div>
-              <div className="text-[11.5px] leading-tight text-white/70">
+              <div className="hero-txt-muted text-[11.5px] leading-tight">
                 {api.sub}
               </div>
             </div>
@@ -452,30 +424,14 @@ const HeroShowcase = memo(function HeroShowcase() {
   return (
     <div className="relative z-10 mx-auto mt-10 w-full max-w-[1500px] px-4 pb-20 md:mt-14 md:px-6 [overflow-x:clip]">
 
-      {/* ══════════════════════════════════════════════════════════════════════
-          Both layouts live on a fixed-width canvas that is scaled down with a
-          single transform, so cards, text and the person all shrink together
-          to fit the viewport width.
-
-          --showcase-scale: scaled canvas width = (viewport − side padding),
-            capped at 1 once the canvas fits.
-          --showcase-h:    natural (unscaled) height of the canvas, used to
-            pull the following content up so the transform leaves no gap.
+      {/* Both layouts live on a fixed-width canvas that is scaled down with a
+          single transform (see the `.hero-canvas-*` classes + all `.hero-*`
+          card styling in src/styles/design-system-wb.css), so cards, text and
+          the person all shrink together to fit the viewport width.
 
           Desktop (md+): the full 5-card constellation + ApiStrip on a 1468px
             canvas. Mobile (<md): only the person + 4 product cards on a smaller
-            760px canvas; Stats, KSA and the ApiStrip render full-size below it.
-      ══════════════════════════════════════════════════════════════════════ */}
-      <style>{`
-        .hero-canvas-desk {
-          --showcase-scale: clamp(0.2, calc((min(100vw, 1500px) - 48px) / 1468px), 1);
-          --showcase-h: 645px;
-        }
-        .hero-canvas-mob {
-          --showcase-scale: clamp(0.2, calc((100vw - 32px) / 760px), 1);
-          --showcase-h: 734px;
-        }
-      `}</style>
+            760px canvas; Stats, KSA and the ApiStrip render full-size below it. */}
 
       {/* ── Desktop / laptop (md+) ─────────────────────────────────────────── */}
       <div

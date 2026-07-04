@@ -7146,3 +7146,162 @@ img {
     animation: none;
   }
 }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   HERO SHOWCASE (src/sections/HeroShowcase.tsx)
+   ══════════════════════════════════════════════════════════════════════════
+   Both hero layouts live on a fixed-width canvas that is scaled down with a
+   single transform, so cards, text and the person all shrink together to fit
+   the viewport width.
+     --showcase-scale: scaled canvas width = (viewport − side padding),
+       capped at 1 once the canvas fits.
+     --showcase-h:    natural (unscaled) height of the canvas, used to pull the
+       following content up so the transform leaves no gap. */
+.hero-canvas-desk {
+  --showcase-scale: clamp(0.2, calc((min(100vw, 1500px) - 48px) / 1468px), 1);
+  --showcase-h: 645px;
+}
+
+.hero-canvas-mob {
+  --showcase-scale: clamp(0.2, calc((100vw - 32px) / 760px), 1);
+  --showcase-h: 734px;
+}
+
+/* ── Glass surfaces (dark defaults) ─────────────────────────────────────────
+   A near-black glass card with a soft pink top-edge highlight and a faint
+   radial glow at the top — the "glass catching light" look.
+
+   NOTE: backdrop-filter is intentionally left off. The background is already
+   95–98% opaque, so the blur had almost no visible effect while being one of
+   the most expensive paint ops on the page — 7 of these on a scaled canvas
+   forced a full, slow re-raster every time the hero scrolled back into view
+   (the 1–2s stall). */
+.hero-card {
+  background:
+    radial-gradient(120% 78% at 50% 0%, rgba(220, 47, 101, 0.16) 0%, rgba(220, 47, 101, 0) 46%),
+    linear-gradient(155deg, rgba(15, 8, 19, 0.95) 0%, rgba(6, 2, 11, 0.98) 100%);
+  border: 1px solid rgba(220, 47, 101, 0.26);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 110, 155, 0.5),   /* glass top edge   */
+    inset 1px 0 0 rgba(255, 90, 140, 0.16),   /* glass left edge  */
+    inset -1px 0 0 rgba(220, 47, 101, 0.05),  /* faint right edge */
+    0 12px 44px rgba(0, 0, 0, 0.62),          /* deep drop shadow */
+    0 0 28px rgba(220, 47, 101, 0.08);        /* pink ambient glow */
+}
+
+/* Subdued dark-glass tile — stats + API strip icons. Its color drives the icon
+   (rendered with currentColor) so it flips with the theme. */
+.hero-tile {
+  color: #ff6a96;
+  background: linear-gradient(155deg, rgba(64, 14, 32, 0.92) 0%, rgba(28, 8, 16, 0.96) 100%);
+  border: 1px solid rgba(220, 47, 101, 0.42);
+  box-shadow: inset 0 1px 0 rgba(255, 120, 160, 0.28), 0 0 18px rgba(220, 47, 101, 0.28);
+}
+
+.hero-txt-strong { color: rgba(255, 255, 255, 0.95); }
+.hero-txt-muted  { color: rgba(255, 255, 255, 0.70); }
+.hero-divider    { border-color: rgba(255, 255, 255, 0.07); }
+.hero-stat-value { color: #ff4f86; }
+
+.hero-tag {
+  border: 1px solid rgba(220, 47, 101, 0.32);
+  background: rgba(220, 47, 101, 0.10);
+  color: #ff7197;
+}
+
+/* Certification badges under the hero CTA. The GSP/ISO artwork is white-filled
+   and the SSL badge mid-grey, so all three are collapsed to one ghost tone per
+   theme (same idiom as .wb-logo variants). */
+.hero-cert {
+  filter: brightness(0) invert(1) opacity(0.62);
+  transition: filter 240ms ease;
+}
+.hero-cert:hover { filter: brightness(0) invert(1) opacity(0.95); }
+
+/* ── Light theme — reskin to frosted-white glass with a pink wash ─────────── */
+[data-theme="light"] .hero-card {
+  background:
+    radial-gradient(120% 78% at 50% 0%, rgba(220, 47, 101, 0.09) 0%, rgba(220, 47, 101, 0) 50%),
+    linear-gradient(155deg, rgba(255, 255, 255, 0.97) 0%, rgba(255, 246, 249, 0.99) 100%);
+  border: 1px solid rgba(220, 47, 101, 0.16);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 1px 0 0 rgba(255, 255, 255, 0.6),
+    0 12px 40px rgba(24, 10, 20, 0.10),
+    0 0 24px rgba(220, 47, 101, 0.05);
+}
+
+[data-theme="light"] .hero-tile {
+  color: #d33568;
+  background: linear-gradient(155deg, rgba(255, 228, 237, 0.95) 0%, rgba(255, 241, 246, 0.98) 100%);
+  border: 1px solid rgba(220, 47, 101, 0.24);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 4px 12px rgba(220, 47, 101, 0.14);
+}
+
+[data-theme="light"] .hero-txt-strong { color: rgba(20, 12, 18, 0.92); }
+[data-theme="light"] .hero-txt-muted  { color: rgba(20, 12, 18, 0.60); }
+[data-theme="light"] .hero-divider    { border-color: rgba(20, 12, 18, 0.08); }
+[data-theme="light"] .hero-stat-value { color: #d33568; }
+
+[data-theme="light"] .hero-tag {
+  border-color: rgba(220, 47, 101, 0.28);
+  background: rgba(220, 47, 101, 0.08);
+  color: #c22a5b;
+}
+
+[data-theme="light"] .hero-cert {
+  filter: brightness(0) opacity(0.5);
+}
+[data-theme="light"] .hero-cert:hover { filter: brightness(0) opacity(0.85); }
+/* ---------- TrustStats theme tokens (src/sections/TrustStats.tsx) ---------- */
+.wb-truststats {
+  --ts-bg: linear-gradient(180deg, #07070a 0%, #0a070d 48%, #07070a 100%);
+  --ts-grid: rgba(255, 255, 255, 0.025);
+  --ts-hairline: rgba(255, 255, 255, 0.15);
+  --ts-hairline-soft: rgba(255, 255, 255, 0.1);
+  --ts-sep: rgba(255, 255, 255, 0.16);
+  --ts-chip-bg: rgba(13, 9, 14, 0.95);
+  --ts-chip-border: rgba(255, 255, 255, 0.12);
+  --ts-chip-text: rgba(255, 255, 255, 0.86);
+  --ts-chip-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.09);
+  --ts-chip-tint: rgba(220, 47, 101, 0.32);
+  --ts-label: rgba(255, 255, 255, 0.6);
+  --ts-label-hover: rgba(255, 255, 255, 0.82);
+  --ts-num-pink: linear-gradient(180deg, #ffc2d8 0%, #ff7aa8 42%, #e83a72 100%);
+  --ts-num-cyan: linear-gradient(180deg, #d3f8ff 0%, #7deafb 46%, #38c8e8 100%);
+  --ts-glow-pink: rgba(244, 63, 125, 0.2);
+  --ts-glow-cyan: rgba(110, 231, 249, 0.2);
+  --ts-aurora-pink: rgba(220, 47, 101, 0.16);
+  --ts-aurora-cyan: rgba(110, 231, 249, 0.09);
+  --ts-badge-glow: rgba(244, 63, 125, 0.22);
+  --ts-badge-filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.45));
+}
+[data-theme="light"] .wb-truststats {
+  --ts-bg: linear-gradient(180deg, #ffffff 0%, #fdf6f9 48%, #ffffff 100%);
+  --ts-grid: rgba(13, 13, 20, 0.035);
+  --ts-hairline: rgba(13, 13, 20, 0.14);
+  --ts-hairline-soft: rgba(13, 13, 20, 0.09);
+  --ts-sep: rgba(13, 13, 20, 0.13);
+  --ts-chip-bg: rgba(255, 255, 255, 0.94);
+  --ts-chip-border: rgba(13, 13, 20, 0.12);
+  --ts-chip-text: #33333f;
+  --ts-chip-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85), 0 10px 24px rgba(30, 10, 25, 0.08);
+  --ts-chip-tint: rgba(220, 47, 101, 0.1);
+  --ts-label: #5c5c72;
+  --ts-label-hover: #23232f;
+  --ts-num-pink: linear-gradient(180deg, #f4568b 0%, #e02a66 52%, #a91a4b 100%);
+  --ts-num-cyan: linear-gradient(180deg, #2fc3e6 0%, #0ea5c9 52%, #0b7f9c 100%);
+  --ts-glow-pink: rgba(244, 63, 125, 0.13);
+  --ts-glow-cyan: rgba(14, 165, 201, 0.13);
+  --ts-aurora-pink: rgba(220, 47, 101, 0.07);
+  --ts-aurora-cyan: rgba(14, 165, 201, 0.06);
+  --ts-badge-glow: rgba(244, 63, 125, 0.1);
+  --ts-badge-filter: brightness(0) opacity(0.72) drop-shadow(0 10px 20px rgba(0, 0, 0, 0.12));
+}
+.wb-ts-label {
+  color: var(--ts-label);
+  transition: color 0.3s ease;
+}
+.group:hover .wb-ts-label {
+  color: var(--ts-label-hover);
+}

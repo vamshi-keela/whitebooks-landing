@@ -1,8 +1,8 @@
-import { useState, useRef, ReactNode } from 'react';
+import { useState, useRef, Fragment, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import type { NavItem } from './navConfig';
 
-interface SecondaryGroup {
+interface Group {
   label: string;
   items: NavItem[];
 }
@@ -13,9 +13,12 @@ interface NavDropdownProps {
   hubHref: string;
   items: NavItem[];
   isActive: boolean;
-  secondaryGroup?: SecondaryGroup;
+  secondaryGroup?: Group;
   /** Header for the primary column in two-column mode. Defaults to `label`. */
   primaryLabel?: string;
+  /** N-column mode: each group becomes its own labelled column. Takes
+   *  precedence over `items` / `secondaryGroup` when provided. */
+  groups?: Group[];
 }
 
 function NavItemLink({ item, accentColor, hoverBg, onClose }: {
@@ -43,7 +46,7 @@ function NavItemLink({ item, accentColor, hoverBg, onClose }: {
   );
 }
 
-export function NavDropdown({ label, triggerIcon, hubHref, items, isActive, secondaryGroup, primaryLabel }: NavDropdownProps) {
+export function NavDropdown({ label, triggerIcon, hubHref, items, isActive, secondaryGroup, primaryLabel, groups }: NavDropdownProps) {
   const [open, setOpen] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout>>();
 
@@ -51,7 +54,17 @@ export function NavDropdown({ label, triggerIcon, hubHref, items, isActive, seco
   const hide = () => { timer.current = setTimeout(() => setOpen(false), 150); };
   const close = () => setOpen(false);
 
-  const twoColumn = !!secondaryGroup;
+  // Unify the three layouts (single list, primary+secondary, N groups) into a
+  // single `columns` model. `null` → render `items` as a single column.
+  const usingGroups = !!groups?.length;
+  const columns: Group[] | null = usingGroups
+    ? groups!
+    : secondaryGroup
+      ? [{ label: primaryLabel ?? label, items }, secondaryGroup]
+      : null;
+
+  const hasContent = usingGroups || items.length > 0;
+  const width = usingGroups ? groups!.length * 216 : columns ? 540 : 236;
 
   return (
     <div className="relative" onMouseEnter={show} onMouseLeave={hide}>
@@ -63,7 +76,7 @@ export function NavDropdown({ label, triggerIcon, hubHref, items, isActive, seco
       >
         {triggerIcon}
         {label}
-        {items.length > 0 && <svg
+        {hasContent && <svg
           width="10" height="6" viewBox="0 0 10 6" fill="none"
           className={`ml-0.5 opacity-50 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
         >
@@ -72,14 +85,14 @@ export function NavDropdown({ label, triggerIcon, hubHref, items, isActive, seco
       </Link>
 
       {/* pt-[6px] bridges the gap between trigger and panel */}
-      {items.length > 0 && <div
+      {hasContent && <div
         className={`absolute top-full left-1/2 -translate-x-1/2 pt-[6px] z-50 transition-all duration-150 ease-out
           ${open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
       >
         <div
           className={`relative transition-transform duration-150 ease-out ${open ? 'translate-y-0' : '-translate-y-1'}`}
           style={{
-            width: twoColumn ? 540 : 236,
+            width,
             background: 'var(--bg-3)',
             border: '1px solid var(--line-2)',
             borderRadius: '12px',
@@ -99,44 +112,28 @@ export function NavDropdown({ label, triggerIcon, hubHref, items, isActive, seco
             }}
           />
 
-          {twoColumn ? (
+          {columns ? (
             <div className="flex p-1.5 gap-0">
-              {/* Primary column — Resources */}
-              <div className="flex-1 min-w-0">
-                <p className="px-3 pt-[10px] pb-[6px] text-[10px] font-semibold uppercase tracking-[0.12em]"
-                  style={{ color: 'var(--brand)' }}>
-                  {primaryLabel ?? label}
-                </p>
-                {items.map(item => (
-                  <NavItemLink
-                    key={item.href}
-                    item={item}
-                    accentColor="#d33568"
-                    hoverBg="rgba(220,47,101,0.08)"
-                    onClose={close}
-                  />
-                ))}
-              </div>
-
-              {/* Divider */}
-              <div className="w-px my-2 shrink-0" style={{ background: 'var(--line-2)' }} />
-
-              {/* Secondary column — Tools */}
-              <div className="flex-1 min-w-0">
-                <p className="px-3 pt-[10px] pb-[6px] text-[10px] font-semibold uppercase tracking-[0.12em]"
-                  style={{ color: '#d33568' }}>
-                  {secondaryGroup.label}
-                </p>
-                {secondaryGroup.items.map(item => (
-                  <NavItemLink
-                    key={item.href}
-                    item={item}
-                    accentColor="#d33568"
-                    hoverBg="rgba(220,47,101,0.08)"
-                    onClose={close}
-                  />
-                ))}
-              </div>
+              {columns.map((col, i) => (
+                <Fragment key={col.label}>
+                  {i > 0 && <div className="w-px my-2 shrink-0" style={{ background: 'var(--line-2)' }} />}
+                  <div className="flex-1 min-w-0">
+                    <p className="px-3 pt-[10px] pb-[6px] text-[10px] font-semibold uppercase tracking-[0.12em]"
+                      style={{ color: i === 0 ? 'var(--brand)' : '#d33568' }}>
+                      {col.label}
+                    </p>
+                    {col.items.map(item => (
+                      <NavItemLink
+                        key={item.href}
+                        item={item}
+                        accentColor="#d33568"
+                        hoverBg="rgba(220,47,101,0.08)"
+                        onClose={close}
+                      />
+                    ))}
+                  </div>
+                </Fragment>
+              ))}
             </div>
           ) : (
             <div className="p-1.5">

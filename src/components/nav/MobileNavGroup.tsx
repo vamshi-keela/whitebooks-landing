@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import type { NavItem } from './navConfig';
 import { Button } from '../ui/Button';
 
-interface SecondaryGroup {
+interface Group {
   label: string;
   items: NavItem[];
 }
@@ -13,9 +13,12 @@ interface MobileNavGroupProps {
   icon: ReactNode;
   items: NavItem[];
   onNavigate: () => void;
-  secondaryGroup?: SecondaryGroup;
+  secondaryGroup?: Group;
   /** Header shown above the primary list. Defaults to no header. */
   primaryLabel?: string;
+  /** N-group mode: each group becomes its own labelled section. Takes
+   *  precedence over `items` / `secondaryGroup` when provided. */
+  groups?: Group[];
 }
 
 function MobileNavItemList({ items, onNavigate, accentColor = '#d33568', hoverBg = 'rgba(220,47,101,0.08)' }: {
@@ -48,8 +51,16 @@ function MobileNavItemList({ items, onNavigate, accentColor = '#d33568', hoverBg
   );
 }
 
-export function MobileNavGroup({ label, icon, items, onNavigate, secondaryGroup, primaryLabel }: MobileNavGroupProps) {
+export function MobileNavGroup({ label, icon, items, onNavigate, secondaryGroup, primaryLabel, groups }: MobileNavGroupProps) {
   const [open, setOpen] = useState(false);
+
+  // Unify layouts: N-group mode wins, else fall back to primary + optional secondary.
+  const sections: Group[] = groups?.length
+    ? groups
+    : [
+        ...(primaryLabel ? [{ label: primaryLabel, items }] : [{ label: '', items }]),
+        ...(secondaryGroup ? [secondaryGroup] : []),
+      ];
 
   return (
     <div>
@@ -72,24 +83,16 @@ export function MobileNavGroup({ label, icon, items, onNavigate, secondaryGroup,
 
       {open && (
         <div className="mt-1 ml-3 pl-3 border-l border-[var(--line-2)] flex flex-col gap-0.5">
-          {primaryLabel && (
-            <p className="px-2 pt-1 pb-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#d33568]">
-              {primaryLabel}
-            </p>
-          )}
-          <MobileNavItemList items={items} onNavigate={onNavigate} />
-          {secondaryGroup && (
-            <>
-              <p className="px-2 pt-2 pb-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#d33568]">
-                {secondaryGroup.label}
-              </p>
-              <MobileNavItemList
-                items={secondaryGroup.items}
-                onNavigate={onNavigate}
-                hoverBg="rgba(34,211,238,0.08)"
-              />
-            </>
-          )}
+          {sections.map((section, i) => (
+            <div key={section.label || i}>
+              {section.label && (
+                <p className={`px-2 pb-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#d33568] ${i === 0 ? 'pt-1' : 'pt-2'}`}>
+                  {section.label}
+                </p>
+              )}
+              <MobileNavItemList items={section.items} onNavigate={onNavigate} />
+            </div>
+          ))}
         </div>
       )}
     </div>

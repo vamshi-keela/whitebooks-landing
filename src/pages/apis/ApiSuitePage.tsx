@@ -1087,7 +1087,7 @@ System.out.<span class="fn">println</span>(res.getIrn());`,
         <div className="mt-7 flex flex-wrap gap-4 text-[14px]">
           <a href="/developer/gst-api" className="text-[var(--brand)] hover:underline">Full docs: /docs/gst</a>
           <a href="/developer/e-invoice-api" className="text-[var(--brand)] hover:underline">/docs/einvoice</a>
-          <a href="/developer/e-way-bill-api" className="text-[var(--brand)] hover:underline">/docs/eway</a>
+          <a href="/developer/e-way-bill-api/get-ewaybillapi-v1.03-authenticate" className="text-[var(--brand)] hover:underline">/docs/eway</a>
         </div>
       </div>
     </section>

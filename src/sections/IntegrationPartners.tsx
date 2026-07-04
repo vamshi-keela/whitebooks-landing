@@ -13,7 +13,6 @@ import {
   Code2,
   FileText,
   Landmark,
-  Network,
   ShoppingBag,
   Store,
   Truck,
@@ -31,7 +30,6 @@ import {
   SectionShell,
   fadeUp,
   staggerParent,
-  BRAND,
 } from "@/components/ui/SectionKit";
 import {
   INTEGRATION_PARTNERS,
@@ -39,6 +37,7 @@ import {
   type DestinationNode,
   type IntegrationPartnersData,
 } from "./integration-partners.data";
+import logoWhiteBooks from "@/assets/logo-white-books.svg";
 
 const API_ICON: Record<string, LucideIcon> = {
   gst: Landmark,
@@ -88,13 +87,11 @@ function IntegrationHub({ data }: { data: IntegrationPartnersData }) {
       />
       <div className="relative flex flex-col items-center gap-7">
         <div className="flex items-center gap-3">
-          <motion.span
-            className="grid h-10 w-10 place-items-center rounded-2xl border border-[var(--brand)]/40 bg-[var(--brand)]/15"
-            animate={{ boxShadow: ["0 0 0 0 rgba(220,47,101,0.4)", "0 0 0 10px rgba(220,47,101,0)", "0 0 0 0 rgba(220,47,101,0)"] }}
-            transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <Network size={18} style={{ color: BRAND }} />
-          </motion.span>
+          <img
+            src={logoWhiteBooks}
+            alt="WhiteBooks"
+            className="h-9 w-auto"
+          />
           <h3 className="m-0 font-display text-[18px] font-semibold tracking-[-0.01em] text-[var(--fg-primary)] sm:text-[20px]">
             {data.hubTitle}
           </h3>
@@ -157,7 +154,7 @@ export function IntegrationPartners({ data = INTEGRATION_PARTNERS }: { data?: In
       </div>
 
       <div className="mt-12 flex justify-center">
-        <CTAButton href={data.cta.href} variant="ghost">
+        <CTAButton href={data.cta.href}>
           {data.cta.label}
         </CTAButton>
       </div>

@@ -88,7 +88,7 @@ function Hero({ data }: { data: SapConnector }) {
         >
           <span className="inline-flex w-fit items-center gap-2.5 rounded-full border border-[var(--hairline-strong)] bg-[color-mix(in_srgb,var(--fg-primary)_5%,transparent)] px-3 py-1.5">
             <span className="inline-flex h-4 items-center">
-              <img src={logo} alt="SAP" className="h-[14px] w-auto object-contain" />
+              <img src={logo} alt={hero.tag} className="h-[14px] w-auto object-contain" />
             </span>
             <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-[var(--fg-secondary)]">
               {hero.tag}

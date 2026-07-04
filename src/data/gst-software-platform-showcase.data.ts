@@ -278,7 +278,7 @@ export const GST_SOFTWARE_SHOWCASE_CATEGORIES: ShowcaseCategory[] = [
             },
             {
                 id: "reconcile",
-                label: "Reconcile & claim",
+                label: "Reconcile & claim ITC",
                 badge: "GSTR-2B Reconcile",
                 title: "Reconcile & Claim ITC",
                 subtitle: "Finalize Safe to Claim, Review & Can't be Claimed",

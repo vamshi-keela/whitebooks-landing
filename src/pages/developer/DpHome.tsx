@@ -87,7 +87,6 @@ function HeroSection(): React.ReactElement {
                 <DpIcon name="book" size={14} />
                 Read API Docs
               </Button>
-
             </Link>
             <button
               className="bg-transparent border-none px-[14px] py-[10px] text-[0.875rem] text-[var(--dp-fg-muted)] cursor-pointer hidden sm:flex items-center gap-[6px]"
@@ -163,6 +162,7 @@ const ECOSYSTEM_APIS = [
     name: 'GST API',
     description: 'End-to-end GST compliance, returns filing, reconciliation, and ledger management via a single RESTful interface.',
     endpoints: ['/gst/returns', '/gst/ledger', '/gst/reconcile'],
+    apiPath: '/developer/gst-api/get-public-search',
     href: '/apis/gst'
   },
   {
@@ -170,6 +170,7 @@ const ECOSYSTEM_APIS = [
     name: 'E-Way Bill API',
     description: 'Generate, extend, and cancel e-way bills programmatically with real-time GSTN sync.',
     endpoints: ['/eway/generate', '/eway/extend', '/eway/cancel'],
+    apiPath: '/developer/e-way-bill-api/get-ewaybillapi-v1.03-authenticate',
     href: '/apis/e-invoice'
   },
   {
@@ -177,15 +178,17 @@ const ECOSYSTEM_APIS = [
     name: 'E-Invoice API',
     description: 'IRN generation, signed QR codes, and bulk invoice management with GSP-grade reliability.',
     endpoints: ['/einvoice/generate', '/einvoice/cancel', '/einvoice/bulk'],
+    apiPath: '/developer/e-invoice-api/get-einvoice-authenticate',
     href: '/apis/e-way-bill'
   },
-  {
-    icon: 'globe' as const,
-    name: 'KSA E-Invoice',
-    description: 'Phase 2 &amp; 3 ZATCA-compliant e-invoicing for Saudi Arabia with cryptographic signing.',
-    endpoints: ['/ksa/einvoice', '/ksa/clearance', '/ksa/report'],
-    href: '/apis/ksa'
-  },
+  // {
+  //   icon: 'globe' as const,
+  //   name: 'KSA E-Invoice',
+  //   description: 'Phase 2 &amp; 3 ZATCA-compliant e-invoicing for Saudi Arabia with cryptographic signing.',
+  //   endpoints: ['/ksa/einvoice', '/ksa/clearance', '/ksa/report'],
+  //   apiPath: '/developer/ksa-e-invoice-api/get-authenticate',
+  //   href: '/apis/ksa'
+  // },
 ];
 
 function EcosystemSection(): React.ReactElement {
@@ -224,7 +227,7 @@ function EcosystemSection(): React.ReactElement {
             </div>
             <div className="flex gap-4">
               <Button
-                onClick={() => navigate('/developer')}
+                onClick={() => navigate(api.apiPath)}
                 variant="developerGhost" className="text-[0.8125rem] text-[var(--dp-accent-2)] flex items-center gap-1 font-medium">
                 Read Api Guides <DpIcon name="arrow-right" size={12} />
               </Button>

@@ -28,15 +28,37 @@ export const API_ITEMS: NavItem[] = [
   { label: 'KSA E-Invoice APIs', href: '/apis/ksa', icon: <NoticeManagement {...ico} /> },
 ];
 
+// Connector menu groups. Column/section headers carry the platform name, so
+// the row labels stay short (function only).
 export const CONNECTORS_SAP_ITEMS: NavItem[] = [
-  { label: 'SAP · e-Invoicing', href: '/connectors/sap-e-invoicing', icon: <EInvoice {...ico} /> },
-  { label: 'SAP · e-Way Bill', href: '/connectors/sap-e-way-bill', icon: <EWayBill {...ico} /> },
-  { label: 'SAP · GST Filing', href: '/connectors/sap-gst', icon: <GST {...ico} /> },
+  { label: 'e-Invoicing', href: '/connectors/sap-e-invoicing', icon: <EInvoice {...ico} /> },
+  { label: 'e-Way Bill', href: '/connectors/sap-e-way-bill', icon: <EWayBill {...ico} /> },
+  { label: 'GST Filing', href: '/connectors/sap-gst', icon: <GST {...ico} /> },
+];
+
+export const CONNECTORS_ORACLE_ITEMS: NavItem[] = [
+  { label: 'e-Invoicing', href: '/connectors/oracle-e-invoicing', icon: <EInvoice {...ico} /> },
+  { label: 'e-Way Bill', href: '/connectors/oracle-e-way-bill', icon: <EWayBill {...ico} /> },
+  { label: 'GST Filing', href: '/connectors/oracle-gst', icon: <GST {...ico} /> },
+];
+
+export const CONNECTORS_DYNAMICS_ITEMS: NavItem[] = [
+  { label: 'e-Invoicing', href: '/connectors/dynamics-e-invoicing', icon: <EInvoice {...ico} /> },
+  { label: 'e-Way Bill', href: '/connectors/dynamics-e-way-bill', icon: <EWayBill {...ico} /> },
+  { label: 'GST Filing', href: '/connectors/dynamics-gst', icon: <GST {...ico} /> },
 ];
 
 export const CONNECTORS_TALLY_ITEMS: NavItem[] = [
-  { label: 'Tally · e-Invoicing', href: '/connectors/tally-e-invoice', icon: <EInvoice {...ico} /> },
-  { label: 'Tally · e-Way Bill', href: '/connectors/tally-e-way-bill', icon: <EWayBill {...ico} /> },
+  { label: 'e-Invoicing', href: '/connectors/tally-e-invoice', icon: <EInvoice {...ico} /> },
+  { label: 'e-Way Bill', href: '/connectors/tally-e-way-bill', icon: <EWayBill {...ico} /> },
+];
+
+/** Ordered platform columns for the Connectors mega-menu. */
+export const CONNECTOR_GROUPS: { label: string; items: NavItem[] }[] = [
+  { label: 'SAP', items: CONNECTORS_SAP_ITEMS },
+  { label: 'Oracle', items: CONNECTORS_ORACLE_ITEMS },
+  { label: 'Dynamics', items: CONNECTORS_DYNAMICS_ITEMS },
+  { label: 'Tally', items: CONNECTORS_TALLY_ITEMS },
 ];
 
 export const SERVICES_ITEMS: NavItem[] = [

@@ -40,7 +40,7 @@ export const DEVELOPER_EXPERIENCE = {
   languages: [
     { name: "Node.js", src: nodejsLogo },
     { name: "Python", src: pythonLogo },
-    { name: "Swagger", src: swaggerLogo },
+    // { name: "Swagger", src: swaggerLogo },
   ] as LanguageSdk[],
 
   /** Request → response flow for the code animation placeholder. */

@@ -1,11 +1,14 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle2, QrCode, Truck } from 'lucide-react';
 import { Icon } from '@/components/icons/Icon';
 import { ButtonLink } from '@/components/ui/Button';
 import { cn } from '@/lib/cn';
 import sapLogo from '@/assets/logos/sap.svg';
 import tallyLogo from '@/assets/logos/tally.svg';
+import oracleLogo from '@/assets/logos/oracle.svg';
+import dynamicsLogo from '@/assets/logos/Dynamics365_scalable.svg';
 
 const SIGNUP_URL = 'https://accounts.whitebooks.in/signup?type=Developer&subscrid=&inviteId';
 
@@ -15,7 +18,7 @@ type ConnectorKind = 'einvoice' | 'eway' | 'gst';
 
 interface Connector {
   /** Source platform — shown in the eyebrow tag. */
-  source: 'sap' | 'tally';
+  source: 'sap' | 'oracle' | 'dynamics' | 'tally';
   /** Picks the mini preview mockup shown at the foot of the card. */
   kind: ConnectorKind;
   tag: string;
@@ -51,6 +54,54 @@ const CONNECTORS: Connector[] = [
     title: 'GSTR-1, 3B & IMS, filed from SAP.',
     body: 'Native SAP add-on for real-time upload, reconciliation and filing of GSTR-1, GSTR-3B and IMS — with multi-GSTIN management.',
     href: '/connectors/sap-gst',
+  },
+  {
+    source: 'oracle',
+    kind: 'einvoice',
+    tag: 'Oracle · e-Invoicing',
+    title: 'IRNs from Oracle, sub-second.',
+    body: 'GSP-certified connector for Oracle Fusion Cloud, EBS, NetSuite & JD Edwards. Native IRP integration, instant IRN and QR via the NIC API.',
+    href: '/connectors/oracle-e-invoicing',
+  },
+  {
+    source: 'oracle',
+    kind: 'eway',
+    tag: 'Oracle · e-Way Bill',
+    title: 'e-Way Bills, generated inside Oracle.',
+    body: 'Real-time e-Way Bill generation, updates and cancellations from Oracle Fusion Cloud or EBS. Zero PL/SQL, complete compliance trail.',
+    href: '/connectors/oracle-e-way-bill',
+  },
+  {
+    source: 'oracle',
+    kind: 'gst',
+    tag: 'Oracle · GST Filing',
+    title: 'GSTR-1, 3B & IMS, filed from Oracle.',
+    body: 'Native Oracle add-on for real-time upload, reconciliation and filing of GSTR-1, GSTR-3B and IMS — multi-GSTIN, multi-legal-entity.',
+    href: '/connectors/oracle-gst',
+  },
+  {
+    source: 'dynamics',
+    kind: 'einvoice',
+    tag: 'Dynamics · e-Invoicing',
+    title: 'IRNs from Dynamics 365, sub-second.',
+    body: 'GSP-certified connector for Dynamics 365 F&O, Business Central, AX & NAV. Electronic Reporting mapping, instant IRN and QR via the NIC API.',
+    href: '/connectors/dynamics-e-invoicing',
+  },
+  {
+    source: 'dynamics',
+    kind: 'eway',
+    tag: 'Dynamics · e-Way Bill',
+    title: 'e-Way Bills, native to Dynamics.',
+    body: 'Generate, update and cancel e-Way Bills from Dynamics 365 F&O or Business Central. Zero X++ customization, complete compliance trail.',
+    href: '/connectors/dynamics-e-way-bill',
+  },
+  {
+    source: 'dynamics',
+    kind: 'gst',
+    tag: 'Dynamics · GST Filing',
+    title: 'GSTR-1, 3B & IMS, filed from Dynamics.',
+    body: 'Native Dynamics add-on for real-time upload, reconciliation and filing of GSTR-1, GSTR-3B and IMS via the Electronic Reporting framework.',
+    href: '/connectors/dynamics-gst',
   },
   {
     source: 'tally',
@@ -136,17 +187,23 @@ function PreviewMockup({ kind }: { kind: ConnectorKind }) {
 }
 
 // ─── Source logo ────────────────────────────────────────────────────────────────
-// Both marks are colour logos with their own contrast (SAP carries its blue
-// field, Tally's wordmark is near-black) — sat on a white chip so they read
-// correctly against the card regardless of site theme.
+// All four marks are colour logos with their own contrast — sat on a
+// transparent chip so they read correctly against the card in both themes.
+
+const SOURCE_LOGO: Record<Connector['source'], { src: string; alt: string }> = {
+  sap: { src: sapLogo, alt: 'SAP' },
+  oracle: { src: oracleLogo, alt: 'Oracle' },
+  dynamics: { src: dynamicsLogo, alt: 'Microsoft Dynamics' },
+  tally: { src: tallyLogo, alt: 'Tally' },
+};
 
 function SourceLogo({ source }: { source: Connector['source'] }) {
-  const src = source === 'sap' ? sapLogo : tallyLogo;
+  const { src, alt } = SOURCE_LOGO[source];
   return (
     <span className="inline-flex shrink-0 items-center justify-center rounded-[6px] bg-transparent">
       <img
         src={src}
-        alt={source === 'sap' ? 'SAP' : 'Tally'}
+        alt={alt}
         className='w-auto object-contain h-[1rem]'
       />
     </span>
@@ -165,8 +222,8 @@ function ConnectorCard({ connector }: { connector: Connector }) {
         'bg-[color-mix(in_srgb,var(--fg-primary)_4%,transparent)]',
         'transition-[transform,border-color] duration-[200ms] ease-[ease]',
         'hover:-translate-y-0.5 hover:border-[var(--hairline-bright)]',
-        // Wider, fixed-width slide — row scrolls horizontally instead of squeezing into columns.
-        'w-[280px] shrink-0 snap-start sm:w-[320px] lg:w-[348px]',
+        // Fills its grid cell — the active-tab grid controls the column width.
+        'h-full w-full',
       )}
     >
       <div className="flex items-center gap-2">
@@ -208,39 +265,82 @@ function ConnectorCard({ connector }: { connector: Connector }) {
   );
 }
 
+// ─── Source tabs ────────────────────────────────────────────────────────────
+// Underline tabbar — one tab per ERP/accounting platform. Order mirrors the
+// brief: SAP · Tally · Microsoft Dynamics · Oracle.
+
+const SOURCE_TABS: { id: Connector['source']; label: string }[] = [
+  { id: 'sap', label: 'SAP' },
+  { id: 'tally', label: 'Tally' },
+  { id: 'dynamics', label: 'Microsoft Dynamics' },
+  { id: 'oracle', label: 'Oracle' },
+];
+
+// Sub-copy under each tab's card grid — sets the scene for that platform.
+const SOURCE_BLURB: Record<Connector['source'], string> = {
+  sap: 'GSP-certified, real-time connectors for SAP B1, S/4HANA, ECC & ByDesign — zero ABAP.',
+  tally: 'Generate compliance documents straight from your Tally vouchers — no portal visits.',
+  dynamics: 'Native to Dynamics 365 F&O, Business Central, AX & NAV via Electronic Reporting.',
+  oracle: 'Works across Oracle Fusion Cloud, EBS, NetSuite & JD Edwards — zero PL/SQL.',
+};
+
+function SourceTabs({
+  active,
+  onSelect,
+}: {
+  active: Connector['source'];
+  onSelect: (id: Connector['source']) => void;
+}) {
+  return (
+    <div
+      role="tablist"
+      aria-label="Connector platforms"
+      className={cn(
+        'flex gap-1 overflow-x-auto rounded-[14px] border border-[var(--hairline)] p-1.5',
+        'bg-[color-mix(in_srgb,var(--fg-primary)_4%,transparent)]',
+        'w-full sm:w-fit [scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
+      )}
+    >
+      {SOURCE_TABS.map(({ id, label }) => {
+        const isActive = id === active;
+        return (
+          <button
+            key={id}
+            type="button"
+            role="tab"
+            aria-selected={isActive}
+            onClick={() => onSelect(id)}
+            className={cn(
+              'relative flex shrink-0 items-center justify-center gap-2 whitespace-nowrap border-0',
+              'cursor-pointer rounded-[9px] bg-transparent px-3.5 py-2 sm:px-5 sm:py-2.5',
+              'text-[14px] sm:text-[15px] transition-colors duration-[180ms]',
+              isActive
+                ? 'font-semibold text-white'
+                : 'font-medium text-[var(--fg-tertiary)] hover:text-[var(--fg-secondary)]',
+            )}
+          >
+            {isActive && (
+              <motion.span
+                layoutId="connector-tab-pill"
+                aria-hidden="true"
+                className="absolute inset-0 -z-0 rounded-[9px] bg-[var(--brand)]"
+                style={{ boxShadow: '0 8px 20px -8px var(--brand-glow)' }}
+                transition={{ type: 'spring', stiffness: 480, damping: 40 }}
+              />
+            )}
+            <span className="relative z-10">{label}</span>
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
 // ─── ConnectorsSection ────────────────────────────────────────────────────────
 
 export function ConnectorsSection() {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [active, setActive] = useState(0);
-  // Number of dots tracks scroll *pages* (how many viewport-widths of content
-  // there are), not card count — so it shrinks as more cards fit on screen.
-  const [pageCount, setPageCount] = useState(1);
-
-  const recomputePages = useCallback(() => {
-    const el = scrollRef.current;
-    if (!el || el.clientWidth === 0) return;
-    setPageCount(Math.max(1, Math.ceil(el.scrollWidth / el.clientWidth)));
-  }, []);
-
-  useEffect(() => {
-    recomputePages();
-    window.addEventListener('resize', recomputePages);
-    return () => window.removeEventListener('resize', recomputePages);
-  }, [recomputePages]);
-
-  const handleScroll = useCallback(() => {
-    const el = scrollRef.current;
-    if (!el || el.clientWidth === 0) return;
-    const page = Math.round(el.scrollLeft / el.clientWidth);
-    setActive(Math.min(pageCount - 1, Math.max(0, page)));
-  }, [pageCount]);
-
-  const scrollToPage = useCallback((i: number) => {
-    const el = scrollRef.current;
-    if (!el) return;
-    el.scrollTo({ left: i * el.clientWidth, behavior: 'smooth' });
-  }, []);
+  const [active, setActive] = useState<Connector['source']>('sap');
+  const cards = CONNECTORS.filter((c) => c.source === active);
 
   return (
     <section className="relative border-b border-[var(--hairline)] py-10 sm:py-14 md:py-16 lg:py-24">
@@ -249,68 +349,51 @@ export function ConnectorsSection() {
         {/* Heading */}
         <div className="grid grid-cols-1 gap-3 items-start mb-7 sm:mb-9 md:grid-cols-[1.3fr_0.7fr] md:gap-10 md:mb-10 lg:gap-16 lg:mb-14">
           <h2 className="font-serif font-semibold text-[clamp(24px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 text-balance">
-            Enterprise-Ready <span className='text-[var(--brand)]'> Connectors for SAP & Tally</span>
+            Enterprise-Ready <span className='text-[var(--brand)]'> Connectors for SAP, Oracle, Dynamics & Tally</span>
           </h2>
           <p className="text-[14px] sm:text-[15px] md:text-[17px] text-[var(--fg-secondary)] leading-[1.6] m-0 md:max-w-[460px] md:justify-self-end">
-            Pre-built, GSP-certified connectors turn SAP and Tally into a compliance engine — e-Invoicing, e-Way Bills, and GST filing, native to the system you already run.
+            Pre-built, GSP-certified connectors turn SAP, Oracle, Microsoft Dynamics and Tally into a compliance engine — e-Invoicing, e-Way Bills, and GST filing, native to the system you already run.
           </p>
         </div>
-        {/* <div className="mx-auto flex max-w-[680px] flex-col items-center gap-3 text-center sm:gap-4">
-          <h2 className="m-0 font-display font-semibold text-[clamp(26px,4.2vw,46px)] leading-[1.12] tracking-[-0.02em] text-[var(--fg-primary)] text-balance">
-            The ERP is just the start.
-          </h2>
-          <p className="m-0 text-[14px] sm:text-[15px] md:text-[17px] text-[var(--fg-secondary)] leading-[1.6] max-w-[560px]">
-            Pre-built, GSP-certified connectors turn SAP and Tally into a compliance engine — e-Invoicing, e-Way Bills, and GST filing, native to the system you already run.
-          </p>
-        </div> */}
 
-        {/* Cards: wider fixed-width slides, horizontal snap-scroll row */}
-        <div
-          ref={scrollRef}
-          onScroll={handleScroll}
-          className={cn(
-            'mt-9 sm:mt-12 flex flex-nowrap gap-4 lg:gap-5',
-            'overflow-x-auto snap-x snap-mandatory wb-hscroll',
-            // inner padding (cancelled by negative margin) so the hover-lift
-            // and last-card peek aren't clipped by the scroll container
-            '-m-2 p-2',
-          )}
-        >
-          {CONNECTORS.map((c) => (
-            <ConnectorCard key={c.tag} connector={c} />
-          ))}
-        </div>
+        {/* Platform tabbar */}
+        <SourceTabs active={active} onSelect={setActive} />
 
-        {/* Footer: scroll progress + demo CTA */}
-        <div className="mt-7 flex flex-col gap-4 sm:mt-9 sm:flex-row sm:items-center sm:justify-between">
-          {pageCount > 1 && (
-            <div className="flex items-center gap-3.5">
-              <span className="font-mono text-[11px] tracking-[0.08em] uppercase text-[var(--fg-tertiary)]">
-                Scroll for more
-              </span>
-              <div className="flex items-center gap-1.5">
-                {Array.from({ length: pageCount }).map((_, i) => (
-                  <button
-                    key={i}
-                    type="button"
-                    aria-label={`Go to page ${i + 1}`}
-                    aria-current={i === active}
-                    onClick={() => scrollToPage(i)}
-                    className="h-1.5 rounded-full border-0 bg-[var(--hairline-bright)] p-0 transition-all duration-[220ms]"
-                    style={
-                      i === active
-                        ? {
-                          width: 22,
-                          background: 'var(--brand)',
-                          boxShadow: '0 0 10px var(--brand-glow)',
-                        }
-                        : { width: 6 }
-                    }
-                  />
-                ))}
-              </div>
-            </div>
-          )}
+        {/* Active-tab blurb */}
+        <AnimatePresence mode="wait">
+          <motion.p
+            key={`${active}-blurb`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.18 }}
+            className="mt-5 max-w-[620px] text-[13.5px] sm:text-[14.5px] leading-[1.6] text-[var(--fg-secondary)]"
+          >
+            {SOURCE_BLURB[active]}
+          </motion.p>
+        </AnimatePresence>
+
+        {/* Cards for the active platform — responsive grid, no horizontal scroll */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={active}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.24, ease: [0.22, 0.7, 0.2, 1] }}
+            className="mt-7 grid grid-cols-1 gap-4 sm:mt-9 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5"
+          >
+            {cards.map((c) => (
+              <ConnectorCard key={c.tag} connector={c} />
+            ))}
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Footer: context + demo CTA */}
+        <div className="mt-8 flex flex-col gap-4 sm:mt-10 sm:flex-row sm:items-center sm:justify-between">
+          <span className="font-mono text-[11px] tracking-[0.08em] uppercase text-[var(--fg-tertiary)]">
+            {cards.length} {cards.length === 1 ? 'connector' : 'connectors'} · GSP-certified
+          </span>
 
           <ButtonLink
             href={SIGNUP_URL}

@@ -143,14 +143,28 @@ interface ApiItem {
   icon: LucideIcon;
   title: string;
   sub: string;
+  route?: string;
 }
 
 const APIS: ApiItem[] = [
-  { icon: Cloud, title: "GST API", sub: "File returns, get data" },
-  { icon: Cloud, title: "e-Invoice API", sub: "Generate IRNs, get e-invoices" },
-  { icon: Truck, title: "e-Way Bill API", sub: "Create & manage e-Way Bills" },
-  { icon: Globe, title: "KSA e-Invoice API", sub: "ZATCA e-Invoicing via API" },
-  { icon: Code2, title: "Developer Friendly", sub: "Swagger Docs, SDKs, Sandbox" },
+  {
+    icon: Cloud, title: "GST API", sub: "File returns, get data",
+    route: '/developer/gst-api/get-public-search',
+  },
+  {
+    icon: Truck, title: "e-Way Bill API", sub: "Create & manage e-Way Bills",
+    route: '/developer/e-way-bill-api/get-ewaybillapi-v1.03-authenticate'
+  },
+  {
+    icon: Cloud, title: "e-Invoice API", sub: "Generate IRNs, get e-invoices",
+    route: '/developer/e-invoice-api/get-einvoice-authenticate',
+  },
+  {
+    icon: Code2, title: "Developer Friendly Docs", sub: "Swagger Docs, SDKs, Sandbox",
+    route: '/developer/overview'
+  },
+
+  { icon: BellRing, title: "Notice Management", sub: "Never miss a tax notice", route: "/softwares/notice-management" },
 ];
 
 // Bright solid-pink tile — used for product card headers.
@@ -290,6 +304,7 @@ function StatsGlassCard() {
 // "fixed"      — 5-up row, used inside the scaled desktop canvas (never reflows).
 // "responsive" — stacks 1-up / 2-up by viewport, used in the mobile block.
 function ApiStrip({ variant = "fixed" }: { variant?: "fixed" | "responsive" }) {
+  const navigate = useNavigate();
   const responsive = variant === "responsive";
   return (
     <div
@@ -297,7 +312,7 @@ function ApiStrip({ variant = "fixed" }: { variant?: "fixed" | "responsive" }) {
       className={`relative overflow-hidden rounded-[20px] pb-5 ${responsive ? "px-5" : "px-8"
         }`}
     >
-      <div className="mb-4 text-center">
+      <div className="mb-4 mt-2 text-center">
         <span className="font-display text-[13.5px] font-semibold mt-1 uppercase tracking-[0.05em] text-white/95 xl:whitespace-nowrap">
           Powerful APIs for Developers
         </span>
@@ -312,7 +327,8 @@ function ApiStrip({ variant = "fixed" }: { variant?: "fixed" | "responsive" }) {
         {APIS.map((api, i) => (
           <div
             key={api.title}
-            className={`flex min-w-0 items-center gap-2.5 ${responsive
+            onClick={() => navigate(api.route || "/")}
+            className={`flex min-w-0 items-center gap-2.5 cursor-pointer ${responsive
               ? ""
               : `px-4 ${i > 0 ? "border-l border-[rgba(255,255,255,0.07)]" : ""}`
               }`}
@@ -360,16 +376,16 @@ function ConnectorWeb() {
       <g stroke="rgba(220,47,101,0.4)" strokeWidth="1.5" strokeDasharray="4 7">
         <line x1="177" y1="154" x2="48" y2="64" />
         <line x1="423" y1="154" x2="552" y2="64" />
-        <line x1="150" y1="240" x2="20" y2="240" />
-        <line x1="450" y1="240" x2="580" y2="240" />
+        <line x1="150" y1="284" x2="20" y2="395" />
+        <line x1="450" y1="280" x2="580" y2="395" />
       </g>
 
       {/* dots where the branches touch the ring */}
       <g fill="#ff5a8e">
         <circle cx="177" cy="154" r="3.5" />
         <circle cx="423" cy="154" r="3.5" />
-        <circle cx="150" cy="240" r="3.5" />
-        <circle cx="450" cy="240" r="3.5" />
+        <circle cx="156" cy="280" r="3.5" />
+        <circle cx="445" cy="280" r="3.5" />
       </g>
 
       {/* glowing dots at the card-facing ends */}
@@ -479,7 +495,7 @@ const HeroShowcase = memo(function HeroShowcase() {
           }}
         >
           {/* Stats — spans both rows, bottom-aligned */}
-          <div className="col-start-1 row-start-1 row-end-3 self-end">
+          <div className="col-start-1 row-start-1 self-end row-end-3 ">
             <StatsGlassCard />
           </div>
 
@@ -489,7 +505,7 @@ const HeroShowcase = memo(function HeroShowcase() {
 
           {/* Person stage — spans both rows. z-0 keeps the overflowing
               ConnectorWeb behind every product card (which sit at z-10). */}
-          <div className="col-start-3 row-start-1 row-end-3 self-stretch relative z-0">
+          <div className="col-start-3 row-start-1 row-end-3 relative z-0">
             <PersonStage />
           </div>
 
@@ -497,15 +513,15 @@ const HeroShowcase = memo(function HeroShowcase() {
             <ProductGlassCard card={gst} />
           </div>
 
-          <div className="col-start-2 row-start-2 self-end relative z-10">
+          <div className="col-start-2 row-start-2 relative z-10">
             <ProductGlassCard card={eway} />
           </div>
 
-          <div className="col-start-4 row-start-2 self-end relative z-10">
+          <div className="col-start-4 row-start-2 relative z-10">
             <ProductGlassCard card={einvoice} />
           </div>
 
-          <div className="col-start-5 row-start-2 self-end relative z-10">
+          <div className="col-start-5 row-start-1 self-end row-end-3">
             <ProductGlassCard card={ksa} />
           </div>
         </div>

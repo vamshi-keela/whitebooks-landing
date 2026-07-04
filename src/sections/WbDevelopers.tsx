@@ -48,8 +48,8 @@ export function ForDevelopersSection() {
                         </p>
 
                         <div className="mt-9 flex items-center gap-7 flex-wrap max-sm:gap-5">
-                            <ButtonLink size="lg" onClick={() => navigate('/apis')}>
-                                Read the API docs
+                            <ButtonLink size="lg" onClick={() => navigate('/developer/overview')}>
+                                Read API docs
                                 <DpIcon name="arrow-right" size={15} />
                             </ButtonLink>
                             <a

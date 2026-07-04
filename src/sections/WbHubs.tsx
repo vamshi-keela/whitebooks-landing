@@ -7,7 +7,7 @@ import {
   PillarCard,
   ProductPillarCard,
   MiniEinvoiceMock,
-  MiniKSAMock,
+  MiniNoticeMock,
   MiniGstApiMock,
   MiniEwayApiMock,
 } from '@/sections/PillarCards';
@@ -186,7 +186,7 @@ export function HubAPIsSection() {
             mock={<MiniGstApiMock />}
             sandboxLabel="Access Free Sandbox"
             exploreLabel="Read API Docs"
-            onExplore={() => navigate('/developer/gst-api')}
+            onExplore={() => navigate('/developer/gst-api/get-public-search')}
             onClick={() => navigate('/apis/gst')}
           />
           <PillarCard
@@ -198,7 +198,7 @@ export function HubAPIsSection() {
             mock={<MiniEinvoiceMock />}
             sandboxLabel="Access Free Sandbox"
             exploreLabel="Read API Docs"
-            onExplore={() => navigate('/developer/e-invoice-api')}
+            onExplore={() => navigate('/developer/e-invoice-api/get-einvoice-authenticate')}
             onClick={() => navigate('/apis/e-invoice')}
           />
           <PillarCard
@@ -210,20 +210,20 @@ export function HubAPIsSection() {
             mock={<MiniEwayApiMock />}
             sandboxLabel="Access Free Sandbox"
             exploreLabel="Read API Docs"
-            onExplore={() => navigate('/developer/e-way-bill-api')}
+            onExplore={() => navigate('/developer/e-way-bill-api/get-ewaybillapi-v1.03-authenticate')}
             onClick={() => navigate('/apis/e-way-bill')}
           />
           <PillarCard
-            tag="KSA e-Invoice API"
-            title="ZATCA Phase 2, without the integration pain."
-            body="FATOORAH submission, cryptographic signing, CSID lifecycle managed for you. Bilingual Arabic-English invoice rendering. One account covers India and KSA."
-            cta="Explore KSA e-Invoice API"
+            tag="Notice Management API"
+            title="Never miss a tax notice again."
+            body="Auto-fetch GST, Income Tax, and TDS notices from GSTN, ITD, and TRACES. Track every deadline, trigger alerts, and sync notices into your own systems — one account across every portal."
+            cta="Explore Notice Management API"
             tone="amber"
-            mock={<MiniKSAMock />}
+            mock={<MiniNoticeMock />}
             sandboxLabel="Access Free Sandbox"
             exploreLabel="Read API Docs"
-            onExplore={() => navigate('/developer/ksa-e-invoice-api')}
-            onClick={() => navigate('/apis/ksa')}
+            onExplore={() => navigate('/developer/overview')}
+            onClick={() => navigate('/developer/overview')}
           />
         </div>
 

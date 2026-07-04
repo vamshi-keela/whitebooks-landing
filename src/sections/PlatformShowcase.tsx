@@ -16,13 +16,11 @@ import {
 /* ──────────────────────────────────────────────────────────────────────────
  * PlatformShowcase
  * Three columns — left category rail · middle card content · right 3:4 media.
- * Scroll drives the active category (FeatureGuide mechanic); the sub-feature
- * pills inside a category swap content + preview without moving scroll.
+ * The rail selects the active category (click-driven); the sub-feature pills
+ * inside a category swap content + preview.
  * ──────────────────────────────────────────────────────────────────────── */
 
 const EASE = [0.22, 0.7, 0.2, 1] as const;
-const STEP_VH = 70;
-const FLATTEN_AT = 1100; // below this width: no scroll progression, click-driven
 
 const href = (path: string) => (/^https?:/.test(path) ? path : `${FEATURE_BASE}${path}`);
 
@@ -38,19 +36,24 @@ const POSTER_URLS = import.meta.glob<string>("../assets/product-images/**/*.{png
 const resolvePoster = (poster?: string): string | undefined =>
   poster ? POSTER_URLS[poster.replace(/^@assets\//, "../assets/")] : undefined;
 
-/* ── Small inline check ───────────────────────────────────────────────────── */
+/* ── Small inline check — bordered tile, compliance-checklist vibe ────────── */
 function CheckMark() {
   return (
-    <svg viewBox="0 0 16 16" aria-hidden="true" className="mt-0.5 h-3.5 w-3.5 shrink-0">
-      <path
-        d="M3.5 8.5l3 3 6-7"
-        fill="none"
-        stroke="var(--brand)"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
+    <span
+      aria-hidden="true"
+      className="mt-[1px] grid h-4 w-4 shrink-0 place-items-center rounded-[5px] border border-[var(--brand-border)] bg-[var(--brand-softer)]"
+    >
+      <svg viewBox="0 0 10 10" className="h-[9px] w-[9px]">
+        <path
+          d="M2 5.2l2 2 4-4.5"
+          fill="none"
+          stroke="var(--brand)"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </span>
   );
 }
 
@@ -105,7 +108,7 @@ function CategoryRail({
             <span
               className={[
                 "font-mono text-[10.5px] tracking-[0.10em]",
-                isActive ? "text-brand" : "text-white/25",
+                isActive ? "text-brand" : "text-[var(--muted)] opacity-60",
               ].join(" ")}
             >
               {String(i + 1).padStart(2, "0")}
@@ -133,6 +136,9 @@ function CategoryRail({
 }
 
 /* ── Category pills — horizontal nav (tablet / mobile) ────────────────────── */
+// Contained tabbar (mirrors ConnectorsSection's SourceTabs) — sliding brand
+// pill inside a bordered track. Scrolls horizontally and keeps the active tab
+// centered, since a showcase can carry many categories.
 function CategoryPills({
   categories,
   active,
@@ -142,11 +148,28 @@ function CategoryPills({
   active: number;
   onSelect: (i: number) => void;
 }) {
+  const listRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const list = listRef.current;
+    const btn = list?.children[active] as HTMLElement | undefined;
+    if (!list || !btn) return;
+    list.scrollTo({
+      left: btn.offsetLeft - (list.clientWidth - btn.offsetWidth) / 2,
+      behavior: "smooth",
+    });
+  }, [active]);
+
   return (
     <div
+      ref={listRef}
       role="tablist"
       aria-label="Platform categories"
-      className="-mx-6 flex gap-1.5 overflow-x-auto px-6 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      className={[
+        "flex w-full gap-1 overflow-x-auto rounded-[14px] border border-[var(--hairline)] p-1.5",
+        "bg-[color-mix(in_srgb,var(--fg-primary)_4%,transparent)]",
+        "[scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+      ].join(" ")}
     >
       {categories.map((c, i) => {
         const isActive = i === active;
@@ -158,21 +181,24 @@ function CategoryPills({
             aria-selected={isActive}
             onClick={() => onSelect(i)}
             className={[
-              "relative shrink-0 whitespace-nowrap rounded-full border px-4 py-2 text-[13px] font-medium transition-colors duration-200",
+              "relative flex shrink-0 items-center justify-center whitespace-nowrap border-0",
+              "cursor-pointer rounded-[9px] bg-transparent px-3.5 py-2 sm:px-5 sm:py-2.5",
+              "text-[14px] sm:text-[15px] transition-colors duration-[180ms]",
               isActive
-                ? "border-transparent text-[#0d0d14]"
-                : "border-white/10 text-secondary hover:border-white/20",
+                ? "font-semibold text-white"
+                : "font-medium text-[var(--fg-tertiary)] hover:text-[var(--fg-secondary)]",
             ].join(" ")}
           >
             {isActive && (
               <motion.span
                 layoutId="showcase-pill"
                 aria-hidden="true"
-                className="absolute inset-0 -z-10 rounded-full bg-white shadow-[0_8px_24px_-8px_rgba(0,0,0,0.5)]"
-                transition={{ type: "spring", stiffness: 420, damping: 36 }}
+                className="absolute inset-0 -z-0 rounded-[9px] bg-[var(--brand)]"
+                style={{ boxShadow: "0 8px 20px -8px var(--brand-glow)" }}
+                transition={{ type: "spring", stiffness: 480, damping: 40 }}
               />
             )}
-            {c.label}
+            <span className="relative z-10">{c.label}</span>
           </button>
         );
       })}
@@ -233,7 +259,7 @@ function CardCtas({ cta }: { cta: ShowcaseCta }) {
     whileTap: { y: 0 },
     transition: { duration: 0.18, ease: EASE },
     className:
-      "group inline-flex items-center justify-center gap-2 rounded-full border border-brand/40 bg-brand/[0.06] px-5 py-2.5 text-[13.5px] font-medium text-[var(--text)] hover:border-brand/70",
+      "group inline-flex items-center justify-center gap-2 rounded-full border border-[var(--line-2)] bg-transparent px-5 py-2.5 text-[13.5px] font-medium text-[var(--text)] transition-colors duration-200 hover:border-[var(--brand-border)] hover:bg-[var(--brand-softer)]",
   } as const;
   const secondaryContent = (
     <>
@@ -270,38 +296,45 @@ function CardCtas({ cta }: { cta: ShowcaseCta }) {
   );
 }
 
-/* ── Card content (middle column) — keyed mount animation, no exit gap ────── */
+/* ── Card content (middle column) — keyed mount animation, strict rhythm ──── */
 function CardContent({ category, tab }: { category: ShowcaseCategory; tab: ShowcaseTab }) {
+  console.log("cardcontent reprinted")
   return (
     <motion.div
       key={`${category.id}-${tab.id}`}
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, ease: EASE }}
-      className="flex flex-col gap-0"
     >
-      <span className="w-fit rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 text-[11px] font-medium text-secondary mb-2">
-        {tab.badge}
-      </span>
-      <span className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-brand">
-        {category.heading}
-      </span>
-      <div className="flex-col gap-0">
-        <h3 className="font-display text-[clamp(20px,2.1vw,26px)] font-semibold leading-[1.15] tracking-[-0.02em] text-[var(--text)] [text-wrap:balance]">
-          {tab.title}
-        </h3>
-        <p className="text-[14px] font-medium text-secondary">{tab.subtitle}</p>
+      {/* metadata line — record-type chip + category context */}
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+        <span className="inline-flex items-center gap-1.5 rounded-md border border-[var(--brand-border)] bg-[var(--brand-softer)] px-2 py-[3px] text-[10.5px] font-medium text-brand">
+          <span aria-hidden="true" className="h-1 w-1 rounded-full bg-brand" />
+          {tab.badge}
+        </span>
+        <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--muted)]">
+          {category.heading}
+        </span>
       </div>
-      <p className="max-w-[440px] text-[14px] leading-[1.55] text-muted">{tab.description}</p>
-      <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+
+      <h3 className="mt-4 font-display text-[clamp(20px,2.1vw,26px)] font-semibold leading-[1.15] tracking-[-0.02em] text-[var(--text)] [text-wrap:balance]">
+        {tab.title}
+      </h3>
+      <p className="mt-1.5 text-[14px] font-medium text-[var(--muted-2)]">{tab.subtitle}</p>
+      <p className="mt-3 max-w-[460px] text-[13.5px] leading-[1.6] text-[var(--muted)]">
+        {tab.description}
+      </p>
+
+      <ul className="mt-5 grid grid-cols-1 gap-x-6 gap-y-2.5 sm:grid-cols-2">
         {tab.bullets.map((b) => (
-          <li key={b} className="flex items-start gap-2 text-[13px] leading-[1.45] text-secondary">
+          <li key={b} className="flex items-start gap-2.5 text-[12.5px] leading-[1.5] text-[var(--muted-2)]">
             <CheckMark />
             {b}
           </li>
         ))}
       </ul>
-      <div className="pt-1">
+
+      <div className="mt-7">
         <CardCtas cta={tab.cta} />
       </div>
     </motion.div>
@@ -342,99 +375,55 @@ function MetricCard({ metric, index }: { metric: ShowcaseMetric; index: number }
   );
 }
 
-/* ── Animated 3:4 preview placeholder (no browser chrome) ─────────────────── */
-function AnimatedPreviewPlaceholder({ tab, counter }: { tab: ShowcaseTab; counter: string }) {
+/* ── Preview media — screenshot fills the frame, or a glass placeholder ───── */
+function PreviewMedia({ tab }: { tab: ShowcaseTab }) {
   const poster = resolvePoster(tab.media.poster);
 
-  // With a real image, let it render at its natural width/height — no fixed 3:4
-  // box, no cropping. The frame sizes itself to the image.
   if (poster) {
     return (
-      <div className="relative mx-auto w-fit max-w-full">
-        <motion.img
-          key={tab.id}
-          src={poster}
-          alt={tab.media.label}
-          loading="lazy"
-          decoding="async"
-          initial={{ opacity: 0, scale: 0.97 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.3, ease: EASE }}
-          className="block h-auto w-auto max-w-full"
-        />
-        {/* <span className="absolute left-5 top-5 z-10 font-mono text-[10.5px] uppercase tracking-[0.14em] text-brand">
-          {counter}
-        </span> */}
-      </div>
+      <motion.img
+        key={tab.id}
+        src={poster}
+        alt={tab.media.label}
+        loading="lazy"
+        decoding="async"
+        initial={{ opacity: 0, scale: 0.98 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.3, ease: EASE }}
+        className="block h-auto w-full"
+      />
     );
   }
 
   return (
-    <div className="relative mx-auto aspect-[3/4] w-full max-w-[280px]">
-      <div className="absolute inset-0 overflow-hidden rounded-[32px] p-px">
-        {/* spinning conic ring = animated border */}
-        <motion.div
-          aria-hidden="true"
-          className="absolute left-1/2 top-1/2 h-[170%] w-[170%] -translate-x-1/2 -translate-y-1/2"
-          style={{
-            background:
-              "conic-gradient(from 0deg, transparent 0%, rgba(220,47,101,0.55) 12%, transparent 30%, transparent 60%, rgba(220,47,101,0.25) 72%, transparent 88%)",
-          }}
-          animate={{ rotate: 360 }}
-          transition={{ duration: 14, repeat: Infinity, ease: "linear" }}
-        />
-        {/* inner glass surface */}
-        <div className="relative h-full w-full overflow-hidden rounded-[31px] bg-[linear-gradient(160deg,rgba(255,255,255,0.06),rgba(255,255,255,0.015))] backdrop-blur-xl">
-          <div className="noise" aria-hidden="true" />
-          <div
-            aria-hidden="true"
-            className="absolute inset-0"
-            style={{
-              background:
-                "radial-gradient(circle at 50% 45%, rgba(220,47,101,0.18), transparent 62%)",
-            }}
-          />
-
-          <span className="absolute left-5 top-5 z-10 font-mono text-[10.5px] uppercase tracking-[0.14em] text-brand">
-            {counter}
-          </span>
-
-          {/* placeholder content per tab — keyed mount animation */}
-          <motion.div
-            key={tab.id}
-            initial={{ opacity: 0, scale: 0.97 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.3, ease: EASE }}
-            className="absolute inset-0 flex flex-col items-center justify-center gap-4 px-6 text-center"
-          >
-            <motion.span
-              whileHover={{ scale: 1.06 }}
-              className="grid h-16 w-16 place-items-center rounded-full border border-white/15 bg-white/10 shadow-[0_8px_30px_-8px_rgba(0,0,0,0.6)] backdrop-blur"
-            >
-              <span
-                aria-hidden="true"
-                className="ml-0.5 h-0 w-0 border-y-[9px] border-l-[15px] border-y-transparent border-l-white"
-              />
-            </motion.span>
-            <div>
-              <div className="font-display text-[16px] font-semibold tracking-[-0.01em] text-[var(--text)]">
-                {tab.media.label}
-              </div>
-              <div className="mt-1 px-2 text-[12px] leading-[1.45] text-muted">
-                {tab.subtitle}
-              </div>
-            </div>
-            <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[10.5px] font-medium uppercase tracking-[0.12em] text-muted">
-              Preview coming soon
-            </span>
-          </motion.div>
-        </div>
+    <motion.div
+      key={tab.id}
+      initial={{ opacity: 0, scale: 0.98 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.3, ease: EASE }}
+      className="relative flex aspect-[3/4] flex-col items-center justify-center gap-3 px-6 text-center"
+    >
+      <div
+        aria-hidden="true"
+        className="absolute inset-0"
+        style={{
+          background: "radial-gradient(circle at 50% 40%, var(--brand-glow), transparent 60%)",
+        }}
+      />
+      <div className="relative font-display text-[15px] font-semibold tracking-[-0.01em] text-[var(--text)]">
+        {tab.media.label}
       </div>
-    </div>
+      <div className="relative px-2 text-[12px] leading-[1.45] text-[var(--muted)]">
+        {tab.subtitle}
+      </div>
+      <span className="relative rounded-full border border-[var(--line)] px-3 py-1 font-mono text-[9.5px] uppercase tracking-[0.12em] text-[var(--muted)]">
+        Preview coming soon
+      </span>
+    </motion.div>
   );
 }
 
-/* ── Visual column: 3:4 preview + floating metrics ────────────────────────── */
+/* ── Visual column — product window: chrome bar · media · status footer ───── */
 function PreviewColumn({
   category,
   tab,
@@ -445,18 +434,62 @@ function PreviewColumn({
   counter: string;
 }) {
   return (
-    <div className="relative w-[280px] max-w-full">
+    <div className="relative mx-auto w-[360px] max-w-full">
+      {/* blueprint grid backdrop */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -inset-10 -z-10"
+        style={{
+          backgroundImage:
+            "linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px)",
+          backgroundSize: "26px 26px",
+          maskImage: "radial-gradient(closest-side, black, transparent)",
+          WebkitMaskImage: "radial-gradient(closest-side, black, transparent)",
+        }}
+      />
+      {/* ambient brand glow */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -inset-8 -z-10 blur-3xl"
         style={{
-          background: "radial-gradient(circle at 50% 50%, rgba(220,47,101,0.16), transparent 65%)",
+          background: "radial-gradient(circle at 50% 50%, var(--brand-glow), transparent 65%)",
         }}
       />
-      <AnimatedPreviewPlaceholder tab={tab} counter={counter} />
-      {/* {category.metrics.map((m, i) => (
-        <MetricCard key={`${category.id}-${m.slot}`} metric={m} index={i} />
-      ))} */}
+
+      <div className="overflow-hidden rounded-xl border border-[var(--line-2)] bg-[var(--bg-elev)] shadow-[0_24px_60px_-24px_rgba(0,0,0,0.5)]">
+        {/* window chrome */}
+        {/* <div className="flex items-center gap-2 border-b border-[var(--line)] px-3.5 py-2.5">
+          <span aria-hidden="true" className="flex gap-1.5">
+            <span className="h-[7px] w-[7px] rounded-full bg-[var(--line-2)]" />
+            <span className="h-[7px] w-[7px] rounded-full bg-[var(--line-2)]" />
+            <span className="h-[7px] w-[7px] rounded-full bg-[var(--line-2)]" />
+          </span>
+          <span className="mx-auto truncate font-mono text-[9.5px] uppercase tracking-[0.14em] text-[var(--muted)]">
+            {tab.media.label}
+          </span>
+          <span className="flex shrink-0 items-center gap-1.5 font-mono text-[9px] uppercase tracking-[0.12em] text-[var(--success)]">
+            <motion.span
+              aria-hidden="true"
+              className="h-[5px] w-[5px] rounded-full bg-[var(--success)]"
+              animate={{ opacity: [1, 0.35, 1] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            />
+            Live
+          </span>
+        </div> */}
+
+        <PreviewMedia tab={tab} />
+
+        {/* status footer */}
+        {/* <div className="flex items-center justify-between border-t border-[var(--line)] px-3.5 py-2">
+          <span className="font-mono text-[9.5px] uppercase tracking-[0.14em] text-[var(--muted)]">
+            {category.label}
+          </span>
+          <span className="font-mono text-[9.5px] tabular-nums tracking-[0.12em] text-[var(--muted)]">
+            {counter}
+          </span>
+        </div> */}
+      </div>
     </div>
   );
 }
@@ -465,60 +498,18 @@ function PreviewColumn({
 export function PlatformShowcase({ heading, categories }: { heading?: ReactNode, categories: ShowcaseCategory[] }) {
   const [activeCat, setActiveCat] = useState(0);
   const [activeTab, setActiveTab] = useState(0);
-  const outerRef = useRef<HTMLElement>(null);
-  const STEPS = categories.length;
 
   const category = categories[activeCat];
   const tab = category.tabs[activeTab] ?? category.tabs[0];
   const counter = `${String(activeTab + 1).padStart(2, "0")} / ${String(category.tabs.length).padStart(2, "0")}`;
 
-  // Reset sub-feature when the category changes (scroll or click).
+  // Reset sub-feature when the category changes.
   useEffect(() => {
     setActiveTab(0);
   }, [activeCat]);
 
-  // Scroll-driven category progression (FeatureGuide mechanic).
-  useEffect(() => {
-    const el = outerRef.current;
-    if (!el) return;
-    let raf: number | null = null;
-
-    const compute = () => {
-      raf = null;
-      if (window.innerWidth <= FLATTEN_AT) return; // click-driven below this width
-      const rect = el.getBoundingClientRect();
-      const total = rect.height - window.innerHeight;
-      if (total <= 0) return;
-      const scrolled = Math.max(0, Math.min(total, -rect.top));
-      const progress = scrolled / total;
-      const idx = Math.min(STEPS - 1, Math.max(0, Math.floor(progress * STEPS + 0.0001)));
-      setActiveCat((prev) => (prev === idx ? prev : idx));
-    };
-
-    const onScroll = () => {
-      if (raf == null) raf = requestAnimationFrame(compute);
-    };
-
-    compute();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-      if (raf) cancelAnimationFrame(raf);
-    };
-  }, [STEPS]);
-
   const onRailClick = (i: number) => {
     setActiveCat(i);
-    if (window.innerWidth <= FLATTEN_AT) return;
-    const el = outerRef.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const total = rect.height - window.innerHeight;
-    if (total <= 0) return;
-    const targetTop = window.scrollY + rect.top + (total * (i + 0.5)) / STEPS;
-    window.scrollTo({ top: targetTop, behavior: "smooth" });
   };
 
   const headerBlock = (
@@ -537,12 +528,10 @@ export function PlatformShowcase({ heading, categories }: { heading?: ReactNode,
 
   return (
     <section
-      ref={outerRef}
       data-reveal
-      className="relative bg-[linear-gradient(180deg,transparent,rgba(220,47,101,0.03)_50%,transparent)] max-[1100px]:!min-h-0"
-      style={{ minHeight: `calc(${STEPS} * ${STEP_VH}vh + 50vh)` }}
+      className="relative bg-[linear-gradient(180deg,transparent,rgba(220,47,101,0.03)_50%,transparent)]"
     >
-      {/* Header — normal flow, scrolls away before the canvas pins. Common to both layouts. */}
+      {/* Header — common to both layouts. */}
       <div className="mx-auto w-full max-w-[1280px] px-6 pt-16 sm:px-10">
         {headerBlock}
         <div className="mt-8 min-[1101px]:hidden">
@@ -550,26 +539,26 @@ export function PlatformShowcase({ heading, categories }: { heading?: ReactNode,
         </div>
       </div>
 
-      {/* ── Desktop: pinned two-column canvas (rail | pills + content/image row) ── */}
-      <div className="sticky top-[80px] hidden h-[calc(100vh-80px)] items-center min-[1101px]:flex">
-        <div className="mx-auto w-full max-w-[1280px] px-10">
-          <div className="grid grid-cols-[220px_minmax(0,1fr)] items-start gap-16">
+      {/* ── Desktop: two-column canvas (rail | pills + content/image row) ── */}
+      <div className="hidden min-[1101px]:block">
+        <div className="mx-auto w-full max-w-[1280px] px-10 pb-20 pt-12">
+          <div className="grid grid-cols-[220px_minmax(0,1fr)] items-start">
             {/* Left column — category rail + proof */}
-            <div className="pt-1">
+            <div className="pr-8 pt-1">
               <CategoryRail categories={categories} active={activeCat} onSelect={onRailClick} />
               <motion.div
                 key={`${category.id}-proof`}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.25 }}
-                className="mt-6 border-t border-white/[0.07] pt-5"
+                className="mt-6 border-t border-[var(--line)] pt-5"
               >
                 <SocialProofBadges proof={category.proof} />
               </motion.div>
             </div>
 
             {/* Right column — 1st child: pills · 2nd child: row[content+ctas, image] */}
-            <div className="flex min-w-0 flex-col gap-7">
+            <div className="flex min-w-0 flex-col gap-7 border-l border-[var(--line)] pl-10">
               <FeatureTabs
                 key={`${category.id}-tabs`}
                 tabs={category.tabs}
@@ -577,7 +566,7 @@ export function PlatformShowcase({ heading, categories }: { heading?: ReactNode,
                 onSelect={setActiveTab}
                 layoutId="showcase-subtab-desktop"
               />
-              <div className="flex flex-row items-center gap-12 border-t border-white/[0.07] pt-7">
+              <div className="flex flex-row items-center gap-12 border-t border-[var(--line)] pt-7">
                 <div className="min-w-0 flex-1">
                   <CardContent category={category} tab={tab} />
                 </div>
@@ -597,7 +586,7 @@ export function PlatformShowcase({ heading, categories }: { heading?: ReactNode,
           <div className="mt-7">
             <PreviewColumn category={category} tab={tab} counter={counter} />
           </div>
-          <div className="mt-9 border-t border-white/[0.07] pt-8">
+          <div className="mt-9 border-t border-[var(--line)] pt-8">
             <CardContent category={category} tab={tab} />
           </div>
         </div>

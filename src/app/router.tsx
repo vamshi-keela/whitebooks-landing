@@ -289,15 +289,17 @@ function MoreFeaturesRoute() {
   return <MoreFeaturesExplore key={page.slug} data={page} />;
 }
 
-/* ─── Connector landing pages (SAP / Tally) ──────────────────────────────── */
+/* ─── Connector landing pages (SAP / Oracle / Dynamics / Tally) ───────────── */
 
 function ConnectorPageRoute() {
   const { slug } = useParams<{ slug: string }>();
   const data = CONNECTOR_REGISTRY[slug ?? ''];
   if (!data) return <Navigate to="/" replace />;
-  return data.platform === 'sap'
-    ? <SapConnectorPage data={data} />
-    : <TallyConnectorPage data={data} />;
+  // Tally has its own template; every enterprise-ERP family (SAP, Oracle,
+  // Microsoft Dynamics) shares the data-driven SapConnectorPage template.
+  return data.platform === 'tally'
+    ? <TallyConnectorPage data={data} />
+    : <SapConnectorPage data={data} />;
 }
 
 /* ─── AppRouter ──────────────────────────────────────────────────────────── */

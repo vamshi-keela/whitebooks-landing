@@ -26,6 +26,7 @@ import InvoiceTemplates from "@/sections/InvoiceTemplates";
 import EnterpriseControls from "@/sections/EnterpriseControls";
 import WbTrust from "@/sections/WbTrust";
 import PlatformShowcase from "@/sections/PlatformShowcase";
+import TrustStats from "@/sections/TrustStats";
 
 interface SubPageProps {
   data: SubPageData;
@@ -93,6 +94,8 @@ export function SubPage({ data, onPrimaryClick, onSecondaryClick }: SubPageProps
           onPrimaryClick={onPrimaryClick}
           onSecondaryClick={handleSecondaryClick}
         />
+
+        <TrustStats />
 
         {data.problem && <ProblemSection data={data.problem} />}
         {/* {data.features && <FeaturesSection data={data.features} />} */}

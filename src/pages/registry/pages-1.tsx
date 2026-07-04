@@ -11,6 +11,7 @@ import gstr2aRegisterImage from '@/assets/product-images/feature-images/gstr2A-r
 import gstr2bReconcileImage from '@/assets/product-images/feature-images/gstr2B-reconcile-register.svg';
 import gstr3bUploadImage from '@/assets/product-images/feature-images/gstr3B-uploadToGSTN.svg';
 import gstr9RegisterImage from '@/assets/product-images/feature-images/gstr9-register.svg';
+import gstr2bItcClassificationImage from '@/assets/product-images/feature-images/gstr2B-reconcile-itcClassification.svg';
 import { ACCOUNTING_SHOWCASE_CATEGORIES } from '@/data/accouting-platform-showcase.data';
 import { GST_SOFTWARE_SHOWCASE_CATEGORIES } from '@/data/gst-software-platform-showcase.data';
 
@@ -346,6 +347,34 @@ const PAGES: Record<string, SubPageData> = {
           { pos: 'br', value: 'IMS', label: 'Actions built-in' },
         ],
         image: gstr2bReconcileImage,
+      },
+      {
+        id: 'reconciliation',
+        label: 'Reconciliation',
+        heading: 'One-click, rule-driven',
+        accent: 'GSTR-2B reconciliation',
+        desc: 'Configure matching rules on GSTIN, invoice value and date tolerance, then reconcile in one click. Manual match for mismatches, bulk accept / reject / pending actions, and live counters for reconciled, reversal, pending and reclaim.',
+        benefits: ['One-click reconcile', 'Configurable rules', 'Date tolerance match', 'Manual match option', 'Bulk accept / reject', 'Live recon counters'],
+        metrics: [
+          { pos: 'tr', value: '1-Click', label: 'Auto reconcile' },
+          { pos: 'bl', value: 'Rule-based', label: 'GSTIN, value, date' },
+          { pos: 'br', value: 'Bulk', label: 'Accept / reject' },
+        ],
+        image: gstr2bReconcileImage,
+      },
+      {
+        id: 'claim-itc',
+        label: 'Claim ITC',
+        heading: 'Know exactly what is safe to',
+        accent: 'claim as ITC',
+        desc: 'Every invoice classified as Safe to Claim, Needs Review or Can\'t Claim. Eligible ITC computed from purchase register and GSTR-2B separately, with available, reversed and net-claimed breakdown and a claim-ready ITC summary.',
+        benefits: ['Safe-to-claim view', 'Needs-review queue', 'Eligible ITC calc', 'Reversal tracking', 'Net claimed breakdown', 'Claim-ready summary'],
+        metrics: [
+          { pos: 'tr', value: '3 Buckets', label: 'Claim classification' },
+          { pos: 'bl', value: 'Auto ITC', label: 'Eligibility calc' },
+          { pos: 'br', value: 'Summary', label: 'Claim-ready report' },
+        ],
+        image: gstr2bItcClassificationImage,
       },
       {
         id: 'gstr3b',

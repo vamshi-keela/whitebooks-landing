@@ -267,7 +267,7 @@ export function PageHome({ motion, intensity, heroVariant, navigate }: PageHomeP
               </div>
               <div style={{ marginTop: 32, display: 'flex', gap: 14 }}>
                 <ButtonLink href="#/gst-api" arrow onClick={(e) => { e.preventDefault(); navigate('gst-api'); }}>
-                  Read the API docs
+                  Read API docs
                 </ButtonLink>
                 <ButtonLink href="#" variant="ghost" onClick={(e) => e.preventDefault()}>Get sandbox keys</ButtonLink>
               </div>

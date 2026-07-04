@@ -553,6 +553,87 @@ export function MiniKSAMock() {
   );
 }
 
+// ─── MiniNoticeMock ───────────────────────────────────────────────────────────
+
+export function MiniNoticeMock() {
+  const theme = useTheme();
+  const isDark = theme === 'dark';
+
+  const rows = [
+    { id: 'GST-0142', portal: 'GSTN', due: '8d', tone: 'var(--warn)' },
+    { id: 'IT-0087', portal: 'ITD', due: '21d', tone: 'var(--fg-secondary)' },
+    { id: 'TDS-0033', portal: 'TRACES', due: 'sent', tone: 'var(--ok)' },
+  ];
+
+  return (
+    <div style={miniPanel(theme)}>
+      <div style={miniHeader(theme)}>
+        <span style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
+          <span style={{
+            width: 6, height: 6, borderRadius: '50%',
+            background: 'var(--warn)', boxShadow: '0 0 8px rgba(245,158,11,0.5)',
+          } as React.CSSProperties}></span>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10.5, letterSpacing: '0.05em', color: 'var(--fg-tertiary)' } as React.CSSProperties}>
+            Notices · auto-sync
+          </span>
+        </span>
+        <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--fg-quaternary)' } as React.CSSProperties}>
+          GSTN · ITD · TRACES
+        </span>
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', borderBottom: '1px solid var(--hairline)' } as React.CSSProperties}>
+        {[
+          { lbl: 'Total', val: '24', tone: 'var(--fg-primary)' },
+          { lbl: 'Pending', val: '8', tone: 'var(--warn)' },
+          { lbl: 'Due wk', val: '3', tone: 'var(--danger)' },
+        ].map((s, i) => (
+          <div key={i} style={{
+            padding: '14px 16px',
+            borderRight: i < 2 ? '1px solid var(--hairline)' : 'none',
+          } as React.CSSProperties}>
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: 9.5, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--fg-tertiary)' } as React.CSSProperties}>
+              {s.lbl}
+            </div>
+            <div style={{ fontFamily: 'var(--font-serif)', fontSize: 26, color: s.tone, marginTop: 4, fontVariantNumeric: 'tabular-nums', letterSpacing: '-0.015em', lineHeight: 1 } as React.CSSProperties}>
+              {s.val}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Notice preview rows */}
+      <div>
+        {rows.map((r, i) => (
+          <div key={i} style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            padding: '9px 16px',
+            borderBottom: i < rows.length - 1 ? '1px solid var(--hairline)' : 'none',
+            fontSize: 11.5,
+          } as React.CSSProperties}>
+            <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <span style={{ fontFamily: 'var(--font-mono)', color: 'var(--fg-primary)', fontSize: 11 } as React.CSSProperties}>{r.id}</span>
+              <span style={{ fontFamily: 'var(--font-mono)', color: 'var(--fg-quaternary)', fontSize: 10 } as React.CSSProperties}>{r.portal}</span>
+            </span>
+            <span style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: 10,
+              color: r.tone,
+              background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.04)',
+              borderRadius: 4,
+              padding: '2px 7px',
+            } as React.CSSProperties}>
+              {r.due}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // ─── MiniGstApiMock ──────────────────────────────────────────────────────────
 
 export function MiniGstApiMock() {

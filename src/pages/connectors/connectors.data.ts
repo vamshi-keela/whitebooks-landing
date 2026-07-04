@@ -11,6 +11,8 @@
 
 import sapLogo from "@/assets/logos/sap.svg";
 import tallyLogo from "@/assets/logos/tally.svg";
+import oracleLogo from "@/assets/logos/oracle.svg";
+import dynamicsLogo from "@/assets/logos/Dynamics365_scalable.svg";
 import type { SeoMeta } from "@/seo/types";
 
 /* ── Shared CTA destinations (verbatim from the source pages) ─────────────── */
@@ -80,8 +82,13 @@ export interface CaseStudy {
   quote: string;
 }
 
-export interface SapConnector {
-  platform: "sap";
+/**
+ * Enterprise-ERP connector shape. Shared by the SAP, Oracle and Microsoft
+ * Dynamics families — all three render through `SapConnectorPage`, which is
+ * fully data-driven. `SapConnector` is kept as a backward-compatible alias.
+ */
+export interface ErpConnector {
+  platform: "sap" | "oracle" | "dynamics";
   slug: string;
   logo: string;
   seo: SeoMeta;
@@ -122,6 +129,9 @@ export interface SapConnector {
   };
 }
 
+/** Backward-compatible alias — the SAP pages and template import this name. */
+export type SapConnector = ErpConnector;
+
 /* ── Tally family ─────────────────────────────────────────────────────────── */
 
 export interface SetupStep {
@@ -150,7 +160,7 @@ export interface TallyConnector {
   closing: { stat: LabelledStat; heading: string; sub: string; primary: Cta };
 }
 
-export type ConnectorData = SapConnector | TallyConnector;
+export type ConnectorData = ErpConnector | TallyConnector;
 
 /* ── Reusable SAP blocks (identical across the 3 SAP pages) ───────────────── */
 
@@ -762,12 +772,827 @@ const tallyEWayBill: TallyConnector = {
   },
 };
 
+/* ══════════════════════════════════════════════════════════════════════════
+   ORACLE family — Fusion Cloud ERP, E-Business Suite, NetSuite, JD Edwards.
+   Oracle Fusion carries native IRP integration (release 21A+); EBS, NetSuite
+   and JD Edwards integrate through the WhiteBooks GSP adapter.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+const ORACLE_HERO_SHARED = {
+  title: "Integrate Oracle with India GST in real-time",
+  support: "No manual uploads. No IRN errors. No compliance risk.",
+  badges: ["5-Minute Setup", "Zero PL/SQL Coding", "100% Automation"],
+  primary: { label: "Book Oracle Integration Demo", href: SIGNUP_DEV },
+  secondary: { label: "Watch 2-Min Overview", href: SIGNUP_DEV },
+};
+
+const ORACLE_PROBLEM: ErpConnector["problem"] = {
+  heading: "Is your Oracle team still manually uploading JSON to the GST portal?",
+  sub: "Stop wasting hours on manual data entry and IRN rejections.",
+  pains: [
+    { stat: "8+ hrs/day", title: "Manual JSON upload", body: "A separate JSON upload for every single invoice." },
+    { stat: "30–40%", title: "IRN rejections", body: "One wrong field breaks the entire batch." },
+    { stat: "Compliance risk", title: "No audit trail", body: "Reconciliation becomes a nightmare against the GST portal." },
+  ],
+  costHeading: "The real cost — at just 1,000 invoices / month",
+  costs: [
+    { value: "₹12L+", label: "Annual labor cost" },
+    { value: "300+", label: "Hours wasted / month" },
+    { value: "High", label: "GST penalty risk" },
+  ],
+};
+
+const ORACLE_SOLUTION: ErpConnector["solution"] = {
+  heading: "One connector. Complete automation.",
+  sub: "Real-time, end-to-end — from an Oracle transaction to a signed IRN.",
+  steps: [
+    { title: "Real-Time Engine", line: "Instant IRN & QR via the NIC API", metricValue: "<1 s", metricLabel: "Response time" },
+    { title: "Smart Mapping", line: "BI Publisher / REST to JSON, automatically", metricValue: "24/7", metricLabel: "Monitoring" },
+    { title: "Zero Manual Work", line: "Fully automated workflow", metricValue: "0", metricLabel: "Human intervention" },
+    { title: "Audit Ready", line: "Complete compliance trail", metricValue: "7 yrs", metricLabel: "Data retention" },
+  ],
+};
+
+const ORACLE_PLATFORMS: ErpConnector["platforms"] = {
+  heading: "Works with your Oracle",
+  sub: "From E-Business Suite to Fusion Cloud — we support every major Oracle platform.",
+  cards: [
+    { name: "Oracle Fusion Cloud ERP", tag: "Cloud Native", points: ["REST / SOAP web services", "OIC & BI Publisher", "Native IRP since 21A"] },
+    { name: "Oracle E-Business Suite", tag: "Most Popular", points: ["EBS R12 & 12.2", "XML Gateway & PL/SQL", "BI / XML Publisher"] },
+    { name: "Oracle NetSuite", tag: "Cloud Native", points: ["SuiteScript / SuiteApp", "REST & SOAP", "India tax localization"] },
+    { name: "Oracle JD Edwards", tag: "Enterprise", points: ["EnterpriseOne 9.x", "Orchestrator / BSSV", "AIS REST services"] },
+  ],
+  extra: "Plus PeopleSoft, Oracle SCM Cloud, Fusion Financials & more",
+  cta: { label: "View Full Compatibility", href: SIGNUP_ALL },
+};
+
+const ORACLE_HOW: ErpConnector["howItWorks"] = {
+  heading: "How it works",
+  sub: "Three layers. Infinite reliability. Zero manual work.",
+  layers: [
+    {
+      label: "Layer 1",
+      title: "Oracle",
+      points: [
+        "WhiteBooks Oracle adapter with JSON extractor",
+        "BI Publisher template for IRN & e-Way Bill data",
+        "Receives ACK number, ACK date & IRN number",
+        "Receives e-Way Bill number with generation & expiry date",
+      ],
+    },
+    {
+      label: "Layer 2",
+      title: "WhiteBooks Server",
+      points: [
+        "Uploads Oracle data securely to the govt. server",
+        "Smart error handling with pre-validations",
+        "Generates e-Way Bill & e-Invoice in seconds",
+        "Stores e-Way Bill & e-Invoice data for 7 years",
+        "Smart, insightful compliance reporting",
+      ],
+    },
+    {
+      label: "Layer 3",
+      title: "Govt. Server",
+      points: [
+        "Validates invoice data as per GSTN rules",
+        "Generates IRN and digitally signed JSON",
+        "Returns QR code & acknowledgement details",
+        "Real-time e-Way Bill validation & response",
+      ],
+    },
+    {
+      label: "Layer 4",
+      title: "e-Invoice Generation",
+      points: [
+        "IRN generation & invoice registration",
+        "Acknowledgement number & date confirmation",
+        "Signed QR code generation",
+        "e-Way Bill number with validity details",
+        "Smart, insightful compliance reporting",
+      ],
+    },
+  ],
+};
+
+const ORACLE_ENTERPRISE: ErpConnector["enterprise"] = {
+  heading: "Enterprise features",
+  sub: "Built for large Oracle deployments with demanding requirements.",
+  features: [
+    { title: "High-volume processing", note: "100,000+ invoices / day" },
+    { title: "Operating-unit & LE mapping", note: "Multi-org support" },
+    { title: "Multiple legal entities", note: "Centralized management" },
+    { title: "Failover retry engine", note: "Automatic error recovery" },
+    { title: "Batch & scheduled runs", note: "Off-peak processing" },
+    { title: "Multi-GSTIN management", note: "Consolidated dashboard" },
+    { title: "Bulk reconciliation", note: "Automated matching" },
+    { title: "Advanced search & filters", note: "Quick data retrieval" },
+    { title: "Analytics & API webhooks", note: "Real-time data alerts" },
+  ],
+};
+
+const ORACLE_BEFORE_AFTER: ErpConnector["beforeAfter"] = {
+  heading: "From spreadsheets and manual work to automated workflows",
+  sub: "Save hours, eliminate errors and build audit-ready operations with WhiteBooks.",
+  rows: [
+    { metric: "Process time", before: "8+ hours/day", after: "<1 second" },
+    { metric: "Error rate", before: "30–40%", after: "0%" },
+    { metric: "Manual work", before: "Every invoice", after: "Zero" },
+    { metric: "Compliance risk", before: "High", after: "None" },
+    { metric: "Audit trail", before: "None", after: "100% complete" },
+    { metric: "Team satisfaction", before: "Low", after: "High" },
+  ],
+  results: [
+    { value: "95%", label: "Time saved" },
+    { value: "₹10L+", label: "Annual savings" },
+    { value: "100%", label: "Compliance" },
+  ],
+};
+
+const ORACLE_DEV_CODE = `import WhiteBooksConnector from 'wb-oracle';
+
+const connector = new WhiteBooksConnector({
+  apiKey: 'your_api_key',
+  environment: 'production'
+});
+
+const result = await connector.generateEInvoice({
+  oracleDocNumber: 'INV-2024-001',
+  gstin: '29AABCT1234D1Z5',
+  autoSubmit: true
+});
+
+console.log(result.irn);
+console.log(result.qrCode);`;
+
+const ORACLE_DEVELOPER: ErpConnector["developer"] = {
+  heading: "Developer-friendly integration",
+  sub: "Built by developers, for developers.",
+  features: [
+    { title: "API documentation", body: "Complete REST API documentation with examples." },
+    { title: "Sandbox environment", body: "Test the integration before going live." },
+    { title: "Multiple language SDKs", body: "Java, Python, Node.js & .NET libraries." },
+    { title: "Error codes", body: "Detailed error messages with solutions." },
+    { title: "Postman collections", body: "Ready-to-use API collections." },
+    { title: "Webhook events", body: "Real-time notifications for events." },
+  ],
+  code: ORACLE_DEV_CODE,
+  cta: { label: "View API Documentation", href: SIGNUP_DEV },
+};
+
+const ORACLE_PROOF: ErpConnector["proof"] = {
+  heading: "Proven results",
+  sub: "Real companies. Real ROI. Real fast.",
+  cases: [
+    {
+      sector: "Manufacturing",
+      title: "Leading auto-parts manufacturer",
+      headline: "100k invoices automated in 5 days",
+      stats: [
+        { value: "300+ hrs", label: "Saved / month" },
+        { value: "40% → 0%", label: "Error reduction" },
+        { value: "₹15L", label: "ROI annually" },
+      ],
+      quote: "WhiteBooks transformed our entire GST compliance process overnight.",
+    },
+    {
+      sector: "Retail & FMCG",
+      title: "Fortune 500 FMCG enterprise",
+      headline: "Zero IRN rejections achieved",
+      stats: [
+        { value: "150+", label: "Branches" },
+        { value: "100%", label: "Automation" },
+        { value: "Perfect", label: "Compliance score" },
+      ],
+      quote: "Finally, real-time GST compliance that actually works with Oracle Fusion Cloud.",
+    },
+    {
+      sector: "Pharma Distribution",
+      title: "Multi-state pharmaceutical distributor",
+      headline: "50+ GSTINs managed centrally",
+      stats: [
+        { value: "10K+", label: "Daily invoices" },
+        { value: "<1 s", label: "Processing time" },
+        { value: "Zero", label: "Audit issues" },
+      ],
+      quote: "The reconciliation alone saves us two full-time employees worth of work.",
+    },
+  ],
+};
+
+const ORACLE_WHY: ErpConnector["why"] = {
+  heading: "Why this works",
+  sub: "A proven methodology with predictable results.",
+  steps: [
+    "Because Oracle emits structured invoice data (XML / BI Publisher)",
+    "Which always has to be converted to IRP JSON",
+    "And JSON needs to be mapped to the NIC portal",
+    "Using standard Oracle REST / SOAP web services",
+    "All business logic is handled at the OIC middleware level",
+    "You're literally installing a compliance confidence booster",
+  ],
+};
+
+const ORACLE_CLOSING: ErpConnector["closing"] = {
+  heading: "Stop manual GST uploads. Start automating today.",
+  sub: "Join 100+ Oracle enterprises achieving 100% GST compliance with zero manual work.",
+  primary: { label: "Get Integration Guide", href: SIGNUP_DEV },
+  secondary: { label: "Book Your Demo Call", href: SIGNUP_DEV },
+  phone: "+91 90321 11788",
+  email: "sales@whitebooks.in",
+  metrics: [
+    { value: "100+", label: "Enterprise clients" },
+    { value: "1M+", label: "e-Invoices processed" },
+    { value: "100%", label: "Uptime guaranteed" },
+    { value: "<5 min", label: "Setup time" },
+  ],
+};
+
+/* ── Oracle · e-Invoicing ─────────────────────────────────────────────────── */
+
+const oracleEInvoicing: ErpConnector = {
+  platform: "oracle",
+  slug: "oracle-e-invoicing",
+  logo: oracleLogo,
+  seo: {
+    title: "Oracle e-Invoicing Connector | Real-time IRN from Oracle | WhiteBooks",
+    description:
+      "GSP-certified Oracle e-Invoice connector. Push e-invoices from Oracle Fusion Cloud, EBS, NetSuite & JD Edwards to the IRP and get IRN, QR and signed JSON back — real-time, zero PL/SQL.",
+    canonical: "https://whitebooks.in/connectors/oracle-e-invoicing",
+    keywords: "Oracle e-invoice connector, Oracle IRN, Oracle Fusion GST, EBS e-invoicing, e-invoicing Oracle",
+  },
+  breadcrumb: [{ label: "Home", href: "/" }, { label: "Connectors" }, { label: "Oracle e-Invoicing" }],
+  hero: {
+    ...ORACLE_HERO_SHARED,
+    tag: "Oracle · e-Invoicing",
+    sub: "Push e-invoices from Oracle Fusion Cloud, EBS or NetSuite to the IRP and get IRN, QR and signed JSON back. The WhiteBooks Oracle e-Invoice connector — certified GSP, real-time.",
+  },
+  problem: ORACLE_PROBLEM,
+  solution: ORACLE_SOLUTION,
+  platforms: ORACLE_PLATFORMS,
+  howItWorks: ORACLE_HOW,
+  enterprise: ORACLE_ENTERPRISE,
+  beforeAfter: ORACLE_BEFORE_AFTER,
+  developer: ORACLE_DEVELOPER,
+  proof: ORACLE_PROOF,
+  why: ORACLE_WHY,
+  faq: {
+    heading: "Frequently asked questions",
+    items: [
+      {
+        q: "What does the Oracle e-Invoice Connector do?",
+        a: "It triggers IRN generation from Oracle at the point of invoice creation, through WhiteBooks' GSP channel to the IRP. The IRN and QR code post back to the Oracle transaction for print / despatch.",
+      },
+      {
+        q: "Does it work with Oracle Fusion Cloud and EBS?",
+        a: "Both. Oracle Fusion Cloud ERP (which carries native IRP integration from release 21A), Oracle E-Business Suite R12/12.2, NetSuite and JD Edwards are all supported via REST/SOAP web services and BI Publisher.",
+      },
+      {
+        q: "Does it support real-time and bulk modes?",
+        a: "Yes. Real-time mode posts each invoice immediately; bulk mode collects invoices on a schedule and submits in batches of up to 1,000 through the OIC middleware.",
+      },
+      {
+        q: "How are IRP errors handled?",
+        a: "Each rejected invoice surfaces in a dashboard with the IRP error code and a one-click correction workflow. Auto-retry is supported for transient errors.",
+      },
+      {
+        q: "Can I cancel an IRN from Oracle?",
+        a: "Yes. Cancellation within the 24-hour IRP window is supported from the Oracle transaction. Beyond 24 hours, credit notes are issued per GST law.",
+      },
+    ],
+  },
+  closing: ORACLE_CLOSING,
+};
+
+/* ── Oracle · e-Way Bill ──────────────────────────────────────────────────── */
+
+const oracleEWayBill: ErpConnector = {
+  platform: "oracle",
+  slug: "oracle-e-way-bill",
+  logo: oracleLogo,
+  seo: {
+    title: "Oracle e-Way Bill Connector | Generate EWB from Oracle | WhiteBooks",
+    description:
+      "Generate, update and cancel e-Way Bills directly from Oracle Fusion Cloud, EBS or NetSuite. WhiteBooks' GSP-certified Oracle connector handles auth, retries and ledger sync — zero PL/SQL.",
+    canonical: "https://whitebooks.in/connectors/oracle-e-way-bill",
+    keywords: "Oracle e-way bill connector, EWB Oracle, Oracle NIC integration, Oracle Fusion e-way bill",
+  },
+  breadcrumb: [{ label: "Home", href: "/" }, { label: "Connectors" }, { label: "Oracle e-Way Bill" }],
+  hero: {
+    ...ORACLE_HERO_SHARED,
+    tag: "Oracle · e-Way Bill",
+    sub: "Generate, update and cancel e-Way Bills directly from Oracle Fusion Cloud, EBS or NetSuite. The WhiteBooks Oracle connector handles auth, retries and ledger sync.",
+  },
+  problem: ORACLE_PROBLEM,
+  solution: ORACLE_SOLUTION,
+  platforms: ORACLE_PLATFORMS,
+  howItWorks: ORACLE_HOW,
+  enterprise: ORACLE_ENTERPRISE,
+  beforeAfter: ORACLE_BEFORE_AFTER,
+  developer: ORACLE_DEVELOPER,
+  proof: ORACLE_PROOF,
+  why: ORACLE_WHY,
+  faq: {
+    heading: "Frequently asked questions",
+    items: [
+      {
+        q: "What does the Oracle e-Way Bill Connector do?",
+        a: "It auto-generates e-Way Bills from Oracle documents via the NIC channel, pulling vehicle and transporter details straight from Oracle master data. On Oracle Fusion the EWB can be generated in the same API call as the IRN.",
+      },
+      {
+        q: "Which Oracle modules does it integrate with?",
+        a: "Order Management, Receivables (AR), Payables (AP) and Inventory / Logistics; custom flows are supported via REST services and BI Publisher templates.",
+      },
+      {
+        q: "Can it handle multi-vehicle / trans-shipment?",
+        a: "Yes. It supports Part-B updates for vehicle reassignment and multi-vehicle journeys.",
+      },
+      {
+        q: "How is EWB validity tracked?",
+        a: "The connector pulls expiry into a dashboard and triggers extension workflows for expiring EWBs still in transit.",
+      },
+      {
+        q: "How long is deployment?",
+        a: "Typical go-live is 3–5 weeks: discovery, sandbox, mapping, UAT and production.",
+      },
+    ],
+  },
+  closing: ORACLE_CLOSING,
+};
+
+/* ── Oracle · GST Filing ──────────────────────────────────────────────────── */
+
+const oracleGst: ErpConnector = {
+  platform: "oracle",
+  slug: "oracle-gst",
+  logo: oracleLogo,
+  seo: {
+    title: "Oracle GST Connector | File GSTR-1, 3B & IMS from Oracle | WhiteBooks",
+    description:
+      "Native Oracle GST add-on to upload, reconcile and file GSTR-1, GSTR-3B and IMS from Oracle Fusion Cloud and EBS in real time — multi-GSTIN, GSP-certified.",
+    canonical: "https://whitebooks.in/connectors/oracle-gst",
+    keywords: "Oracle GST connector, GSTR-1 Oracle, GSTR-3B Oracle, Oracle GST filing, IMS Oracle",
+  },
+  breadcrumb: [{ label: "Home", href: "/" }, { label: "Connectors" }, { label: "Oracle GST" }],
+  hero: {
+    ...ORACLE_HERO_SHARED,
+    tag: "Oracle · GST Filing",
+    sub: "Native Oracle GST add-on to upload, reconcile and file GSTR-1, GSTR-3B and IMS from Oracle Fusion Cloud and EBS — in real time.",
+  },
+  problem: ORACLE_PROBLEM,
+  solution: ORACLE_SOLUTION,
+  platforms: ORACLE_PLATFORMS,
+  howItWorks: ORACLE_HOW,
+  enterprise: ORACLE_ENTERPRISE,
+  beforeAfter: ORACLE_BEFORE_AFTER,
+  developer: ORACLE_DEVELOPER,
+  proof: ORACLE_PROOF,
+  why: ORACLE_WHY,
+  faq: {
+    heading: "Frequently asked questions",
+    items: [
+      {
+        q: "What does the Oracle GST Connector do?",
+        a: "It uploads, reconciles and files GSTR-1, GSTR-3B and IMS directly from Oracle through WhiteBooks' GSP channel — no manual portal work and no JSON juggling.",
+      },
+      {
+        q: "Does it support multiple GSTINs and legal entities?",
+        a: "Yes. Multi-GSTIN and multiple legal entities / operating units are managed from one consolidated dashboard, with org-wise mapping.",
+      },
+      {
+        q: "How does reconciliation work?",
+        a: "Purchase data is auto-matched against GSTR-2B for ITC, with bulk reconciliation and mismatch reporting surfaced against Oracle Payables.",
+      },
+      {
+        q: "Can returns be filed in bulk?",
+        a: "Yes. Batch and scheduled runs let you upload and file across periods and GSTINs during off-peak windows, with a complete audit trail.",
+      },
+      {
+        q: "What Oracle releases are supported?",
+        a: "Oracle Fusion Cloud ERP, Oracle E-Business Suite R12 / 12.2 and NetSuite, delivered through REST / SOAP web services and BI Publisher — no core customization.",
+      },
+    ],
+  },
+  closing: ORACLE_CLOSING,
+};
+
+/* ══════════════════════════════════════════════════════════════════════════
+   MICROSOFT DYNAMICS family — Dynamics 365 Finance & Operations, Business
+   Central, AX 2012 and NAV. F&O carries a full India GST localization
+   (Electronic Reporting + Key Vault); the WhiteBooks GSP connector wires it
+   (and the older releases) to the IRP and NIC channels.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+const DYNAMICS_HERO_SHARED = {
+  title: "Integrate Microsoft Dynamics with India GST in real-time",
+  support: "No manual uploads. No IRN errors. No compliance risk.",
+  badges: ["Rapid Deployment", "Zero X++ Customization", "100% Automation"],
+  primary: { label: "Book Dynamics Integration Demo", href: SIGNUP_DEV },
+  secondary: { label: "Watch 2-Min Overview", href: SIGNUP_DEV },
+};
+
+const DYNAMICS_PROBLEM: ErpConnector["problem"] = {
+  heading: "Is your Dynamics team still manually uploading JSON to the GST portal?",
+  sub: "Stop wasting hours on manual data entry and IRN rejections.",
+  pains: [
+    { stat: "8+ hrs/day", title: "Manual JSON upload", body: "A separate JSON upload for every single invoice." },
+    { stat: "30–40%", title: "IRN rejections", body: "One wrong field breaks the entire batch." },
+    { stat: "Compliance risk", title: "No audit trail", body: "Reconciliation becomes a nightmare against the GST portal." },
+  ],
+  costHeading: "The real cost — at just 1,000 invoices / month",
+  costs: [
+    { value: "₹12L+", label: "Annual labor cost" },
+    { value: "300+", label: "Hours wasted / month" },
+    { value: "High", label: "GST penalty risk" },
+  ],
+};
+
+const DYNAMICS_SOLUTION: ErpConnector["solution"] = {
+  heading: "One connector. Complete automation.",
+  sub: "Real-time, end-to-end — from a Dynamics posting to a signed IRN.",
+  steps: [
+    { title: "Real-Time Engine", line: "Instant IRN & QR via the NIC API", metricValue: "<1 s", metricLabel: "Response time" },
+    { title: "Smart Mapping", line: "Electronic Reporting to JSON, automatically", metricValue: "24/7", metricLabel: "Monitoring" },
+    { title: "Zero Manual Work", line: "Fully automated workflow", metricValue: "0", metricLabel: "Human intervention" },
+    { title: "Audit Ready", line: "Complete compliance trail", metricValue: "7 yrs", metricLabel: "Data retention" },
+  ],
+};
+
+const DYNAMICS_PLATFORMS: ErpConnector["platforms"] = {
+  heading: "Works with your Dynamics",
+  sub: "From Business Central to Finance & Operations — every major Dynamics platform.",
+  cards: [
+    { name: "Dynamics 365 F&O", tag: "Enterprise", points: ["Electronic Reporting (GER)", "Data entities / OData", "Cloud & on-premise"] },
+    { name: "Dynamics 365 Business Central", tag: "Most Popular", points: ["AL extensions", "India localization", "Cloud & on-premise"] },
+    { name: "Dynamics AX 2012", tag: "Legacy Support", points: ["X++ integration", "AIF services", "R2 & R3"] },
+    { name: "Dynamics NAV", tag: "Legacy Support", points: ["C/AL & web services", "NAV 2016–2018", "On-premise"] },
+  ],
+  extra: "Plus Dynamics 365 Supply Chain, GP & Dynamics CRM",
+  cta: { label: "View Full Compatibility", href: SIGNUP_ALL },
+};
+
+const DYNAMICS_HOW: ErpConnector["howItWorks"] = {
+  heading: "How it works",
+  sub: "Three layers. Infinite reliability. Zero manual work.",
+  layers: [
+    {
+      label: "Layer 1",
+      title: "Dynamics",
+      points: [
+        "WhiteBooks Dynamics connector via Electronic Reporting",
+        "GER-mapped IRN & e-Way Bill data",
+        "Receives ACK number, ACK date & IRN number",
+        "Receives e-Way Bill number with generation & expiry date",
+      ],
+    },
+    {
+      label: "Layer 2",
+      title: "WhiteBooks Server",
+      points: [
+        "Uploads Dynamics data securely to the govt. server",
+        "Smart error handling with pre-validations",
+        "Generates e-Way Bill & e-Invoice in seconds",
+        "Stores e-Way Bill & e-Invoice data for 7 years",
+        "Smart, insightful compliance reporting",
+      ],
+    },
+    {
+      label: "Layer 3",
+      title: "Govt. Server",
+      points: [
+        "Validates invoice data as per GSTN rules",
+        "Generates IRN and digitally signed JSON",
+        "Returns QR code & acknowledgement details",
+        "Real-time e-Way Bill validation & response",
+      ],
+    },
+    {
+      label: "Layer 4",
+      title: "e-Invoice Generation",
+      points: [
+        "IRN generation & invoice registration",
+        "Acknowledgement number & date confirmation",
+        "Signed QR code generation",
+        "e-Way Bill number with validity details",
+        "Smart, insightful compliance reporting",
+      ],
+    },
+  ],
+};
+
+const DYNAMICS_ENTERPRISE: ErpConnector["enterprise"] = {
+  heading: "Enterprise features",
+  sub: "Built for large Dynamics deployments with demanding requirements.",
+  features: [
+    { title: "High-volume processing", note: "100,000+ invoices / day" },
+    { title: "Legal-entity & site mapping", note: "Multi-company support" },
+    { title: "Multiple legal entities", note: "Centralized management" },
+    { title: "Failover retry engine", note: "Automatic error recovery" },
+    { title: "Batch & scheduled runs", note: "Off-peak processing" },
+    { title: "Multi-GSTIN management", note: "Consolidated dashboard" },
+    { title: "Bulk reconciliation", note: "Automated matching" },
+    { title: "Advanced search & filters", note: "Quick data retrieval" },
+    { title: "Analytics & API webhooks", note: "Real-time data alerts" },
+  ],
+};
+
+const DYNAMICS_BEFORE_AFTER: ErpConnector["beforeAfter"] = {
+  heading: "From spreadsheets and manual work to automated workflows",
+  sub: "Save hours, eliminate errors and build audit-ready operations with WhiteBooks.",
+  rows: [
+    { metric: "Process time", before: "8+ hours/day", after: "<1 second" },
+    { metric: "Error rate", before: "30–40%", after: "0%" },
+    { metric: "Manual work", before: "Every invoice", after: "Zero" },
+    { metric: "Compliance risk", before: "High", after: "None" },
+    { metric: "Audit trail", before: "None", after: "100% complete" },
+    { metric: "Team satisfaction", before: "Low", after: "High" },
+  ],
+  results: [
+    { value: "95%", label: "Time saved" },
+    { value: "₹10L+", label: "Annual savings" },
+    { value: "100%", label: "Compliance" },
+  ],
+};
+
+const DYNAMICS_DEV_CODE = `import WhiteBooksConnector from 'wb-dynamics';
+
+const connector = new WhiteBooksConnector({
+  apiKey: 'your_api_key',
+  environment: 'production'
+});
+
+const result = await connector.generateEInvoice({
+  dynamicsDocNumber: 'INV-2024-001',
+  gstin: '29AABCT1234D1Z5',
+  autoSubmit: true
+});
+
+console.log(result.irn);
+console.log(result.qrCode);`;
+
+const DYNAMICS_DEVELOPER: ErpConnector["developer"] = {
+  heading: "Developer-friendly integration",
+  sub: "Built by developers, for developers.",
+  features: [
+    { title: "API documentation", body: "Complete REST API documentation with examples." },
+    { title: "Sandbox environment", body: "Test the integration before going live." },
+    { title: "Multiple language SDKs", body: "Java, Python, Node.js & .NET libraries." },
+    { title: "Error codes", body: "Detailed error messages with solutions." },
+    { title: "Postman collections", body: "Ready-to-use API collections." },
+    { title: "Webhook events", body: "Real-time notifications for events." },
+  ],
+  code: DYNAMICS_DEV_CODE,
+  cta: { label: "View API Documentation", href: SIGNUP_DEV },
+};
+
+const DYNAMICS_PROOF: ErpConnector["proof"] = {
+  heading: "Proven results",
+  sub: "Real companies. Real ROI. Real fast.",
+  cases: [
+    {
+      sector: "Manufacturing",
+      title: "Leading auto-parts manufacturer",
+      headline: "100k invoices automated in 5 days",
+      stats: [
+        { value: "300+ hrs", label: "Saved / month" },
+        { value: "40% → 0%", label: "Error reduction" },
+        { value: "₹15L", label: "ROI annually" },
+      ],
+      quote: "WhiteBooks transformed our entire GST compliance process overnight.",
+    },
+    {
+      sector: "Retail & FMCG",
+      title: "Fortune 500 FMCG enterprise",
+      headline: "Zero IRN rejections achieved",
+      stats: [
+        { value: "150+", label: "Branches" },
+        { value: "100%", label: "Automation" },
+        { value: "Perfect", label: "Compliance score" },
+      ],
+      quote: "Finally, real-time GST compliance that actually works with Dynamics 365 Finance & Operations.",
+    },
+    {
+      sector: "Pharma Distribution",
+      title: "Multi-state pharmaceutical distributor",
+      headline: "50+ GSTINs managed centrally",
+      stats: [
+        { value: "10K+", label: "Daily invoices" },
+        { value: "<1 s", label: "Processing time" },
+        { value: "Zero", label: "Audit issues" },
+      ],
+      quote: "The reconciliation alone saves us two full-time employees worth of work.",
+    },
+  ],
+};
+
+const DYNAMICS_WHY: ErpConnector["why"] = {
+  heading: "Why this works",
+  sub: "A proven methodology with predictable results.",
+  steps: [
+    "Because Dynamics maps invoice data through Electronic Reporting (GER)",
+    "Which always has to be converted to IRP JSON",
+    "And JSON needs to be mapped to the NIC portal",
+    "Using standard Dynamics data entities & OData services",
+    "All business logic is handled at the integration layer",
+    "You're literally installing a compliance confidence booster",
+  ],
+};
+
+const DYNAMICS_CLOSING: ErpConnector["closing"] = {
+  heading: "Stop manual GST uploads. Start automating today.",
+  sub: "Join 100+ Dynamics enterprises achieving 100% GST compliance with zero manual work.",
+  primary: { label: "Get Integration Guide", href: SIGNUP_DEV },
+  secondary: { label: "Book Your Demo Call", href: SIGNUP_DEV },
+  phone: "+91 90321 11788",
+  email: "sales@whitebooks.in",
+  metrics: [
+    { value: "100+", label: "Enterprise clients" },
+    { value: "1M+", label: "e-Invoices processed" },
+    { value: "100%", label: "Uptime guaranteed" },
+    { value: "<5 min", label: "Setup time" },
+  ],
+};
+
+/* ── Dynamics · e-Invoicing ───────────────────────────────────────────────── */
+
+const dynamicsEInvoicing: ErpConnector = {
+  platform: "dynamics",
+  slug: "dynamics-e-invoicing",
+  logo: dynamicsLogo,
+  seo: {
+    title: "Microsoft Dynamics e-Invoicing Connector | Real-time IRN | WhiteBooks",
+    description:
+      "GSP-certified Dynamics e-Invoice connector. Push e-invoices from Dynamics 365 F&O, Business Central, AX & NAV to the IRP and get IRN, QR and signed JSON back — real-time, zero X++.",
+    canonical: "https://whitebooks.in/connectors/dynamics-e-invoicing",
+    keywords: "Dynamics e-invoice connector, Dynamics 365 IRN, Dynamics GST, Business Central e-invoicing, e-invoicing Dynamics",
+  },
+  breadcrumb: [{ label: "Home", href: "/" }, { label: "Connectors" }, { label: "Dynamics e-Invoicing" }],
+  hero: {
+    ...DYNAMICS_HERO_SHARED,
+    tag: "Dynamics · e-Invoicing",
+    sub: "Push e-invoices from Dynamics 365 F&O or Business Central to the IRP and get IRN, QR and signed JSON back. The WhiteBooks Dynamics e-Invoice connector — certified GSP, real-time.",
+  },
+  problem: DYNAMICS_PROBLEM,
+  solution: DYNAMICS_SOLUTION,
+  platforms: DYNAMICS_PLATFORMS,
+  howItWorks: DYNAMICS_HOW,
+  enterprise: DYNAMICS_ENTERPRISE,
+  beforeAfter: DYNAMICS_BEFORE_AFTER,
+  developer: DYNAMICS_DEVELOPER,
+  proof: DYNAMICS_PROOF,
+  why: DYNAMICS_WHY,
+  faq: {
+    heading: "Frequently asked questions",
+    items: [
+      {
+        q: "What does the Dynamics e-Invoice Connector do?",
+        a: "It triggers IRN generation from Dynamics at the point of invoice posting, through WhiteBooks' GSP channel to the IRP. The IRN and QR code post back to the Dynamics document for print / despatch.",
+      },
+      {
+        q: "Does it work with F&O and Business Central?",
+        a: "Both. Dynamics 365 Finance & Operations uses the built-in Electronic Reporting (GER) India localization; Business Central uses AL extensions; AX 2012 and NAV are supported via web services.",
+      },
+      {
+        q: "How is IRP authentication secured?",
+        a: "The connector uses the security certificate and secrets issued during GSTIN registration, stored in Azure Key Vault — exactly as recommended for the Dynamics 365 F&O e-invoice setup.",
+      },
+      {
+        q: "How are IRP errors handled?",
+        a: "Each rejected invoice surfaces with the IRP error code and a one-click correction workflow. Auto-retry is supported for transient errors.",
+      },
+      {
+        q: "Can I cancel an IRN from Dynamics?",
+        a: "Yes. Cancellation within the 24-hour IRP window is supported from the Dynamics document. Beyond 24 hours, credit notes are issued per GST law.",
+      },
+    ],
+  },
+  closing: DYNAMICS_CLOSING,
+};
+
+/* ── Dynamics · e-Way Bill ────────────────────────────────────────────────── */
+
+const dynamicsEWayBill: ErpConnector = {
+  platform: "dynamics",
+  slug: "dynamics-e-way-bill",
+  logo: dynamicsLogo,
+  seo: {
+    title: "Microsoft Dynamics e-Way Bill Connector | Generate EWB | WhiteBooks",
+    description:
+      "Generate, update and cancel e-Way Bills directly from Dynamics 365 F&O or Business Central. WhiteBooks' GSP-certified Dynamics connector handles auth, retries and ledger sync — zero X++.",
+    canonical: "https://whitebooks.in/connectors/dynamics-e-way-bill",
+    keywords: "Dynamics e-way bill connector, EWB Dynamics 365, Dynamics NIC integration, Business Central e-way bill",
+  },
+  breadcrumb: [{ label: "Home", href: "/" }, { label: "Connectors" }, { label: "Dynamics e-Way Bill" }],
+  hero: {
+    ...DYNAMICS_HERO_SHARED,
+    tag: "Dynamics · e-Way Bill",
+    sub: "Generate, update and cancel e-Way Bills directly from Dynamics 365 F&O or Business Central. The WhiteBooks Dynamics connector handles auth, retries and ledger sync.",
+  },
+  problem: DYNAMICS_PROBLEM,
+  solution: DYNAMICS_SOLUTION,
+  platforms: DYNAMICS_PLATFORMS,
+  howItWorks: DYNAMICS_HOW,
+  enterprise: DYNAMICS_ENTERPRISE,
+  beforeAfter: DYNAMICS_BEFORE_AFTER,
+  developer: DYNAMICS_DEVELOPER,
+  proof: DYNAMICS_PROOF,
+  why: DYNAMICS_WHY,
+  faq: {
+    heading: "Frequently asked questions",
+    items: [
+      {
+        q: "What does the Dynamics e-Way Bill Connector do?",
+        a: "It generates e-Way Bills from Dynamics documents via the NIC channel. In Dynamics 365 F&O the e-Way Bill is registered as part of e-invoice registration in the IRP, pulling vehicle and transporter details from Dynamics master data.",
+      },
+      {
+        q: "Which Dynamics modules does it integrate with?",
+        a: "Accounts Receivable (sales / free-text invoices), Accounts Payable and Inventory / Warehouse management; custom flows are supported via data entities.",
+      },
+      {
+        q: "Can it handle multi-vehicle / trans-shipment?",
+        a: "Yes. It supports Part-B updates for vehicle reassignment and multi-vehicle journeys.",
+      },
+      {
+        q: "How is EWB validity tracked?",
+        a: "The connector pulls expiry into a dashboard and triggers extension workflows for expiring EWBs still in transit.",
+      },
+      {
+        q: "How long is deployment?",
+        a: "Typical go-live is 3–5 weeks: discovery, sandbox, mapping, UAT and production.",
+      },
+    ],
+  },
+  closing: DYNAMICS_CLOSING,
+};
+
+/* ── Dynamics · GST Filing ────────────────────────────────────────────────── */
+
+const dynamicsGst: ErpConnector = {
+  platform: "dynamics",
+  slug: "dynamics-gst",
+  logo: dynamicsLogo,
+  seo: {
+    title: "Microsoft Dynamics GST Connector | File GSTR-1, 3B & IMS | WhiteBooks",
+    description:
+      "Native Dynamics GST add-on to upload, reconcile and file GSTR-1, GSTR-3B and IMS from Dynamics 365 F&O and Business Central in real time — multi-GSTIN, GSP-certified.",
+    canonical: "https://whitebooks.in/connectors/dynamics-gst",
+    keywords: "Dynamics GST connector, GSTR-1 Dynamics, GSTR-3B Dynamics 365, Dynamics GST filing, IMS Dynamics",
+  },
+  breadcrumb: [{ label: "Home", href: "/" }, { label: "Connectors" }, { label: "Dynamics GST" }],
+  hero: {
+    ...DYNAMICS_HERO_SHARED,
+    tag: "Dynamics · GST Filing",
+    sub: "Native Dynamics GST add-on to upload, reconcile and file GSTR-1, GSTR-3B and IMS from Dynamics 365 F&O and Business Central — in real time.",
+  },
+  problem: DYNAMICS_PROBLEM,
+  solution: DYNAMICS_SOLUTION,
+  platforms: DYNAMICS_PLATFORMS,
+  howItWorks: DYNAMICS_HOW,
+  enterprise: DYNAMICS_ENTERPRISE,
+  beforeAfter: DYNAMICS_BEFORE_AFTER,
+  developer: DYNAMICS_DEVELOPER,
+  proof: DYNAMICS_PROOF,
+  why: DYNAMICS_WHY,
+  faq: {
+    heading: "Frequently asked questions",
+    items: [
+      {
+        q: "What does the Dynamics GST Connector do?",
+        a: "It uploads, reconciles and files GSTR-1, GSTR-3B and IMS directly from Dynamics through WhiteBooks' GSP channel. Dynamics 365 F&O generates GSTR data through the Electronic Reporting (GER) framework — no manual portal work.",
+      },
+      {
+        q: "Does it support multiple GSTINs and legal entities?",
+        a: "Yes. Multi-GSTIN and multiple legal entities are managed from one consolidated dashboard, with legal-entity and site-wise mapping.",
+      },
+      {
+        q: "How does reconciliation work?",
+        a: "Purchase data is auto-matched against GSTR-2B for ITC, with bulk reconciliation and mismatch reporting surfaced against Dynamics Accounts Payable.",
+      },
+      {
+        q: "Can returns be filed in bulk?",
+        a: "Yes. Batch and scheduled runs let you upload and file across periods and GSTINs during off-peak windows, with a complete audit trail.",
+      },
+      {
+        q: "What Dynamics releases are supported?",
+        a: "Dynamics 365 Finance & Operations and Business Central (cloud and on-premise), plus AX 2012 and NAV via web services — using the GER export and data entities, no core customization.",
+      },
+    ],
+  },
+  closing: DYNAMICS_CLOSING,
+};
+
 /* ── Registry — keyed by route slug ───────────────────────────────────────── */
 
 export const CONNECTOR_REGISTRY: Record<string, ConnectorData> = {
   [sapEInvoicing.slug]: sapEInvoicing,
   [sapEWayBill.slug]: sapEWayBill,
   [sapGst.slug]: sapGst,
+  [oracleEInvoicing.slug]: oracleEInvoicing,
+  [oracleEWayBill.slug]: oracleEWayBill,
+  [oracleGst.slug]: oracleGst,
+  [dynamicsEInvoicing.slug]: dynamicsEInvoicing,
+  [dynamicsEWayBill.slug]: dynamicsEWayBill,
+  [dynamicsGst.slug]: dynamicsGst,
   [tallyEInvoice.slug]: tallyEInvoice,
   [tallyEWayBill.slug]: tallyEWayBill,
 };

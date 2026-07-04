@@ -23,10 +23,10 @@ interface ApiSwitchItem {
 }
 
 const API_SWITCH_ITEMS: ApiSwitchItem[] = [
-  { type: 'gst-api', label: 'GST API', path: '/developer/gst-api' },
-  { type: 'e-invoice-api', label: 'e-Invoice API', path: '/developer/e-invoice-api' },
-  { type: 'e-way-bill-api', label: 'e-Way Bill API', path: '/developer/e-way-bill-api' },
-  { type: 'ksa-e-invoice-api', label: 'KSA e-Invoice', path: '/developer/ksa-e-invoice-api' },
+  { type: 'gst-api', label: 'GST API', path: '/developer/gst-api/get-public-search' },
+  { type: 'e-invoice-api', label: 'e-Invoice API', path: '/developer/e-invoice-api/get-einvoice-authenticate' },
+  { type: 'e-way-bill-api', label: 'e-Way Bill API', path: '/developer/e-way-bill-api/get-ewaybillapi-v1.03-authenticate' },
+  // { type: 'ksa-e-invoice-api', label: 'KSA e-Invoice', path: '/developer/ksa-e-invoice-api' },
 ];
 
 interface Props {

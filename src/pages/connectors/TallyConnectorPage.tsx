@@ -188,12 +188,12 @@ function Params({ data }: { data: NonNullable<TallyConnector["params"]> }) {
             {data.heading}
           </h2>
           <p className="m-0 max-w-[480px] text-[15px] leading-[1.6] text-[var(--fg-secondary)]">{data.body}</p>
-          <div
+          {/* <div
             aria-hidden
             className="grid h-28 w-28 place-items-center rounded-[20px] border border-[var(--hairline-strong)] bg-[color-mix(in_srgb,var(--fg-primary)_3%,transparent)]"
           >
             <QrCode size={56} style={{ color: ACCENT }} />
-          </div>
+          </div> */}
           <div>
             <CtaButton cta={data.cta} variant="ghost" />
           </div>

@@ -625,11 +625,9 @@ export function LogoPlaceholder({
   className,
 }: {
   name: string;
-  /** PLACEHOLDER — drop the real partner logo here. */
   src?: string;
   className?: string;
 }) {
-  // TODO: Replace with partner logo
   return (
     <motion.div
       variants={fadeUp}
@@ -644,7 +642,7 @@ export function LogoPlaceholder({
           alt={`${name} logo`}
           loading="lazy"
           decoding="async"
-          className="max-h-7 max-w-[88px] object-contain opacity-70 grayscale transition duration-300 hover:opacity-100 hover:grayscale-0"
+          className="max-h-7 max-w-[88px] object-contain opacity-100 transition duration-300 hover:opacity-100 hover:grayscale-0"
         />
       ) : (
         <span className="font-display text-[14px] font-semibold tracking-[-0.01em] text-[var(--fg-secondary)]">{name}</span>

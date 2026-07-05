@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode, type RefObject } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { PillButton } from "@/components/ui/PillButton";
@@ -494,6 +494,43 @@ function PreviewColumn({
   );
 }
 
+/* ── Wheel-to-cycle — scrolling inside `ref` steps through a list ──────────────
+   One wheel gesture = one step (throttled). At the first/last item we release
+   the wheel so the page keeps scrolling instead of trapping the user. */
+function useWheelCycle(
+  ref: RefObject<HTMLElement | null>,
+  index: number,
+  count: number,
+  setIndex: (updater: (i: number) => number) => void,
+) {
+  const lock = useRef(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const onWheel = (e: WheelEvent) => {
+      // Ignore horizontal-dominant / negligible scrolls.
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY) || Math.abs(e.deltaY) < 6) return;
+
+      const dir = e.deltaY > 0 ? 1 : -1;
+      const last = count - 1;
+      const atBoundary = (dir > 0 && index >= last) || (dir < 0 && index <= 0);
+      if (atBoundary) return; // let the page scroll past the section
+
+      e.preventDefault();
+      if (lock.current) return;
+      lock.current = true;
+      setIndex((i) => Math.min(Math.max(i + dir, 0), last));
+      window.setTimeout(() => {
+        lock.current = false;
+      }, 550);
+    };
+
+    el.addEventListener("wheel", onWheel, { passive: false });
+    return () => el.removeEventListener("wheel", onWheel);
+  }, [ref, index, count, setIndex]);
+}
+
 /* ── Section ──────────────────────────────────────────────────────────────── */
 export function PlatformShowcase({ heading, categories }: { heading?: ReactNode, categories: ShowcaseCategory[] }) {
   const [activeCat, setActiveCat] = useState(0);
@@ -507,6 +544,10 @@ export function PlatformShowcase({ heading, categories }: { heading?: ReactNode,
   useEffect(() => {
     setActiveTab(0);
   }, [activeCat]);
+
+  // Desktop: scrolling inside the showcase cycles through the category rail.
+  const desktopRef = useRef<HTMLDivElement>(null);
+  useWheelCycle(desktopRef, activeCat, categories.length, setActiveCat);
 
   const onRailClick = (i: number) => {
     setActiveCat(i);
@@ -540,7 +581,7 @@ export function PlatformShowcase({ heading, categories }: { heading?: ReactNode,
       </div>
 
       {/* ── Desktop: two-column canvas (rail | pills + content/image row) ── */}
-      <div className="hidden min-[1101px]:block">
+      <div ref={desktopRef} className="hidden min-[1101px]:block">
         <div className="mx-auto w-full max-w-[1280px] px-10 pb-20 pt-12">
           <div className="grid grid-cols-[220px_minmax(0,1fr)] items-start">
             {/* Left column — category rail + proof */}

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Icon } from '@/components/icons/Icon';
-import { Plug } from 'lucide-react';
+import { Plug, ArrowRight, Bug } from 'lucide-react';
 import { Button, ButtonLink } from '@/components/ui/Button';
 import { SiteLogo } from '@/components/ui/SiteLogo';
 import { NavDropdown } from '@/components/nav/NavDropdown';
@@ -11,6 +11,7 @@ import type { HeaderMode } from '@/types/components';
 import homeIcon from '@/assets/home.svg';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { BookDemoModal } from '@/components/modals/BookDemoModal';
+import { LOGIN_URL } from '@/utils/contants';
 
 interface HeaderProps {
   mode?: HeaderMode;
@@ -106,7 +107,7 @@ function TeamCard({ team }: { team: ContactTeam }) {
   const accent = ACCENT[team.accent];
   return (
     <div className="flex flex-col">
-      <div className="flex items-center gap-2.5 px-2 pb-2">
+      <div className="flex items-center gap-2.5 px-2 pb-1">
         <div className={`w-8 h-8 rounded-lg ${accent.bg} border ${accent.border} flex items-center justify-center shrink-0`}>
           <TeamIcon icon={team.icon} stroke={accent.stroke} />
         </div>
@@ -162,15 +163,25 @@ export function ContactUsDropdown({ cardType = 'All' }: { cardType?: ContactCard
           ${open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
       >
         <div className={`relative ${single ? 'w-[240px]' : 'w-[420px]'} rounded-xl border border-[var(--line-2)] bg-[var(--bg-3)] shadow-[0_20px_60px_-10px_rgba(0,0,0,0.5)] overflow-hidden transition-transform duration-150 ease-out ${open ? 'translate-y-0' : '-translate-y-1'}`}>
-          <div className="px-4 py-2.5 border-b border-[var(--line)]">
-            <p className="text-[10px] font-medium text-[var(--muted)] tracking-wider uppercase">Get in touch</p>
-          </div>
           <div className={`grid ${single ? 'grid-cols-1' : 'grid-cols-2'} divide-x divide-[var(--line)]`}>
             {teams.map((team) => (
               <div key={team.name} className="p-2.5">
                 <TeamCard team={team} />
               </div>
             ))}
+          </div>
+          <div className="flex items-center justify-between gap-3 px-4 py-3 border-t border-[var(--line)] bg-[var(--bg-2)]">
+            <div className="flex items-center gap-2 min-w-0">
+              <Bug className="w-4 h-4 shrink-0 text-[var(--muted-2)]" strokeWidth={1.75} />
+              <p className="text-[12.5px] font-medium text-[var(--muted-2)] truncate">Have an issue?</p>
+            </div>
+            <a
+              href={LOGIN_URL}
+              className="group inline-flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1.5 text-[12.5px] font-semibold text-[var(--brand)] bg-[rgba(220,47,101,0.10)] hover:bg-[var(--brand)] hover:text-white transition-colors duration-150 cursor-pointer"
+            >
+              Raise a ticket
+              <ArrowRight className="w-3.5 h-3.5 transition-transform duration-150 group-hover:translate-x-0.5" strokeWidth={2.25} />
+            </a>
           </div>
         </div>
       </div>

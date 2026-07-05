@@ -135,11 +135,13 @@ const APIS: ApiItem[] = [
     route: '/developer/e-invoice-api/get-einvoice-authenticate',
   },
   {
+    icon: BellRing, title: "Notice Management API", sub: "Never miss a tax notice",
+    route: '/developer/gst-api/get-public-search'
+  },
+  {
     icon: Code2, title: "Developer Friendly Docs", sub: "Docs, SDKs, Sandbox",
     route: '/developer/overview'
   },
-
-  { icon: BellRing, title: "Notice Management", sub: "Never miss a tax notice", route: "/softwares/notice-management" },
 ];
 
 // Bright solid-pink tile — used for product card headers.

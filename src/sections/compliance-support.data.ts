@@ -13,9 +13,9 @@ export interface ComplianceFeature {
 
 export const COMPLIANCE_SUPPORT = {
   eyebrow: "Compliance & Support",
-  title: "Enterprise-grade GST infrastructure backed by experts",
+  title: "Enterprise-grade API infrastructure backed by experts",
   subtitle:
-    "Go live faster with certified APIs, guided onboarding and support designed for scale.",
+    "Go live faster with certified GST, e-Invoice, e-Way Bill and Notice Management APIs, guided onboarding and support designed for scale.",
   cta: { label: "Schedule Integration Help", href: "/about/contact-us" },
   features: [
     { icon: "gsp", title: "GSP-certified infrastructure", detail: "Direct GSTN-licensed gateway" },

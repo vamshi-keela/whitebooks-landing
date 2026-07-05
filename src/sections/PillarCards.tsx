@@ -1066,7 +1066,7 @@ export function ProductPillarCard({
       onMouseLeave={() => setHovered(false)}
       className={cn(
         'relative overflow-hidden flex flex-col',
-        wide && 'lg:col-span-2 lg:flex-row',
+        wide && 'lg:col-span-2 lg:flex-row pb-9',
         onClick ? 'cursor-pointer' : 'cursor-default',
       )}
       style={{
@@ -1168,8 +1168,8 @@ export function ProductPillarCard({
         className={cn(
           'relative z-[2] flex',
           wide
-            ? 'mt-5 pl-6 sm:pl-7 lg:mt-0 lg:flex-1 lg:pl-8 lg:pt-9'
-            : 'mt-5 flex-1 pl-6 sm:pl-7 lg:pl-9 lg:mt-7',
+            ? 'mt-5 px-6 sm:px-7 lg:mt-0 lg:flex-1 lg:px-8 lg:pt-9'
+            : 'mt-5 mb-9 flex-1 px-6 sm:px-7 lg:px-9 lg:mt-7',
         )}
       >
         <div
@@ -1178,7 +1178,8 @@ export function ProductPillarCard({
             wide ? 'min-h-[220px] lg:min-h-[340px]' : 'min-h-[210px] sm:min-h-[240px]',
           )}
           style={{
-            borderTopLeftRadius: 14,
+            // borderTopLeftRadius: 14,
+            borderRadius: 14,
             borderTop: '1px solid var(--hairline-strong)',
             borderLeft: '1px solid var(--hairline-strong)',
             boxShadow: isDark

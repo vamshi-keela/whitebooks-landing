@@ -3,18 +3,19 @@ import { useEffect, useRef } from "react";
 /**
  * DataStreamBackground
  * ---------------------
- * A near-black canvas backdrop of slow, thin flowing spline curves with tiny
+ * A transparent canvas backdrop of slow, thin flowing spline curves with tiny
  * glowing data packets travelling along them — "millions of invoices quietly
  * flowing through a compliance network."
  *
  * Design constraints:
- *  - Background #0B0B0F, everything extremely subtle (curves 5–10% visible).
+ *  - Transparent — the host section supplies the (theme-aware) background so
+ *    this reads correctly in both dark and light mode. Everything is extremely
+ *    subtle (curves 5–10% visible).
  *  - 10 organic curves that undulate, drift, approach and part (soft merge glow).
  *  - 2–3px pink (#dc2f65) packets, varying speeds, occasional fades.
  *  - Motion is very slow; honours prefers-reduced-motion.
  */
 
-const BG = "#0B0B0F";
 const PINK = "220, 47, 101"; // #dc2f65 rgb channels
 const CURVE_COUNT = 10;
 const PACKET_COUNT = 26;
@@ -50,6 +51,18 @@ export default function DataStreamBackground({ className }: { className?: string
         const reduceMotion = window.matchMedia(
             "(prefers-reduced-motion: reduce)"
         ).matches;
+
+        // Track the active theme so curves/packets stay visible on light too.
+        const root = document.documentElement;
+        let isLight = root.getAttribute("data-theme") === "light";
+        const themeObserver = new MutationObserver(() => {
+            isLight = root.getAttribute("data-theme") === "light";
+            if (reduceMotion) draw(0); // repaint the static frame on toggle
+        });
+        themeObserver.observe(root, {
+            attributes: true,
+            attributeFilter: ["data-theme"],
+        });
 
         let width = 0;
         let height = 0;
@@ -103,9 +116,15 @@ export default function DataStreamBackground({ className }: { className?: string
 
         // ── Render ───────────────────────────────────────────────────────
         const draw = (t: number) => {
-            // Background
-            ctx.fillStyle = BG;
-            ctx.fillRect(0, 0, width, height);
+            // Transparent — the section's themed background shows through.
+            ctx.clearRect(0, 0, width, height);
+
+            // On light backgrounds a light highlight vanishes, so darken the
+            // mid-stroke tint; the bloom/packet blend must darken too (source-over
+            // instead of the additive "lighter" used on dark).
+            const light = isLight;
+            const midStop = light ? "150, 70, 100" : "230, 210, 220";
+            const blend: GlobalCompositeOperation = light ? "source-over" : "lighter";
 
             const step = 12; // px sampling interval along x
             const cols = Math.max(2, Math.ceil(width / step));
@@ -130,7 +149,7 @@ export default function DataStreamBackground({ className }: { className?: string
                 const op = curves[ci].opacity;
                 grad.addColorStop(0, `rgba(${PINK}, 0)`);
                 grad.addColorStop(0.18, `rgba(${PINK}, ${op * 0.7})`);
-                grad.addColorStop(0.5, `rgba(230, 210, 220, ${op})`);
+                grad.addColorStop(0.5, `rgba(${midStop}, ${op})`);
                 grad.addColorStop(0.82, `rgba(${PINK}, ${op * 0.7})`);
                 grad.addColorStop(1, `rgba(${PINK}, 0)`);
                 ctx.strokeStyle = grad;
@@ -148,7 +167,7 @@ export default function DataStreamBackground({ className }: { className?: string
             }
 
             // Merge glows — where two streams nearly touch, bloom softly
-            ctx.globalCompositeOperation = "lighter";
+            ctx.globalCompositeOperation = blend;
             const mergeThreshold = height * 0.02;
             for (let i = 0; i <= cols; i += 2) {
                 const x = (i / cols) * width;
@@ -221,6 +240,7 @@ export default function DataStreamBackground({ className }: { className?: string
         return () => {
             cancelAnimationFrame(raf);
             ro.disconnect();
+            themeObserver.disconnect();
         };
     }, []);
 

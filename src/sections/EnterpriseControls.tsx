@@ -142,7 +142,7 @@ function ControlCard({ data, index }: { data: ControlCardData; index: number }) 
         }}
       />
 
-      <div className="flex flex-col gap-8 p-7 sm:p-9 lg:flex-row lg:items-center lg:gap-0 lg:py-11">
+      <div className="flex flex-col gap-8 p-7 sm:p-9 lg:flex-row lg:items-center lg:gap-0 lg:py-7">
         {/* title block */}
         <div className="shrink-0 lg:w-[300px] lg:pr-10">
           <span

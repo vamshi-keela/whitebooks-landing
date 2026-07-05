@@ -17,15 +17,10 @@ export function ForDevelopersSection() {
         <section
             className="relative overflow-hidden border-b border-[var(--hairline)] py-24 max-md:py-16 max-sm:py-12"
             style={{
-                // Pin the dark theme tokens so this near-black section stays
-                // readable regardless of the site's active (light/dark) theme.
-                backgroundColor: "#0B0B0F",
-                ["--fg-primary" as string]: "#e8e8f0",
-                ["--fg-secondary" as string]: "#9a9ab0",
-                ["--fg-tertiary" as string]: "#6b6b80",
-                ["--hairline" as string]: "rgba(255, 255, 255, 0.06)",
-                ["--accent-glow" as string]: "rgba(220, 47, 101, 0.4)",
-            } as React.CSSProperties}
+                // Inherit the site's active (light/dark) theme tokens so the
+                // whole section — text, hairlines, code block — follows the toggle.
+                backgroundColor: "var(--bg)",
+            }}
         >
             {/* Animated backdrop — invisible streams of financial data quietly
                 flowing through the compliance network. */}

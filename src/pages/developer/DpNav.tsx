@@ -7,7 +7,7 @@ import { useMobileNav } from '../../contexts/MobileNavContext';
 import MethodBadge from '../../components/api/MethodBadge';
 import { searchOps } from './devSearch';
 import type { NormalizedMethod } from '../../data/openapi-spec';
-import { AuthButtons, ContactUsDropdown } from '@/layouts/Header';
+import { ContactUsDropdown } from '@/layouts/Header';
 import { LOGIN_URL } from '@/utils/contants';
 
 /* ─── Route map ─────────────────────────────────────────────────────────── */

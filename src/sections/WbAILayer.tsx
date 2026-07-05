@@ -8,7 +8,7 @@ export function AILayerSection() {
         <div className="grid grid-cols-[1.3fr_0.7fr] gap-16 items-end mb-14 max-[900px]:grid-cols-1 max-[900px]:gap-6 max-[900px]:mb-10">
           <h2 className="font-serif font-semibold text-[clamp(34px,5vw,64px)] leading-[1.04] tracking-[-0.025em] m-0 text-balance">
             AI that{' '}
-            <em className="bg-[linear-gradient(135deg,var(--gradient-1),var(--gradient-2))] bg-clip-text [-webkit-background-clip:text] [-webkit-text-fill-color:transparent] italic">
+            <em className="text-[var(--brand)]">
               reconciles, predicts, and explains
             </em>
             {' '}— not just a chatbot in the corner.

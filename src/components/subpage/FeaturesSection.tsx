@@ -10,19 +10,30 @@ interface Props {
 function FeatureGrid({ items }: { items: FeatureItem[] }) {
   return (
     <div className="wb-col-2">
-      {items.map((it, i) => (
-        <article key={i} className="wb-block">
-          <h3>
-            {it.endpoint ? <span className="endpoint">{it.endpoint}</span> : it.title}
-          </h3>
-          {it.endpoint && it.title && (
-            <p style={{ marginTop: 6, fontFamily: "var(--font-display)", fontSize: 14, color: "var(--text)" }}>
-              {it.title}
-            </p>
-          )}
-          <p>{it.body}</p>
-        </article>
-      ))}
+      {items.map((it, i) => {
+        const inner = (
+          <>
+            <h3>
+              {it.endpoint ? <span className="endpoint">{it.endpoint}</span> : it.title}
+            </h3>
+            {it.endpoint && it.title && (
+              <p style={{ marginTop: 6, fontFamily: "var(--font-display)", fontSize: 14, color: "var(--text)" }}>
+                {it.title}
+              </p>
+            )}
+            <p>{it.body}</p>
+          </>
+        );
+        return it.href ? (
+          <a key={i} href={it.href} className="wb-block wb-block--link">
+            {inner}
+          </a>
+        ) : (
+          <article key={i} className="wb-block">
+            {inner}
+          </article>
+        );
+      })}
     </div>
   );
 }

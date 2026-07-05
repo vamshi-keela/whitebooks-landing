@@ -61,7 +61,15 @@ export function ComplianceSupport({ data = COMPLIANCE_SUPPORT }: { data?: Compli
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:gap-16">
         {/* Left — header, CTA, responsive feature grid */}
         <div className="flex flex-col gap-7">
-          <SectionHeader eyebrow={data.eyebrow} title={data.title} subtitle={data.subtitle} />
+          <SectionHeader
+            eyebrow={data.eyebrow}
+            title={
+              <>
+                Enterprise-grade <span className="text-[var(--brand)]">API infrastructure</span> backed by experts
+              </>
+            }
+            subtitle={data.subtitle}
+          />
           <CTAButton href={data.cta.href}>{data.cta.label}</CTAButton>
 
           <motion.div

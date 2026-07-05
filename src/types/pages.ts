@@ -41,6 +41,8 @@ export interface FeatureItem {
     title?: string
     body: ReactNode
     endpoint?: string
+    /** Deep-link to the endpoint's reference page, e.g. "/developer/gst-api/post-gstr3b-retfile". */
+    href?: string
 }
 
 export interface FeaturesConfig {

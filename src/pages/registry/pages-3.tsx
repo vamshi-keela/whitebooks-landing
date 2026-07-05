@@ -57,14 +57,14 @@ const PAGES_3: Record<string, SubPageData> = {
         </>
       ),
       items: [
-        { endpoint: "POST /v1/gstr/file", body: "File any GSTR — 1, 1A, 3B, 4, 5, 6, 7, 8, 9, 9A, 9C, IFF, ITC-04, CMP-08. JSON in, ARN out. Idempotency key supported.", title: "" },
-        { endpoint: "GET /v1/gstr/2a", body: "Pull GSTR-2A and 2B data for any return period, any GSTIN under delegated authentication. Returns parsed JSON with vendor-wise breakdown.", title: "" },
-        { endpoint: "GET /v1/gstin/validate", body: "Validate any GSTIN against the GSTN registry. Returns legal name, trade name, registration status, last filing date, state code, and PAN linkage.", title: "" },
-        { endpoint: "GET /v1/hsn/search", body: "Search HSN and SAC codes by keyword or code. Returns description, current GST 2.0 rate, chapter, and last revision date.", title: "" },
-        { endpoint: "POST /v1/ims/accept", body: "Manage Invoice Management System (IMS) actions in bulk. Accept, reject, or hold inward invoices, with reason codes. Returns updated GSTR-3B liability preview.", title: "" },
-        { endpoint: "GET /v1/notice/list", body: "Pull Section 61, 73, 74 notices issued against any of your monitored GSTINs. Returns notice type, date, amount in dispute, and response deadline.", title: "" },
-        { endpoint: "POST /v1/refund/file", body: "File GST refund applications (RFD-01, RFD-10) via API. Supports refund of unutilized ITC, IGST paid on exports, and inverted duty structure.", title: "" },
-        { endpoint: "Webhooks", body: "Subscribe to events: GSTR filed, notice received, GSTR-2B available, refund status changed. HMAC-signed payloads, replay protection, exponential backoff on delivery.", title: "" },
+        { endpoint: "POST /gstr3b/retfile", href: "/developer/gst-api/post-gstr3b-retfile", body: "File GSTR-3B straight to GSTN. JSON in, ARN out. Both EVC and DSC signing supported, with idempotent retries on timeout.", title: "" },
+        { endpoint: "PUT /gstr1/retsave", href: "/developer/gst-api/put-gstr1-retsave", body: "Push GSTR-1 outward-supply data — B2B, B2CL, CDNR, exports, HSN summary — as clean JSON before you file the return.", title: "" },
+        { endpoint: "GET /gstr2b/all", href: "/developer/gst-api/get-gstr2b-all", body: "Pull the full GSTR-2B for any return period: ITC eligibility, vendor-wise breakup, and every section in one call.", title: "" },
+        { endpoint: "GET /public/search", href: "/developer/gst-api/get-public-search", body: "Validate any GSTIN against the GSTN registry. Returns legal name, trade name, registration status, state code, and constitution.", title: "" },
+        { endpoint: "GET /ledgers/bal", href: "/developer/gst-api/get-ledgers-bal", body: "Read live cash and ITC ledger balances across IGST, CGST, SGST, and cess for any monitored GSTIN.", title: "" },
+        { endpoint: "POST /payment/generateChallan", href: "/developer/gst-api/post-payment-generatechallan", body: "Generate a GST payment challan (PMT-06) via API and get the CPIN back for online or over-the-counter payment.", title: "" },
+        { endpoint: "GET /gstr/rettrack", href: "/developer/gst-api/get-gstr-rettrack", body: "View and track the filing status of every GSTR across return periods — filed, pending, or overdue — for any GSTIN.", title: "" },
+        { endpoint: "POST /itc04/retfile", href: "/developer/gst-api/post-itc04-retfile", body: "File ITC-04 job-work returns for goods sent to and received back from job workers, straight over REST.", title: "" },
       ],
     },
     integrations: {
@@ -83,8 +83,8 @@ const PAGES_3: Record<string, SubPageData> = {
       items: [
         { title: "Structured response shapes designed for LLM extraction", body: "Every endpoint returns responses with consistent field naming and explicit type information. Easy to feed into agentic workflows or AI-driven reconciliation systems." },
         { title: "Inline error explanations", body: "When GSTN rejects a return, the error code is returned alongside a plain-language explanation and a suggested fix. The kind of thing that saves you from grep-ing GSTN's PDF documentation at 2am." },
-        { title: "Use with the WhiteBooks AI engine", body: "Combine the GST API with the WhiteBooks reconciliation models to build your own fraud detection, ITC optimization, or anomaly flagging — directly on your customers' data, in your product." },
-      ],
+        { title: "Natural-language queries", body: <>Type <code>&quot;show me all October vendors with ITC variance above 10%&quot;</code> or <code>&quot;which clients haven&apos;t filed 3B for September?&quot;</code> — answers draw from your live data with source rows linked.</> },
+        { title: "Use with the WhiteBooks AI engine", body: "Combine the GST API with the WhiteBooks reconciliation models to build your own fraud detection, ITC optimization, or anomaly flagging — directly on your customers' data, in your product." },],
     },
     pricing: {
       heading: "Pricing",
@@ -170,12 +170,12 @@ const PAGES_3: Record<string, SubPageData> = {
       label: "Endpoints",
       heading: <>The endpoints.</>,
       items: [
-        { endpoint: "POST /v1/einvoice/create", body: "Generate IRN, signed QR code, and acknowledgment number. JSON in, full response in <200ms p50. Idempotency key supported.", title: "" },
-        { endpoint: "POST /v1/einvoice/cancel", body: "Cancel an IRN within 24 hours of generation. Returns updated IRP state. After 24 hours, redirects you to the credit-note flow.", title: "" },
-        { endpoint: "POST /v1/einvoice/credit-note", body: "Generate a credit note linked to an existing IRN. Auto-populates buyer GSTIN, place of supply, and reverse logic. Returns new IRN for the credit note.", title: "" },
-        { endpoint: "POST /v1/einvoice/debit-note", body: "Generate a debit note linked to an existing IRN. Same semantics as credit note, opposite direction.", title: "" },
-        { endpoint: "POST /v1/einvoice/bulk", body: "Submit up to 10,000 IRN requests in one batch. Returns batch ID; poll status or subscribe via webhook.", title: "" },
-        { endpoint: "GET /v1/einvoice/{irn}", body: "Retrieve full IRN details, status, and history. Useful for reconciliation and audit.", title: "" },
+        { endpoint: "POST /einvoice/type/GENERATE", href: "/developer/e-invoice-api/post-einvoice-type-generate-version-v1-03", body: "Generate the IRN, signed QR code, and acknowledgment number for a document. Full B2B invoice JSON in, signed e-invoice out.", title: "" },
+        { endpoint: "POST /einvoice/type/CANCEL", href: "/developer/e-invoice-api/post-einvoice-type-cancel-version-v1-03", body: "Cancel an IRN within 24 hours of generation, with a reason code and remark. Returns the updated IRP state.", title: "" },
+        { endpoint: "GET /einvoice/type/GETIRN", href: "/developer/e-invoice-api/get-einvoice-type-getirn-version-v1-03", body: "Fetch full e-invoice details for any IRN generated in the last 72 hours — signed payload, status, and QR code.", title: "" },
+        { endpoint: "GET /einvoice/type/GETIRNBYDOCDETAILS", href: "/developer/e-invoice-api/get-einvoice-type-getirnbydocdetails-version-v1-03", body: "Look up an IRN by document type, number, and date when you don't have the IRN on hand. Same 72-hour window.", title: "" },
+        { endpoint: "POST /einvoice/type/GENERATE_EWAYBILL", href: "/developer/e-invoice-api/post-einvoice-type-generate-ewaybill-version-v1-03", body: "Generate an e-way bill directly from an existing IRN — transporter, vehicle, and distance details in one call.", title: "" },
+        { endpoint: "GET /einvoice/qrcode", href: "/developer/e-invoice-api/get-einvoice-qrcode", body: "Generate the B2C dynamic QR code — UPI ID, bank details, and tax breakup — for consumer invoices.", title: "" },
       ],
     },
     integrations: {
@@ -195,6 +195,7 @@ const PAGES_3: Record<string, SubPageData> = {
         { title: "HSN auto-suggestion endpoint", body: <><code>GET /v1/hsn/suggest?description=...</code> returns the most likely HSN code and current rate for a product description. Useful for marketplaces accepting seller-uploaded products.</> },
         { title: "Anomaly flagging in webhook payloads", body: <>Webhook events include a <code>risk_flags</code> array — high-value invoice to a new buyer, GSTIN with falling compliance score, unusual HSN pattern. Surface these in your UI for human review.</> },
         { title: "Compliance copilot for end users", body: "Embed WhiteBooks' compliance copilot in your product via the AI Q&A endpoint. Your users ask questions in natural language; the copilot answers from their live data." },
+        { title: "Place-of-supply auto-resolution", body: "WhiteBooks reads the buyer GSTIN and shipping address, resolves the place of supply, and applies IGST vs CGST/SGST automatically. Handles bill-to/ship-to splits, third-party movements, and SEZ transactions." },
       ],
     },
     pricing: {
@@ -281,12 +282,12 @@ const PAGES_3: Record<string, SubPageData> = {
       label: "Endpoints",
       heading: <>The endpoints.</>,
       items: [
-        { endpoint: "POST /v1/ewaybill/create", body: "Generate an e-way bill for a single consignment. Optional irn field auto-populates buyer, item, and tax fields from the source invoice.", title: "" },
-        { endpoint: "POST /v1/ewaybill/create-consolidated", body: "Generate a consolidated e-way bill for a multi-invoice vehicle trip. Pass an array of IRNs or invoice IDs.", title: "" },
-        { endpoint: "POST /v1/ewaybill/extend", body: "Extend validity within 8 hours before or after expiry. Requires reason code (vehicle breakdown, transshipment, natural calamity).", title: "" },
-        { endpoint: "POST /v1/ewaybill/cancel", body: "Cancel within 24 hours of generation. After 24 hours, the bill auto-expires per its validity period.", title: "" },
-        { endpoint: "POST /v1/ewaybill/update-vehicle", body: "Update vehicle number mid-transit (for transshipment). Log every vehicle change with timestamp and authorized user.", title: "" },
-        { endpoint: "GET /v1/ewaybill/{ewb_no}", body: "Retrieve full e-way bill details, validity, and status history. Includes pin-to-pin distance calculation and computed validity.", title: "" },
+        { endpoint: "POST /ewayapi/genewaybill", href: "/developer/e-way-bill-api/post-ewaybillapi-v1.03-ewayapi-genewaybill", body: "Generate an e-way bill for a single consignment. Full consignor, consignee, item, tax, and transport details in, EWB number out.", title: "" },
+        { endpoint: "POST /ewayapi/gencewb", href: "/developer/e-way-bill-api/post-ewaybillapi-v1.03-ewayapi-gencewb", body: "Generate a consolidated e-way bill for a multi-consignment vehicle trip. Pass an array of EWB numbers on one trip sheet.", title: "" },
+        { endpoint: "POST /ewayapi/extendvalidity", href: "/developer/e-way-bill-api/post-ewaybillapi-v1.03-ewayapi-extendvalidity", body: "Extend validity near expiry with a reason code (vehicle breakdown, transshipment, natural calamity) and remaining distance.", title: "" },
+        { endpoint: "POST /ewayapi/canewb", href: "/developer/e-way-bill-api/post-ewaybillapi-v1.03-ewayapi-canewb", body: "Cancel an e-way bill within 24 hours of generation, with a cancellation reason code and remark.", title: "" },
+        { endpoint: "POST /ewayapi/vehewb", href: "/developer/e-way-bill-api/post-ewaybillapi-v1.03-ewayapi-vehewb", body: "Update Part-B / vehicle number mid-transit for transshipment. Requires transport mode, place, state, and reason.", title: "" },
+        { endpoint: "GET /ewayapi/getewaybill", href: "/developer/e-way-bill-api/get-ewaybillapi-v1.03-ewayapi-getewaybill", body: "Retrieve full e-way bill details, validity, and Part-A / Part-B status for any EWB number.", title: "" },
       ],
     },
     integrations: {
@@ -305,6 +306,7 @@ const PAGES_3: Record<string, SubPageData> = {
       items: [
         { title: "Realistic transit prediction", body: "Beyond GSTN's pin-to-pin calculation, WhiteBooks predicts realistic transit time based on route history, transporter performance, and seasonal factors. Returned in every bill creation response." },
         { title: "Anomaly flagging", body: "Webhook events include flags for invalid vehicle number formats, unknown transporter IDs, distances outside historical norms, and bills generated outside typical dispatch hours." },
+        { title: "Compliance copilot", body: <>Ask <code>&quot;show me all e-way bills that expired last week&quot;</code> or <code>&quot;which warehouses generated the most bills in March?&quot;</code> — answers from live data, source rows linked.</> },
         { title: "Bulk dispatch optimizer", body: <>Given a list of consignments and available vehicles, the <code>/v1/ewaybill/optimize</code> endpoint suggests vehicle assignments to minimize bills generated (via consolidated bills) and maximize utilization.</> },
       ],
     },

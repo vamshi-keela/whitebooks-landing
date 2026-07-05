@@ -25,7 +25,7 @@ export const API_ITEMS: NavItem[] = [
   { label: 'GST APIs', href: '/apis/gst', icon: <GST {...ico} /> },
   { label: 'E-Invoice APIs', href: '/apis/e-invoice', icon: <EInvoice {...ico} /> },
   { label: 'E-Way Bill APIs', href: '/apis/e-way-bill', icon: <EWayBill {...ico} /> },
-  { label: 'KSA E-Invoice APIs', href: '/apis/ksa', icon: <NoticeManagement {...ico} /> },
+  // { label: 'KSA E-Invoice APIs', href: '/apis/ksa', icon: <NoticeManagement {...ico} /> },
 ];
 
 // Connector menu groups. Column/section headers carry the platform name, so

@@ -181,14 +181,14 @@ const ECOSYSTEM_APIS = [
     apiPath: '/developer/e-invoice-api/get-einvoice-authenticate',
     href: '/apis/e-way-bill'
   },
-  // {
-  //   icon: 'globe' as const,
-  //   name: 'KSA E-Invoice',
-  //   description: 'Phase 2 &amp; 3 ZATCA-compliant e-invoicing for Saudi Arabia with cryptographic signing.',
-  //   endpoints: ['/ksa/einvoice', '/ksa/clearance', '/ksa/report'],
-  //   apiPath: '/developer/ksa-e-invoice-api/get-authenticate',
-  //   href: '/apis/ksa'
-  // },
+  {
+    icon: 'flag' as const,
+    name: 'Notice Management API',
+    description: 'Auto-fetch GST, Income Tax, and TDS notices from government portals, track response deadlines, and manage replies programmatically.',
+    endpoints: ['/notices/fetch', '/notices/track', '/notices/respond'],
+    apiPath: '/developer/gst-api/get-public-search',
+    href: '/softwares/notice-management'
+  },
 ];
 
 function EcosystemSection(): React.ReactElement {
@@ -263,7 +263,7 @@ function QuickstartSection(): React.ReactElement {
         {/* Text — first on mobile */}
         <div className="order-1 md:order-2">
           <h2 className="font-[var(--font-display)] font-semibold text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px]">
-            From npm install to first IRN in 5 minutes.
+            From npm install to first <span className="text-[var(--brand)]">IRN in 5 minutes.</span>
           </h2>
           <p className="text-[var(--dp-fg-muted)] text-[0.875rem] md:text-[0.9375rem] mb-7 leading-[1.65]">
             Our SDK handles authentication, retries, and GSTN quirks so you can focus on your product.
@@ -337,7 +337,7 @@ function OnboardingSection(): React.ReactElement {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 relative">
           {STEPS.map((step) => (
             <React.Fragment key={step.num}>
-              <SurfaceCard className="p-5 md:p-6">
+              <SurfaceCard className="p-5 md:p-6 h-full flex flex-col">
                 <div className="text-[0.6875rem] font-[var(--font-mono)] text-[var(--dp-accent)] tracking-[0.1em] mb-3">
                   STEP {step.num}
                 </div>
@@ -347,11 +347,11 @@ function OnboardingSection(): React.ReactElement {
                 <p className="text-[var(--dp-fg-muted)] text-[0.8125rem] mb-4 leading-[1.55]">
                   {step.description}
                 </p>
-                <div className="bg-[#0f0f17] border border-[var(--dp-border)] rounded-[7px] px-3 py-2 font-[var(--font-mono)] text-[0.6875rem] md:text-[0.75rem] text-[var(--dp-fg-muted)] mb-[14px] overflow-x-auto whitespace-nowrap">
+                <div className="mt-auto bg-[var(--dp-input-bg)] border border-[var(--dp-input-border)] rounded-[7px] px-3 py-2 font-[var(--font-mono)] text-[0.6875rem] md:text-[0.75rem] text-[var(--dp-fg-muted)] mb-[14px] overflow-x-auto whitespace-nowrap">
                   {step.snippet}
                 </div>
                 <span
-                  className='mono-tag accent'
+                  className='mono-tag accent self-start'
                 // className="text-[0.6875rem] font-[var(--font-mono)] text-[var(--dp-fg-dim)] px-2 py-[2px] rounded-full border border-[var(--dp-border)]"
                 // style={{ background: 'rgba(255,255,255,0.04)' }}
                 >

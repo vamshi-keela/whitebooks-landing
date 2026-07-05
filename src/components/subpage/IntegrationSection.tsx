@@ -9,6 +9,8 @@ import type {
 import { useNavigate } from "react-router-dom";
 import { Zap, ShieldCheck, CheckCircle2, Lock, Image as ImageIcon, Boxes } from "lucide-react";
 import wbLogo from "@/assets/logo-white-books.svg";
+import { SiteLogo } from "../ui/SiteLogo.tsx";
+import { getLogoAsset } from "./logoAssets.ts";
 
 interface Props {
   data: IntegrationSectionData;
@@ -69,12 +71,19 @@ const SPOKE_DOT_COLORS = [
 ];
 
 function OrbitNode({ label }: { label: string }) {
+  const asset = getLogoAsset(label);
   return (
     <div className="flex items-center gap-1.5 sm:gap-2 py-1.5 px-2 sm:py-2 sm:px-3 rounded-lg sm:rounded-xl bg-[var(--bg-2)] border border-solid border-hairline shadow-[0_8px_24px_-12px_rgba(0,0,0,0.4)] transition-colors duration-[160ms] hover:border-brand-border">
-      {/* Image placeholder — swap for the partner logo asset when available */}
-      <span className="flex items-center justify-center w-5 h-5 sm:w-7 sm:h-7 shrink-0 rounded sm:rounded-md border border-dashed border-[var(--hairline-bright)] text-[var(--muted-2)]">
-        <ImageIcon size={12} strokeWidth={1.5} />
-      </span>
+      {asset ? (
+        <span className="flex items-center justify-center w-5 h-5 sm:w-7 sm:h-7 shrink-0 rounded sm:rounded-md bg-white p-0.5 sm:p-1">
+          <img src={asset} alt={label} className="w-full h-full object-contain" loading="lazy" />
+        </span>
+      ) : (
+        /* Image placeholder — used when no brand asset exists for this label */
+        <span className="flex items-center justify-center w-5 h-5 sm:w-7 sm:h-7 shrink-0 rounded sm:rounded-md border border-dashed border-[var(--hairline-bright)] text-[var(--muted-2)]">
+          <ImageIcon size={12} strokeWidth={1.5} />
+        </span>
+      )}
       <span className="font-body text-[10.5px] sm:text-[12px] font-medium leading-tight text-[var(--fg-primary)] whitespace-nowrap max-w-[60px] truncate sm:max-w-none">
         {label}
       </span>
@@ -134,7 +143,8 @@ function OrbitVisual({ logos, overflowLabel }: { logos: string[]; overflowLabel?
 
       {/* Center hub */}
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center w-16 h-16 sm:w-[104px] sm:h-[104px] rounded-2xl sm:rounded-[26px] bg-[var(--bg-2)] border border-solid border-brand-border shadow-[0_0_60px_var(--brand-glow),0_18px_40px_-18px_rgba(0,0,0,0.6)]">
-        <img src={wbLogo} alt="" className="w-8 h-8 sm:w-12 sm:h-12 object-contain" loading="lazy" />
+        <SiteLogo className="w-20" />
+        {/* <img src={wbLogo} alt="" className="w-8 h-8 sm:w-12 sm:h-12 object-contain" loading="lazy" /> */}
       </div>
 
       {/* Orbiting integration nodes */}
@@ -210,11 +220,11 @@ export function IntegrationSection({ data }: Props) {
             })}
           </div>
 
-          <div className="mt-9 grid grid-cols-2 sm:grid-cols-4 rounded-2xl bg-[var(--bg-2)] border border-solid border-hairline">
+          <div className="mt-9 grid grid-cols-2 sm:grid-cols-4 rounded-2xl bg-[var(--bg-2)]">
             {stats.map((s, i) => (
               <div
                 key={s.label}
-                className={`py-5 px-5 ${i > 0 ? "sm:border-l max-sm:odd:border-l-0 max-sm:border-l" : ""} ${i > 1 ? "max-sm:border-t" : ""} border-solid border-hairline border-t-0 border-r-0 border-b-0`}
+                className={`py-5 px-5 ${i > 0 ? "sm:border-l max-sm:odd:border-l-0 max-sm:border-l" : ""} ${i > 1 ? "max-sm:border-t" : ""} ${i > 0 ? "border-solid border-hairline border-t-0 border-r-0 border-b-0" : ""}`}
               >
                 <div className="font-display text-[22px] font-semibold leading-none text-[var(--brand)]">
                   {s.value}
@@ -229,7 +239,7 @@ export function IntegrationSection({ data }: Props) {
               <ButtonLink
                 onClick={() => navigate("/developer")}
                 href={data.cta.href || "#"}
-                variant="ghost"
+
                 arrow
               >
                 {data.cta.label}

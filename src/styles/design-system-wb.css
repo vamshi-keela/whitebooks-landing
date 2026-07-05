@@ -3270,6 +3270,19 @@ img {
   line-height: 1.6;
 }
 
+/* Endpoint card as a deep-link to its reference page. */
+a.wb-block--link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+a.wb-block--link:hover .endpoint {
+  background: var(--brand);
+  color: #fff;
+}
+
 /* ---------- Plain heading section ---------- */
 .wb-section-head {
   display: flex;

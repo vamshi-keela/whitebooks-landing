@@ -6974,9 +6974,9 @@ a.wb-block--link:hover .endpoint {
 /* ══════════════════════════════════════════════════════════════════════════
    HERO SHOWCASE (src/sections/HeroShowcase.tsx)
    ══════════════════════════════════════════════════════════════════════════
-   Both hero layouts live on a fixed-width canvas that is scaled down with a
-   single transform, so cards, text and the person all shrink together to fit
-   the viewport width.
+   The desktop hero layout lives on a fixed-width canvas that is scaled down
+   with a single transform, so cards, text and the person all shrink together
+   to fit the viewport width. (Mobile is composed natively — no canvas.)
      --showcase-scale: scaled canvas width = (viewport − side padding),
        capped at 1 once the canvas fits.
      --showcase-h:    natural (unscaled) height of the canvas, used to pull the
@@ -6984,11 +6984,6 @@ a.wb-block--link:hover .endpoint {
 .hero-canvas-desk {
   --showcase-scale: clamp(0.2, calc((min(100vw, 1500px) - 48px) / 1468px), 1);
   --showcase-h: 645px;
-}
-
-.hero-canvas-mob {
-  --showcase-scale: clamp(0.2, calc((100vw - 32px) / 760px), 1);
-  --showcase-h: 734px;
 }
 
 /* ── Glass surfaces (dark defaults) ─────────────────────────────────────────

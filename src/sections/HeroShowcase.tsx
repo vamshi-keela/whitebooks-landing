@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import heroImage from "../assets/hero-image.png";
 import {
@@ -183,8 +183,15 @@ function DarkIconTile({
   );
 }
 
-// Cards size to their content — no h-full so the grid rows stay tight.
-function ProductGlassCard({ card }: { card: ProductCard }) {
+// Cards size to their content — no h-full so the desktop grid rows stay
+// tight. The mobile rail passes h-full so swiped cards match heights.
+function ProductGlassCard({
+  card,
+  className = "",
+}: {
+  card: ProductCard;
+  className?: string;
+}) {
   const { icon, title, items, tags, route } = card;
   const navigate = useNavigate();
   return (
@@ -198,7 +205,7 @@ function ProductGlassCard({ card }: { card: ProductCard }) {
           navigate(route);
         }
       }}
-      className="hero-card group relative flex cursor-pointer flex-col rounded-[20px] p-4 transition-transform duration-300 hover:-translate-y-1"
+      className={`hero-card group relative flex cursor-pointer flex-col rounded-[20px] p-4 transition-transform duration-300 hover:-translate-y-1 ${className}`}
     >
       <div className="flex items-center gap-2.5">
         <IconTile
@@ -376,12 +383,9 @@ function ConnectorWeb() {
   );
 }
 
-function PersonStage({ align = "end" }: { align?: "center" | "end" }) {
+function PersonStage() {
   return (
-    <div
-      className={`relative flex h-full min-h-0 justify-center ${align === "center" ? "items-center" : "items-end"
-        }`}
-    >
+    <div className="relative flex h-full min-h-0 items-end justify-center">
       {/* Soft brand glow — rendered as radial-gradients instead of blurred solid
           fills. A large filter: blur() is an expensive per-raster pass; a
           gradient reproduces the same falloff for ~free on the GPU. */}
@@ -417,6 +421,149 @@ function PersonStage({ align = "end" }: { align?: "center" | "end" }) {
   );
 }
 
+/* ── Mobile-only pieces ─────────────────────────────────────────────────────
+   The mobile hero is composed natively instead of scaling the desktop canvas:
+   the person is a full-width centerpiece with the four stats floating around
+   them as glass pills, and the five product cards live in a snap carousel
+   that overlaps the person's lower body so the layers blend. */
+
+// Compact glass pill anchored around the person.
+function FloatingStat({
+  stat,
+  className = "",
+}: {
+  stat: StatItem;
+  className?: string;
+}) {
+  return (
+    <div
+      className={`hero-card absolute z-10 flex items-center gap-2 rounded-2xl py-1.5 pl-1.5 pr-3 ${className}`}
+    >
+      <DarkIconTile
+        icon={stat.icon}
+        className="h-7 w-7 rounded-lg"
+        iconClassName="h-3.5 w-3.5"
+      />
+      <div className="min-w-0">
+        <div className="hero-stat-value font-display whitespace-nowrap text-[14px] font-bold leading-none tracking-tight">
+          {stat.value}
+        </div>
+        <div className="hero-txt-muted mt-0.5 whitespace-nowrap text-[9.5px] leading-none">
+          {stat.label}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function MobilePersonStage() {
+  const [cas, businesses, cities, invoices] = STATS;
+  return (
+    <div className="relative mx-auto flex h-[400px] w-full max-w-[420px] items-end justify-center">
+      {/* Soft brand glow — radial gradients, same zero-blur idiom as PersonStage */}
+      <div
+        aria-hidden
+        className="absolute bottom-0 left-1/2 h-[85%] w-[95%] -translate-x-1/2"
+        style={{
+          background:
+            "radial-gradient(ellipse 50% 50% at 50% 50%, rgba(220,47,101,0.28) 0%, rgba(220,47,101,0.11) 45%, transparent 72%)",
+        }}
+      />
+      <div
+        aria-hidden
+        className="absolute bottom-[8%] left-1/2 h-[52%] w-[62%] -translate-x-1/2"
+        style={{
+          background:
+            "radial-gradient(ellipse 50% 50% at 50% 50%, rgba(255,61,119,0.38) 0%, rgba(255,61,119,0.15) 45%, transparent 72%)",
+        }}
+      />
+
+      {/* Dashed orbit ring behind the person, echoing the desktop ConnectorWeb */}
+      <svg
+        viewBox="0 0 400 400"
+        aria-hidden
+        className="absolute left-1/2 top-[52%] h-[330px] w-[330px] -translate-x-1/2 -translate-y-1/2"
+      >
+        <circle
+          cx="200"
+          cy="200"
+          r="186"
+          stroke="rgba(220,47,101,0.30)"
+          strokeWidth="1.5"
+          strokeDasharray="5 8"
+          fill="none"
+        />
+        <g fill="#ff5a8e">
+          <circle cx="55" cy="98" r="3.5" />
+          <circle cx="345" cy="98" r="3.5" />
+          <circle cx="22" cy="250" r="3.5" />
+          <circle cx="378" cy="250" r="3.5" />
+        </g>
+      </svg>
+
+      {/* Human image */}
+      <img
+        src={heroImage}
+        alt=""
+        className="relative z-[1] h-[96%] w-auto object-contain object-bottom"
+      />
+
+      {/* Stats blended around the person — staggered left/right */}
+      <FloatingStat stat={cas} className="left-0 top-[14%]" />
+      <FloatingStat stat={invoices} className="right-0 top-[26%]" />
+      <FloatingStat stat={businesses} className="left-0 top-[44%]" />
+      <FloatingStat stat={cities} className="right-0 top-[56%]" />
+    </div>
+  );
+}
+
+// Swipeable snap rail of all five product cards with progress dots.
+function ProductCardRail() {
+  const railRef = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
+
+  // setState bails out when the index is unchanged, so scroll re-renders only
+  // fire when the active dot actually moves.
+  const onScroll = () => {
+    const el = railRef.current;
+    if (!el) return;
+    const step = el.scrollWidth / PRODUCT_CARDS.length;
+    setActive(
+      Math.min(PRODUCT_CARDS.length - 1, Math.round(el.scrollLeft / step))
+    );
+  };
+
+  return (
+    <div>
+      <div
+        ref={railRef}
+        onScroll={onScroll}
+        className="wb-hscroll -mx-4 flex snap-x snap-mandatory items-stretch gap-3 overflow-x-auto px-4 pt-2 pb-1"
+      >
+        {PRODUCT_CARDS.map((card) => (
+          <div
+            key={card.title}
+            className="w-[76vw] max-w-[320px] shrink-0 snap-center"
+          >
+            <ProductGlassCard card={card} className="h-full" />
+          </div>
+        ))}
+      </div>
+      <div className="mt-3 flex justify-center gap-1.5">
+        {PRODUCT_CARDS.map((card, i) => (
+          <span
+            key={card.title}
+            className={`h-1.5 rounded-full transition-all duration-300 ${i === active
+              ? "w-5 bg-[#d33568]"
+              : "w-1.5 bg-[rgba(220,47,101,0.30)]"
+              }`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // Memoized: HeroShowcase takes no props and its data is module-level constant,
 // so it only ever needs to render once. This stops the parent <Hero>'s
 // scroll/state-driven re-renders from re-running this entire (heavy) subtree.
@@ -426,14 +573,15 @@ const HeroShowcase = memo(function HeroShowcase() {
   return (
     <div className="relative z-10 mx-auto mt-10 w-full max-w-[1500px] px-4 pb-20 md:mt-14 md:px-6 [overflow-x:clip]">
 
-      {/* Both layouts live on a fixed-width canvas that is scaled down with a
-          single transform (see the `.hero-canvas-*` classes + all `.hero-*`
-          card styling in src/styles/design-system-wb.css), so cards, text and
-          the person all shrink together to fit the viewport width.
+      {/* Desktop (md+): the full 5-card constellation + ApiStrip on a fixed
+          1468px canvas scaled down with a single transform (see
+          `.hero-canvas-desk` + all `.hero-*` card styling in
+          src/styles/design-system-wb.css), so cards, text and the person all
+          shrink together to fit the viewport width.
 
-          Desktop (md+): the full 5-card constellation + ApiStrip on a 1468px
-            canvas. Mobile (<md): only the person + 4 product cards on a smaller
-            760px canvas; Stats, KSA and the ApiStrip render full-size below it. */}
+          Mobile (<md): composed natively at full size — person centerpiece
+          with floating stat pills, a snap carousel of the product cards
+          overlapping it, then the responsive ApiStrip. */}
 
       {/* ── Desktop / laptop (md+) ─────────────────────────────────────────── */}
       <div
@@ -491,51 +639,16 @@ const HeroShowcase = memo(function HeroShowcase() {
 
       {/* ── Mobile (<md) ───────────────────────────────────────────────────── */}
       <div className="md:hidden">
-        {/* Scaled core: person flanked by the four product cards. */}
-        <div
-          className="hero-canvas-mob origin-top-left"
-          style={{
-            width: "760px",
-            transform: "scale(var(--showcase-scale, 1))",
-            marginBottom: "calc((var(--showcase-scale, 1) - 1) * var(--showcase-h, 0px))",
-          } as React.CSSProperties}
-        >
-          <div
-            className="grid items-start"
-            style={{
-              gridTemplateColumns: "1fr 1.2fr 1fr",
-              gap: "10px 12px",
-              width: "760px",
-            }}
-          >
-            <div className="col-start-1 row-start-1 relative z-10">
-              <ProductGlassCard card={accounting} />
-            </div>
-            <div className="col-start-1 row-start-2 relative z-10">
-              <ProductGlassCard card={eway} />
-            </div>
+        {/* Person centerpiece with the stats floating around them. */}
+        <MobilePersonStage />
 
-            <div className="col-start-2 row-start-1 row-end-3 self-stretch relative z-0">
-              <PersonStage align="center" />
-            </div>
-
-            <div className="col-start-3 row-start-1 relative z-10">
-              <ProductGlassCard card={gst} />
-            </div>
-            <div className="col-start-3 row-start-2 relative z-10">
-              <ProductGlassCard card={einvoice} />
-            </div>
-          </div>
-        </div>
-
-        {/* Stats + KSA — full-size, readable, side by side. */}
-        <div className="mt-3 grid grid-cols-2 gap-3">
-          <StatsGlassCard />
-          <ProductGlassCard card={ksa} />
+        {/* Card rail overlaps the person's lower body so the layers blend. */}
+        <div className="relative z-10 -mt-24">
+          <ProductCardRail />
         </div>
 
         {/* ApiStrip — full-size, responsive. */}
-        <div className="mt-3">
+        <div className="mt-4">
           <ApiStrip variant="responsive" />
         </div>
       </div>

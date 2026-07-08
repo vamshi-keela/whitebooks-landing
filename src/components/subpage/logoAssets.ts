@@ -14,6 +14,16 @@ import marg from "@/assets/logos/marg-the-business-backbone-logo.png";
 import sbi from "@/assets/logos/sbi.png";
 import wheelseye from "@/assets/logos/wheelseye.svg";
 import pharmeasy from "@/assets/logos/pharmeasy.svg";
+import dotnet from "@/assets/logos/dot-net-logo.png";
+import ruby from "@/assets/logos/ruby.png"
+// import Elixir from "@/assets/logos/elixir-logo.png";
+// import springboot from "@/assets/logos/spring-boot.png"
+// import gin from "@/assets/logos/gin.png";
+// import laravel from "@/assets/logos/laravel.svg";
+// import fastApi from "@/assets/logos/fastapi.png";
+// import express from "@/assets/logos/express.svg";
+import go from "@/assets/logos/go-logo.png"
+// import django from "@/assets/logos/django.png"
 
 /**
  * Maps an integration-logo label (as used in `IntegrationSection.logos`) to its
@@ -40,6 +50,17 @@ export const LOGO_ASSETS: Record<string, string> = {
   SBI: sbi,
   WheelsEye: wheelseye,
   Pharmeasy: pharmeasy,
+  ".NET": dotnet,
+  Ruby: ruby,
+
+  // Elixir: Elixir,
+  // "Spring Boot": springboot,
+  // Gin: gin,
+  // Laravel: laravel,
+  // FastAPI: fastApi,
+  // Express: express,
+  Go: go,
+  // Django: django,
 };
 
 export function getLogoAsset(label: string): string | undefined {

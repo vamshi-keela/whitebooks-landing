@@ -71,7 +71,7 @@ const PAGES_3: Record<string, SubPageData> = {
       heading: "SDKs, frameworks, and the tools you already use.",
       body:
         "Official SDKs in Node.js, Python, PHP, Java, and Go. Community SDKs in Ruby, .NET, Elixir. All on github.com/whitebooks. First-class support for Express, FastAPI, Django, Laravel, Spring Boot, and Gin.",
-      logos: ["Node.js", "Python", "PHP", "Java", "Go", "Ruby", ".NET", "Elixir", "Postman", "OpenAPI 3.1", "Express", "FastAPI", "Django", "Laravel"],
+      logos: ["Node.js", "Python", "PHP", "Java", "Go", "Ruby", ".NET", "Postman", "OpenAPI 3.1", "Express", "FastAPI", "Django", "Laravel"],
       cta: { label: "See SDK docs" },
     },
     ai: {
@@ -182,7 +182,7 @@ const PAGES_3: Record<string, SubPageData> = {
       heading: "SDKs, code examples, and integration guides.",
       body:
         "Official SDKs in Node.js, Python, PHP, Java, Go. Working integrations for Stripe-style billing platforms, Razorpay merchant flows, custom ERPs, and bulk dispatch workflows. HMAC-signed webhooks for every state transition.",
-      logos: ["Node.js", "Python", "PHP", "Java", "Go", "Webhooks", "Postman", "OpenAPI 3.1"],
+      logos: ["Node.js", "Python", "PHP", "Java", "Go", "WheelsEye", "Pharmeasy", "Postman", "OpenAPI 3.1"],
       cta: { label: "Read API Docs", href: '/developer/e-invoice-api', target: '_blank' },
     },
     ai: {
@@ -294,7 +294,7 @@ const PAGES_3: Record<string, SubPageData> = {
       heading: "Built for logistics, WMS, and TMS platforms.",
       body:
         "SDKs in Node.js, Python, PHP, Java, Go. Integration patterns for warehouse management dispatch flows, transporter onboarding, and freight brokerage platforms. Webhooks: bill generated, bill approaching expiry (4hr alert), bill expired, vehicle updated, bill cancelled.",
-      logos: ["Node.js", "Python", "PHP", "Java", "Go", "WheelsEye", "Pharmeasy", "WMS connectors", "TMS connectors"],
+      logos: ["Node.js", "Python", "PHP", "Java", "Go", "WheelsEye", "Pharmeasy", ".NET", "Oracle NetSuite"],
       cta: { label: "Read integration guide" },
     },
     ai: {

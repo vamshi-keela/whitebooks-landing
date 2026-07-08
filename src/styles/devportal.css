@@ -40,6 +40,8 @@
   --dp-warning: #f59e0b;
   --dp-danger: #ef4444;
   --dp-info: #60a5fa;
+  /* Amber used for OTP / sandbox hints — bright on the dark surface. */
+  --dp-otp-fg: #fbbf24;
 
   /* ── Typography ───────────────────────── */
   --dp-font-display: 'Inter', system-ui, -apple-system, sans-serif;
@@ -121,6 +123,8 @@
   --dp-fg-muted: #52525b;
   --dp-fg-dim: #71717a;
   --dp-fg-faint: #a1a1aa;
+  /* Darker amber (amber-700) so OTP hints stay legible on the white surface. */
+  --dp-otp-fg: #b45309;
 
   /* ── Navigation & chrome ──────────────── */
   --dp-nav-bg: rgba(255, 255, 255, 0.92);

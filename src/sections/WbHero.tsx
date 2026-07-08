@@ -19,12 +19,21 @@ export const Hero = memo(function Hero(): JSX.Element {
   // Pause the backdrop's aurora drift once the hero scrolls away so the
   // compositor does zero work for it while off-screen.
   const [heroRef, heroInView] = useInView<HTMLElement>();
+  // Floating cert cluster hides the moment the user starts scrolling.
+  const [atTop, setAtTop] = useState(true);
 
   useEffect(() => {
     if (demoOpen) document.body.style.overflow = 'hidden';
     else document.body.style.overflow = '';
     return () => { document.body.style.overflow = ''; };
   }, [demoOpen]);
+
+  useEffect(() => {
+    const onScroll = () => { setAtTop(window.scrollY < 40); };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => { window.removeEventListener('scroll', onScroll); };
+  }, []);
 
   return (
     <>
@@ -33,14 +42,6 @@ export const Hero = memo(function Hero(): JSX.Element {
 
         <div className="relative z-10 max-w-[1240px] mx-auto px-8 max-sm:px-5 justiy-center">
           <div className="max-w-[960px] mx-auto text-center">
-            {/* Certification strip — quiet proof at the point of conversion.
-                Artwork tone per theme is handled by .hero-cert in
-                src/styles/design-system-wb.css. */}
-            <div className="mb-4 flex flex-wrap items-end justify-center gap-x-10 gap-y-4 max-sm:mt-9 max-sm:gap-x-6">
-              <img src={gspProvider} alt="Licensed GST Suvidha Provider" className="hero-cert h-11 w-auto max-sm:h-9" />
-              <img src={isoCertified} alt="ISO 27001:2022 certified" className="hero-cert h-11 w-auto max-sm:h-9" />
-              <img src={sslSecure} alt="SSL secured" className="hero-cert h-9 w-auto max-sm:h-7" />
-            </div>
             <EyebrowPill label="Licensed GSP by GSTIN" subtitle="GST Suvidha Provider" />
             <h1 className="font-display font-semibold text-[clamp(36px,4vw,101px)] leading-[1.05] tracking-[-0.03em] mt-[22px] text-center text-[var(--text)]">
               Compliance infrastructure for{' '}
@@ -64,6 +65,18 @@ export const Hero = memo(function Hero(): JSX.Element {
         </div>
 
         <HeroShowcase />
+
+        {/* Certification strip — quiet proof, floated bottom-left and hidden
+            the moment the user scrolls. Artwork tone per theme is handled by
+            .hero-cert in src/styles/design-system-wb.css. */}
+        <div
+          aria-hidden={!atTop}
+          className={`hero-cert-strip fixed bottom-6 left-6 z-40 flex items-center gap-6 max-sm:gap-4 rounded-full px-5 py-2.5 backdrop-blur-md max-sm:bottom-4 max-sm:left-1/2 max-sm:-translate-x-1/2 max-sm:px-4 max-sm:py-2 transition-all duration-300 ${atTop ? 'opacity-100' : 'pointer-events-none translate-y-3 opacity-0 max-sm:translate-y-3 max-sm:-translate-x-1/2'}`}
+        >
+          <img src={gspProvider} alt="Licensed GST Suvidha Provider" className="hero-cert h-9 w-auto max-sm:h-7" />
+          <img src={isoCertified} alt="ISO 27001:2022 certified" className="hero-cert h-9 w-auto max-sm:h-7" />
+          <img src={sslSecure} alt="SSL secured" className="hero-cert h-7 w-auto max-sm:h-6" />
+        </div>
         {/* <img
           src={isMobile ? heroImageMobile : heroImage}
           alt="WhiteBooks Hero"

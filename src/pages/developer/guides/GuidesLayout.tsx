@@ -137,7 +137,7 @@ export default function GuidesLayout(): React.ReactElement {
         </div>
       </div>
 
-      <div className="flex min-h-[calc(100vh_-_var(--dp-nav-h))]">
+      <div className="max-w-[1440px] mx-auto flex min-h-[calc(100vh_-_var(--dp-nav-h))]">
         {/* Desktop sidebar */}
         <aside className="hidden lg:flex flex-col lg:w-[240px] xl:w-[272px] shrink-0 sticky top-[var(--dp-nav-h)] h-[calc(100vh_-_var(--dp-nav-h))] overflow-y-auto border-r border-[var(--dp-border)] bg-[var(--dp-bg-2)]">
           <NavList pathname={pathname} />

@@ -57,6 +57,81 @@
 }
 .animate-fade-up { animation: fadeInUp 0.8s ease both; }
 
+/* Floating certification strip — solid-ish pill with a periodic light sweep
+   so it reads as a distinct chip over the busy hero backdrop.
+   The pill tone is inverted vs. the page theme (light pill in dark mode,
+   dark pill in light mode); badge artwork and shimmer follow suit. */
+.hero-cert-strip {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  /* Dark theme → light/frosted-white pill */
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.72)),
+    #ffffff;
+  border: 1px solid rgba(211, 53, 104, 0.16);
+  box-shadow:
+    0 18px 44px -18px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(211, 53, 104, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+[data-theme="light"] .hero-cert-strip {
+  /* Light theme → dark pill */
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0)),
+    #16161f;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    0 18px 44px -18px rgba(31, 20, 40, 0.35),
+    0 0 0 1px rgba(211, 53, 104, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* Badge artwork must contrast the (inverted) pill, not the page. */
+.hero-cert-strip .hero-cert { filter: brightness(0) opacity(0.55); }
+.hero-cert-strip .hero-cert:hover { filter: brightness(0) opacity(0.85); }
+[data-theme="light"] .hero-cert-strip .hero-cert { filter: brightness(0) invert(1) opacity(0.72); }
+[data-theme="light"] .hero-cert-strip .hero-cert:hover { filter: brightness(0) invert(1) opacity(0.95); }
+
+.hero-cert-strip::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  /* Light pill → pink sweep */
+  background: linear-gradient(
+    115deg,
+    transparent 20%,
+    rgba(211, 53, 104, 0.1) 46%,
+    rgba(211, 53, 104, 0.18) 50%,
+    rgba(211, 53, 104, 0.1) 54%,
+    transparent 80%
+  );
+  background-size: 220% 100%;
+  animation: heroCertShimmer 4.5s ease-in-out infinite;
+}
+[data-theme="light"] .hero-cert-strip::before {
+  /* Dark pill → light sweep */
+  background: linear-gradient(
+    115deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.14) 42%,
+    rgba(211, 53, 104, 0.14) 50%,
+    rgba(255, 255, 255, 0.14) 58%,
+    transparent 80%
+  );
+  background-size: 220% 100%;
+}
+@keyframes heroCertShimmer {
+  0%   { background-position: 160% center; }
+  60%  { background-position: -60% center; }
+  100% { background-position: -60% center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-cert-strip::before { animation: none; }
+}
+
 /* Glass base — dark theme default */
 .glass {
   backdrop-filter: blur(18px);

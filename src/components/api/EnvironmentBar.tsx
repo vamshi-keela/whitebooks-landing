@@ -14,7 +14,8 @@ export default function EnvironmentBar({ environments, selected, onChange }: Pro
 
 
   return (
-    <div className="flex flex-wrap items-center gap-2 sm:gap-3 px-4 sm:px-6 py-[7px] bg-[var(--dp-nav-bg)] border-b border-[var(--dp-border)] sticky top-[var(--dp-nav-h)] z-40 backdrop-blur-xl">
+    <div className="bg-[var(--dp-nav-bg)] border-b border-[var(--dp-border)] sticky top-[var(--dp-nav-h)] z-40 backdrop-blur-xl">
+      <div className="max-w-[1440px] mx-auto flex flex-wrap items-center gap-2 sm:gap-3 px-4 sm:px-6 py-[7px]">
       <Globe size={13} color="var(--dp-fg-faint)" className="shrink-0" />
 
       <span className="text-xs text-[var(--dp-fg-dim)] font-body shrink-0">
@@ -71,17 +72,18 @@ export default function EnvironmentBar({ environments, selected, onChange }: Pro
           style={{ background: 'rgba(251,191,36,0.07)', border: '1px solid rgba(251,191,36,0.22)' }}
           title="Default OTP for OTP / EVC authentication in sandbox"
         >
-          <KeyRound size={12} color="#fbbf24" className="shrink-0" />
-          <span className="text-[11px] font-body shrink-0" style={{ color: '#fbbf24' }}>
+          <KeyRound size={12} color="var(--dp-otp-fg)" className="shrink-0" />
+          <span className="text-[11px] font-body shrink-0" style={{ color: 'var(--dp-otp-fg)' }}>
             Default OTP
           </span>
-          <code className="font-[family-name:var(--dp-font-mono)] text-[12.5px] sm:text-[13px] shrink-0" style={{ color: '#fbbf24' }}>
+          <code className="font-[family-name:var(--dp-font-mono)] text-[12.5px] sm:text-[13px] shrink-0" style={{ color: 'var(--dp-otp-fg)' }}>
             {selected.defaultOtp}
           </code>
           <CopyButton text={selected.defaultOtp} size={12} label={false} />
         </div>
       )}
 
+      </div>
     </div>
   );
 }

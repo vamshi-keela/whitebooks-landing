@@ -255,7 +255,7 @@ export default function ApiDocPage({ apiType }: Props): React.ReactElement {
           />
         )}
 
-        <div className="flex min-h-[calc(100vh-100px)]">
+        <div className="max-w-[1440px] mx-auto flex min-h-[calc(100vh-100px)]">
           <ApiSidebar
             groups={groups}
             selectedOpId={selectedOpId}

@@ -195,7 +195,7 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps): React.Re
           />
           <button
             onClick={onClose}
-            className="bg-[var(--dp-surface-3)] border border-[var(--dp-border)] text-[var(--dp-fg-dim)] rounded-[5px] px-1.5 py-0.5 text-[11px] font-mono cursor-pointer"
+            className="bg-[var(--dp-surface-3)] border border-solid border-[var(--dp-border)] text-[var(--dp-fg-dim)] rounded-[5px] px-1.5 py-0.5 text-[11px] font-mono cursor-pointer"
           >
             Esc
           </button>
@@ -372,12 +372,12 @@ export default function DpNav({ onOpenPalette }: DpNavProps): React.ReactElement
         {/* Centered search — desktop */}
         <button
           onClick={onOpenPalette}
-          className="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center gap-2.5 w-full max-w-[460px] px-4 py-[9px] rounded-xl cursor-pointer border border-[var(--dp-border-strong)] text-[14px] font-body text-[var(--dp-fg-dim)] hover:border-[var(--dp-fg-faint)] transition-colors duration-150"
+          className="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center gap-2.5 w-full max-w-[460px] px-4 py-[9px] rounded-xl cursor-pointer border border-solid border-[var(--dp-border-strong)] text-[14px] font-body text-[var(--dp-fg-dim)] hover:border-[var(--dp-fg-faint)] transition-colors duration-150"
           style={{ background: 'var(--dp-surface)' }}
         >
           <DpIcon name="search" size={15} />
           <span className="flex-1 text-left">Search...</span>
-          <kbd className="text-[11px] font-mono px-1.5 py-0.5 rounded-[5px] border border-[var(--dp-border)] bg-[var(--dp-surface-2)] text-[var(--dp-fg-faint)]">⌘K</kbd>
+          <kbd className="text-[11px] font-mono px-1.5 py-0.5 rounded-[5px] border border-solid border-[var(--dp-border)] bg-[var(--dp-surface-2)] text-[var(--dp-fg-faint)]">⌘K</kbd>
         </button>
 
         {/* Actions */}
@@ -385,7 +385,7 @@ export default function DpNav({ onOpenPalette }: DpNavProps): React.ReactElement
           {/* Mobile search trigger */}
           <button
             onClick={onOpenPalette}
-            className="lg:hidden w-9 h-9 flex items-center justify-center rounded-lg cursor-pointer border border-[var(--dp-border)] text-[var(--dp-fg-muted)] transition-colors duration-150"
+            className="lg:hidden w-9 h-9 flex items-center justify-center rounded-lg cursor-pointer border border-solid border-[var(--dp-border)] text-[var(--dp-fg-muted)] transition-colors duration-150"
             style={{ background: 'var(--dp-surface)' }}
             aria-label="Search"
           >

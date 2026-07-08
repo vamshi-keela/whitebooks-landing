@@ -1,5 +1,5 @@
 import { memo, useEffect, useState } from "react";
-import complianceTrust from "../assets/elements/complaince-trust.jpeg";
+import accountingDashboard from '@/assets/product-images/softwares/whitebooks_softwares_1.png';
 import gspProvider from "../assets/gsp-provider.svg";
 import isoCertified from "../assets/iso-certified-2022.svg";
 import sslSecure from "../assets/ssl-secure.png";
@@ -7,7 +7,7 @@ import { useInView } from "@/hooks/useInView";
 import { HeroFluidBackground } from "@/layouts/SiteShell";
 import { Button } from "@/components/ui/Button";
 import EyebrowPill from "@/components/ui/EyebrowPill";
-import LogoWallCarousel from "@/components/ui/LogoWall";
+import TickMark from "@/components/ui/TickMark";
 import { BookDemoModal } from "@/components/modals/BookDemoModal";
 import DpIcon from "@/pages/developer/DpIcon";
 import HeroShowcase from "./HeroShowcase";
@@ -16,8 +16,8 @@ import HeroShowcase from "./HeroShowcase";
 
 export const Hero = memo(function Hero(): JSX.Element {
   const [demoOpen, setDemoOpen] = useState(false);
-  // Pause the (expensive) animated fluid background once the hero scrolls away,
-  // so it stops holding GPU memory and the section re-paints instantly on return.
+  // Pause the backdrop's aurora drift once the hero scrolls away so the
+  // compositor does zero work for it while off-screen.
   const [heroRef, heroInView] = useInView<HTMLElement>();
 
   useEffect(() => {
@@ -29,7 +29,7 @@ export const Hero = memo(function Hero(): JSX.Element {
   return (
     <>
       <section ref={heroRef} className="relative bg-[var(--bg-2)] pt-[9rem] overflow-hidden hero-horizon">
-        <HeroFluidBackground variant="left" gradientOpacity={0.6} paused={!heroInView} />
+        <HeroFluidBackground variant="left" gradientOpacity={1} paused={!heroInView} />
 
         <div className="relative z-10 max-w-[1240px] mx-auto px-8 max-sm:px-5 justiy-center">
           <div className="max-w-[960px] mx-auto text-center">
@@ -177,43 +177,102 @@ const wrap = "w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-s
 
 // ─── LogoWall ─────────────────────────────────────────────────────────────────
 
+/* Proof points and stats mirror claims made elsewhere on the page (hero cert
+   strip, WbStats) so the section never contradicts the rest of the site. */
+const TRUST_POINTS = [
+  'Licensed GST Suvidha Provider — direct GSTN connection',
+  'ISO 27001:2022 certified infrastructure',
+  'Enterprise-grade encryption on every filing',
+];
+
+const TRUST_STATS = [
+  { val: '12,000+', lbl: 'businesses run compliance on us' },
+  { val: '10 Cr+', lbl: 'invoices filed through WhiteBooks' },
+  { val: '99.95%', lbl: 'API uptime SLA' },
+];
+
 export function LogoWall() {
-
   return (
-    <section className="relative border-b border-[var(--hairline)] pb-24 max-md:pb-16 max-sm:pb-12" data-reveal>
+    <section className="relative overflow-hidden border-0 border-b border-solid border-[var(--hairline)]" data-reveal>
+      {/* Ambient brand glow anchored behind the visual column */}
+      <div
+        aria-hidden
+        className="absolute top-1/2 right-[-12%] w-[640px] h-[640px] -translate-y-1/2 rounded-full pointer-events-none"
+        style={{ background: 'radial-gradient(circle, var(--brand-glow) 0%, transparent 65%)', filter: 'blur(48px)' }}
+      />
 
-      {/* <div className="wb-logo-wall-header mb-10"> */}
-      <div className={`${wrap} grid md:grid-cols-2 grid-cols-1 gap-12 items-center pt-24 max-md:pt-16 max-sm:pt-12`}>
-        {/* Left: eyebrow + heading + body */}
-        <div className="flex flex-col gap-6">
-          <div className="flex items-center gap-2.5">
-            {/* <svg width="18" height="18" viewBox="0 0 24 24" fill="none" className="text-[var(--brand)] opacity-70">
-              <path d="M12 2C9 6 4 8 4 13a8 8 0 0016 0c0-5-5-7-8-11z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
-            </svg> */}
-            {/* <TickMark width={12} height={12} className="shrink-0" />
-            <span className="text-sm font-medium tracking-wide text-[var(--muted)] uppercase">Trusted Compliance Partner</span> */}
-            <EyebrowPill label={"Trusted Compliance Partner"} />
-            {/* <svg width="18" height="18" viewBox="0 0 24 24" fill="none" className="text-[var(--brand)] opacity-70">
-              <path d="M12 2C9 6 4 8 4 13a8 8 0 0016 0c0-5-5-7-8-11z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
-            </svg> */}
-          </div>
+      <div className={`${wrap} relative flex flex-col items-center gap-14 max-md:gap-12 py-24 max-md:py-16 max-sm:py-12`}>
+        {/* Narrative + proof, stacked and centered */}
+        <div className="flex flex-col items-center text-center gap-6 max-w-[820px]">
+          <EyebrowPill label={"Trusted Compliance Partner"} />
+
           <h2 className="h1">
             Compliance for companies that{' '}
             <span className="text-[var(--brand)]">can't afford to get it wrong.</span>
           </h2>
-          <p className="body">
+          <p className="body max-w-[60ch]">
             WhiteBooks runs GST, e-invoicing, and e-way bill operations for
-            India's largest enterprises and the CA firms that audit them. We
-            already helped 3,000+ Customers across India.
+            India's largest enterprises — and the CA firms that audit them.
           </p>
+
+          <ul className="flex flex-wrap justify-center gap-x-8 gap-y-3 m-0 p-0 list-none">
+            {TRUST_POINTS.map((point) => (
+              <li key={point} className="flex items-center gap-3 text-[15px] leading-snug text-[var(--muted-2)]">
+                <TickMark width={16} height={16} className="shrink-0" />
+                {point}
+              </li>
+            ))}
+          </ul>
+
+          <div className="w-full grid grid-cols-3 max-sm:grid-cols-1 gap-8 max-sm:gap-4 border-0 border-t border-solid border-[var(--hairline-bright)] pt-7 mt-2">
+            {TRUST_STATS.map((s) => (
+              <div key={s.lbl}>
+                <div className="font-display font-semibold text-[clamp(22px,2.4vw,32px)] leading-none tracking-[-0.02em] text-[var(--text)]">
+                  {s.val}
+                </div>
+                <div className="mt-2 text-[13px] leading-snug text-[var(--muted)]">{s.lbl}</div>
+              </div>
+            ))}
+          </div>
         </div>
-        {/* Right: image */}
-        <div className="rounded-2xl overflow-hidden w-full aspect-[4/3]">
-          <img
-            src={complianceTrust}
-            alt="Compliance trust — enterprise teams at work"
-            className="w-full h-full object-cover"
+
+        {/* Layered visual with floating proof cards */}
+        <div className="relative w-full max-w-[880px] mx-auto">
+          {/* Offset gradient frame peeking out behind the photo */}
+          <div
+            aria-hidden
+            className="absolute -inset-3 rounded-[24px] rotate-[1.5deg] pointer-events-none"
+            style={{ background: 'linear-gradient(135deg, var(--brand-soft) 0%, transparent 55%)' }}
           />
+          <div className="relative rounded-2xl overflow-hidden border border-solid border-[var(--hairline-bright)] shadow-[0_32px_80px_-32px_rgba(0,0,0,0.45)] ">
+            <img
+              src={accountingDashboard}
+              alt="WhiteBooks compliance dashboard in a finance team's workspace"
+              className="w-full h-full object-cover"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+
+          {/* Floating proof: GSP badge */}
+          {/* <div className="absolute -top-4 -right-3 max-sm:right-2 flex items-center gap-2 px-3.5 py-2 rounded-xl border border-solid border-[var(--hairline-bright)] bg-[var(--bg-elev)] shadow-[0_16px_40px_-16px_rgba(0,0,0,0.4)]">
+            <TickMark width={14} height={14} className="shrink-0" />
+            <span className="text-[12.5px] font-medium tracking-[0.02em] text-[var(--text)] whitespace-nowrap">
+              Licensed GSP · GSTN
+            </span>
+          </div> */}
+
+          {/* Floating proof: live reconciliation chip (echoes the product) */}
+          {/* <div className="absolute -bottom-5 -left-3 max-sm:left-2 flex items-center gap-2.5 px-4 py-2.5 rounded-xl border border-solid border-[var(--hairline-bright)] bg-[var(--bg-elev)] shadow-[0_16px_40px_-16px_rgba(0,0,0,0.4)]">
+            <span className="relative flex w-2 h-2 shrink-0" aria-hidden>
+              <span className="absolute inline-flex w-full h-full rounded-full bg-[var(--success)] opacity-60 animate-ping" />
+              <span className="relative inline-flex w-2 h-2 rounded-full bg-[var(--success)]" />
+            </span>
+            <span className="text-[12.5px] leading-tight text-[var(--text)] whitespace-nowrap">
+              GSTR-2B reconciled
+              <span className="text-[var(--muted)]"> · 4,238 invoices matched</span>
+            </span>
+          </div> */}
         </div>
       </div>
     </section>

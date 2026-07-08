@@ -680,321 +680,132 @@ img {
   background-size: 220px 220px;
 }
 
-/* ─── Multi-layer cinematic lighting system ──────────────────────────────── */
+/* ─── Hero "dawn meridian" backdrop ──────────────────────────────────────────
+   Zero-filter layer stack: motion comes from one WebGL canvas (the silk-flow
+   shader in HeroFlowCanvas.tsx); every other layer is a plain gradient or a
+   tiny tiled noise bitmap. No blur(), no live feTurbulence — filtered layers
+   forced a slow CPU re-raster whenever the hero's tiles were evicted
+   off-screen (the old 2–3s scroll-back stall). */
 
-/* Shared base: all wb-layer divs are absolute and non-interactive */
-.wb-layer {
+.wb-halo {
   position: absolute;
+  inset: 0;
+  overflow: hidden;
   pointer-events: none;
+  z-index: 0;
+  contain: layout paint style;
 }
 
-/* L1: Ambient — top-half only, very faint warm haze above the heading */
-.wb-layer-ambient {
-  inset: -20% -20% 50% -20%;
-  /* clipped at 50% from bottom — stays above midpoint */
+.wb-halo > div {
+  position: absolute;
+}
+
+/* L1: Atmosphere veil — warm brand light pouring from the top, a violet
+   counter-tone on the right so the palette reads richer than one hue. */
+.wb-halo-veil {
+  inset: 0;
   background:
-    radial-gradient(ellipse 80% 65% at 50% 60%, rgba(220, 47, 101, 0.05), transparent 72%),
-    radial-gradient(ellipse 55% 45% at 30% 40%, rgba(220, 47, 101, 0.04), transparent 68%),
-    radial-gradient(ellipse 55% 45% at 70% 40%, rgba(160, 18, 70, 0.03), transparent 68%);
-  filter: blur(55px);
-  z-index: 1;
+    radial-gradient(ellipse 95% 62% at 50% -12%, rgba(220, 47, 101, 0.16), transparent 62%),
+    radial-gradient(ellipse 60% 44% at 14% 2%, rgba(255, 122, 157, 0.10), transparent 68%),
+    radial-gradient(ellipse 58% 46% at 86% 4%, rgba(124, 58, 237, 0.09), transparent 70%),
+    radial-gradient(ellipse 42% 30% at 50% 8%, rgba(255, 176, 130, 0.05), transparent 70%);
 }
 
-/* L2: Left orb — shorter, higher — lives only in the top 45% of the section */
-.wb-layer-orb-left {
-  width: 55%;
-  height: 56%;
-  /* was 78% — cropped so it fades before reaching the face */
-  top: -22%;
-  /* pushed higher */
-  left: -18%;
-  background: radial-gradient(ellipse 75% 75% at 65% 55%,
-      rgba(220, 47, 101, 0.22) 0%,
-      /* was 0.34 — softer core */
-      rgba(220, 47, 101, 0.09) 38%,
-      rgba(190, 28, 82, 0.02) 62%,
-      transparent 78%);
-  filter: blur(52px);
-  animation: wb-orb-left 16s ease-in-out infinite;
-  will-change: transform;
-  z-index: 2;
-}
-
-/* L3: Right orb — shorter, higher, slightly dimmer counterpoint */
-.wb-layer-orb-right {
-  width: 52%;
-  height: 52%;
-  /* was 72% */
-  top: -18%;
-  /* was -14% — pushed higher */
-  right: -18%;
-  background: radial-gradient(ellipse 75% 75% at 35% 55%,
-      rgba(168, 20, 65, 0.18) 0%,
-      /* was 0.28 */
-      rgba(220, 47, 101, 0.08) 38%,
-      /* was 0.12 */
-      rgba(220, 47, 101, 0.02) 62%,
-      transparent 78%);
-  filter: blur(60px);
-  animation: wb-orb-right 20s ease-in-out infinite;
-  will-change: transform;
-  z-index: 2;
-}
-
-/* L4: Crown halo — small glow that pours light DOWN onto the heading only.
-   Intentionally short (22% height) so it never reaches the hero image/face. */
-.wb-layer-orb-center {
-  width: 58%;
-  height: 22%;
-  /* was 72% — radically shorter */
-  top: 3%;
-  /* sits just below the header bar, above the h1 */
-  left: 50%;
-  transform: translateX(-50%);
-  background: radial-gradient(ellipse 75% 90% at 50% 85%,
-      /* source at bottom edge — light pours downward */
-      rgba(220, 47, 101, 0.10) 0%,
-      rgba(220, 47, 101, 0.04) 55%,
-      transparent 80%);
-  filter: blur(55px);
-  animation: wb-orb-center 13s ease-in-out infinite;
-  will-change: opacity;
-  z-index: 3;
-}
-
-/* L5: Top-arch echo — wide but very shallow, just warms the very top edge */
-.wb-layer-orb-center-echo {
-  width: 80%;
-  height: 18%;
-  /* was 92% — razor thin */
-  top: -5%;
-  left: 50%;
-  transform: translateX(-50%);
-  background: radial-gradient(ellipse 75% 80% at 50% 50%,
-      rgba(220, 47, 101, 0.06) 0%,
-      rgba(220, 47, 101, 0.02) 55%,
-      transparent 78%);
-  filter: blur(80px);
-  animation: wb-orb-center-echo 19s ease-in-out 2.5s infinite reverse;
-  will-change: opacity;
-  z-index: 3;
-}
-
-/* L6: Distort — spots moved to upper quarter only, opacity reduced */
-.wb-layer-distort {
+/* L2: Silk current — the WebGL flow shader (see HeroFlowCanvas.tsx). Renders
+   at ~45% resolution and upscales here; the shader outputs premultiplied
+   alpha, so it composites over the veil on both themes. */
+.wb-halo-canvas {
+  position: absolute;
   inset: 0;
-  filter: url(#wb-liquid);
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* L3: Meridian arc — a huge ellipse whose lower rim dips into the hero as a
+   crisp arc of light crowning the h1. Rim line + inner bloom live in one
+   element; both are gradient rings, not shadows or blurs. */
+.wb-halo-dawn {
+  left: 50%;
+  top: 0;
+  width: 175%;
+  min-width: 1200px;
+  /* Fixed height: the rim's lowest point stays ~215px from the top at every
+     viewport width (only the curvature flattens as the screen widens), so the
+     arc always crests between the badge pill and the h1 — never through it. */
+  height: 780px;
+  transform: translate(-50%, -74%);
+  border-radius: 50%;
   background:
-    radial-gradient(ellipse 30% 36% at 20% 25%, rgba(220, 47, 101, 0.18), transparent 65%),
-    radial-gradient(ellipse 24% 30% at 80% 25%, rgba(172, 22, 68, 0.14), transparent 65%),
-    radial-gradient(ellipse 16% 20% at 50% 32%, rgba(220, 47, 101, 0.10), transparent 65%);
-  mix-blend-mode: screen;
-  opacity: 0.48;
-  /* was 0.72 */
-  will-change: filter;
-  z-index: 4;
+    radial-gradient(closest-side,
+      transparent 96.1%,
+      rgba(255, 138, 168, 0.40) 98.0%,
+      rgba(220, 47, 101, 0.60) 98.8%,
+      transparent 100%),
+    radial-gradient(closest-side,
+      transparent 78%,
+      rgba(220, 47, 101, 0.11) 96%,
+      transparent 100%);
 }
 
-/* L9: Vignette — anchored to upper-heading zone so corners darken without
-   killing the glow that sits above the h1 */
-.wb-layer-vignette {
+/* L4: Vignette — plain radial darkening, anchored high like the light */
+.wb-halo-vignette {
   inset: 0;
-  background: radial-gradient(ellipse 100% 65% at 50% 15%,
-      /* was 50% 50% — center moved to top */
-      transparent 28%,
-      rgba(6, 3, 12, 0.40) 60%,
-      rgba(4, 2, 9, 0.80) 100%);
-  z-index: 7;
+  background: radial-gradient(ellipse 105% 70% at 50% 12%,
+      transparent 30%,
+      rgba(6, 3, 12, 0.35) 62%,
+      rgba(4, 2, 9, 0.75) 100%);
 }
 
-/* L10: Film grain — prevents gradient banding, adds tactile depth */
-.wb-layer-grain {
+/* L5: Film grain — tiled SVG-noise bitmap (rendered once, then tiled) */
+.wb-halo-grain {
   inset: 0;
-  opacity: 0.13;
+  opacity: 0.12;
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.88' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
   background-size: 175px 175px;
-  z-index: 8;
 }
 
-/* ── Orb animations — GPU-composited (transform + opacity only) ────────────── */
-
-@keyframes wb-orb-left {
-
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-
-  33% {
-    transform: translate3d(4%, -7%, 0) scale(1.05);
-  }
-
-  66% {
-    transform: translate3d(-3%, 5%, 0) scale(0.96);
-  }
+/* ── Variant bias: nudge the light field toward one side ─────────────────── */
+.wb-halo-left .wb-halo-veil {
+  transform: translateX(-4%);
 }
 
-@keyframes wb-orb-right {
-
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-
-  40% {
-    transform: translate3d(-5%, 8%, 0) scale(1.04);
-  }
-
-  72% {
-    transform: translate3d(4%, -5%, 0) scale(1.07);
-  }
+.wb-halo:not(.wb-halo-left):not(.wb-halo-center) .wb-halo-veil {
+  transform: translateX(4%);
 }
 
-@keyframes wb-orb-center {
-
-  0%,
-  100% {
-    opacity: 1;
-    transform: translateX(-50%) scale(1);
-  }
-
-  50% {
-    opacity: 0.72;
-    transform: translateX(-50%) scale(1.09);
-  }
-}
-
-@keyframes wb-orb-center-echo {
-
-  0%,
-  100% {
-    opacity: 0.88;
-  }
-
-  50% {
-    opacity: 0.42;
-  }
-}
-
-/* ── Variant bias: left (hero) — right orb slightly attenuated */
-.wb-fluid-left .wb-layer-orb-right {
-  opacity: 0.65;
-}
-
-.wb-fluid-left .wb-layer-distort {
-  background:
-    radial-gradient(ellipse 34% 38% at 18% 24%, rgba(220, 47, 101, 0.22), transparent 65%),
-    radial-gradient(ellipse 20% 28% at 78% 26%, rgba(172, 22, 68, 0.12), transparent 65%),
-    radial-gradient(ellipse 14% 18% at 50% 30%, rgba(220, 47, 101, 0.08), transparent 65%);
-}
-
-/* ── Variant bias: center — balanced, both orbs equal */
-.wb-fluid-center .wb-layer-orb-left {
-  opacity: 0.75;
-}
-
-.wb-fluid-center .wb-layer-orb-right {
-  opacity: 0.75;
-}
-
-.wb-fluid-center .wb-layer-orb-center {
-  height: 26%;
-}
-
-/* slightly taller crown */
-
-/* ── Mobile: two side orbs only, no echo, lighter distort ──────────────── */
+/* ── Mobile: fewer/broader layers so nothing reads cramped ───────────────── */
 @media (max-width: 640px) {
-  .wb-layer-ambient {
-    inset: -15% -10% 55% -10%;
+  .wb-halo-dawn {
+    height: 430px;
+    transform: translate(-50%, -66%);
   }
 
-  .wb-layer-orb-left {
-    filter: blur(36px);
-    width: 75%;
-    height: 44%;
-    top: -14%;
-    left: -22%;
-  }
-
-  .wb-layer-orb-right {
-    filter: blur(38px);
-    width: 72%;
-    height: 42%;
-    top: -12%;
-    right: -22%;
-  }
-
-  .wb-layer-orb-center {
-    width: 80%;
-    height: 18%;
-    top: 2%;
-    filter: blur(44px);
-  }
-
-  .wb-layer-orb-center-echo {
-    display: none;
-  }
-
-  .wb-layer-distort {
-    opacity: 0.35;
-  }
-
-  .wb-layer-vignette {
-    background: radial-gradient(ellipse 120% 60% at 50% 12%,
-        transparent 22%,
-        rgba(6, 3, 12, 0.36) 58%,
-        rgba(4, 2, 9, 0.78) 100%);
+  .wb-halo-vignette {
+    background: radial-gradient(ellipse 130% 62% at 50% 10%,
+        transparent 24%,
+        rgba(6, 3, 12, 0.32) 58%,
+        rgba(4, 2, 9, 0.72) 100%);
   }
 }
 
-/* ── Tablet: moderate blur reduction ─────────────────────────────────────── */
-@media (min-width: 641px) and (max-width: 1024px) {
-  .wb-layer-orb-left {
-    filter: blur(42px);
-  }
-
-  .wb-layer-orb-right {
-    filter: blur(48px);
-  }
-
-  .wb-layer-orb-center {
-    filter: blur(48px);
-  }
+/* ── Light theme: soften everything, drop the dark vignette ──────────────── */
+/* (the flow canvas re-palettes itself via its uLight uniform) */
+[data-theme="light"] .wb-halo-veil {
+  opacity: 0.45;
 }
 
-/* ── Light theme: drastically reduce all orb intensities ─────────────────── */
-[data-theme="light"] .wb-layer-ambient {
-  opacity: 0.22;
+[data-theme="light"] .wb-halo-dawn {
+  opacity: 0.5;
 }
 
-[data-theme="light"] .wb-layer-orb-left {
-  opacity: 0.24;
+[data-theme="light"] .wb-halo-vignette {
+  display: none;
 }
 
-[data-theme="light"] .wb-layer-orb-right {
-  opacity: 0.20;
-}
-
-[data-theme="light"] .wb-layer-orb-center {
-  opacity: 0.28;
-}
-
-[data-theme="light"] .wb-layer-orb-center-echo {
-  opacity: 0.15;
-}
-
-[data-theme="light"] .wb-layer-distort {
-  opacity: 0.24;
-}
-
-[data-theme="light"] .wb-layer-vignette {
-  opacity: 0.30;
-}
-
-[data-theme="light"] .wb-layer-grain {
-  opacity: 0.06;
+[data-theme="light"] .wb-halo-grain {
+  opacity: 0.05;
 }
 
 /* ─────────────────────────────────────────────────────────────────────────── */

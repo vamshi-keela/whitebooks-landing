@@ -14,8 +14,16 @@ export const GUIDE_NAV: GuideSection[] = [
     items: [
       { label: 'Overview', path: '/developer/overview', icon: 'compass' },
       { label: 'Quickstart', path: '/developer/quickstart', icon: 'bolt' },
-      { label: 'Explore the APIs', path: '/developer/api-reference', icon: 'code' },
     ],
+  },
+  {
+    heading: 'API Reference',
+    items: [
+      { label: 'Overview', path: '/developer/api-reference', icon: 'code' },
+      { label: 'GST APIs', path: '/developer/gst-api', icon: 'receipt' },
+      { label: 'e-Invoice API', path: '/developer/e-invoice-api', icon: 'scroll' },
+      { label: 'e-Way Bill API', path: '/developer/eway-bill-api', icon: 'truck' },
+    ]
   },
   {
     heading: 'Essentials',

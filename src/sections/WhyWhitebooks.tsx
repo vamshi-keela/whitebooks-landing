@@ -410,7 +410,7 @@ export function WhyWhiteBooks() {
             Why WhiteBooks
           </span>
           <h2 className="m-0 font-serif font-semibold text-[clamp(32px,5vw,52px)] leading-[1.08] tracking-[-0.025em] text-[var(--fg-primary)] text-balance">
-            Everything your business needs.<br className="hidden sm:block" /> Built into one platform.
+            Everything your business needs.<br className="hidden sm:block" /> <span className="text-[var(--brand)]">Built into one platform.</span>
           </h2>
           <p className="m-0 text-[16px] sm:text-[17px] leading-[1.6] text-[var(--fg-secondary)] max-w-[640px]">
             Automate accounting, GST compliance, inventory and reconciliation workflows with a single integrated platform.

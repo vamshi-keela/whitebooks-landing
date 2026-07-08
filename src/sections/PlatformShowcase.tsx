@@ -495,8 +495,9 @@ function PreviewColumn({
 }
 
 /* ── Wheel-to-cycle — scrolling inside `ref` steps through a list ──────────────
-   One wheel gesture = one step (throttled). At the first/last item we release
-   the wheel so the page keeps scrolling instead of trapping the user. */
+   The wheel is fully captured while the cursor is over the element: the page
+   never scrolls underneath. One gesture = one step (throttled); at the first/
+   last item further scrolling is simply swallowed. */
 function useWheelCycle(
   ref: RefObject<HTMLElement | null>,
   index: number,
@@ -509,18 +510,20 @@ function useWheelCycle(
     if (!el) return;
 
     const onWheel = (e: WheelEvent) => {
-      // Ignore horizontal-dominant / negligible scrolls.
-      if (Math.abs(e.deltaX) > Math.abs(e.deltaY) || Math.abs(e.deltaY) < 6) return;
+      // Horizontal-dominant gestures pass through untouched.
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
 
-      const dir = e.deltaY > 0 ? 1 : -1;
-      const last = count - 1;
-      const atBoundary = (dir > 0 && index >= last) || (dir < 0 && index <= 0);
-      if (atBoundary) return; // let the page scroll past the section
-
+      // Swallow every vertical wheel event — including trackpad momentum
+      // ticks and boundary overscroll — so the viewport never moves.
       e.preventDefault();
-      if (lock.current) return;
+
+      if (Math.abs(e.deltaY) < 6 || lock.current) return;
+      const dir = e.deltaY > 0 ? 1 : -1;
+      const next = Math.min(Math.max(index + dir, 0), count - 1);
+      if (next === index) return;
+
       lock.current = true;
-      setIndex((i) => Math.min(Math.max(i + dir, 0), last));
+      setIndex(() => next);
       window.setTimeout(() => {
         lock.current = false;
       }, 550);
@@ -582,7 +585,21 @@ export function PlatformShowcase({ heading, categories }: { heading?: ReactNode,
 
       {/* ── Desktop: two-column canvas (rail | pills + content/image row) ── */}
       <div ref={desktopRef} className="hidden min-[1101px]:block">
-        <div className="mx-auto w-full max-w-[1280px] px-10 pb-20 pt-12">
+        <div className="relative mx-auto w-full max-w-[1280px] px-10 pb-20 pt-12">
+          {/* Faux scrollbar — the wheel is captured inside this canvas, so the
+              thumb signals "more categories below/above" and tracks activeCat. */}
+          <div
+            aria-hidden="true"
+            className="absolute bottom-20 right-3 top-12 w-[4px] overflow-hidden rounded-full bg-[var(--line)]"
+          >
+            <div
+              className="absolute left-0 w-full rounded-full bg-[var(--brand)] opacity-70 shadow-[0_0_8px_rgba(220,47,101,0.5)] transition-[top] duration-500 [transition-timing-function:cubic-bezier(0.22,0.7,0.2,1)]"
+              style={{
+                height: `${100 / categories.length}%`,
+                top: `${(activeCat / categories.length) * 100}%`,
+              }}
+            />
+          </div>
           <div className="grid grid-cols-[220px_minmax(0,1fr)] items-start">
             {/* Left column — category rail + proof */}
             <div className="pr-8 pt-1">

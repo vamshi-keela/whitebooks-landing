@@ -292,15 +292,7 @@ function SourceTabs({
   onSelect: (id: Connector['source']) => void;
 }) {
   return (
-    <div
-      role="tablist"
-      aria-label="Connector platforms"
-      className={cn(
-        'flex gap-1 overflow-x-auto rounded-[14px] border border-[var(--hairline)] p-1.5',
-        'bg-[color-mix(in_srgb,var(--fg-primary)_4%,transparent)]',
-        'w-full sm:w-fit [scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
-      )}
-    >
+    <div role="tablist" aria-label="Connector platforms" className="wb-tab-strip">
       {SOURCE_TABS.map(({ id, label }) => {
         const isActive = id === active;
         return (
@@ -310,25 +302,9 @@ function SourceTabs({
             role="tab"
             aria-selected={isActive}
             onClick={() => onSelect(id)}
-            className={cn(
-              'relative flex shrink-0 items-center justify-center gap-2 whitespace-nowrap border-0',
-              'cursor-pointer rounded-[9px] bg-transparent px-3.5 py-2 sm:px-5 sm:py-2.5',
-              'text-[14px] sm:text-[15px] transition-colors duration-[180ms]',
-              isActive
-                ? 'font-semibold text-white'
-                : 'font-medium text-[var(--fg-tertiary)] hover:text-[var(--fg-secondary)]',
-            )}
+            className={`wb-toggle-btn${isActive ? ' is-active' : ''}`}
           >
-            {isActive && (
-              <motion.span
-                layoutId="connector-tab-pill"
-                aria-hidden="true"
-                className="absolute inset-0 -z-0 rounded-[9px] bg-[var(--brand)]"
-                style={{ boxShadow: '0 8px 20px -8px var(--brand-glow)' }}
-                transition={{ type: 'spring', stiffness: 480, damping: 40 }}
-              />
-            )}
-            <span className="relative z-10">{label}</span>
+            {label}
           </button>
         );
       })}

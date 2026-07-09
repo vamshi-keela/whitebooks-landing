@@ -18,6 +18,7 @@ import { motion, type Variants } from "framer-motion";
 import { ArrowRight, Play } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { useTheme } from "@/contexts/ThemeContext";
+import EyebrowPill from "./EyebrowPill";
 
 /* ════════════════════════════════════════════════════════════════════════
  * Tokens & motion
@@ -116,7 +117,7 @@ export function SectionHeader({
         className,
       )}
     >
-      <motion.span
+      {/* <motion.span
         variants={fadeUp}
         className={cn(
           "inline-flex w-fit items-center gap-2 rounded-full px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--fg-secondary)] backdrop-blur",
@@ -128,7 +129,8 @@ export function SectionHeader({
           style={{ background: BRAND, boxShadow: "0 0 8px var(--brand-glow)" }}
         />
         {eyebrow}
-      </motion.span>
+      </motion.span> */}
+      {eyebrow && <EyebrowPill label={eyebrow} textSize="text-[0.75rem]" />}
       <motion.h2
         variants={fadeUp}
         className={cn(

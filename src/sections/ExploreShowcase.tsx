@@ -16,7 +16,9 @@ import { Check, Play, ArrowRight } from 'lucide-react';
 import { useTheme } from '@/contexts/ThemeContext';
 import { cn } from '@/lib/cn';
 import { PillButton } from '@/components/ui/PillButton';
+import { ButtonLink } from '@/components/ui/Button';
 import { ExploreShowCase, MetricCard, } from '@/types/pages';
+import EyebrowPill from '@/components/ui/EyebrowPill';
 
 const SIGNUP_URL = 'https://accounts.whitebooks.in/signupall';
 const DEMO_URL = '/about/contact-us';
@@ -72,27 +74,26 @@ function SocialProofBadge({ children }: { children: React.ReactNode }) {
 function CTAButtons() {
   return (
     <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-      <a
+      <ButtonLink
         href={SIGNUP_URL}
         target="_blank"
         rel="noopener noreferrer"
-        className="group inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-[15px] font-semibold text-white transition-all duration-300 hover:-translate-y-0.5"
-        style={{
-          background: 'linear-gradient(135deg, #ff5a8e 0%, #d33568 100%)',
-          boxShadow: '0 12px 30px -10px rgba(220,47,101,0.6)',
-        }}
+        variant="primary"
+        size="lg"
+        className="group cursor-pointer rounded-full px-6 py-3"
       >
         Start free
         <ArrowRight size={17} strokeWidth={2.4} className="transition-transform duration-300 group-hover:translate-x-1" />
-      </a>
-      <a
+      </ButtonLink>
+      <ButtonLink
         href={DEMO_URL}
-        className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-[15px] font-semibold text-[var(--fg-primary)] transition-all duration-300 hover:-translate-y-0.5"
-        style={{ background: 'var(--bg-card)', border: '1px solid var(--hairline-strong)' }}
+        variant="secondary"
+        size="lg"
+        className="group cursor-pointer rounded-full px-6 py-3"
       >
         See live demo
         <ArrowRight size={17} strokeWidth={2.4} className="transition-transform duration-300 group-hover:translate-x-1" />
-      </a>
+      </ButtonLink>
     </div>
   );
 }
@@ -109,9 +110,9 @@ function FeatureContent({ feature }: { feature: ExploreShowCase }) {
       transition={{ duration: 0.3, ease: EASE }}
       className="flex flex-col gap-6"
     >
-      <span className="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-[var(--accent-bright)]">
+      {/* <span className="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-[var(--accent-bright)]">
         {feature.label}
-      </span>
+      </span> */}
 
       <h3 className="m-0 font-serif text-[clamp(26px,3vw,38px)] font-semibold leading-[1.12] tracking-[-0.02em] text-[var(--fg-primary)] text-balance">
         {feature.heading}{' '}
@@ -322,13 +323,15 @@ export function ExploreShowcase({ features }: { features: ExploreShowCase[] }) {
       <div className="relative mx-auto w-full max-w-[1280px] px-4 sm:px-6 md:px-8 lg:px-10 xl:px-16">
         {/* Header */}
         <div className="mx-auto mb-10 flex max-w-[800px] flex-col items-center gap-5 text-center sm:mb-12 lg:mb-14">
-          <span
+          <EyebrowPill label={'Platform overview'} textSize='text-[0.75rem]'>
+          </EyebrowPill>
+          {/* <span
             className="inline-flex items-center gap-2 rounded-full px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-[var(--accent-bright)]"
             style={{ background: 'rgba(220,47,101,0.10)', border: '1px solid rgba(220,47,101,0.22)' }}
           >
             <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" style={{ boxShadow: '0 0 8px rgba(220,47,101,0.7)' }} />
             Platform overview
-          </span>
+          </span> */}
           <h2 className="m-0 font-serif text-[clamp(32px,5vw,52px)] font-semibold leading-[1.08] tracking-[-0.025em] text-[var(--fg-primary)] text-balance">
             Explore how WhiteBooks powers your business
           </h2>

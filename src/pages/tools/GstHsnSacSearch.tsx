@@ -419,7 +419,7 @@ export function GstHsnSacSearch() {
         {/* Code structure diagrams */}
         <section className="relative py-[120px] max-[700px]:py-[72px] transition-[opacity,transform] duration-[600ms] ease-in-out" data-reveal>
           <div className={wrap}>
-            <h2 className="font-display font-medium text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] max-w-[780px] text-balance mt-3 mb-10">
+            <h2 className="font-display font-medium text-[clamp(32px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] max-w-[780px] text-balance mt-3 mb-10">
               How HSN &amp; SAC codes are <span className="text-[var(--brand)]">structured.</span>
             </h2>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -435,7 +435,7 @@ export function GstHsnSacSearch() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
               {/* HSN */}
               <div>
-                <h2 className="font-display font-medium text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] max-w-[780px] text-balance mt-3 mb-5">What is an <span className="text-[var(--brand)]">HSN Code?</span></h2>
+                <h2 className="font-display font-medium text-[clamp(32px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] max-w-[780px] text-balance mt-3 mb-5">What is an <span className="text-[var(--brand)]">HSN Code?</span></h2>
                 <p className="text-[var(--muted-2)] leading-relaxed mb-4">
                   <strong className="text-[var(--text)]">HSN stands for Harmonized System of Nomenclature</strong> — a standardized international system of names and numbers used to classify goods in trade. Developed by the World Customs Organization (WCO), it is recognized in over 200 countries.
                 </p>
@@ -449,7 +449,7 @@ export function GstHsnSacSearch() {
 
               {/* SAC */}
               <div>
-                <h2 className="font-display font-medium text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] max-w-[780px] text-balance mt-3 mb-5">What is a <span className="text-[var(--brand)]">SAC Code?</span></h2>
+                <h2 className="font-display font-medium text-[clamp(32px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] max-w-[780px] text-balance mt-3 mb-5">What is a <span className="text-[var(--brand)]">SAC Code?</span></h2>
                 <p className="text-[var(--muted-2)] leading-relaxed mb-4">
                   <strong className="text-[var(--text)]">SAC stands for Service Accounting Code</strong> — a unique 6-digit numerical code used to classify services under India's GST regime. While HSN applies to goods, SAC is its equivalent for services.
                 </p>
@@ -467,7 +467,7 @@ export function GstHsnSacSearch() {
         {/* Compliance thresholds */}
         <section className="relative py-[120px] max-[700px]:py-[72px] transition-[opacity,transform] duration-[600ms] ease-in-out" data-reveal>
           <div className={wrap}>
-            <h2 className="font-display font-medium text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] max-w-[780px] text-balance mt-3 mb-8">
+            <h2 className="font-display font-medium text-[clamp(32px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] max-w-[780px] text-balance mt-3 mb-8">
               When do you need to quote <span className="text-[var(--brand)]">HSN codes?</span>
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
@@ -499,7 +499,7 @@ export function GstHsnSacSearch() {
         {/* GST rate slabs */}
         <section className="relative py-[120px] max-[700px]:py-[72px] transition-[opacity,transform] duration-[600ms] ease-in-out" data-reveal>
           <div className={wrap}>
-            <h2 className="font-display font-medium text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] max-w-[780px] text-balance mt-3 mb-8">
+            <h2 className="font-display font-medium text-[clamp(32px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] max-w-[780px] text-balance mt-3 mb-8">
               Five GST rate slabs — determined by <span className="text-[var(--brand)]">HSN / SAC code.</span>
             </h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -531,7 +531,7 @@ export function GstHsnSacSearch() {
         {/* Why HSN matters */}
         <section className="relative py-[120px] max-[700px]:py-[72px] transition-[opacity,transform] duration-[600ms] ease-in-out" data-reveal>
           <div className={wrap}>
-            <h2 className="font-display font-medium text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] max-w-[780px] text-balance mt-3 mb-10">
+            <h2 className="font-display font-medium text-[clamp(32px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] max-w-[780px] text-balance mt-3 mb-10">
               Four reasons accurate HSN codes <span className="text-[var(--brand)]">matter for your business.</span>
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -558,7 +558,7 @@ export function GstHsnSacSearch() {
         {/* FAQ */}
         <section className="relative py-[120px] max-[700px]:py-[72px] transition-[opacity,transform] duration-[600ms] ease-in-out" data-reveal>
           <div className={wrap}>
-            <h2 className="font-display font-medium text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] max-w-[780px] text-balance mt-3 mb-8">
+            <h2 className="font-display font-medium text-[clamp(32px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] max-w-[780px] text-balance mt-3 mb-8">
               Frequently asked <span className="text-[var(--brand)]">questions.</span>
             </h2>
             <div className="max-w-[800px]">

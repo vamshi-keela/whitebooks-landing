@@ -184,7 +184,7 @@ export function IntegrationSection({ data }: Props) {
           <EyebrowPill label={data.eyebrow ?? `${data.logos.length}+ ERP Integrations`} />
 
           {data.heading && (
-            <h2 className="mt-5 font-display font-medium text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] text-balance m-0 text-[var(--fg-primary)]">
+            <h2 className="mt-5 font-display font-medium text-[clamp(32px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] text-balance m-0 text-[var(--fg-primary)]">
               {data.heading}
               {data.headingAccent && (
                 <>

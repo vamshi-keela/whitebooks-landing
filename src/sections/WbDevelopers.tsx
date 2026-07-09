@@ -33,12 +33,12 @@ export function ForDevelopersSection() {
                     {/* Left column */}
                     <div className="max-md:order-1">
 
-                        <h2 className="[font-family:var(--font-serif)] font-semibold text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px] [text-wrap:balance]">
+                        <h2 className="[font-family:var(--font-serif)] font-semibold text-[clamp(32px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px] [text-wrap:balance]">
                             The only India compliance API written like a{' '}
                             <span className="text-[var(--accent)]">modern API</span> should be.
                         </h2>
 
-                        <p className="text-[17px] max-sm:text-[15px] text-[var(--fg-secondary)] leading-[1.55] max-w-[600px] m-0 mt-[22px]">
+                        <p className="text-base md:text-lg  text-[var(--fg-secondary)] leading-[1.55] max-w-[600px] m-0 mt-[22px]">
                             REST, idempotent, retryable. Sandbox keys in 5 minutes. Production-grade SLAs. Direct GSTN-licensed pipe — no resold APIs.
                         </p>
 
@@ -47,12 +47,12 @@ export function ForDevelopersSection() {
                                 Read API docs
                                 <DpIcon name="arrow-right" size={15} />
                             </ButtonLink>
-                            <a
+                            <ButtonLink
+                                variant="link"
                                 href='https://accounts.whitebooks.in/signup?type=Developer&subscrid=&inviteId'
-                                className="inline-flex items-center text-[15px] font-medium text-[var(--fg-primary)] underline decoration-[var(--accent)] decoration-2 underline-offset-[6px] transition-colors hover:text-[var(--accent)] cursor-pointer"
                             >
                                 Get sandbox keys
-                            </a>
+                            </ButtonLink>
                         </div>
                     </div>
 

@@ -52,8 +52,8 @@ export default function WbTrust() {
             <span className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[var(--muted-2)]">
               Trusted across the industry
             </span>
-            <h2 className="font-serif font-semibold text-[clamp(24px,3.4vw,40px)] leading-[1.1] tracking-[-0.02em] m-0 text-[var(--text)] text-balance">
-              Compliance &amp; Security KPIs
+            <h2 className="font-serif font-semibold text-[clamp(32px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 text-[var(--text)] text-balance">
+              Compliance &amp; Security <span className='text-[var(--brand)]'> KPIs</span>
             </h2>
           </div>
 

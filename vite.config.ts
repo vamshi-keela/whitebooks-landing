@@ -9,6 +9,12 @@ export default defineConfig(({ mode }) => {
     appType: isSsr ? 'custom' : 'spa',
     plugins: [react()],
 
+    // Bundle CJS deps into the SSR output so Node's ESM loader
+    // doesn't choke on their named exports during prerender.
+    ssr: {
+      noExternal: ['react-helmet-async'],
+    },
+
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './src'),

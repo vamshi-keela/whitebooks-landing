@@ -88,8 +88,8 @@
 
   <!-- Developer Portal -->
   <url>
-    <loc>https://whitebooks.in/developer</loc>
-    <lastmod>2026-06-01</lastmod>
+    <loc>https://whitebooks.in/developer/overview</loc>
+    <lastmod>2026-07-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>

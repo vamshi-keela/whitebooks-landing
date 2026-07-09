@@ -6,6 +6,7 @@ import classicPreview from "@/assets/product-images/softwares/print-page-templat
 import modernPreview from "@/assets/product-images/softwares/print-page-template-two.png";
 import minimalPreview from "@/assets/product-images/softwares/print-page-template-three.png";
 import boldPreview from "@/assets/product-images/softwares/print-page-template-four.png";
+import { ReactNode } from "react";
 
 export type TemplateId = "classic" | "modern" | "minimal" | "bold";
 
@@ -94,9 +95,9 @@ export const CUSTOMIZATION_ITEMS = [
   "GST Ready",
 ];
 
-export const SECTION_HEADER = {
+export const SECTION_HEADER: { eyebrow: string; heading: ReactNode; subtitle: string } = {
   eyebrow: "Invoice templates",
-  heading: "Professional invoices that look as good as your business",
+  heading: <><span className="text-[var(--brand)]">Professional invoices</span> that look as good as your business</>,
   subtitle:
     "Choose from beautifully designed layouts that are ready for branding, GST compliance, exports and digital signatures.",
 };

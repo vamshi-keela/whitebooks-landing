@@ -166,8 +166,8 @@ function CategoryPills({
       role="tablist"
       aria-label="Platform categories"
       className={[
-        "flex w-full gap-1 overflow-x-auto rounded-[14px] border border-[var(--hairline)] p-1.5",
-        "bg-[color-mix(in_srgb,var(--fg-primary)_4%,transparent)]",
+        "flex w-full gap-1 overflow-x-auto rounded-full border border-solid border-[var(--line-2)] p-[5px]",
+        "bg-[rgba(255,255,255,0.02)]",
         "[scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
       ].join(" ")}
     >
@@ -180,25 +180,9 @@ function CategoryPills({
             role="tab"
             aria-selected={isActive}
             onClick={() => onSelect(i)}
-            className={[
-              "relative flex shrink-0 items-center justify-center whitespace-nowrap border-0",
-              "cursor-pointer rounded-[9px] bg-transparent px-3.5 py-2 sm:px-5 sm:py-2.5",
-              "text-[14px] sm:text-[15px] transition-colors duration-[180ms]",
-              isActive
-                ? "font-semibold text-white"
-                : "font-medium text-[var(--fg-tertiary)] hover:text-[var(--fg-secondary)]",
-            ].join(" ")}
+            className={`wb-toggle-btn shrink-0 cursor-pointer whitespace-nowrap${isActive ? " is-active" : ""}`}
           >
-            {isActive && (
-              <motion.span
-                layoutId="showcase-pill"
-                aria-hidden="true"
-                className="absolute inset-0 -z-0 rounded-[9px] bg-[var(--brand)]"
-                style={{ boxShadow: "0 8px 20px -8px var(--brand-glow)" }}
-                transition={{ type: "spring", stiffness: 480, damping: 40 }}
-              />
-            )}
-            <span className="relative z-10">{c.label}</span>
+            {c.label}
           </button>
         );
       })}
@@ -238,10 +222,16 @@ function FeatureTabs({
     <div
       role="tablist"
       aria-label="Sub-features"
-      className="-mx-6 flex gap-2 overflow-x-auto px-6 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:px-0 [&::-webkit-scrollbar]:hidden"
+      className="-mx-6 flex gap-2 overflow-x-auto px-6 py-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:px-0 [&::-webkit-scrollbar]:hidden"
     >
       {tabs.map((t, i) => (
-        <PillButton key={t.id} isActive={i === active} onClick={() => onSelect(i)} layoutId={layoutId}>
+        <PillButton
+          key={t.id}
+          isActive={i === active}
+          onClick={() => onSelect(i)}
+          layoutId={layoutId}
+          className="shrink-0 whitespace-nowrap"
+        >
           {t.label}
         </PillButton>
       ))}
@@ -558,13 +548,13 @@ export function PlatformShowcase({ heading, categories }: { heading?: ReactNode,
 
   const headerBlock = (
     <div className="max-w-[760px]">
-      <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-brand">
+      {/* <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-brand">
         {SHOWCASE_HEADER.eyebrow}
-      </p>
-      <h2 className="mt-3 font-display text-[clamp(24px,3vw,38px)] font-semibold leading-[1.1] tracking-[-0.02em] text-[var(--text)] [text-wrap:balance]">
+      </p> */}
+      <h2 className="mt-3 font-display text-[clamp(32px,3.8vw,44px)] font-semibold leading-[1.1] tracking-[-0.02em] text-[var(--text)] [text-wrap:balance]">
         {heading ?? SHOWCASE_HEADER.heading}
       </h2>
-      <p className="mt-3 max-w-[560px] text-[14.5px] leading-[1.55] text-secondary">
+      <p className="mt-3 max-w-[560px] text-base md:text-lg leading-[1.55] text-secondary">
         {SHOWCASE_HEADER.subtitle}
       </p>
     </div>

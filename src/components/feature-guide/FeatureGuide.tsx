@@ -112,7 +112,7 @@ export function FeatureGuide({ heading, items, navLabel = "What it does" }: Feat
         <div className="w-full max-w-[1280px] mx-auto px-16 max-[1024px]:px-10 max-[768px]:px-6 max-[640px]:px-4">
 
           {/* wb-h2 */}
-          <h2 className="font-display font-semibold text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px] [text-wrap:balance]">
+          <h2 className="font-display font-semibold text-[clamp(32px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px] [text-wrap:balance]">
             {heading}
           </h2>
 

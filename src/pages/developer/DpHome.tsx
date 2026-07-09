@@ -46,7 +46,7 @@ function HeroSection(): React.ReactElement {
         <div>
           <EyebrowPill label={'WhiteBooks APIs'} />
 
-          <h1 className="font-[var(--font-display)] font-semibold leading-[1.1] tracking-[-0.02em] text-[2rem] sm:text-[2.625rem] md:text-[4rem] text-[var(--dp-fg)] mb-4">
+          <h1 className="font-[var(--font-display)] font-semibold leading-[1.1] tracking-[-0.02em] text-[clamp(36px,4vw,101px)] text-[var(--dp-fg)] mb-4">
             The compliance{' '}
             <span className="relative inline-block">
               infrastructure
@@ -82,19 +82,20 @@ function HeroSection(): React.ReactElement {
             </Button>
             <Link to="/developer" target="_blank">
               <Button
-                variant="developerGhost"
+                variant="ghost"
               >
                 <DpIcon name="book" size={14} />
                 Read API Docs
               </Button>
             </Link>
-            <button
-              className="bg-transparent border-none px-[14px] py-[10px] text-[0.875rem] text-[var(--dp-fg-muted)] cursor-pointer hidden sm:flex items-center gap-[6px]"
+            <ButtonLink
+              variant="link"
+              className="hidden sm:inline-flex cursor-pointer"
               onClick={() => navigate('/resources/videos')}
             >
               <DpIcon name="play" size={13} />
               5-min quickstart
-            </button>
+            </ButtonLink>
           </div>
 
           {/* Metrics */}
@@ -197,10 +198,10 @@ function EcosystemSection(): React.ReactElement {
   return (
     <section className="max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4 py-12 md:py-24">
       <div className="mb-8 md:mb-10">
-        <h2 className="font-[var(--font-display)] font-semibold text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px]">
-          Every compliance API you need.
+        <h2 className="font-[var(--font-display)] font-semibold text-[clamp(32px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px]">
+          <span className='text-[var(--brand)]'>Every compliance API </span>you need.
         </h2>
-        <p className="text-[var(--dp-fg-muted)] text-[0.9375rem] md:text-[1rem] max-w-[560px]">
+        <p className="text-[var(--dp-fg-muted)] text-base md:text-lg max-w-[560px]">
           Four production-grade APIs, one developer experience, zero GSP complexity.
         </p>
       </div>
@@ -262,10 +263,10 @@ function QuickstartSection(): React.ReactElement {
 
         {/* Text — first on mobile */}
         <div className="order-1 md:order-2">
-          <h2 className="font-[var(--font-display)] font-semibold text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px]">
+          <h2 className="font-[var(--font-display)] font-semibold text-[clamp(32px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px]">
             From npm install to first <span className="text-[var(--brand)]">IRN in 5 minutes.</span>
           </h2>
-          <p className="text-[var(--dp-fg-muted)] text-[0.875rem] md:text-[0.9375rem] mb-7 leading-[1.65]">
+          <p className="text-[var(--dp-fg-muted)] text-base md:text-lg mb-7 leading-[1.65]">
             Our SDK handles authentication, retries, and GSTN quirks so you can focus on your product.
             One API key, all compliance APIs.
           </p>
@@ -329,7 +330,7 @@ function OnboardingSection(): React.ReactElement {
       />
       <div className={`${wrap} relative`}>
         <div className=" mb-10 md:mb-12">
-          <h2 className="font-[var(--font-display)] font-semibold text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px]">
+          <h2 className="font-[var(--font-display)] font-semibold text-[clamp(32px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px]">
             Four steps to production.
           </h2>
         </div>
@@ -528,10 +529,10 @@ function SDKSection(): React.ReactElement {
   return (
     <section className="max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4 py-12 md:py-20">
       <div className="text-center mb-8 md:mb-10">
-        <h2 className="font-[var(--font-display)] text-center font-semibold text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px] mx-auto">
+        <h2 className="font-[var(--font-display)] text-center font-semibold text-[clamp(32px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px] mx-auto">
           Your language, our compliance.
         </h2>
-        <p className="text-[var(--dp-fg-muted)] text-[0.875rem] md:text-[1rem] max-w-[500px] mx-auto">
+        <p className="text-[var(--dp-fg-muted)] text-base md:text-lg max-w-[500px] mx-auto">
           Official SDKs with full TypeScript support, auto-retries, and idiomatic error handling.
         </p>
       </div>
@@ -600,7 +601,7 @@ function UseCasesSection(): React.ReactElement {
           {/* <span className="text-[0.6875rem] font-[var(--font-mono)] text-[var(--dp-accent-2)] tracking-[0.1em] uppercase">
             Use cases
           </span> */}
-          <h2 className="font-[var(--font-display)] text-center font-semibold text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px] mx-auto">
+          <h2 className="font-[var(--font-display)] text-center font-semibold text-[clamp(32px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px] mx-auto">
             Built for every vertical.
           </h2>
         </div>
@@ -691,7 +692,7 @@ function SandboxSection(): React.ReactElement {
                 Open sandbox <DpIcon name="arrow-right" size={13} />
               </Button>
               <Button
-                variant="developerGhost"
+                variant="ghost"
                 onClick={() => navigate('/developer')}
               >
                 View docs
@@ -771,10 +772,10 @@ function CTASection(): React.ReactElement {
         }}
       />
       <div className="relative max-w-[640px] mx-auto px-6 max-sm:px-4">
-        <h2 className="font-[var(--font-display)] text-[1.75rem] sm:text-[2.25rem] md:text-[2.625rem] font-semibold text-[var(--dp-fg)] mb-4 leading-[1.1] tracking-[-0.02em]">
-          Ship compliance at infrastructure speed.
+        <h2 className="font-[var(--font-display)] font-semibold text-[clamp(32px,3.8vw,44px)] text-[var(--dp-fg)] mb-4 leading-[1.1] tracking-[-0.02em]">
+          Ship compliance at <span className='text-[var(--brand)]'>infrastructure speed.</span>
         </h2>
-        <p className="text-[var(--dp-fg-muted)] text-[0.9375rem] md:text-[1.0625rem] mb-8 md:mb-9 leading-[1.65]">
+        <p className="text-[var(--dp-fg-muted)] text-base md:text-lg mb-8 md:mb-9 leading-[1.65]">
           Join 12,000+ businesses using WhiteBooks APIs to automate their compliance workflows.
           Free sandbox, no credit card required.
         </p>
@@ -795,7 +796,7 @@ function CTASection(): React.ReactElement {
           </Button>
           <Link to="/developer" target='_blank'>
             <Button
-              variant="developerGhost"
+              variant="ghost"
             >
               <DpIcon name="book" size={14} />
               Read API Docs

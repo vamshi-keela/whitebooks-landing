@@ -170,8 +170,8 @@ function OutputRow({
   return (
     <div
       className={`flex items-center justify-between px-5 py-4 rounded-xl border ${highlight
-          ? 'bg-[var(--brand-soft)] border-[var(--brand-border)]'
-          : 'bg-[var(--bg-elev)] border-[var(--line)]'
+        ? 'bg-[var(--brand-soft)] border-[var(--brand-border)]'
+        : 'bg-[var(--bg-elev)] border-[var(--line)]'
         }`}
     >
       <span className={`text-[13px] font-medium ${muted ? 'text-[var(--muted-2)]' : 'text-[var(--text)]'}`}>
@@ -248,8 +248,8 @@ function GstCalculatorWidget() {
                 type="button"
                 onClick={() => { setSupplyType(opt.id as 'intra' | 'inter'); setCalculated(false); }}
                 className={`flex flex-col items-start px-4 py-3 rounded-xl border text-left transition-all ${supplyType === opt.id
-                    ? 'bg-[var(--brand-soft)] border-[var(--brand-border)]'
-                    : 'bg-[var(--bg-elev)] border-[var(--line)]'
+                  ? 'bg-[var(--brand-soft)] border-[var(--brand-border)]'
+                  : 'bg-[var(--bg-elev)] border-[var(--line)]'
                   }`}
               >
                 <span className={`text-[13px] font-semibold ${supplyType === opt.id ? 'text-[var(--brand)]' : 'text-[var(--text)]'}`}>
@@ -308,8 +308,8 @@ function GstCalculatorWidget() {
             onClick={handleCalculate}
             disabled={!canCalculate}
             className={`flex-1 inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-semibold text-[14px] transition-all ${canCalculate
-                ? 'bg-[var(--brand)] text-white cursor-pointer'
-                : 'bg-[var(--bg-elev)] text-[var(--muted)] cursor-not-allowed [border:1.5px_solid_var(--line)]'
+              ? 'bg-[var(--brand)] text-white cursor-pointer'
+              : 'bg-[var(--bg-elev)] text-[var(--muted)] cursor-not-allowed [border:1.5px_solid_var(--line)]'
               }`}
           >
             <Calculator size={16} />
@@ -427,7 +427,7 @@ export function GstTaxCalculator() {
         <section className="relative py-[120px] max-[700px]:py-[72px] wb-reveal" data-reveal>
           <div className={wrap}>
             <p className="text-[12px] font-medium tracking-[0.18em] uppercase text-[var(--muted)]">Why use this tool</p>
-            <h2 className="font-display font-medium text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px] mt-3 mb-10">
+            <h2 className="font-display font-medium text-[clamp(32px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px] mt-3 mb-10">
               Benefits of the <span className="text-[var(--brand)]">GST Calculator.</span>
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -478,7 +478,7 @@ export function GstTaxCalculator() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
               <div>
                 <p className="text-[12px] font-medium tracking-[0.18em] uppercase text-[var(--muted)]">Understanding GST</p>
-                <h2 className="font-display font-medium text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px] mt-3 mb-5">
+                <h2 className="font-display font-medium text-[clamp(32px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px] mt-3 mb-5">
                   What is a <span className="text-[var(--brand)]">GST Tax Calculator?</span>
                 </h2>
                 <p className="text-[var(--muted-2)] leading-relaxed mb-4">
@@ -500,7 +500,7 @@ export function GstTaxCalculator() {
         <section className="relative py-[120px] max-[700px]:py-[72px] wb-reveal" data-reveal>
           <div className={wrap}>
             <p className="text-[12px] font-medium tracking-[0.18em] uppercase text-[var(--muted)]">FAQs</p>
-            <h2 className="font-display font-medium text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px] mt-3 mb-8">
+            <h2 className="font-display font-medium text-[clamp(32px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px] mt-3 mb-8">
               Frequently asked <span className="text-[var(--brand)]">questions.</span>
             </h2>
             <div className="max-w-[800px]">

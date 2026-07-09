@@ -696,7 +696,7 @@ img {
   contain: layout paint style;
 }
 
-.wb-halo > div {
+.wb-halo>div {
   position: absolute;
 }
 
@@ -3774,6 +3774,8 @@ a.wb-block--link:hover .endpoint {
   --hairline: rgba(255, 255, 255, 0.06);
   --hairline-bright: rgba(255, 255, 255, 0.12);
   --hairline-strong: rgba(255, 255, 255, 0.1);
+  --hairline-hover: rgba(255, 255, 255, 0.16);
+  --surface-hover: rgba(255, 255, 255, 0.04);
   --bg-card: #000000;
   --font-serif: "Poppins", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-sans: "DM Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -3790,7 +3792,9 @@ a.wb-block--link:hover .endpoint {
   --pill-fg-primary: var(--fg-primary);
   --pill-fg-secondary: var(--fg-secondary);
   --pill-bg-card: var(--bg-card);
-  --pill-hairline: var(--hairline);
+  --pill-hairline: #ffffff;
+  --pill-hairline-active: rgba(0, 0, 0, 0.07);
+  --pill-shadow: rgba(0, 0, 0, 0.55);
 }
 
 [data-theme="light"] {
@@ -3801,6 +3805,8 @@ a.wb-block--link:hover .endpoint {
   --hairline: rgba(0, 0, 0, 0.07);
   --hairline-bright: rgba(0, 0, 0, 0.12);
   --hairline-strong: rgba(0, 0, 0, 0.10);
+  --hairline-hover: rgba(0, 0, 0, 0.16);
+  --surface-hover: rgba(0, 0, 0, 0.04);
   --bg-card: #ffffff;
   --accent-glow: rgba(220, 47, 101, 0.22);
   --light-fg: #0d0d14;
@@ -3810,7 +3816,9 @@ a.wb-block--link:hover .endpoint {
   --pill-fg-primary: var(--fg-primary);
   --pill-fg-secondary: var(--fg-secondary);
   --pill-bg-card: var(--bg-card);
-  --pill-hairline: var(--hairline);
+  --pill-hairline: rgba(0, 0, 0, 0.07);
+  --pill-hairline-active: #ffffff;
+  --pill-shadow: rgba(13, 13, 20, 0.22);
 }
 
 /* ---------- Product UI widget ---------- */
@@ -6974,9 +6982,9 @@ a.wb-block--link:hover .endpoint {
 /* ══════════════════════════════════════════════════════════════════════════
    HERO SHOWCASE (src/sections/HeroShowcase.tsx)
    ══════════════════════════════════════════════════════════════════════════
-   The desktop hero layout lives on a fixed-width canvas that is scaled down
-   with a single transform, so cards, text and the person all shrink together
-   to fit the viewport width. (Mobile is composed natively — no canvas.)
+   Both hero layouts live on a fixed-width canvas that is scaled down with a
+   single transform, so cards, text and the person all shrink together to fit
+   the viewport width.
      --showcase-scale: scaled canvas width = (viewport − side padding),
        capped at 1 once the canvas fits.
      --showcase-h:    natural (unscaled) height of the canvas, used to pull the
@@ -6984,6 +6992,11 @@ a.wb-block--link:hover .endpoint {
 .hero-canvas-desk {
   --showcase-scale: clamp(0.2, calc((min(100vw, 1500px) - 48px) / 1468px), 1);
   --showcase-h: 645px;
+}
+
+.hero-canvas-mob {
+  --showcase-scale: clamp(0.2, calc((100vw - 32px) / 760px), 1);
+  --showcase-h: 734px;
 }
 
 /* ── Glass surfaces (dark defaults) ─────────────────────────────────────────
@@ -7001,11 +7014,16 @@ a.wb-block--link:hover .endpoint {
     linear-gradient(155deg, rgba(15, 8, 19, 0.95) 0%, rgba(6, 2, 11, 0.98) 100%);
   border: 1px solid rgba(220, 47, 101, 0.26);
   box-shadow:
-    inset 0 1px 0 rgba(255, 110, 155, 0.5),   /* glass top edge   */
-    inset 1px 0 0 rgba(255, 90, 140, 0.16),   /* glass left edge  */
-    inset -1px 0 0 rgba(220, 47, 101, 0.05),  /* faint right edge */
-    0 12px 44px rgba(0, 0, 0, 0.62),          /* deep drop shadow */
-    0 0 28px rgba(220, 47, 101, 0.08);        /* pink ambient glow */
+    inset 0 1px 0 rgba(255, 110, 155, 0.5),
+    /* glass top edge   */
+    inset 1px 0 0 rgba(255, 90, 140, 0.16),
+    /* glass left edge  */
+    inset -1px 0 0 rgba(220, 47, 101, 0.05),
+    /* faint right edge */
+    0 12px 44px rgba(0, 0, 0, 0.62),
+    /* deep drop shadow */
+    0 0 28px rgba(220, 47, 101, 0.08);
+  /* pink ambient glow */
 }
 
 /* Subdued dark-glass tile — stats + API strip icons. Its color drives the icon
@@ -7017,10 +7035,21 @@ a.wb-block--link:hover .endpoint {
   box-shadow: inset 0 1px 0 rgba(255, 120, 160, 0.28), 0 0 18px rgba(220, 47, 101, 0.28);
 }
 
-.hero-txt-strong { color: rgba(255, 255, 255, 0.95); }
-.hero-txt-muted  { color: rgba(255, 255, 255, 0.70); }
-.hero-divider    { border-color: rgba(255, 255, 255, 0.07); }
-.hero-stat-value { color: #ff4f86; }
+.hero-txt-strong {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.hero-txt-muted {
+  color: rgba(255, 255, 255, 0.70);
+}
+
+.hero-divider {
+  border-color: rgba(255, 255, 255, 0.07);
+}
+
+.hero-stat-value {
+  color: #ff4f86;
+}
 
 .hero-tag {
   border: 1px solid rgba(220, 47, 101, 0.32);
@@ -7035,7 +7064,10 @@ a.wb-block--link:hover .endpoint {
   filter: brightness(0) invert(1) opacity(0.62);
   transition: filter 240ms ease;
 }
-.hero-cert:hover { filter: brightness(0) invert(1) opacity(0.95); }
+
+.hero-cert:hover {
+  filter: brightness(0) invert(1) opacity(0.95);
+}
 
 /* ── Light theme — reskin to frosted-white glass with a pink wash ─────────── */
 [data-theme="light"] .hero-card {
@@ -7057,10 +7089,21 @@ a.wb-block--link:hover .endpoint {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 4px 12px rgba(220, 47, 101, 0.14);
 }
 
-[data-theme="light"] .hero-txt-strong { color: rgba(20, 12, 18, 0.92); }
-[data-theme="light"] .hero-txt-muted  { color: rgba(20, 12, 18, 0.60); }
-[data-theme="light"] .hero-divider    { border-color: rgba(20, 12, 18, 0.08); }
-[data-theme="light"] .hero-stat-value { color: #d33568; }
+[data-theme="light"] .hero-txt-strong {
+  color: rgba(20, 12, 18, 0.92);
+}
+
+[data-theme="light"] .hero-txt-muted {
+  color: rgba(20, 12, 18, 0.60);
+}
+
+[data-theme="light"] .hero-divider {
+  border-color: rgba(20, 12, 18, 0.08);
+}
+
+[data-theme="light"] .hero-stat-value {
+  color: #d33568;
+}
 
 [data-theme="light"] .hero-tag {
   border-color: rgba(220, 47, 101, 0.28);
@@ -7071,7 +7114,11 @@ a.wb-block--link:hover .endpoint {
 [data-theme="light"] .hero-cert {
   filter: brightness(0) opacity(0.5);
 }
-[data-theme="light"] .hero-cert:hover { filter: brightness(0) opacity(0.85); }
+
+[data-theme="light"] .hero-cert:hover {
+  filter: brightness(0) opacity(0.85);
+}
+
 /* ---------- TrustStats theme tokens (src/sections/TrustStats.tsx) ---------- */
 .wb-truststats {
   --ts-bg: linear-gradient(180deg, #07070a 0%, #0a070d 48%, #07070a 100%);
@@ -7095,6 +7142,7 @@ a.wb-block--link:hover .endpoint {
   --ts-badge-glow: rgba(244, 63, 125, 0.22);
   --ts-badge-filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.45));
 }
+
 [data-theme="light"] .wb-truststats {
   --ts-bg: linear-gradient(180deg, #ffffff 0%, #fdf6f9 48%, #ffffff 100%);
   --ts-grid: rgba(13, 13, 20, 0.035);
@@ -7117,10 +7165,12 @@ a.wb-block--link:hover .endpoint {
   --ts-badge-glow: rgba(244, 63, 125, 0.1);
   --ts-badge-filter: brightness(0) opacity(0.72) drop-shadow(0 10px 20px rgba(0, 0, 0, 0.12));
 }
+
 .wb-ts-label {
   color: var(--ts-label);
   transition: color 0.3s ease;
 }
+
 .group:hover .wb-ts-label {
   color: var(--ts-label-hover);
 }

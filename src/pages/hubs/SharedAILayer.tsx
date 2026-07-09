@@ -22,10 +22,10 @@ export default function SharedAILayer({ h2, body, primaryCta, secondaryCta }: Cl
         >
             <div className="closing-pattern" aria-hidden="true" />
             <div className="relative z-10 max-w-[1240px] mx-auto px-8 max-sm:px-5">
-                <h2 className="font-display font-semibold text-[clamp(30px,4.5vw,54px)] leading-[1.06] tracking-[-0.025em] max-w-[820px] text-white text-balance">
+                <h2 className="font-display font-semibold text-[clamp(32px,4.5vw,54px)] leading-[1.06] tracking-[-0.025em] max-w-[820px] text-white text-balance">
                     {h2}
                 </h2>
-                <p className="mt-5 mb-8 max-w-[580px] text-[16.5px] text-white/85 leading-[1.55]">
+                <p className="mt-5 mb-8 max-w-[580px] text-base md:text-lg text-white/85 leading-[1.55]">
                     {body}
                 </p>
                 <div className="flex flex-wrap gap-3">

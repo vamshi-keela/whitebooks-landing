@@ -251,7 +251,7 @@ export default function SecurityHero() {
                         </div>
 
                         {/* heading */}
-                        <h1 className="mt-6 text-[2.4rem] font-bold leading-[1.12] tracking-tight text-[#0f172a] dark:text-[var(--fg-primary)] lg:text-[2.6rem] xl:text-[2.85rem]">
+                        <h1 className="mt-6 text-[clamp(32px,3.8vw,44px)] font-bold leading-[1.12] tracking-tight text-[#0f172a] dark:text-[var(--fg-primary)] lg:text-[2.6rem] xl:text-[2.85rem]">
                             Enterprise-Grade Security
                             <br />
                             Built for{" "}
@@ -261,7 +261,7 @@ export default function SecurityHero() {
                         </h1>
 
                         {/* subtext */}
-                        <p className="mt-6 max-w-2xl text-[17px] leading-8 text-gray-600 dark:text-[var(--fg-secondary)]">
+                        <p className="mt-6 max-w-2xl text-base md:text-lg leading-8 text-gray-600 dark:text-[var(--fg-secondary)]">
                             Every API call is protected by industry-leading security
                             practices, continuous monitoring, and a high-availability
                             infrastructure trusted by 25,000+ businesses.

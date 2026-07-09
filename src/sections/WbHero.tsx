@@ -219,11 +219,11 @@ export function LogoWall() {
         <div className="flex flex-col items-center text-center gap-6 max-w-[820px]">
           <EyebrowPill label={"Trusted Compliance Partner"} />
 
-          <h2 className="h1">
+          <h2 className="font-serif font-semibold text-[clamp(32px,3.8vw,44px)] leading-[1.04] tracking-[-0.025em] m-0 [text-wrap:balance] text-[var(--text)]">
             Compliance for companies that{' '}
             <span className="text-[var(--brand)]">can't afford to get it wrong.</span>
           </h2>
-          <p className="body max-w-[60ch]">
+          <p className="text-base md:text-lg leading-[1.6] m-0 max-w-[60ch] text-[var(--fg-secondary)]">
             WhiteBooks runs GST, e-invoicing, and e-way bill operations for
             India's largest enterprises — and the CA firms that audit them.
           </p>

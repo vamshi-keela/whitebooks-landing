@@ -52,7 +52,7 @@ export default function WbStats() {
     <section className="wb-stats" aria-label="WhiteBooks by the numbers">
 
       <div className="wb-stats__inner">
-        <h2 className="font-serif font-semibold text-[clamp(24px,3.8vw,44px)] text-center">
+        <h2 className="font-serif font-semibold text-[clamp(32px,3.8vw,44px)] text-center">
           Built for compliance, <span className="text-[var(--brand)]">backed by trust.</span>
         </h2>
         <div

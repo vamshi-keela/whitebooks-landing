@@ -527,10 +527,10 @@ function ContactFormSection({ preset }: { preset: FormPreset | null }) {
     <section id="contact-form" className="relative py-[80px] max-[700px]:py-[56px] scroll-mt-24" data-reveal>
       <div className={wrap}>
         <div className="max-w-[640px] mb-10">
-          <h2 className="[font-family:var(--font-display)] font-medium text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] text-[var(--text)] mb-3">
+          <h2 className="[font-family:var(--font-display)] font-medium text-[clamp(32px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] text-[var(--text)] mb-3">
             Tell us about your requirements
           </h2>
-          <p className="text-[16px] text-[var(--muted-2)] leading-[1.6]">
+          <p className="text-base md:text-lg text-[var(--muted-2)] leading-[1.6]">
             A few details help us route you to the right expert and come prepared. We respond within
             2 business hours.
           </p>
@@ -684,7 +684,7 @@ function OfficeSection() {
   return (
     <section className="relative pb-[120px] max-[700px]:pb-[72px]" data-reveal>
       <div className={wrap}>
-        <h2 className="[font-family:var(--font-display)] font-medium text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] text-[var(--text)] mb-8">
+        <h2 className="[font-family:var(--font-display)] font-medium text-[clamp(32px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] text-[var(--text)] mb-8">
           Visit our office.
         </h2>
 

@@ -15,6 +15,7 @@ import visualFox from '../../assets/logos/vs-fox-logo.png';
 import { LOGIN_URL, SIGNUP_URL } from "@/utils/contants";
 import { INV_FAQS, INV_RESOURCE_ITEMS } from "@/data/e-invoice-api-page-data";
 import EyebrowPill from "@/components/ui/EyebrowPill";
+import { ButtonLink } from "@/components/ui/Button";
 import ApiReferenceJump, { type FeaturedApiTag } from "./ApiReferenceJump";
 
 const STEPS_INV = [
@@ -149,30 +150,23 @@ export function FinalCTA({
                 </p>
 
                 <div className="flex justify-center gap-3 flex-wrap mb-8 mt-8">
-                    <a
+                    <ButtonLink
                         href={primaryButton.href}
                         onClick={primaryButton.onClick}
-                        className="inline-flex items-center gap-2 px-7 py-[13px] rounded-[10px] text-[14px] font-semibold border-0 cursor-pointer no-underline"
-                        style={{
-                            background: 'var(--dp-accent)',
-                            color: '#fff',
-                            boxShadow: '0 0 24px var(--dp-accent-glow), 0 4px 16px rgba(0,0,0,0.2)',
-                        }}
+                        variant="developerPrimary"
+                    // className="cursor-pointer rounded-[10px] px-7 py-[13px] text-[14px] font-semibold"
+                    // style={{ boxShadow: '0 0 24px var(--dp-accent-glow), 0 4px 16px rgba(0,0,0,0.2)' }}
                     >
                         {primaryButton.label} {primaryButton.icon}
-                    </a>
-                    <a
+                    </ButtonLink>
+                    <ButtonLink
                         href={secondaryButton.href}
                         onClick={secondaryButton.onClick}
-                        className="inline-flex items-center gap-2 px-7 py-[13px] rounded-[10px] text-[14px] font-semibold cursor-pointer no-underline"
-                        style={{
-                            background: 'var(--dp-surface-2)',
-                            border: '1px solid var(--dp-border-strong)',
-                            color: 'var(--dp-fg)',
-                        }}
+                        variant="ghost"
+                    // className="cursor-pointer rounded-[10px] px-7 py-[13px] text-[14px] font-semibold"
                     >
                         {secondaryButton.icon} {secondaryButton.label}
-                    </a>
+                    </ButtonLink>
                 </div>
 
                 <div className="mt-2 flex flex-wrap items-center justify-center gap-6 text-sm" style={{ color: 'var(--dp-fg-dim)' }}>

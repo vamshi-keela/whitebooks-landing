@@ -382,7 +382,7 @@ export function GstNumberSearch() {
           <div className="w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4">
             <div className="grid grid-cols-1 gap-12 lg:gap-16 items-start">
               <div>
-                <h2 className="font-display font-medium text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px] text-balance mt-3 mb-5">
+                <h2 className="font-display font-medium text-[clamp(32px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px] text-balance mt-3 mb-5">
                   What is <span className="text-[var(--brand)]">GSTIN?</span>
                 </h2>
                 <p className="text-[var(--muted-2)] leading-relaxed mb-4">
@@ -406,7 +406,7 @@ export function GstNumberSearch() {
           data-reveal
         >
           <div className="w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4">
-            <h2 className="font-display font-medium text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px] text-balance mt-3 mb-10">
+            <h2 className="font-display font-medium text-[clamp(32px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px] text-balance mt-3 mb-10">
               Five reasons to verify a <span className="text-[var(--brand)]">GST Number.</span>
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -458,7 +458,7 @@ export function GstNumberSearch() {
           data-reveal
         >
           <div className="w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4">
-            <h2 className="font-display font-medium text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px] text-balance mt-3 mb-8">
+            <h2 className="font-display font-medium text-[clamp(32px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px] text-balance mt-3 mb-8">
               Frequently asked questions.<span className="text-[var(--brand)]">questions.</span>
             </h2>
             <div className="max-w-[800px]">

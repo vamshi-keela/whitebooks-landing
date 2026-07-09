@@ -210,7 +210,7 @@ export function VideosPage() {
         <section className="relative py-[120px] max-[700px]:py-[72px] wb-reveal" data-reveal>
           <div className="w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4">
             <p className="text-[12px] font-medium tracking-[0.18em] uppercase text-[var(--muted)] mb-4">API integration demos</p>
-            <h2 className="font-display font-medium text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] max-w-[780px] text-balance">
+            <h2 className="font-display font-medium text-[clamp(32px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] max-w-[780px] text-balance">
               Three APIs. <span className="text-[var(--brand)]">Three complete walkthroughs.</span>
             </h2>
 

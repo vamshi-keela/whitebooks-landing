@@ -34,10 +34,10 @@ export default function SubHero({ eyebrow, title, sub, primaryCta, secondaryCta,
           <div>
             <EyebrowPill label={eyebrow} />
             <h1 className="font-[var(--font-display)] font-semibold leading-[1.05] tracking-[-0.025em] mb-0 max-w-[880px] text-balance"
-              style={{ fontSize: "clamp(32px, 4.5vw, 68px)" }}>
+              style={{ fontSize: "clamp(36px, 4vw, 101px)" }}>
               {title}
             </h1>
-            <p className="mt-[22px] mb-0 max-w-[620px] text-[17px] text-[var(--muted-2)] leading-[1.55] [&_strong]:text-[var(--text)] [&_strong]:font-medium max-md:max-w-full">
+            <p className="mt-[22px] mb-0 max-w-[620px] text-base md:text-lg text-[var(--muted-2)] leading-[1.55] [&_strong]:text-[var(--text)] [&_strong]:font-medium max-md:max-w-full">
               {sub}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
@@ -52,7 +52,7 @@ export default function SubHero({ eyebrow, title, sub, primaryCta, secondaryCta,
               )}
               {secondaryCta && (
                 <Button
-                  variant="developerGhost"
+                  variant="ghost"
                   className="border-2"
                   onClick={onSecondaryClick}
                 >

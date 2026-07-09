@@ -13,6 +13,8 @@
  * "https://whitebooks.in" (or add real routes) when wiring real destinations.
  */
 
+import { ReactNode } from "react";
+
 /** Prefix for legacy "More features" links. "" keeps the relative paths as-is. */
 export const FEATURE_BASE = "";
 
@@ -71,9 +73,13 @@ export interface ShowcaseCategory {
   tabs: ShowcaseTab[];
 }
 
-export const SHOWCASE_HEADER = {
+export const SHOWCASE_HEADER: { eyebrow: string; heading: ReactNode; subtitle: string } = {
   eyebrow: "Platform capabilities",
-  heading: "Everything your business needs in one place",
+  heading: (
+    <>
+      <span className="text-[var(--brand)]">Everything your business needs</span> in one place
+    </>
+  ),
   subtitle:
     "From invoices and GST to purchases, banking and reports — WhiteBooks keeps every part of your books connected.",
 };

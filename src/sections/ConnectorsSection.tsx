@@ -324,10 +324,10 @@ export function ConnectorsSection() {
 
         {/* Heading */}
         <div className="grid grid-cols-1 gap-3 items-start mb-7 sm:mb-9 md:grid-cols-[1.3fr_0.7fr] md:gap-10 md:mb-10 lg:gap-16 lg:mb-14">
-          <h2 className="font-serif font-semibold text-[clamp(24px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 text-balance">
+          <h2 className="font-serif font-semibold text-[clamp(32px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 text-balance">
             Enterprise-Ready <span className='text-[var(--brand)]'> Connectors for SAP, Oracle, Dynamics & Tally</span>
           </h2>
-          <p className="text-[14px] sm:text-[15px] md:text-[17px] text-[var(--fg-secondary)] leading-[1.6] m-0 md:max-w-[460px] md:justify-self-end">
+          <p className="text-base md:text-lg  text-[var(--fg-secondary)] leading-[1.6] m-0 md:max-w-[460px] md:justify-self-end">
             Pre-built, GSP-certified connectors turn SAP, Oracle, Microsoft Dynamics and Tally into a compliance engine — e-Invoicing, e-Way Bills, and GST filing, native to the system you already run.
           </p>
         </div>

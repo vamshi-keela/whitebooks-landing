@@ -9,7 +9,7 @@ import { WhyWhiteBooks } from '@/sections/WhyWhitebooks.tsx';
 import { ExploreShowcase } from '@/sections/ExploreShowcase';
 import { ProblemSection } from '@/sections/WbProblem';
 import { FinanceTeamsSection } from '@/sections/WbFinanaceTeams';
-import ClosingCTA from '@/components/ui/ClosingCTA';
+import { SubClose } from '@/components/subpage/SubClose';
 import { ForDevelopersSection } from '@/sections/WbDevelopers';
 import { AILayerSection } from '@/sections/WbAILayer';
 import { ProofSection } from '@/sections/WbProof';
@@ -177,13 +177,13 @@ function HomeRoute() {
         <ProofSection />
         {/* <KSASection /> */}
         <FAQSection />
-        <ClosingCTA
-          eyebrow="One platform"
-          eyebrowSubTitle="India + GCC"
-          title={`Everything India compliance.\n One platform.`}
-          body="GSP-licensed, AI-native, used by P&G, IBM, Razorpay, and 12,000+ more. Twenty minutes to see it run on your own data."
-          primary="Book a 20-min Demo"
-          secondary="Talk to sales: +91 90321 11788"
+        <SubClose
+          data={{
+            h2: <>Everything India compliance. <span className="text-[var(--brand)]">One platform.</span></>,
+            body: "GSP-licensed, AI-native, used by P&G, IBM, Razorpay, and 12,000+ more. Twenty minutes to see it run on your own data.",
+            primaryCta: { label: "Book a 20-min Demo", href: "#" },
+            secondaryCta: { label: "Talk to sales", href: "tel:+919032111788" },
+          }}
         />
       </main>
       <Footer />

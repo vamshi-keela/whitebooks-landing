@@ -6,10 +6,10 @@ export function FAQSection() {
       <div className="w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4">
         <div className="flex flex-col gap-5">
           <div>
-            <h2 className="font-serif font-semibold text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px] text-balance">
-              Frequently asked.
+            <h2 className="font-serif font-semibold text-[clamp(32px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px] text-balance">
+              Frequently asked <span className="text-[var(--brand)]">Questions.</span>
             </h2>
-            <p className="mt-[18px] text-[var(--fg-secondary)] text-[15px] leading-[1.6]">
+            <p className="mt-[18px] text-[var(--fg-secondary)] text-base md:text-lg leading-[1.6]">
               Signup to Explore the Features of WhiteBooks — A GST Software - A licensed GSP
             </p>
           </div>

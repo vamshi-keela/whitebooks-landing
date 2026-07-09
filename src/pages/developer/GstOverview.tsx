@@ -255,7 +255,7 @@ export function HeroSection({ title, description }: { title: string; description
               Get API Access <ArrowRight size={14} />
             </Button>
             <Button
-              variant="developerGhost"
+              variant="ghost"
               onClick={() => window.open('https://accounts.whitebooks.in/signup?type=Developer&subscrid=&inviteId', '_blank')}
             >
               Try in Sandbox <ArrowRight size={14} />
@@ -1118,6 +1118,26 @@ export function SandboxSection({ title, subTitle, setupSteps, showOTPBlock = tru
       <div className="max-w-[980px] mx-auto">
         <SectionHeading>Sandbox API</SectionHeading>
 
+        {/* ── OTP info tag ── */}
+        {showOTPBlock && <div
+          className="mt-4 flex items-center gap-3 px-4 py-3 rounded-2xl"
+          style={{
+            background: 'rgba(251,191,36,0.07)',
+            border: '1px solid rgba(251,191,36,0.22)',
+          }}
+        >
+          <div
+            className="w-6 h-6 rounded-md flex items-center justify-center flex-shrink-0 mt-0.5"
+            style={{ background: 'rgba(251,191,36,0.1)', border: '1px solid rgba(251,191,36,0.2)' }}
+          >
+            <AlertCircle size={13} color='var(--dp-otp-fg)' />
+          </div>
+          <p className="m-0 text-[13px] leading-[1.6]" style={{ color: 'var(--dp-fg-muted)' }}>
+            <span className="font-semibold" style={{ color: 'var(--dp-otp-fg)' }}>Default OTP&nbsp;</span>
+            for GSTR1 authentication in sandbox is&nbsp;
+            <span style={{ color: 'var(--dp-otp-fg)' }}>575757</span>
+          </p>
+        </div>}
         {/* ── Sandbox API Credential Setup ────────────────────────────── */}
         <motion.div
           initial="hidden"
@@ -1292,26 +1312,6 @@ export function SandboxSection({ title, subTitle, setupSteps, showOTPBlock = tru
           </div>
         </motion.div>
 
-        {/* ── OTP info tag ── */}
-        {showOTPBlock && <div
-          className="mt-4 flex items-center gap-3 px-4 py-3 rounded-2xl"
-          style={{
-            background: 'rgba(251,191,36,0.05)',
-            border: '1px solid rgba(251,191,36,0.18)',
-          }}
-        >
-          <div
-            className="w-6 h-6 rounded-md flex items-center justify-center flex-shrink-0 mt-0.5"
-            style={{ background: 'rgba(251,191,36,0.1)', border: '1px solid rgba(251,191,36,0.2)' }}
-          >
-            <AlertCircle size={13} color="#fbbf24" />
-          </div>
-          <p className="m-0 text-[13px] leading-[1.6]" style={{ color: 'var(--dp-fg-muted)' }}>
-            <span className="font-semibold" style={{ color: '#fbbf24' }}>Default OTP&nbsp;</span>
-            for GSTR1 authentication in sandbox is&nbsp;
-            <span style={{ color: '#fbbf24' }}>575757</span>
-          </p>
-        </div>}
 
       </div>
     </section>

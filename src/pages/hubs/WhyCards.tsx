@@ -140,7 +140,7 @@ export default function WhyCards() {
   return (
     <section ref={ref} data-reveal className="max-sm:py-[64px]">
       <div className="w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4">
-        <h2 className="font-display font-semibold text-[clamp(26px,3.5vw,40px)] tracking-[-0.02em] leading-[1.1] max-w-[760px] text-[var(--text)]">
+        <h2 className="font-display font-semibold text-[clamp(32px,3.8vw,44px)] tracking-[-0.02em] leading-[1.1] max-w-[760px] text-[var(--text)]">
           The case for buying compliance{' '}
           <span className="text-[var(--brand)]">from one company.</span>
         </h2>

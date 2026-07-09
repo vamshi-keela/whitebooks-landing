@@ -158,10 +158,10 @@ export function ProofSection() {
         {/* Header */}
         <div className="flex items-end justify-between mb-14 max-sm:flex-col max-sm:items-start max-sm:gap-6">
           <div>
-            <h2 className="font-display text-[clamp(28px,3vw,42px)] leading-[1.2] tracking-[-0.02em] text-primary mb-3">
+            <h2 className="font-display text-[clamp(32px,3.8vw,44px)] leading-[1.2] tracking-[-0.02em] text-primary mb-3">
               What Our <span className='text-[var(--brand)]'>Customers Say</span>
             </h2>
-            <p className="text-[15.5px] text-secondary max-w-[400px] leading-[1.6]">
+            <p className="text-base md:text-lg text-secondary max-w-[400px] leading-[1.6]">
               Trusted by finance controllers and IT heads across the country.
             </p>
           </div>

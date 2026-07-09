@@ -6,14 +6,14 @@ export function AILayerSection() {
       />
       <div className="w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4 relative z-[1]">
         <div className="grid grid-cols-[1.3fr_0.7fr] gap-16 items-end mb-14 max-[900px]:grid-cols-1 max-[900px]:gap-6 max-[900px]:mb-10">
-          <h2 className="font-serif font-semibold text-[clamp(34px,5vw,64px)] leading-[1.04] tracking-[-0.025em] m-0 text-balance">
+          <h2 className="font-serif font-semibold text-[clamp(32px,4vw,64px)] leading-[1.04] tracking-[-0.025em] m-0 text-balance">
             AI that{' '}
             <em className="text-[var(--brand)]">
               reconciles, predicts, and explains
             </em>
             {' '}— not just a chatbot in the corner.
           </h2>
-          <p className="text-[18px] text-[var(--fg-secondary)] leading-[1.55] max-w-[460px] m-0 justify-self-end max-[900px]:justify-self-start max-[900px]:max-w-full">
+          <p className="text-base md:text-lg text-[var(--fg-secondary)] leading-[1.55] max-w-[460px] m-0 justify-self-end max-[900px]:justify-self-start max-[900px]:max-w-full">
             WhiteBooks uses purpose-built models for four jobs that humans have been doing manually since GST launched in 2017.
           </p>
         </div>

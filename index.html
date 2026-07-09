@@ -23,13 +23,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.png" />
 
-  <!-- ── Default title + description (overridden per-page by react-helmet-async) ── -->
+  <!-- @seo-fallback:start — everything until the end marker is stripped from
+       prerendered pages, where react-helmet-async supplies the real tags. -->
   <title>Whitebooks — Compliance Infrastructure for India and KSA</title>
   <meta name="description"
     content="GSP-licensed compliance platform with software and APIs for GST, e-invoicing, e-way bills, and accounting. Trusted by P&G, IBM, Razorpay, and 12,000+ businesses across India." />
   <link rel="canonical" href="https://whitebooks.in/" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.png" />
 
   <!-- ── SEO base signals ────────────────────────────────────────────────────── -->
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
@@ -38,7 +39,6 @@
     content="GST software India, e-invoice software, e-way bill software, accounting software India, GSP GSTN, GST Suvidha Provider, KSA e-invoicing ZATCA" />
   <meta name="language" content="English" />
   <meta name="theme-color" content="#d33568" />
-  <meta name="color-scheme" content="dark light" />
 
   <!-- ── AI search optimization (fallback — overridden per page) ─────────────── -->
   <meta name="ai-summary"
@@ -66,6 +66,9 @@
   <meta name="twitter:description"
     content="Software and APIs for GST, e-invoicing, e-way bills. GSP-licensed. Trusted by P&G, IBM, Razorpay." />
   <meta name="twitter:image" content="https://whitebooks.in/og-image.png" />
+  <!-- @seo-fallback:end -->
+
+  <meta name="color-scheme" content="dark light" />
 
   <!-- ── Fonts ───────────────────────────────────────────────────────────────── -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />

@@ -44,11 +44,11 @@ export function ProductMap({ active }: ProductMapProps) {
 
         {/* Heading */}
         <div className="text-center">
-          <h2 className="font-display font-semibold text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] max-w-[760px] mx-auto [text-wrap:balance]">
+          <h2 className="font-display font-semibold text-[clamp(32px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] max-w-[760px] mx-auto [text-wrap:balance]">
             Your end-to-end compliance lifecycle{" "}
             <span className="text-brand">in one place.</span>
           </h2>
-          <p className="mt-4 mx-auto text-[16.5px] text-secondary max-w-[640px] leading-[1.55]">
+          <p className="mt-4 mx-auto text-base md:text-lg text-secondary max-w-[640px] leading-[1.55]">
             Five products. One core platform. One contract, one workspace, one ledger of record. So every workflow from book-keeping to dispatch sees the same data.
           </p>
         </div>

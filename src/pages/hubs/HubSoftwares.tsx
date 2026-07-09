@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Icon from '@/components/icons/Icon';
 import { Button, ButtonLink } from '@/components/ui/Button';
 import { Header, Footer, FluidBackground, Breadcrumb } from '@/layouts/SiteShell';
-import { PlainSection, IntegrationStrip } from '@/layouts/SubpageShell';
+import { PlainSection } from '@/layouts/SubpageShell';
 import { useReveal } from '@/hooks/useReveal';
 import PhotoRoom from "@/assets/Photoroom.png";
 import EyebrowPill from '@/components/ui/EyebrowPill';
@@ -11,7 +11,9 @@ import SharedAILayer from './SharedAILayer';
 import { BookDemoModal } from '@/components/modals/BookDemoModal';
 import DpIcon from '../developer/DpIcon';
 import { SubClose } from '@/components/subpage/SubClose';
+import { IntegrationSection } from '@/components/subpage/IntegrationSection';
 import TrustStats from '@/sections/TrustStats';
+import { useNavigate } from 'react-router-dom';
 
 interface SoftwareProduct {
   icon: React.ReactNode;
@@ -112,6 +114,7 @@ function ProductRow({ p, index }: ProductRowProps) {
 const wrap = "w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4";
 
 export function HubSoftwares() {
+  const navigate = useNavigate();
   const [demoOpen, setDemoOpen] = useState(false);
 
   useReveal();
@@ -144,7 +147,7 @@ export function HubSoftwares() {
                 <EyebrowPill label={'WhiteBooks Softwares'} />
                 <h1
                   className="font-display font-semibold tracking-[-0.02em] leading-[1.04]"
-                  style={{ fontSize: "clamp(32px, 4.5vw, 68px)" }}
+                  style={{ fontSize: "clamp(36px, 4vw, 101px)" }}
                 >
                   Five compliance products. <span className="text-[var(--brand)]">Shared data. One source of truth.</span>
                 </h1>
@@ -173,10 +176,10 @@ export function HubSoftwares() {
           {/* Five products (stacked rows) */}
           <section className="relative py-[120px] max-[700px]:py-[72px]" data-reveal>
             <div className={wrap}>
-              <h2 className="font-display font-semibold text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px]">
+              <h2 className="font-display font-semibold text-[clamp(32px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px]">
                 Pick what you need. <span className="text-[var(--brand)]">They work together when you add more.</span>
               </h2>
-              <p className="mt-4 text-[16.5px] text-[var(--muted-2)] max-w-[640px] leading-[1.55]">
+              <p className="mt-4 text-base md:text-lg text-[var(--muted-2)] max-w-[640px] leading-[1.55]">
                 Each product is licensed independently. Bundle discounts apply automatically when you take two or more.
               </p>
               <div className="mt-12 flex flex-col border-t border-[var(--line)]">
@@ -188,16 +191,19 @@ export function HubSoftwares() {
           <WhyCards />
 
           {/* Integrations */}
-          <PlainSection
-            label="Integrations"
-            heading="Connect to the tools your finance team already uses."
-            sub="WhiteBooks Softwares integrate with 40+ ERPs and accounting systems via native connectors. Push data in, pull reports out, file to GSTN — no CSV uploads in between."
-          >
-            <IntegrationStrip logos={[
-              "SAP S/4HANA", "SAP ECC", "Tally Prime", "Oracle NetSuite", "Microsoft Dynamics 365",
-              "Zoho Books", "Odoo", "Sage", "QuickBooks", "Marg", "Busy", "30+ more",
-            ]} />
-          </PlainSection>
+          <IntegrationSection
+            data={{
+              eyebrow: "40+ ERP Integrations",
+              heading: "SAP, Tally, and 40+ ERPs. Zero CSV uploads.",
+              body:
+                "Push transactional data from your ERP to WhiteBooks in real time. Native connectors built by WhiteBooks engineers, maintained against every ERP version upgrade.",
+              logos: [
+                "SAP S/4HANA", "SAP ECC", "Tally Prime", "Oracle NetSuite", "Microsoft Dynamics 365",
+                "Odoo", "Marg", "30+ more",
+              ],
+              cta: { label: "See all integrations" },
+            }}
+          />
 
           <SharedAILayer
             h2={<>Every WhiteBooks software ships with the same AI engine.</>}
@@ -208,19 +214,19 @@ export function HubSoftwares() {
 
           {/* Pricing teaser */}
           <PlainSection
-            label="Pricing"
+            label=""
             heading="Buy what you need. Bundle pricing when you need more."
             sub="Each WhiteBooks software is priced independently — start with one, add others as you scale. Bundle discounts apply automatically when you license two or more softwares on the same contract."
           >
             <div className="mt-6">
-              <ButtonLink href="#" variant="ghost" arrow>See full pricing</ButtonLink>
+              <ButtonLink onClick={() => navigate('about/pricing')} arrow>See full pricing</ButtonLink>
             </div>
           </PlainSection>
 
           {/* Closing */}
           <SubClose
             data={{
-              h2: "Built as a suite. Bought as you need it.",
+              h2: <>Built as a suite. <span className="text-[var(--brand)]">Bought as you need it.</span></>,
               body: "Most finance teams start with GST Software and add e-Invoice or Accounting in the following quarter. Some start with KSA. Talk to us about where your stack is today.",
               primaryCta: { label: "Book a 20-min Demo", href: "#" },
               secondaryCta: { label: "Talk to sales", href: "tel:+919032111788" }

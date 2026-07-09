@@ -249,7 +249,7 @@ export function SupportPage() {
         {/* Contact info */}
         <section className="relative pb-[120px] max-sm:py-[72px] transition-[opacity,transform] duration-[600ms] ease-in-out" data-reveal>
           <div className="max-w-[1240px] mx-auto px-8 max-sm:px-5">
-            <h2 className="font-display font-medium text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] text-[var(--text)]">
+            <h2 className="font-display font-medium text-[clamp(32px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] text-[var(--text)]">
               Reach our team <span className="text-[var(--brand)]">directly.</span>
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-10 max-w-[860px]">

@@ -16,72 +16,72 @@ export default function EnvironmentBar({ environments, selected, onChange }: Pro
   return (
     <div className="bg-[var(--dp-nav-bg)] border-b border-[var(--dp-border)] sticky top-[var(--dp-nav-h)] z-40 backdrop-blur-xl">
       <div className="max-w-[1440px] mx-auto flex flex-wrap items-center gap-2 sm:gap-3 px-4 sm:px-6 py-[7px]">
-      <Globe size={13} color="var(--dp-fg-faint)" className="shrink-0" />
+        <Globe size={13} color="var(--dp-fg-faint)" className="shrink-0" />
 
-      <span className="text-xs text-[var(--dp-fg-dim)] font-body shrink-0">
-        Environment:
-      </span>
+        <span className="text-xs text-[var(--dp-fg-dim)] font-body shrink-0">
+          Environment:
+        </span>
 
-      {/* Segmented control */}
-      <div className="flex p-[3px] gap-0.5 rounded-lg bg-[var(--dp-surface-2)] border border-[var(--dp-border)]">
-        {environments.map(env => {
-          const isSelected = env.key === selected.key;
-          const isSandbox = env.color === 'blue';
-          const accent = isSandbox ? 'var(--dp-info)' : 'var(--dp-success)';
-          return (
-            <button
-              key={env.key}
-              onClick={() => onChange(env)}
-              className="flex items-center gap-1.5 rounded-lg px-3 py-[3px] text-xs font-body cursor-pointer transition-all duration-150 border-0"
-              style={{
-                background: isSelected ? 'var(--dp-bg)' : 'transparent',
-                boxShadow: isSelected ? '0 1px 3px rgba(0,0,0,0.18)' : 'none',
-                color: isSelected ? 'var(--dp-fg)' : 'var(--dp-fg-dim)',
-                fontWeight: isSelected ? 600 : 400,
-              }}
-            >
-              <span
-                className="w-1.5 h-1.5 rounded-full shrink-0"
+        {/* Segmented control */}
+        <div className="flex p-[3px] gap-0.5 rounded-lg bg-[var(--dp-surface-2)] border border-[var(--dp-border)]">
+          {environments.map(env => {
+            const isSelected = env.key === selected.key;
+            const isSandbox = env.color === 'blue';
+            const accent = isSandbox ? 'var(--dp-info)' : 'var(--dp-success)';
+            return (
+              <button
+                key={env.key}
+                onClick={() => onChange(env)}
+                className="flex items-center gap-1.5 rounded-lg px-3 py-[3px] text-xs font-body cursor-pointer transition-all duration-150 border-0"
                 style={{
-                  background: isSelected ? accent : 'var(--dp-fg-faint)',
-                  boxShadow: isSelected ? `0 0 6px ${accent}` : 'none',
+                  background: isSelected ? 'var(--dp-bg)' : 'transparent',
+                  boxShadow: isSelected ? '0 1px 3px rgba(0,0,0,0.18)' : 'none',
+                  color: isSelected ? 'var(--dp-fg)' : 'var(--dp-fg-dim)',
+                  fontWeight: isSelected ? 600 : 400,
                 }}
-              />
-              {env.name}
-            </button>
-          );
-        })}
-      </div>
+              >
+                <span
+                  className="w-1.5 h-1.5 rounded-full shrink-0"
+                  style={{
+                    background: isSelected ? accent : 'var(--dp-fg-faint)',
+                    boxShadow: isSelected ? `0 0 6px ${accent}` : 'none',
+                  }}
+                />
+                {env.name}
+              </button>
+            );
+          })}
+        </div>
 
-      {/* <code className="hidden sm:inline-block font-[family-name:var(--dp-font-mono)] text-[12px] text-[var(--dp-fg-dim)] bg-[var(--dp-surface)] border border-[var(--dp-border)] rounded-md px-2 py-0.5">
+        {/* <code className="hidden sm:inline-block font-[family-name:var(--dp-font-mono)] text-[12px] text-[var(--dp-fg-dim)] bg-[var(--dp-surface)] border border-[var(--dp-border)] rounded-md px-2 py-0.5">
         {selected.baseUrl}
       </code> */}
-      <div className="hidden sm:inline-block items-center min-w-0 bg-[var(--dp-surface-2)] border border-[var(--dp-border-strong)] rounded-[10px] pl-2.5 pr-2 py-0.5">
-        <code className="py-0.5 font-[family-name:var(--dp-font-mono)] text-[12.5px] sm:text-[13px] flex-1 min-w-0 overflow-x-auto leading-none self-center flex items-center flex-nowrap gap-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          <span className="text-[var(--dp-fg-dim)] whitespace-nowrap shrink-0">{selected.baseUrl}</span>
-        </code>
-      </div>
-      <div className="shrink-0">
-        <CopyButton text={selected.baseUrl} size={12} label={false} />
-      </div>
-
-      {/* Sandbox-only default OTP — disappears in production where it is invalid */}
-      {selected.defaultOtp && (
-        <div
-          className="flex items-center gap-1.5 min-w-0 rounded-[10px] pl-2 pr-1 py-0.5"
-          style={{ background: 'rgba(251,191,36,0.07)', border: '1px solid rgba(251,191,36,0.22)' }}
-          title="Default OTP for OTP / EVC authentication in sandbox"
-        >
-          <KeyRound size={12} color="var(--dp-otp-fg)" className="shrink-0" />
-          <span className="text-[11px] font-body shrink-0" style={{ color: 'var(--dp-otp-fg)' }}>
-            Default OTP
-          </span>
-          <code className="font-[family-name:var(--dp-font-mono)] text-[12.5px] sm:text-[13px] shrink-0" style={{ color: 'var(--dp-otp-fg)' }}>
-            {selected.defaultOtp}
+        <div className="hidden sm:inline-block items-center min-w-0 bg-[var(--dp-surface-2)] border border-[var(--dp-border-strong)] rounded-[10px] pl-2.5 pr-2 py-0.5">
+          <code className="py-0.5 font-[family-name:var(--dp-font-mono)] text-[12.5px] sm:text-[13px] flex-1 min-w-0 overflow-x-auto leading-none self-center flex items-center flex-nowrap gap-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <span className="text-[var(--dp-fg-dim)] whitespace-nowrap shrink-0">{selected.baseUrl}</span>
           </code>
-          <CopyButton text={selected.defaultOtp} size={12} label={false} />
         </div>
-      )}
+        <div className="shrink-0">
+          <CopyButton text={selected.baseUrl} size={12} label={false} />
+        </div>
+
+        {/* Sandbox-only default OTP — disappears in production where it is invalid */}
+        {selected.defaultOtp && (
+          <div
+            className="flex items-center gap-1.5 min-w-0 rounded-[10px] pl-2 pr-1 py-0.5"
+            style={{ background: 'rgba(251,191,36,0.07)', border: '1px solid rgba(251,191,36,0.22)' }}
+            title="Default OTP for OTP / EVC authentication in sandbox"
+          >
+            <KeyRound size={12} color="var(--dp-otp-fg)" className="shrink-0" />
+            <span className="text-[11px] font-body shrink-0" style={{ color: 'var(--dp-otp-fg)' }}>
+              Default OTP
+            </span>
+            <code className="font-[family-name:var(--dp-font-mono)] text-[12.5px] sm:text-[13px] shrink-0" style={{ color: 'var(--dp-otp-fg)' }}>
+              {selected.defaultOtp}
+            </code>
+            <CopyButton text={selected.defaultOtp} size={12} label={false} />
+          </div>
+        )}
 
       </div>
     </div>

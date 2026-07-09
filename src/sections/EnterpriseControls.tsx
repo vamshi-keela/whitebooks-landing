@@ -182,11 +182,11 @@ export function EnterpriseControls() {
     <section data-reveal className="relative overflow-hidden bg-[var(--bg)] py-16 sm:py-20 lg:py-24">
       <div className="relative mx-auto w-full max-w-[1280px] px-4 sm:px-6 md:px-8 lg:px-10 xl:px-16">
         <div className="max-w-[760px]">
-          <h2 className="m-0 font-display text-[clamp(30px,4.4vw,48px)] font-semibold leading-[1.12] tracking-[-0.02em] text-[var(--fg-primary)]">
+          <h2 className="m-0 font-display text-[clamp(32px,3.8vw,44px)] font-semibold leading-[1.12] tracking-[-0.02em] text-[var(--fg-primary)]">
             Built for <span style={{ color: ACCENTS.brand.color }}>teams.</span> Ready for{" "}
             <span style={{ color: ACCENTS.indigo.color }}>scale.</span>
           </h2>
-          <p className="m-0 mt-5 max-w-[600px] text-[16px] leading-[1.65] text-[var(--fg-secondary)] sm:text-[17px]">
+          <p className="m-0 mt-5 max-w-[600px] text-base md:text-lg leading-[1.65] text-[var(--fg-secondary)]">
             {SECTION_SUBTITLE}
           </p>
         </div>

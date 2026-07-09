@@ -177,12 +177,12 @@ function SectionHead({ num, label, title, body }: { num: string; label: string; 
     <Reveal className="grid grid-cols-1 gap-3 items-end mb-12 max-md:mb-9 md:grid-cols-[1.3fr_0.7fr] md:gap-16">
       <div>
         <SectionLabel num={num}>{label}</SectionLabel>
-        <h2 className="mt-5 font-serif font-semibold text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[820px] text-balance">
+        <h2 className="mt-5 font-serif font-semibold text-[clamp(32px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[820px] text-balance">
           {title}
         </h2>
       </div>
       {body && (
-        <p className="text-[15px] md:text-[17px] text-[var(--fg-secondary)] leading-[1.6] m-0 md:max-w-[460px] md:justify-self-end">
+        <p className="text-base md:text-lg text-[var(--fg-secondary)] leading-[1.6] m-0 md:max-w-[460px] md:justify-self-end">
           {body}
         </p>
       )}
@@ -803,8 +803,8 @@ export function IndustriesSection() {
     <section className={SECTION}>
       <div className={WRAP}>
         <SectionHead
-          num="08"
-          label="Industries"
+          num=""
+          label=""
           title="APIs for every compliance-driven industry."
           body="Real production deployments across logistics, retail, manufacturing, fintech, pharma, e-commerce, SaaS, CA firms, and ERP providers."
         />
@@ -1193,10 +1193,10 @@ function FaqSection() {
         <Reveal className="flex flex-col gap-5">
           <div>
             <SectionLabel num="16">FAQ</SectionLabel>
-            <h2 className="mt-5 font-serif font-semibold text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px] text-balance">
+            <h2 className="mt-5 font-serif font-semibold text-[clamp(32px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px] text-balance">
               Frequently asked.
             </h2>
-            <p className="mt-[18px] text-[var(--fg-secondary)] text-[15px] leading-[1.6]">
+            <p className="mt-[18px] text-[var(--fg-secondary)] text-base md:text-lg leading-[1.6]">
               Answers to the most common questions about the WhiteBooks API Suite.
             </p>
           </div>

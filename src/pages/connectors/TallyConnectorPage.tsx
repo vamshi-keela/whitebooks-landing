@@ -19,6 +19,7 @@ import {
 import { useReveal } from "@/hooks/useReveal";
 import type { FeatureBlock, TallyConnector } from "./connectors.data";
 import { CtaButton, EASE, Eyebrow, FaqAccordion, Reveal, Section, SectionHeader } from "./_sections";
+import { FAQSection } from "@/components/subpage/FAQSection";
 
 const ACCENT = "var(--brand)";
 const STEP_ICONS = [Download, FileCheck2, MousePointerClick];
@@ -215,16 +216,6 @@ function Params({ data }: { data: NonNullable<TallyConnector["params"]> }) {
   );
 }
 
-/* ── FAQ ──────────────────────────────────────────────────────────────────── */
-function Faq({ data }: { data: TallyConnector["faq"] }) {
-  return (
-    <Section>
-      <SectionHeader eyebrow="FAQ" heading={data.heading} />
-      <FaqAccordion items={data.items} />
-    </Section>
-  );
-}
-
 /* ── Closing ──────────────────────────────────────────────────────────────── */
 function Closing({ data }: { data: TallyConnector["closing"] }) {
   return (
@@ -280,7 +271,8 @@ export function TallyConnectorPage({ data }: { data: TallyConnector }) {
         <Setup data={data.setup} />
         <FeatureBlocks features={data.features} />
         {data.params && <Params data={data.params} />}
-        <Faq data={data.faq} />
+
+        <FAQSection data={data.faq} />
         <Closing data={data.closing} />
       </main>
       <Footer />

@@ -17,6 +17,13 @@ export const GUIDE_NAV: GuideSection[] = [
     ],
   },
   {
+    heading: 'Essentials',
+    items: [
+      { label: 'Authentication', path: '/developer/authentication', icon: 'key' },
+      { label: 'Errors & Status Codes', path: '/developer/errors', icon: 'warning' },
+    ],
+  },
+  {
     heading: 'API Reference',
     items: [
       { label: 'Overview', path: '/developer/api-reference', icon: 'code' },
@@ -24,13 +31,6 @@ export const GUIDE_NAV: GuideSection[] = [
       { label: 'e-Invoice API', path: '/developer/e-invoice-api', icon: 'scroll' },
       { label: 'e-Way Bill API', path: '/developer/eway-bill-api', icon: 'truck' },
     ]
-  },
-  {
-    heading: 'Essentials',
-    items: [
-      { label: 'Authentication', path: '/developer/authentication', icon: 'key' },
-      { label: 'Errors & Status Codes', path: '/developer/errors', icon: 'warning' },
-    ],
   },
 ];
 

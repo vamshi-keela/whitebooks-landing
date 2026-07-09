@@ -9,8 +9,9 @@ const wrap = "w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-s
 export function FAQSection({ data }: Props) {
   return (
     <section className={`${wrap} relative py-[72px] sm:py-[120px]`}>
-      <h2 className="font-display font-medium text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] max-w-[780px] text-balance m-0 text-[var(--fg-primary)]">
-        {data.heading || "Frequently asked questions."}
+
+      <h2 className="font-serif font-semibold text-[clamp(32px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px] text-balance">
+        Frequently asked <span className="text-[var(--brand)]">Questions.</span>
       </h2>
       <div className="mt-10 max-w-[880px]">
         <FAQ items={data.items} />

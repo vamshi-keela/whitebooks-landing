@@ -34,6 +34,7 @@ import {
   type InvoiceTemplate,
   type TemplateId,
 } from "./invoice-templates.data";
+import EyebrowPill from "@/components/ui/EyebrowPill";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 const ACCENT = "#ff5a8e";
@@ -42,14 +43,16 @@ const ACCENT = "#ff5a8e";
 function SectionHeader() {
   return (
     <div className="mx-auto flex max-w-[760px] flex-col items-center gap-4 text-center">
-      <span className="inline-flex items-center gap-2 rounded-full border border-[var(--hairline-strong)] bg-[color-mix(in_srgb,var(--fg-primary)_5%,transparent)] px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--fg-secondary)]">
+      {/* <span className="inline-flex items-center gap-2 rounded-full border border-[var(--hairline-strong)] bg-[color-mix(in_srgb,var(--fg-primary)_5%,transparent)] px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--fg-secondary)]">
         <span
           className="h-1.5 w-1.5 rounded-full"
           style={{ background: ACCENT, boxShadow: `0 0 8px ${ACCENT}b3` }}
         />
         {SECTION_HEADER.eyebrow}
-      </span>
-      <h2 className="m-0 font-display text-[clamp(28px,4vw,44px)] font-semibold leading-[1.12] tracking-[-0.02em] text-[var(--fg-primary)] text-balance">
+      </span> */}
+      <EyebrowPill label={SECTION_HEADER.eyebrow} textSize='text-[0.75rem]'>
+      </EyebrowPill>
+      <h2 className="m-0 font-display text-[clamp(32px,3.8vw,44px)] font-semibold leading-[1.12] tracking-[-0.02em] text-[var(--fg-primary)] text-balance">
         {SECTION_HEADER.heading}
       </h2>
       <p className="m-0 max-w-[560px] text-[15px] leading-[1.55] text-[var(--fg-secondary)] sm:text-[16px]">

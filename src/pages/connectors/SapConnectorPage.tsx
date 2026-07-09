@@ -47,6 +47,7 @@ import { cn } from "@/lib/cn";
 import type { SapConnector } from "./connectors.data";
 import { CtaButton, EASE, Eyebrow, FaqAccordion, Reveal, Section, SectionHeader, StatStrip } from "./_sections";
 import { BeforeAfterStory } from "./BeforeAfterStory";
+import { FAQSection } from "@/components/subpage/FAQSection";
 
 const ACCENT = "var(--brand)";
 
@@ -451,15 +452,6 @@ function Why({ data }: { data: SapConnector["why"] }) {
   );
 }
 
-/* ── FAQ ──────────────────────────────────────────────────────────────────── */
-function Faq({ data }: { data: SapConnector["faq"] }) {
-  return (
-    <Section>
-      <SectionHeader eyebrow="FAQ" heading={data.heading} />
-      <FaqAccordion items={data.items} />
-    </Section>
-  );
-}
 
 /* ── Closing CTA ──────────────────────────────────────────────────────────── */
 function Closing({ data }: { data: SapConnector["closing"] }) {
@@ -533,7 +525,7 @@ export function SapConnectorPage({ data }: { data: SapConnector }) {
         <Developer data={data.developer} />
         <Proof data={data.proof} />
         <Why data={data.why} />
-        <Faq data={data.faq} />
+        <FAQSection data={data.faq} />
         <Closing data={data.closing} />
       </main>
       <Footer />

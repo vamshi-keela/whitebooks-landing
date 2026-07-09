@@ -3,10 +3,10 @@ export function FinanceTeamsSection() {
         <section className="relative border-b border-[var(--hairline)] py-24 max-md:py-16 max-sm:py-12">
             <div className="w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4">
                 <div className="grid grid-cols-[1.3fr_0.7fr] gap-16 items-end mb-14 max-lg:gap-10 max-md:grid-cols-1 max-md:gap-6 max-md:mb-10">
-                    <h2 className="font-serif font-semibold text-[clamp(28px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px] text-balance">
+                    <h2 className="font-serif font-semibold text-[clamp(32px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 max-w-[780px] text-balance">
                         <span className="text-[var(--brand)]">Built for finance teams running</span><br />₹50Cr to ₹5,000Cr in turnover.
                     </h2>
-                    <p className="text-[17px] max-sm:text-[15px] text-[var(--fg-secondary)] leading-[1.6] m-0 max-w-[460px] justify-self-end max-md:justify-self-start max-md:max-w-full">
+                    <p className="text-base md:text-lg text-[var(--fg-secondary)] leading-[1.6] m-0 max-w-[460px] justify-self-end max-md:justify-self-start max-md:max-w-full">
                         Direct SAP and Tally connectors. Zero CSV uploads. Your ERP stays the source of truth — WhiteBooks handles the rest.
                     </p>
                 </div>

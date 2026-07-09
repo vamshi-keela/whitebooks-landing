@@ -21,20 +21,25 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const distDir = path.resolve(__dirname, '../dist');
 const templatePath = path.resolve(distDir, 'index.html');
 
-const ROUTES = [
-  '/',
-  '/softwares',
-  '/softwares/accounting',
-  '/softwares/gst',
-  '/softwares/e-invoice',
-  '/softwares/e-way-bill',
-  '/softwares/ksa',
-  '/apis',
-  '/apis/gst',
-  '/apis/e-invoice',
-  '/apis/e-way-bill',
-  '/apis/ksa',
-  '/developer',
+// `url` is rendered; `out` (when set) is where the file is written.
+// '/developer' is a client-side redirect to '/developer/overview', so both
+// URLs get the overview content — its canonical tag points crawlers to
+// '/developer/overview' as the real page.
+const ROUTES: { url: string; out?: string }[] = [
+  { url: '/' },
+  { url: '/softwares' },
+  { url: '/softwares/accounting' },
+  { url: '/softwares/gst' },
+  { url: '/softwares/e-invoice' },
+  { url: '/softwares/e-way-bill' },
+  { url: '/softwares/ksa' },
+  { url: '/apis' },
+  { url: '/apis/gst' },
+  { url: '/apis/e-invoice' },
+  { url: '/apis/e-way-bill' },
+  { url: '/apis/ksa' },
+  { url: '/developer/overview' },
+  { url: '/developer/overview', out: '/developer' },
 ];
 
 async function prerender() {
@@ -61,13 +66,17 @@ async function prerender() {
 
   let successCount = 0;
 
-  for (const route of ROUTES) {
+  for (const { url, out } of ROUTES) {
     try {
-      const { html, helmetData } = render(route);
+      const route = out ?? url;
+      const { html, helmetData } = render(url);
       const helmet = helmetData.context?.helmet ?? {};
 
-      // Inject Helmet-managed head tags and rendered body into the template
+      // Strip the template's fallback SEO tags (title/description/canonical/OG/…)
+      // so the Helmet-managed route-specific tags below are the only copies —
+      // duplicates confuse crawlers, and a stale homepage canonical is harmful.
       let output = template
+        .replace(/[ \t]*<!-- @seo-fallback:start[\s\S]*?@seo-fallback:end -->\n?/, '')
         .replace('</head>', `${helmet.title?.toString() ?? ''}\n${helmet.meta?.toString() ?? ''}\n${helmet.link?.toString() ?? ''}\n${helmet.script?.toString() ?? ''}\n</head>`)
         .replace('<div id="root"></div>', `<div id="root">${html}</div>`);
 
@@ -81,10 +90,10 @@ async function prerender() {
       }
 
       fs.writeFileSync(outPath, output, 'utf-8');
-      console.log(`  ✓ ${route} → dist/${routePath}`);
+      console.log(`  ✓ ${url} → dist/${routePath}`);
       successCount++;
     } catch (err) {
-      console.warn(`  ✗ ${route} — ${(err as Error).message}`);
+      console.warn(`  ✗ ${url} — ${(err as Error).message}`);
     }
   }
 

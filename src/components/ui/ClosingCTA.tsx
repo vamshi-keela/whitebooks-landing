@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, ButtonLink } from "./Button";
 import { EyebrowPill } from "./EyebrowPill";
 import { BookDemoModal } from "../modals/BookDemoModal";
+import { Link } from "react-router-dom";
 
 interface ClosingCTAProps {
   eyebrow?: string;
@@ -47,11 +48,11 @@ export function ClosingCTA({
           {eyebrow && (
             <EyebrowPill label={eyebrow} subtitle={eyebrowSubTitle} />
           )}
-          <h2 className="[font-family:var(--font-serif)] font-semibold text-[clamp(34px,5vw,64px)] leading-[1.04] tracking-[-0.025em] m-0 [text-wrap:balance] mt-[18px]">
+          <h2 className="[font-family:var(--font-serif)] font-semibold text-[clamp(32px,3.8vw,64px)] leading-[1.04] tracking-[-0.025em] m-0 [text-wrap:balance] mt-[18px]">
             {title}
           </h2>
           {body && (
-            <p className="text-[18px] text-[var(--fg-secondary)] leading-[1.55] max-w-[600px] m-0 mt-[22px] mx-auto">
+            <p className="text-base md:text-lg text-[var(--fg-secondary)] leading-[1.55] max-w-[600px] m-0 mt-[22px] mx-auto">
               {body}
             </p>
           )}
@@ -60,12 +61,11 @@ export function ClosingCTA({
               {primary}
             </Button>
             {secondary && (
-              <ButtonLink
-                href="tel:+919032111388"
-                variant="ghost"
-              >
-                {secondary}
-              </ButtonLink>
+              <Link to="tel:+919032111788" target="_self">
+                <Button variant="secondary" size="lg" arrow>
+                  {secondary}
+                </Button>
+              </Link>
             )}
           </div>
         </div>

@@ -31,10 +31,10 @@ export function SubClose({ data }: Props) {
         />
 
         <div className={`${wrap} relative z-10 text-center`}>
-          <h2 className="font-display font-medium text-[clamp(28px,4vw,44px)] tracking-[-0.02em] leading-[1.1] mx-auto max-w-[720px] text-balance m-0 text-[var(--fg-primary)]">
+          <h2 className="font-display font-semibold text-[clamp(32px,3.8vw,64px)] tracking-[-0.02em] leading-[1.1] mx-auto max-w-[720px] text-balance m-0 text-[var(--fg-primary)]">
             {data.h2}
           </h2>
-          <p className="mt-[18px] mb-7 mx-auto max-w-[580px] text-[var(--muted-2)] text-[16px] leading-[1.55]">
+          <p className="mt-[18px] mb-7 mx-auto max-w-[580px] text-[var(--muted-2)] text-base md:text-lg leading-[1.55]">
             {data.body}
           </p>
           <div className="flex gap-3 justify-center flex-wrap">
@@ -57,7 +57,6 @@ export function SubClose({ data }: Props) {
 }
 
 export function APISubClose({ data }: Props) {
-  const navigate = useNavigate();
   const [demoOpen, setDemoOpen] = useState(false);
 
   useEffect(() => {

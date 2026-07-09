@@ -216,7 +216,7 @@ export default function NoticeManagement() {
                 <EyebrowPill label="Notice Management" />
 
                 <h1 className="font-[var(--font-display)] font-semibold leading-[1.05] tracking-[-0.025em] mb-0 max-w-[880px] text-balance"
-                  style={{ fontSize: "clamp(32px, 4.5vw, 68px)" }}>
+                  style={{ fontSize: "clamp(36px, 4vw, 101px)" }}>
                   Never miss a<br />
                   <span className="text-[var(--brand)]">tax notice</span> again.
                 </h1>

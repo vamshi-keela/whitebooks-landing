@@ -21,7 +21,9 @@ import {
 import { Header, Footer, FluidBackground } from '@/layouts/SiteShell';
 import { ButtonLink } from '@/components/ui/Button';
 import { LOGIN_URL } from '@/utils/contants';
-import gstDashboard1 from '@/assets/product-images/gst-software/gst-dashboard-1.png';
+import noticeDashboard from '@/assets/product-images/notice-management/notice-management-dashboard.png';
+import noticeInbox from '@/assets/product-images/notice-management/notice-management-notices.png';
+import noticeAddReply from '@/assets/product-images/notice-management/notice-management-add-reply.png';
 import { SeoBreadcrumb } from '@/seo/components/SeoBreadcrumb';
 import { BreadcrumbItem } from '@/types/pages';
 import EyebrowPill from '@/components/ui/EyebrowPill';
@@ -238,9 +240,9 @@ export default function NoticeManagement() {
               {/* Live inbox preview */}
               <div className="mt-[10px] max-[1000px]:mt-0">
                 <img
-                  src={gstDashboard1}
-                  alt="WhiteBooks Notice Inbox dashboard"
-                  className="w-full rounded-2xl border border-[var(--line)] object-cover aspect-[1.62/1]"
+                  src={noticeDashboard}
+                  alt="WhiteBooks Notice Management dashboard showing total notices, overdue count, department-wise breakdown, and notice processing funnel"
+                  className="w-full rounded-2xl border border-[var(--line)] object-cover object-top aspect-[1.62/1]"
                 />
               </div>
             </div>
@@ -265,6 +267,80 @@ export default function NoticeManagement() {
                 </div>
               );
             })}
+          </div>
+        </section>
+        {/* ── Product showcase ──────────────────────────────────────────────── */}
+        <section className="bg-[var(--bg)] py-20">
+          <div className="mx-auto max-w-[1180px] px-8">
+            <div className="mb-16 text-center">
+              <p className="mb-3 text-[13px] font-semibold uppercase tracking-[0.08em] text-[var(--brand)]">See it in action</p>
+              <h2 className="m-0 mb-4 font-[var(--font-display)] text-4xl font-semibold tracking-[-0.025em] text-[var(--text)]">Built for the way your firm works</h2>
+              <p className="mx-auto max-w-[540px] text-[17px] text-[var(--muted-2)]">A single, organised inbox for every notice — and an in-app editor to draft and file your responses.</p>
+            </div>
+
+            {/* Row 1 — notice inbox (image left, copy right) */}
+            <div className="mb-20 grid grid-cols-1 items-center gap-12 md:grid-cols-2">
+              <div className="overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--bg-elev)] shadow-[0_18px_40px_-24px_rgba(0,0,0,0.35)]">
+                <img
+                  src={noticeInbox}
+                  alt="WhiteBooks notice inbox listing GST notices with status, priority, timeline, and activity history"
+                  className="w-full object-cover object-top"
+                />
+              </div>
+              <div>
+                <span className="rounded px-2.5 py-1 text-[11px] font-bold tracking-[0.05em]" style={{ background: 'var(--brand-soft)', color: 'var(--brand)' }}>UNIFIED INBOX</span>
+                <h3 className="m-0 mb-3 mt-4 font-[var(--font-display)] text-[28px] font-semibold tracking-[-0.02em] text-[var(--text)]">One inbox for every notice</h3>
+                <p className="mb-7 text-base text-[var(--muted-2)]">
+                  Filter by Today, This Week, Overdue, or Closed. Every notice shows its status, priority, timeline, and current stage at a glance — with a full activity history for each case.
+                </p>
+                <ul className="m-0 flex list-none flex-col gap-3 p-0">
+                  {[
+                    'Deadline-based views — Today, This Week, Overdue',
+                    'Status, priority, and processing stage on every row',
+                    'Complete activity trail per notice',
+                  ].map((pt) => (
+                    <li key={pt} className="flex items-start gap-2.5 text-sm text-[var(--text)]">
+                      <span className="mt-px flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[var(--brand-soft)] text-[var(--brand)]">
+                        <Check size={11} strokeWidth={3} />
+                      </span>
+                      {pt}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            {/* Row 2 — reply editor (copy left, image right) */}
+            <div className="grid grid-cols-1 items-center gap-12 md:grid-cols-2">
+              <div className="order-2 md:order-1">
+                <span className="rounded px-2.5 py-1 text-[11px] font-bold tracking-[0.05em]" style={{ background: 'var(--brand-soft)', color: 'var(--brand)' }}>REPLY EDITOR</span>
+                <h3 className="m-0 mb-3 mt-4 font-[var(--font-display)] text-[28px] font-semibold tracking-[-0.02em] text-[var(--text)]">Draft & file responses in-app</h3>
+                <p className="mb-7 text-base text-[var(--muted-2)]">
+                  Reply to a notice without leaving WhiteBooks. Notice details, tax period, and authority info sit alongside a rich editor — or generate a first draft in one click, then submit.
+                </p>
+                <ul className="m-0 flex list-none flex-col gap-3 p-0">
+                  {[
+                    'Notice details & authority info in context',
+                    'Rich-text reply editor with formatting',
+                    'One-click draft generation, then submit',
+                  ].map((pt) => (
+                    <li key={pt} className="flex items-start gap-2.5 text-sm text-[var(--text)]">
+                      <span className="mt-px flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[var(--brand-soft)] text-[var(--brand)]">
+                        <Check size={11} strokeWidth={3} />
+                      </span>
+                      {pt}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="order-1 overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--bg-elev)] shadow-[0_18px_40px_-24px_rgba(0,0,0,0.35)] md:order-2">
+                <img
+                  src={noticeAddReply}
+                  alt="WhiteBooks Add Reply screen with notice details, tax period, and a rich-text notice reply editor"
+                  className="w-full object-cover object-top"
+                />
+              </div>
+            </div>
           </div>
         </section>
 

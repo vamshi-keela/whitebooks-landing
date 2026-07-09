@@ -122,7 +122,7 @@ export function Footer() {
 
   return (
     <>
-      <footer className="wb-footer">
+      <footer className="wb-footer border-t border-solid border-hairline">
         <div className="wb-wrap">
           {/* ── Nav columns ───────────────────────────────────────────── */}
           <div className="wb-footer-grid">

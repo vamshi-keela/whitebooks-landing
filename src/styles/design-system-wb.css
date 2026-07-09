@@ -2769,7 +2769,7 @@ img {
 .wb-footer {
   background: var(--bg);
   padding: 80px 0 36px;
-  border-top: 1px solid var(--line);
+  /* border-top: 1px solid var(--line); */
 }
 
 /* Demo + newsletter CTA cards — neutral elevation tuned per theme so they

@@ -7,7 +7,7 @@ import { useMobileNav } from '../../contexts/MobileNavContext';
 import MethodBadge from '../../components/api/MethodBadge';
 import { searchOps } from './devSearch';
 import type { NormalizedMethod } from '../../data/openapi-spec';
-import { ContactUsDropdown } from '@/layouts/Header';
+import { AuthButtons, ContactUsDropdown } from '@/layouts/Header';
 import { LOGIN_URL } from '@/utils/contants';
 
 /* ─── Route map ─────────────────────────────────────────────────────────── */
@@ -18,6 +18,16 @@ const NAV_ITEMS: NavTab[] = [
   { id: 'guides', label: 'Guides', path: '/developer/overview', icon: 'book' },
   { id: 'reference', label: 'API Reference', path: '/developer/api-reference', icon: 'code' },
   { id: 'changelog', label: 'Changelog', path: '/developer/changelog', icon: 'activity' },
+];
+
+/* Sub-items surfaced in the hover dropdown of the "API Reference" tab —
+   each deep-links to the first endpoint of its API. */
+interface ReferenceSubItem { type: string; label: string; path: string; icon: IconName }
+
+const REFERENCE_SUBITEMS: ReferenceSubItem[] = [
+  { type: 'gst-api', label: 'GST API', path: '/developer/gst-api/get-public-search', icon: 'receipt' },
+  { type: 'e-invoice-api', label: 'e-Invoice API', path: '/developer/e-invoice-api/get-einvoice-authenticate', icon: 'scroll' },
+  { type: 'e-way-bill-api', label: 'e-Way Bill API', path: '/developer/e-way-bill-api/get-ewaybillapi-v1.03-authenticate', icon: 'truck' },
 ];
 
 /* External resources surfaced in the far-right "Resources" dropdown of row 2.
@@ -344,6 +354,116 @@ function ResourcesDropdown(): React.ReactElement {
   );
 }
 
+/* ─── API Reference tab (with hover dropdown) ────────────────────────────── */
+
+function ReferenceTab({ isActive }: { isActive: boolean }): React.ReactElement {
+  const [open, setOpen] = useState(false);
+  const [pos, setPos] = useState<{ left: number; top: number }>({ left: 0, top: 0 });
+  const navigate = useNavigate();
+  const btnRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const cancelClose = () => { if (closeTimer.current) { clearTimeout(closeTimer.current); closeTimer.current = null; } };
+  const scheduleClose = () => { cancelClose(); closeTimer.current = setTimeout(() => setOpen(false), 120); };
+  useEffect(() => cancelClose, []);
+
+  /* The tab strip uses overflow-x-auto, which clips a normally-positioned
+     dropdown. Anchor a fixed-position menu to the button's viewport rect so
+     it escapes the scroll container. */
+  const openMenu = () => {
+    const r = btnRef.current?.getBoundingClientRect();
+    if (r) setPos({ left: r.left, top: r.bottom });
+    cancelClose();
+    setOpen(true);
+  };
+
+  /* Click toggles the dropdown (in addition to hover) — no navigation. */
+  const onButtonClick = () => {
+    if (open) setOpen(false);
+    else openMenu();
+  };
+
+  /* Outside-click / Escape dismissal for the click-opened state (hover leave
+     is handled separately by the mouse handlers). */
+  useEffect(() => {
+    if (!open) return;
+    const onPointer = (e: PointerEvent) => {
+      if (!btnRef.current?.contains(e.target as Node) &&
+        !menuRef.current?.contains(e.target as Node)) setOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false); };
+    document.addEventListener('pointerdown', onPointer);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('pointerdown', onPointer);
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [open]);
+
+  return (
+    <div
+      className="relative flex items-stretch"
+      onMouseEnter={openMenu}
+      onMouseLeave={scheduleClose}
+    >
+      <button
+        ref={btnRef}
+        onClick={onButtonClick}
+        aria-haspopup="menu"
+        aria-expanded={open}
+        className={[
+          'relative whitespace-nowrap bg-transparent border-0 px-3 text-[14px] font-body cursor-pointer',
+          'flex items-center gap-2 transition-colors duration-150',
+          isActive
+            ? 'text-[var(--dp-fg)] font-medium'
+            : 'text-[var(--dp-fg-dim)] font-normal hover:text-[var(--dp-fg)]',
+        ].join(' ')}
+      >
+        <DpIcon name="code" size={15} style={{ color: isActive ? 'var(--dp-accent)' : 'currentColor' }} />
+        API Reference
+        <DpIcon
+          name="chevron-down"
+          size={13}
+          className={`transition-transform duration-150 ${open ? 'rotate-180' : ''}`}
+        />
+        {isActive && <span className="absolute left-0 right-0 -bottom-px h-[2px] bg-[var(--dp-accent)]" />}
+      </button>
+
+      <div
+        ref={menuRef}
+        role="menu"
+        style={{ left: pos.left, top: pos.top }}
+        className={[
+          'fixed z-[60] transition-all duration-150 ease-out',
+          open ? 'opacity-100 pointer-events-auto translate-y-0' : 'opacity-0 pointer-events-none -translate-y-1',
+        ].join(' ')}
+        onMouseEnter={cancelClose}
+        onMouseLeave={scheduleClose}
+      >
+        <div className="w-56 max-w-[calc(100vw-1.5rem)] rounded-2xl border border-[var(--dp-border)] bg-[var(--dp-surface-2)] shadow-[0_20px_60px_-10px_rgba(0,0,0,0.5)] p-1">
+          {REFERENCE_SUBITEMS.map(item => (
+            <button
+              key={item.type}
+              role="menuitem"
+              onClick={() => { setOpen(false); navigate(item.path); }}
+              className="group w-full flex items-center gap-2.5 rounded-xl px-2.5 py-2 bg-transparent border-0 cursor-pointer text-left text-[var(--dp-fg-muted)] hover:text-[var(--dp-fg)] hover:bg-[var(--dp-accent-soft)] focus-visible:bg-[var(--dp-accent-soft)] focus:outline-none transition-colors duration-100"
+            >
+              <DpIcon name={item.icon} size={16} className="shrink-0" style={{ color: 'var(--dp-fg-dim)' }} />
+              <span className="flex-1 min-w-0 text-sm font-medium">{item.label}</span>
+              <DpIcon
+                name="arrow-right"
+                size={14}
+                className="shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-100"
+              />
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ─── DpNav ─────────────────────────────────────────────────────────────── */
 
 interface DpNavProps {
@@ -416,6 +536,9 @@ export default function DpNav({ onOpenPalette }: DpNavProps): React.ReactElement
           <div className="flex items-stretch gap-0.5 sm:gap-1 min-w-0 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {NAV_ITEMS.map(item => {
               const isActive = activeId === item.id;
+              if (item.id === 'reference') {
+                return <ReferenceTab key={item.id} isActive={isActive} />;
+              }
               return (
                 <button
                   key={item.id}

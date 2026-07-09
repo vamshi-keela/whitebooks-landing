@@ -155,9 +155,13 @@ const METRIC_POS: Record<MetricCard['pos'], string> = {
   br: 'bottom-4 right-4 sm:bottom-6 sm:right-6',
 };
 
-function MetricCardFloat({ metric, isDark, index }: { metric: MetricCard; isDark: boolean; index: number }) {
+const MetricCardFloat = React.forwardRef<
+  HTMLDivElement,
+  { metric: MetricCard; isDark: boolean; index: number }
+>(function MetricCardFloat({ metric, isDark, index }, ref) {
   return (
     <motion.div
+      ref={ref}
       key={`${metric.label}-${metric.value}`}
       initial={{ opacity: 0, scale: 0.9, y: 8 }}
       animate={{ opacity: 1, scale: 1, y: [0, -7, 0] }}
@@ -194,7 +198,7 @@ function MetricCardFloat({ metric, isDark, index }: { metric: MetricCard; isDark
       <div className="mt-1 font-mono text-[10px] tracking-[0.04em] text-[var(--fg-tertiary)]">{metric.label}</div>
     </motion.div>
   );
-}
+});
 
 // ─── VideoPlaceholder + canvas (right column) ─────────────────────────────────
 

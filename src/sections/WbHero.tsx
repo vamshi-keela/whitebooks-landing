@@ -20,7 +20,7 @@ export const Hero = memo(function Hero(): JSX.Element {
   // compositor does zero work for it while off-screen.
   const [heroRef, heroInView] = useInView<HTMLElement>();
   // Floating cert cluster hides the moment the user starts scrolling.
-  const [atTop, setAtTop] = useState(true);
+  // const [atTop, setAtTop] = useState(true);
 
   useEffect(() => {
     if (demoOpen) document.body.style.overflow = 'hidden';
@@ -29,10 +29,10 @@ export const Hero = memo(function Hero(): JSX.Element {
   }, [demoOpen]);
 
   useEffect(() => {
-    const onScroll = () => { setAtTop(window.scrollY < 40); };
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => { window.removeEventListener('scroll', onScroll); };
+    // const onScroll = () => { setAtTop(window.scrollY < 40); };
+    // onScroll();
+    // window.addEventListener('scroll', onScroll, { passive: true });
+    // return () => { window.removeEventListener('scroll', onScroll); };
   }, []);
 
   return (
@@ -70,8 +70,8 @@ export const Hero = memo(function Hero(): JSX.Element {
             the moment the user scrolls. Artwork tone per theme is handled by
             .hero-cert in src/styles/design-system-wb.css. */}
         <div
-          aria-hidden={!atTop}
-          className={`hero-cert-strip fixed bottom-6 left-6 z-40 flex items-center gap-6 max-sm:gap-4 rounded-full px-5 py-2.5 backdrop-blur-md max-sm:bottom-4 max-sm:left-4 max-sm:px-4 max-sm:py-2 transition-all duration-300 ${atTop ? 'opacity-100' : 'pointer-events-none translate-y-3 opacity-0'}`}
+          // aria-hidden={!atTop} ${atTop ? 'opacity-100' : 'pointer-events-none translate-y-3 opacity-0'}
+          className={`hero-cert-strip fixed bottom-6 left-6 z-40 flex items-center gap-6 max-sm:gap-4 rounded-full px-5 py-2.5 backdrop-blur-md max-sm:bottom-4 max-sm:left-4 max-sm:px-4 max-sm:py-2 transition-all duration-300 `}
         >
           <img src={gspProvider} alt="Licensed GST Suvidha Provider" className="hero-cert h-9 w-auto max-sm:h-7" />
           <img src={isoCertified} alt="ISO 27001:2022 certified" className="hero-cert h-9 w-auto max-sm:h-7" />
@@ -206,7 +206,7 @@ const TRUST_STATS = [
 
 export function LogoWall() {
   return (
-    <section className="relative overflow-hidden border-0 border-b border-solid border-[var(--hairline)]" data-reveal>
+    <section className="relative overflow-hidden" data-reveal>
       {/* Ambient brand glow anchored behind the visual column */}
       <div
         aria-hidden

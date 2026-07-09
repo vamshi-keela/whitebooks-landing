@@ -300,11 +300,11 @@ export default function ApiSidebar({
   const sidebarContent = (
     <>
       {/* API switcher — shown on both desktop sidebar and mobile drawer */}
-      <ApiSwitcher
+      {/* <ApiSwitcher
         currentApiType={currentApiType}
         onApiSwitch={onApiSwitch}
         onClose={closeNav}
-      />
+      /> */}
       <div className="mx-4 mb-1" style={{ height: 1, background: 'var(--dp-border)' }} />
 
       <div data-sidebar-scroll className="px-3 pt-2 pb-6 overflow-y-auto flex-1">

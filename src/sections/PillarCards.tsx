@@ -866,18 +866,16 @@ export function PillarCard({
           )}
         </div>
 
-        {/* Title — clamp shrinks gracefully on narrow viewports */}
-        <h3
-          className={cn(
-            'm-0 font-normal leading-[1.12] tracking-[-0.018em]',
-            featured
-              ? 'text-[clamp(20px,3.2vw,38px)]'
-              : 'text-[clamp(16px,2.2vw,28px)]',
-          )}
+        {/* Title — clamp shrinks gracefully on narrow viewports; reserve 2 lines
+            at lg so single- and multi-line titles keep body/CTA aligned across
+            cards in the same grid row. */}
+        <h2
+          className=
+          "m-0 font-medium leading-[1.12] tracking-[-0.018em] text-[clamp(20px,2.4vw,30px)] lg:min-h-[2.24em]"
           style={{ fontFamily: 'var(--font-serif)', color: 'var(--fg-primary)' }}
         >
           {title}
-        </h3>
+        </h2>
 
         {/* Body */}
         <p
@@ -902,87 +900,89 @@ export function PillarCard({
           • Featured: bottom panel sm–lg, side panel from lg onward
           • Non-featured: mock on the left. For API cards, a free-sandbox
             highlight + secondary "explore docs" CTA fills the empty right. */}
-      {mock && (
-        <div
-          className={cn(
-            'relative z-[2] flex',
-            featured
-              ? cn(
-                // Column mode (all sizes): padding below the text block
-                'px-5 pb-5 sm:px-6 sm:pb-6',
-                // Row mode (lg+): right panel with no left padding
-                'lg:items-center lg:justify-end lg:py-9 lg:pr-9 lg:pl-0',
-              )
-              : 'px-4 pb-4 sm:px-5 sm:pb-5 lg:px-7 lg:pb-7',
-          )}
-          style={{ flex: featured ? '1.1' : 'none' }}
-        >
-          {hasSandbox && !featured ? (
-            <div className="w-full flex flex-col gap-5 sm:flex-row sm:items-stretch sm:gap-6">
-              <div className="shrink-0">{mock}</div>
+      {
+        mock && (
+          <div
+            className={cn(
+              'relative z-[2] flex',
+              featured
+                ? cn(
+                  // Column mode (all sizes): padding below the text block
+                  'px-5 pb-5 sm:px-6 sm:pb-6',
+                  // Row mode (lg+): right panel with no left padding
+                  'lg:items-center lg:justify-end lg:py-9 lg:pr-9 lg:pl-0',
+                )
+                : 'px-4 pb-4 sm:px-5 sm:pb-5 lg:px-7 lg:pb-7',
+            )}
+            style={{ flex: featured ? '1.1' : 'none' }}
+          >
+            {hasSandbox && !featured ? (
+              <div className="w-full flex flex-col gap-5 sm:flex-row sm:items-stretch sm:gap-6">
+                <div className="shrink-0">{mock}</div>
 
-              {/* Free-sandbox highlight + explore CTA — fills the bottom-right */}
-              <div className="flex flex-1 flex-col justify-end items-start gap-4 sm:items-end sm:text-right">
-                {sandboxLabel && (
-                  <div>
-                    <span
-                      className="inline-flex items-center gap-2 rounded-full px-3 py-1.5"
+                {/* Free-sandbox highlight + explore CTA — fills the bottom-right */}
+                <div className="flex flex-1 flex-col justify-end items-start gap-4 sm:items-end sm:text-right">
+                  {sandboxLabel && (
+                    <div>
+                      <span
+                        className="inline-flex items-center gap-2 rounded-full px-3 py-1.5"
+                        style={{
+                          border: `1px solid ${sandboxFx.border}`,
+                          background: sandboxFx.bg,
+                          boxShadow: sandboxFx.shadow,
+                        }}
+                      >
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={sandboxFx.icon} strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z" />
+                        </svg>
+                        <span style={{ fontSize: 12.5, fontWeight: 600, color: sandboxFx.text, letterSpacing: '0.01em' }}>
+                          {sandboxLabel}
+                        </span>
+                      </span>
+                      <p className="m-0 mt-2" style={{ fontSize: 11.5, color: 'var(--fg-secondary)', letterSpacing: '0.01em' }}>
+                        No credit card · Live in minutes
+                      </p>
+                    </div>
+                  )}
+
+                  {exploreLabel && onExplore && (
+                    <button
+                      type="button"
+                      onClick={(e) => { e.stopPropagation(); onExplore(); }}
+                      className="inline-flex items-center gap-1.5 rounded-[10px] px-4 py-2.5 text-[13px] font-semibold transition-colors duration-[160ms] cursor-pointer"
                       style={{
-                        border: `1px solid ${sandboxFx.border}`,
-                        background: sandboxFx.bg,
-                        boxShadow: sandboxFx.shadow,
+                        border: `1px solid ${exploreIdle.border}`,
+                        background: exploreIdle.bg,
+                        color: exploreIdle.color,
+                        boxShadow: exploreIdle.shadow,
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = 'var(--brand)';
+                        e.currentTarget.style.color = '#fff';
+                        e.currentTarget.style.borderColor = 'var(--brand)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = exploreIdle.bg;
+                        e.currentTarget.style.color = exploreIdle.color;
+                        e.currentTarget.style.borderColor = exploreIdle.border;
                       }}
                     >
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={sandboxFx.icon} strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z" />
+                      {exploreLabel}
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M5 12h14" />
+                        <path d="m13 6 6 6-6 6" />
                       </svg>
-                      <span style={{ fontSize: 12.5, fontWeight: 600, color: sandboxFx.text, letterSpacing: '0.01em' }}>
-                        {sandboxLabel}
-                      </span>
-                    </span>
-                    <p className="m-0 mt-2" style={{ fontSize: 11.5, color: 'var(--fg-secondary)', letterSpacing: '0.01em' }}>
-                      No credit card · Live in minutes
-                    </p>
-                  </div>
-                )}
-
-                {exploreLabel && onExplore && (
-                  <button
-                    type="button"
-                    onClick={(e) => { e.stopPropagation(); onExplore(); }}
-                    className="inline-flex items-center gap-1.5 rounded-[10px] px-4 py-2.5 text-[13px] font-semibold transition-colors duration-[160ms] cursor-pointer"
-                    style={{
-                      border: `1px solid ${exploreIdle.border}`,
-                      background: exploreIdle.bg,
-                      color: exploreIdle.color,
-                      boxShadow: exploreIdle.shadow,
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = 'var(--brand)';
-                      e.currentTarget.style.color = '#fff';
-                      e.currentTarget.style.borderColor = 'var(--brand)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = exploreIdle.bg;
-                      e.currentTarget.style.color = exploreIdle.color;
-                      e.currentTarget.style.borderColor = exploreIdle.border;
-                    }}
-                  >
-                    {exploreLabel}
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M5 12h14" />
-                      <path d="m13 6 6 6-6 6" />
-                    </svg>
-                  </button>
-                )}
+                    </button>
+                  )}
+                </div>
               </div>
-            </div>
-          ) : (
-            mock
-          )}
-        </div>
-      )}
-    </div>
+            ) : (
+              mock
+            )}
+          </div>
+        )
+      }
+    </div >
   );
 }
 
@@ -1137,9 +1137,10 @@ export function ProductPillarCard({
           )}
         </div>
 
-        {/* Title */}
+        {/* Title — reserve 2 lines at lg so single- and multi-line titles keep
+            body/CTA/visual aligned across cards in the same grid row. */}
         <h3
-          className="m-0 font-normal leading-[1.12] tracking-[-0.018em] text-[clamp(20px,2.4vw,30px)]"
+          className="m-0 font-medium leading-[1.12] tracking-[-0.018em] text-[clamp(20px,2.4vw,30px)] lg:min-h-[2.24em]"
           style={{ fontFamily: 'var(--font-serif)', color: 'var(--fg-primary)' }}
         >
           {title}

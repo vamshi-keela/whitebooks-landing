@@ -57,7 +57,7 @@ export default function EnvironmentBar({ environments, selected, onChange }: Pro
         {selected.baseUrl}
       </code> */}
         <div className="hidden sm:inline-block items-center min-w-0 bg-[var(--dp-surface-2)] border border-[var(--dp-border-strong)] rounded-[10px] pl-2.5 pr-2 py-0.5">
-          <code className="py-0.5 font-[family-name:var(--dp-font-mono)] text-[12.5px] sm:text-[13px] flex-1 min-w-0 overflow-x-auto leading-none self-center flex items-center flex-nowrap gap-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <code className="py-0.5 font-[family-name:var(--dp-font-mono)] text-[0.78rem] sm:text-[0.81rem] flex-1 min-w-0 overflow-x-auto leading-none self-center flex items-center flex-nowrap gap-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             <span className="text-[var(--dp-fg-dim)] whitespace-nowrap shrink-0">{selected.baseUrl}</span>
           </code>
         </div>
@@ -68,15 +68,15 @@ export default function EnvironmentBar({ environments, selected, onChange }: Pro
         {/* Sandbox-only default OTP — disappears in production where it is invalid */}
         {selected.defaultOtp && (
           <div
-            className="flex items-center gap-1.5 min-w-0 rounded-[10px] pl-2 pr-1 py-0.5"
+            className="flex items-center gap-1.5 min-w-0 rounded-[10px] pl-2 pr-1"
             style={{ background: 'rgba(251,191,36,0.07)', border: '1px solid rgba(251,191,36,0.22)' }}
             title="Default OTP for OTP / EVC authentication in sandbox"
           >
             <KeyRound size={12} color="var(--dp-otp-fg)" className="shrink-0" />
-            <span className="text-[11px] font-body shrink-0" style={{ color: 'var(--dp-otp-fg)' }}>
+            <span className="text-xs font-semibold shrink-0" style={{ color: 'var(--dp-otp-fg)' }}>
               Default OTP
             </span>
-            <code className="font-[family-name:var(--dp-font-mono)] text-[12.5px] sm:text-[13px] shrink-0" style={{ color: 'var(--dp-otp-fg)' }}>
+            <code className="font-[family-name:var(--dp-font-mono)] font-semibold text-[12.5px] sm:text-[13px] shrink-0" style={{ color: 'var(--dp-otp-fg)' }}>
               {selected.defaultOtp}
             </code>
             <CopyButton text={selected.defaultOtp} size={12} label={false} />

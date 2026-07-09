@@ -71,7 +71,7 @@ export function HubSection({ tab, setTab, navigate }: HubSectionProps) {
         {/* Heading row — stacks on mobile, side-by-side from md */}
         <div className="grid grid-cols-1 gap-3 items-end mb-7 sm:mb-9 md:grid-cols-[1.3fr_0.7fr] md:gap-10 md:mb-10 lg:gap-16 lg:mb-14">
           <h2 className="font-serif font-semibold text-[clamp(32px,3.8vw,44px)] leading-[1.1] tracking-[-0.02em] m-0 text-balance">
-            One platform.<span className='text-[var(--brand)]'> Five compliance engines.</span><br />Every Indian filing requirement.
+            One platform.<br /><span className='text-[var(--brand)]'> Five compliance engines.</span><br />Every Indian filing requirement.
           </h2>
           <p className="text-base md:text-lg text-[var(--fg-secondary)] leading-[1.6] m-0 md:max-w-[460px] md:justify-self-end">
             Built on a direct GSP license from GSTN. Each engine is a product on its own — together they cover every filing requirement in India, and a few outside.
@@ -86,7 +86,7 @@ export function HubSection({ tab, setTab, navigate }: HubSectionProps) {
         <div className="grid grid-cols-1 gap-4 sm:gap-5 lg:grid-cols-2 lg:gap-6">
           <ProductPillarCard
             tag="GST Software"
-            title="GST filing that thinks before you click submit."
+            title="GST compliance, validated before you file."
             body="File GSTR-1, 3B, 9, and 9C across unlimited GSTINs from one workspace. Auto-reconcile 2A/2B against your purchase register."
             cta="Explore GST Software"
             tone="pink"
@@ -98,7 +98,7 @@ export function HubSection({ tab, setTab, navigate }: HubSectionProps) {
           />
           <ProductPillarCard
             tag="e-Invoicing"
-            title="IRNs, sub-second."
+            title="IRNs, sub-second. In bulk. Within the window."
             body="Direct IRP integration with bulk upload, auto-retry, and a full audit trail on every invoice."
             cta="Explore e-Invoicing"
             tone="violet"
@@ -110,7 +110,7 @@ export function HubSection({ tab, setTab, navigate }: HubSectionProps) {
           />
           <ProductPillarCard
             tag="e-Way Bills"
-            title="Generate, extend, cancel."
+            title="Every dispatch needs an e-way bill. Generate, extend, cancel."
             body="One screen or one API call. Auto-populated from your invoice, with real-time validity checks."
             cta="Explore e-Way Bills"
             tone="blue"
@@ -122,7 +122,7 @@ export function HubSection({ tab, setTab, navigate }: HubSectionProps) {
           />
           <ProductPillarCard
             tag="Accounting"
-            title="Books that journal themselves."
+            title="Books that journal themselves. From invoices, bank & ERP."
             body="Cloud-native books with automated entries from your sales and purchase data. No accountant to enter, one to certify."
             cta="Explore Accounting"
             tone="cyan"
@@ -192,7 +192,7 @@ export function HubAPIsSection() {
           <PillarCard
             tag="e-Invoice API"
             title="IRNs in under 200ms. Direct IRP pipe."
-            body="Generate IRNs at scale with sub-200ms p50 latency. Bulk endpoints, auto-retry on IRP outages, webhook on success. Built for billing systems serving the ₹5cr AATO mandate."
+            body="Generate IRNs at scale with sub-200ms p50 latency. Bulk endpoints, auto-retry on IRP outages, webhook on success."
             cta="Explore e-Invoice API"
             tone="violet"
             mock={<MiniEinvoiceMock />}
@@ -203,8 +203,8 @@ export function HubAPIsSection() {
           />
           <PillarCard
             tag="e-Way Bill API"
-            title="One call per dispatch."
-            body="Generate, extend, and cancel e-way bills programmatically. Auto-populate 90% of fields from an existing IRN. Webhooks 4h before expiry."
+            title="Generate, extend, and cancel programmatically."
+            body="One call per dispatch. Auto-populate 90% of fields from an existing IRN. Webhooks 4h before expiry."
             cta="Explore e-Way Bill API"
             tone="blue"
             mock={<MiniEwayApiMock />}
@@ -215,8 +215,8 @@ export function HubAPIsSection() {
           />
           <PillarCard
             tag="Notice Management API"
-            title="Never miss a tax notice again."
-            body="Auto-fetch GST, Income Tax, and TDS notices from GSTN, ITD, and TRACES. Track every deadline, trigger alerts, and sync notices into your own systems — one account across every portal."
+            title="Auto-fetch GST, Income Tax, and TDS notices."
+            body="Never miss a tax notice again. Auto-fetch notices from GSTN, ITD, and TRACES. Track every deadline, trigger alerts, and sync notices."
             cta="Explore Notice Management API"
             tone="amber"
             mock={<MiniNoticeMock />}

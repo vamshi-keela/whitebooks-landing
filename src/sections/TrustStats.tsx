@@ -8,7 +8,6 @@ import isoCertified from "@/assets/iso-certified-2022.svg";
 const PINK = "#f43f7d";
 const ROSE = "#dc2f65";
 const CYAN = "#6ee7f9";
-const EASE = [0.22, 1, 0.36, 1] as const;
 
 const PINK_TEXT = "var(--ts-num-pink)";
 const CYAN_TEXT = "var(--ts-num-cyan)";
@@ -71,13 +70,7 @@ function CountUp({ end, decimals = 0, suffix }: { end: number; decimals?: number
 function CertificateMark({ src, alt, index }: { src: string; alt: string; index: number }) {
   const reduceMotion = useReducedMotion();
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 12, scale: 0.94 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.6, delay: index * 0.1, ease: EASE }}
-      className="relative grid shrink-0 place-items-center"
-    >
+    <div className="relative grid shrink-0 place-items-center">
       <span
         aria-hidden
         className="absolute h-[80px] w-[110px] rounded-full blur-2xl"
@@ -92,7 +85,7 @@ function CertificateMark({ src, alt, index }: { src: string; alt: string; index:
         className="relative h-[64px] w-auto max-w-[130px] opacity-95"
         style={{ filter: "var(--ts-badge-filter)" }}
       />
-    </motion.div>
+    </div>
   );
 }
 
@@ -100,10 +93,6 @@ function ComplianceChip({ label, index }: { label: string; index: number }) {
   const reduceMotion = useReducedMotion();
   return (
     <motion.div
-      initial={{ opacity: 0, y: 10, scale: 0.95 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.5, delay: 0.1 + index * 0.07, ease: EASE }}
       whileHover={reduceMotion ? undefined : { y: -2 }}
       className="relative h-11 overflow-hidden rounded-full p-px"
     >
@@ -155,10 +144,6 @@ function MetricCell({ metric, index }: { metric: Metric; index: number }) {
   const glow = metric.cyan ? "var(--ts-glow-cyan)" : "var(--ts-glow-pink)";
   return (
     <motion.div
-      initial={{ opacity: 0, y: 14, filter: "blur(6px)" }}
-      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.65, delay: 0.12 + index * 0.08, ease: EASE }}
       whileHover={reduceMotion ? undefined : { y: -3 }}
       className="group relative px-4 py-3 text-center sm:px-5"
     >
@@ -187,19 +172,14 @@ function MetricCell({ metric, index }: { metric: Metric; index: number }) {
       </div>
 
       {/* tick underline */}
-      <motion.span
+      <span
         aria-hidden
-        className="relative mx-auto mt-2 block h-[2px] w-7 rounded-full"
+        className="relative mx-auto mt-2 block h-[2px] w-7 rounded-full opacity-80"
         style={{
           background: metric.cyan
             ? `linear-gradient(90deg, transparent, ${CYAN}, transparent)`
             : `linear-gradient(90deg, transparent, ${PINK}, transparent)`,
-          transformOrigin: "center",
         }}
-        initial={{ scaleX: 0, opacity: 0 }}
-        whileInView={{ scaleX: 1, opacity: 0.8 }}
-        viewport={{ once: true, margin: "-40px" }}
-        transition={{ duration: 0.7, delay: 0.45 + index * 0.08, ease: EASE }}
       />
 
       <div className="wb-ts-label relative mt-2 text-[13px] font-medium leading-[1.35]">{metric.label}</div>
@@ -261,17 +241,12 @@ export default function TrustStats() {
 
         {/* divider with traveling beam */}
         <div className="relative mb-4 mt-6 h-px w-full overflow-hidden">
-          <motion.span
+          <span
             aria-hidden
             className="absolute inset-0"
             style={{
               background: "linear-gradient(90deg, transparent, var(--ts-hairline), transparent)",
-              transformOrigin: "center",
             }}
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true, margin: "-40px" }}
-            transition={{ duration: 0.9, ease: EASE }}
           />
           {!reduceMotion && (
             <motion.span

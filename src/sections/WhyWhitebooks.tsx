@@ -351,7 +351,7 @@ function ExcelCTA() {
       style={{
         borderRadius: 28,
         background: 'linear-gradient(135deg, #5e2238 0%, #81314b 52%, #99385a 100%)',
-        boxShadow: '0 30px 90px -40px rgba(129,49,75,0.7)',
+        // boxShadow: '0 30px 90px -40px rgba(129,49,75,0.7)',
       }}
     >
       <div

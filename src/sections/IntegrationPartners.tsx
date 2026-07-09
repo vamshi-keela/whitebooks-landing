@@ -38,6 +38,7 @@ import {
   type IntegrationPartnersData,
 } from "./integration-partners.data";
 import logoWhiteBooks from "@/assets/logo-white-books.svg";
+import { useTheme } from "@/contexts/ThemeContext";
 
 const API_ICON: Record<string, LucideIcon> = {
   gst: Landmark,
@@ -77,6 +78,9 @@ function ApiNode({ node, delay }: { node: ApiNodeData; delay: number }) {
 
 /* ── IntegrationHub — the animated centre layer ───────────────────────────── */
 function IntegrationHub({ data }: { data: IntegrationPartnersData }) {
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === 'dark';
+
   return (
     <GlassPanel className="relative overflow-hidden px-6 py-10 sm:px-10">
       {/* elegant core glow — subtle, not a blob */}
@@ -91,6 +95,8 @@ function IntegrationHub({ data }: { data: IntegrationPartnersData }) {
             src={logoWhiteBooks}
             alt="WhiteBooks"
             className="h-9 w-auto"
+            style={{ filter: isDark ? 'none' : 'invert(1)' }}
+
           />
           <h3 className="m-0 font-display text-[18px] font-semibold tracking-[-0.01em] text-[var(--fg-primary)] sm:text-[20px]">
             {data.hubTitle}

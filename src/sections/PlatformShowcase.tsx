@@ -288,7 +288,6 @@ function CardCtas({ cta }: { cta: ShowcaseCta }) {
 
 /* ── Card content (middle column) — keyed mount animation, strict rhythm ──── */
 function CardContent({ category, tab }: { category: ShowcaseCategory; tab: ShowcaseTab }) {
-  console.log("cardcontent reprinted")
   return (
     <motion.div
       key={`${category.id}-${tab.id}`}
@@ -485,9 +484,12 @@ function PreviewColumn({
 }
 
 /* ── Wheel-to-cycle — scrolling inside `ref` steps through a list ──────────────
-   The wheel is fully captured while the cursor is over the element: the page
-   never scrolls underneath. One gesture = one step (throttled); at the first/
-   last item further scrolling is simply swallowed. */
+   Vertical wheel events over the element are captured so the page stays put
+   while stepping (one gesture = one step, throttled). At the first item
+   scrolling up — or the last item scrolling down — the capture is released
+   and the page scrolls on to the neighbouring section. The momentum tail of
+   the gesture that *landed* on a boundary is still swallowed (while the step
+   lock is held) so a single flick doesn't step and then shove the page. */
 function useWheelCycle(
   ref: RefObject<HTMLElement | null>,
   index: number,
@@ -503,17 +505,20 @@ function useWheelCycle(
       // Horizontal-dominant gestures pass through untouched.
       if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
 
-      // Swallow every vertical wheel event — including trackpad momentum
-      // ticks and boundary overscroll — so the viewport never moves.
+      const dir = e.deltaY > 0 ? 1 : -1;
+      const atBoundary = (dir > 0 && index >= count - 1) || (dir < 0 && index <= 0);
+      if (atBoundary) {
+        if (lock.current) e.preventDefault(); // still settling onto the boundary
+        return; // settled — hand the wheel back to the page
+      }
+
+      // Mid-list: swallow everything (momentum ticks included) so the
+      // viewport never moves while stepping through categories.
       e.preventDefault();
 
       if (Math.abs(e.deltaY) < 6 || lock.current) return;
-      const dir = e.deltaY > 0 ? 1 : -1;
-      const next = Math.min(Math.max(index + dir, 0), count - 1);
-      if (next === index) return;
-
       lock.current = true;
-      setIndex(() => next);
+      setIndex(() => index + dir);
       window.setTimeout(() => {
         lock.current = false;
       }, 550);
@@ -574,7 +579,7 @@ export function PlatformShowcase({ heading, categories }: { heading?: ReactNode,
       </div>
 
       {/* ── Desktop: two-column canvas (rail | pills + content/image row) ── */}
-      <div ref={desktopRef} className="hidden min-[1101px]:block">
+      <div className="hidden min-[1101px]:block">
         <div className="relative mx-auto w-full max-w-[1280px] px-10 pb-20 pt-12">
           {/* Faux scrollbar — the wheel is captured inside this canvas, so the
               thumb signals "more categories below/above" and tracks activeCat. */}
@@ -590,7 +595,9 @@ export function PlatformShowcase({ heading, categories }: { heading?: ReactNode,
               }}
             />
           </div>
-          <div className="grid grid-cols-[220px_minmax(0,1fr)] items-start">
+          {/* Wheel capture lives on the grid only — the gutters left/right of
+              the 1280px canvas stay on the global scroll. */}
+          <div ref={desktopRef} className="grid grid-cols-[220px_minmax(0,1fr)] items-start">
             {/* Left column — category rail + proof */}
             <div className="pr-8 pt-1">
               <CategoryRail categories={categories} active={activeCat} onSelect={onRailClick} />

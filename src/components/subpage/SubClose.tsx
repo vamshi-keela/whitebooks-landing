@@ -22,7 +22,7 @@ export function SubClose({ data }: Props) {
   return (
     <>
       <section
-        className="relative overflow-hidden border-t border-solid border-hairline py-[60px] sm:py-[90px]"
+        className="relative overflow-hidden py-[60px] sm:py-[90px]"
         id="book-demo"
       >
         <div

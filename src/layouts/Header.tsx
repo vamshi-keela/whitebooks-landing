@@ -17,9 +17,9 @@ interface HeaderProps {
   mode?: HeaderMode;
 }
 
-export function AuthButtons() {
+export function AuthButtons({ className = '' }: { className?: string }) {
   return (
-    <div className="flex items-center gap-2">
+    <div className={`flex items-center gap-2 ${className}`.trim()}>
       <ButtonLink
         href="https://accounts.whitebooks.in/login"
         rel="noopener noreferrer"

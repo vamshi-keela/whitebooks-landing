@@ -511,7 +511,7 @@ export default function DpNav({ onOpenPalette }: DpNavProps): React.ReactElement
           >
             <DpIcon name="search" size={16} />
           </button>
-          {/* <AuthButtons /> */}
+          <AuthButtons className="hidden sm:flex" />
           <ContactUsDropdown cardType='API Team' />
           <ThemeToggle size={32} />
 

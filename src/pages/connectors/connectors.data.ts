@@ -19,6 +19,26 @@ import type { SeoMeta } from "@/seo/types";
 export const SIGNUP_DEV = "https://accounts.whitebooks.in/signup?type=Developer&subscrid=&inviteId";
 export const SIGNUP_ALL = "https://accounts.whitebooks.in/signupall";
 
+/* ── Per-page "Download e-Invoice" destinations ────────────────────────────
+   One URL per connector page (hero secondary CTA). TODO: replace the
+   placeholder paths below with the real package / installer URLs. */
+export const EINVOICE_DOWNLOAD_URLS: Record<string, string> = {
+  "sap-e-invoicing": "https://whitebooks.in/downloads/sap-e-invoicing",
+  "sap-e-way-bill": "https://whitebooks.in/downloads/sap-e-way-bill",
+  "sap-gst": "https://whitebooks.in/downloads/sap-gst",
+  "oracle-e-invoicing": "https://whitebooks.in/downloads/oracle-e-invoicing",
+  "oracle-e-way-bill": "https://whitebooks.in/downloads/oracle-e-way-bill",
+  "oracle-gst": "https://whitebooks.in/downloads/oracle-gst",
+  "dynamics-e-invoicing": "https://whitebooks.in/downloads/dynamics-e-invoicing",
+  "dynamics-e-way-bill": "https://whitebooks.in/downloads/dynamics-e-way-bill",
+  "dynamics-gst": "https://whitebooks.in/downloads/dynamics-gst",
+};
+
+const downloadCta = (slug: string): Cta => ({
+  label: "Download e-Invoice",
+  href: EINVOICE_DOWNLOAD_URLS[slug],
+});
+
 export interface Cta {
   label: string;
   href: string;
@@ -169,7 +189,6 @@ const SAP_HERO_SHARED = {
   support: "No manual uploads. No IRN errors. No compliance risk.",
   badges: ["5-Minute Setup", "Zero ABAP Coding", "100% Automation"],
   primary: { label: "Book SAP Integration Demo", href: SIGNUP_DEV },
-  secondary: { label: "Watch 2-Min Overview", href: SIGNUP_DEV },
 };
 
 const SAP_PROBLEM: SapConnector["problem"] = {
@@ -410,6 +429,7 @@ const sapEInvoicing: SapConnector = {
   breadcrumb: [{ label: "Home", href: "/" }, { label: "Connectors" }, { label: "SAP e-Invoicing" }],
   hero: {
     ...SAP_HERO_SHARED,
+    secondary: downloadCta("sap-e-invoicing"),
     tag: "SAP · e-Invoicing",
     sub: "Push e-invoices from SAP to the IRP and get IRN, QR and signed XML back. The WhiteBooks SAP e-Invoice connector — certified GSP, real-time.",
   },
@@ -466,6 +486,7 @@ const sapEWayBill: SapConnector = {
   breadcrumb: [{ label: "Home", href: "/" }, { label: "Connectors" }, { label: "SAP e-Way Bill" }],
   hero: {
     ...SAP_HERO_SHARED,
+    secondary: downloadCta("sap-e-way-bill"),
     tag: "SAP · e-Way Bill",
     sub: "Generate, update and cancel e-Way Bills directly from SAP ECC or S/4HANA. The WhiteBooks SAP connector handles auth, retries and ledger sync.",
   },
@@ -522,6 +543,7 @@ const sapGst: SapConnector = {
   breadcrumb: [{ label: "Home", href: "/" }, { label: "Connectors" }, { label: "SAP GST" }],
   hero: {
     ...SAP_HERO_SHARED,
+    secondary: downloadCta("sap-gst"),
     tag: "SAP · GST Filing",
     sub: "Native SAP GST add-on to upload, reconcile and file GSTR-1, GSTR-3B and IMS from SAP ECC and S/4HANA — in real time.",
   },
@@ -783,7 +805,6 @@ const ORACLE_HERO_SHARED = {
   support: "No manual uploads. No IRN errors. No compliance risk.",
   badges: ["5-Minute Setup", "Zero PL/SQL Coding", "100% Automation"],
   primary: { label: "Book Oracle Integration Demo", href: SIGNUP_DEV },
-  secondary: { label: "Watch 2-Min Overview", href: SIGNUP_DEV },
 };
 
 const ORACLE_PROBLEM: ErpConnector["problem"] = {
@@ -1024,6 +1045,7 @@ const oracleEInvoicing: ErpConnector = {
   breadcrumb: [{ label: "Home", href: "/" }, { label: "Connectors" }, { label: "Oracle e-Invoicing" }],
   hero: {
     ...ORACLE_HERO_SHARED,
+    secondary: downloadCta("oracle-e-invoicing"),
     tag: "Oracle · e-Invoicing",
     sub: "Push e-invoices from Oracle Fusion Cloud, EBS or NetSuite to the IRP and get IRN, QR and signed JSON back. The WhiteBooks Oracle e-Invoice connector — certified GSP, real-time.",
   },
@@ -1080,6 +1102,7 @@ const oracleEWayBill: ErpConnector = {
   breadcrumb: [{ label: "Home", href: "/" }, { label: "Connectors" }, { label: "Oracle e-Way Bill" }],
   hero: {
     ...ORACLE_HERO_SHARED,
+    secondary: downloadCta("oracle-e-way-bill"),
     tag: "Oracle · e-Way Bill",
     sub: "Generate, update and cancel e-Way Bills directly from Oracle Fusion Cloud, EBS or NetSuite. The WhiteBooks Oracle connector handles auth, retries and ledger sync.",
   },
@@ -1136,6 +1159,7 @@ const oracleGst: ErpConnector = {
   breadcrumb: [{ label: "Home", href: "/" }, { label: "Connectors" }, { label: "Oracle GST" }],
   hero: {
     ...ORACLE_HERO_SHARED,
+    secondary: downloadCta("oracle-gst"),
     tag: "Oracle · GST Filing",
     sub: "Native Oracle GST add-on to upload, reconcile and file GSTR-1, GSTR-3B and IMS from Oracle Fusion Cloud and EBS — in real time.",
   },
@@ -1188,7 +1212,6 @@ const DYNAMICS_HERO_SHARED = {
   support: "No manual uploads. No IRN errors. No compliance risk.",
   badges: ["Rapid Deployment", "Zero X++ Customization", "100% Automation"],
   primary: { label: "Book Dynamics Integration Demo", href: SIGNUP_DEV },
-  secondary: { label: "Watch 2-Min Overview", href: SIGNUP_DEV },
 };
 
 const DYNAMICS_PROBLEM: ErpConnector["problem"] = {
@@ -1429,6 +1452,7 @@ const dynamicsEInvoicing: ErpConnector = {
   breadcrumb: [{ label: "Home", href: "/" }, { label: "Connectors" }, { label: "Dynamics e-Invoicing" }],
   hero: {
     ...DYNAMICS_HERO_SHARED,
+    secondary: downloadCta("dynamics-e-invoicing"),
     tag: "Dynamics · e-Invoicing",
     sub: "Push e-invoices from Dynamics 365 F&O or Business Central to the IRP and get IRN, QR and signed JSON back. The WhiteBooks Dynamics e-Invoice connector — certified GSP, real-time.",
   },
@@ -1485,6 +1509,7 @@ const dynamicsEWayBill: ErpConnector = {
   breadcrumb: [{ label: "Home", href: "/" }, { label: "Connectors" }, { label: "Dynamics e-Way Bill" }],
   hero: {
     ...DYNAMICS_HERO_SHARED,
+    secondary: downloadCta("dynamics-e-way-bill"),
     tag: "Dynamics · e-Way Bill",
     sub: "Generate, update and cancel e-Way Bills directly from Dynamics 365 F&O or Business Central. The WhiteBooks Dynamics connector handles auth, retries and ledger sync.",
   },
@@ -1541,6 +1566,7 @@ const dynamicsGst: ErpConnector = {
   breadcrumb: [{ label: "Home", href: "/" }, { label: "Connectors" }, { label: "Dynamics GST" }],
   hero: {
     ...DYNAMICS_HERO_SHARED,
+    secondary: downloadCta("dynamics-gst"),
     tag: "Dynamics · GST Filing",
     sub: "Native Dynamics GST add-on to upload, reconcile and file GSTR-1, GSTR-3B and IMS from Dynamics 365 F&O and Business Central — in real time.",
   },

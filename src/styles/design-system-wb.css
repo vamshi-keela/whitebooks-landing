@@ -800,6 +800,12 @@ img {
   opacity: 0.5;
 }
 
+/* Silk flow sits right behind the hero eyebrow pill — on the white page the
+   full-strength ribbons drown the pill text, so ease the canvas back. */
+[data-theme="light"] .wb-halo-canvas {
+  opacity: 0.8;
+}
+
 [data-theme="light"] .wb-halo-vignette {
   display: none;
 }
@@ -5188,6 +5194,9 @@ a.wb-block--link:hover .endpoint {
    ============================================================ */
 .wb-ail2 {
   position: relative;
+  /* Keep the dark gradient band off the section's outer edges — a sliver of
+     page background above and below reads as an intentional inset. */
+  margin-block: 16px;
   padding: 130px 20px;
   background:
     radial-gradient(ellipse 65% 52% at 12% 14%, rgba(220, 47, 101, 0.28), transparent 58%),

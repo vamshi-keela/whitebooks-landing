@@ -186,7 +186,9 @@ export function DashboardCard() {
   );
 }
 
-const wrap = "w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4";
+/* Same container as HubSection/HubAPIsSection (WbHubs.tsx) so the LogoWall
+   content column lines up with the sections below it at every breakpoint. */
+const wrap = "w-full max-w-[1280px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-16";
 
 // ─── LogoWall ─────────────────────────────────────────────────────────────────
 
@@ -214,7 +216,7 @@ export function LogoWall() {
         style={{ background: 'radial-gradient(circle, var(--brand-glow) 0%, transparent 65%)', filter: 'blur(48px)' }}
       />
 
-      <div className={`${wrap} relative flex flex-col items-center gap-14 max-md:gap-12 py-24 max-md:py-16 max-sm:py-12`}>
+      <div className={`${wrap} relative flex flex-col items-center gap-14 max-md:gap-12 py-10 sm:py-14 md:py-16 lg:py-24`}>
         {/* Narrative + proof, stacked and centered */}
         <div className="flex flex-col items-center text-center gap-6 max-w-[820px]">
           <EyebrowPill label={"Trusted Compliance Partner"} />
@@ -250,7 +252,7 @@ export function LogoWall() {
         </div>
 
         {/* Layered visual with floating proof cards */}
-        <div className="relative w-full max-w-[880px] mx-auto">
+        <div className="relative w-full max-w-[1280px] mx-auto">
           {/* Offset gradient frame peeking out behind the photo */}
           <div
             aria-hidden

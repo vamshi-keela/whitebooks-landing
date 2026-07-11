@@ -116,6 +116,8 @@ export interface ErpConnector {
   hero: {
     tag: string;
     title: string;
+    /** Phrase inside `title` rendered in the brand accent color. */
+    titleAccent?: string;
     sub: string;
     support: string;
     badges: string[];
@@ -172,7 +174,7 @@ export interface TallyConnector {
   logo: string;
   seo: SeoMeta;
   breadcrumb: Breadcrumb[];
-  hero: { tag: string; title: string; sub: string; support: string; primary: Cta };
+  hero: { tag: string; title: string; titleAccent?: string; sub: string; support: string; primary: Cta };
   setup: { heading: string; steps: SetupStep[]; cta: Cta };
   features: FeatureBlock[];
   params?: { heading: string; body: string; items: string[]; cta: Cta };
@@ -431,6 +433,8 @@ const sapEInvoicing: SapConnector = {
     ...SAP_HERO_SHARED,
     secondary: downloadCta("sap-e-invoicing"),
     tag: "SAP · e-Invoicing",
+    title: "e-Invoices from SAP. Sub-second. Zero ABAP.",
+    titleAccent: "Sub-second.",
     sub: "Push e-invoices from SAP to the IRP and get IRN, QR and signed XML back. The WhiteBooks SAP e-Invoice connector — certified GSP, real-time.",
   },
   problem: SAP_PROBLEM,
@@ -488,6 +492,8 @@ const sapEWayBill: SapConnector = {
     ...SAP_HERO_SHARED,
     secondary: downloadCta("sap-e-way-bill"),
     tag: "SAP · e-Way Bill",
+    title: "e-Way Bills from SAP. Instant. Zero ABAP.",
+    titleAccent: "Instant.",
     sub: "Generate, update and cancel e-Way Bills directly from SAP ECC or S/4HANA. The WhiteBooks SAP connector handles auth, retries and ledger sync.",
   },
   problem: SAP_PROBLEM,
@@ -545,6 +551,8 @@ const sapGst: SapConnector = {
     ...SAP_HERO_SHARED,
     secondary: downloadCta("sap-gst"),
     tag: "SAP · GST Filing",
+    title: "GST filing from SAP. Reconciled. Zero ABAP.",
+    titleAccent: "Reconciled.",
     sub: "Native SAP GST add-on to upload, reconcile and file GSTR-1, GSTR-3B and IMS from SAP ECC and S/4HANA — in real time.",
   },
   problem: SAP_PROBLEM,
@@ -602,7 +610,8 @@ const tallyEInvoice: TallyConnector = {
   breadcrumb: [{ label: "Home", href: "/" }, { label: "Connectors" }, { label: "Tally e-Invoice" }],
   hero: {
     tag: "Tally · e-Invoicing",
-    title: "WhiteBooks Tally Connector for e-Invoice",
+    title: "e-Invoices from Tally. One click. Zero portal visits.",
+    titleAccent: "One click.",
     sub: "Generate and manage e-invoices directly from your Tally software — IRN and QR in a single click.",
     support: TALLY_SUPPORT,
     primary: { label: "Get Started with Tally Connector", href: SIGNUP_ALL },
@@ -702,7 +711,8 @@ const tallyEWayBill: TallyConnector = {
   breadcrumb: [{ label: "Home", href: "/" }, { label: "Connectors" }, { label: "Tally e-Way Bill" }],
   hero: {
     tag: "Tally · e-Way Bill",
-    title: "WhiteBooks Tally Connector for e-Way Bill",
+    title: "e-Way Bills from Tally. One click. Zero portal visits.",
+    titleAccent: "One click.",
     sub: "Generate, extend, cancel and print e-Way Bills directly from your Tally software.",
     support: TALLY_SUPPORT,
     primary: { label: "Get Started with Tally Connector", href: SIGNUP_ALL },
@@ -1047,6 +1057,8 @@ const oracleEInvoicing: ErpConnector = {
     ...ORACLE_HERO_SHARED,
     secondary: downloadCta("oracle-e-invoicing"),
     tag: "Oracle · e-Invoicing",
+    title: "e-Invoices from Oracle. Sub-second. Zero PL/SQL.",
+    titleAccent: "Sub-second.",
     sub: "Push e-invoices from Oracle Fusion Cloud, EBS or NetSuite to the IRP and get IRN, QR and signed JSON back. The WhiteBooks Oracle e-Invoice connector — certified GSP, real-time.",
   },
   problem: ORACLE_PROBLEM,
@@ -1104,6 +1116,8 @@ const oracleEWayBill: ErpConnector = {
     ...ORACLE_HERO_SHARED,
     secondary: downloadCta("oracle-e-way-bill"),
     tag: "Oracle · e-Way Bill",
+    title: "e-Way Bills from Oracle. Instant. Zero PL/SQL.",
+    titleAccent: "Instant.",
     sub: "Generate, update and cancel e-Way Bills directly from Oracle Fusion Cloud, EBS or NetSuite. The WhiteBooks Oracle connector handles auth, retries and ledger sync.",
   },
   problem: ORACLE_PROBLEM,
@@ -1161,6 +1175,8 @@ const oracleGst: ErpConnector = {
     ...ORACLE_HERO_SHARED,
     secondary: downloadCta("oracle-gst"),
     tag: "Oracle · GST Filing",
+    title: "GST filing from Oracle. Reconciled. Zero PL/SQL.",
+    titleAccent: "Reconciled.",
     sub: "Native Oracle GST add-on to upload, reconcile and file GSTR-1, GSTR-3B and IMS from Oracle Fusion Cloud and EBS — in real time.",
   },
   problem: ORACLE_PROBLEM,
@@ -1454,6 +1470,8 @@ const dynamicsEInvoicing: ErpConnector = {
     ...DYNAMICS_HERO_SHARED,
     secondary: downloadCta("dynamics-e-invoicing"),
     tag: "Dynamics · e-Invoicing",
+    title: "e-Invoices from Dynamics. Sub-second. Zero X++.",
+    titleAccent: "Sub-second.",
     sub: "Push e-invoices from Dynamics 365 F&O or Business Central to the IRP and get IRN, QR and signed JSON back. The WhiteBooks Dynamics e-Invoice connector — certified GSP, real-time.",
   },
   problem: DYNAMICS_PROBLEM,
@@ -1511,6 +1529,8 @@ const dynamicsEWayBill: ErpConnector = {
     ...DYNAMICS_HERO_SHARED,
     secondary: downloadCta("dynamics-e-way-bill"),
     tag: "Dynamics · e-Way Bill",
+    title: "e-Way Bills from Dynamics. Instant. Zero X++.",
+    titleAccent: "Instant.",
     sub: "Generate, update and cancel e-Way Bills directly from Dynamics 365 F&O or Business Central. The WhiteBooks Dynamics connector handles auth, retries and ledger sync.",
   },
   problem: DYNAMICS_PROBLEM,
@@ -1568,6 +1588,8 @@ const dynamicsGst: ErpConnector = {
     ...DYNAMICS_HERO_SHARED,
     secondary: downloadCta("dynamics-gst"),
     tag: "Dynamics · GST Filing",
+    title: "GST filing from Dynamics. Reconciled. Zero X++.",
+    titleAccent: "Reconciled.",
     sub: "Native Dynamics GST add-on to upload, reconcile and file GSTR-1, GSTR-3B and IMS from Dynamics 365 F&O and Business Central — in real time.",
   },
   problem: DYNAMICS_PROBLEM,

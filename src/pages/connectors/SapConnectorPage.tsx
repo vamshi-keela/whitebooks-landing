@@ -3,7 +3,6 @@
  * e-Way Bill, GST). A faithful, on-brand conversion of the legacy
  * whitebooks.in/connectors/sap-* pages. Content comes from `connectors.data.ts`.
  */
-import { motion } from "framer-motion";
 import {
   AlarmClock,
   ArrowRight,
@@ -34,7 +33,6 @@ import {
 import { Header, Footer } from "@/layouts/SiteShell";
 import { SeoHead } from "@/seo/components/SeoHead";
 import { StructuredData } from "@/seo/components/StructuredData";
-import { SeoBreadcrumb } from "@/seo/components/SeoBreadcrumb";
 import {
   buildJsonLd,
   buildWebPageSchema,
@@ -45,7 +43,8 @@ import {
 import { useReveal } from "@/hooks/useReveal";
 import { cn } from "@/lib/cn";
 import type { SapConnector } from "./connectors.data";
-import { CtaButton, EASE, Eyebrow, FaqAccordion, Reveal, Section, SectionHeader, StatStrip } from "./_sections";
+import { CtaButton, Eyebrow, Reveal, Section, SectionHeader, StatStrip } from "./_sections";
+import { ConnectorHero } from "./ConnectorHero";
 import { IntegrationFlowSection } from "./IntegrationFlow";
 import { BeforeAfterStory } from "./BeforeAfterStory";
 import { FAQSection } from "@/components/subpage/FAQSection";
@@ -67,64 +66,6 @@ const ENTERPRISE_ICONS: LucideIcon[] = [
 const DEV_ICONS: LucideIcon[] = [Code2, ServerCog, Plug, FileWarning, Terminal, Webhook];
 const SOLUTION_ICONS: LucideIcon[] = [Zap, GitBranch, MinusCircle, ShieldCheck];
 const PAIN_ICONS: LucideIcon[] = [AlarmClock, FileWarning, FileSearch];
-
-/* ── Hero ─────────────────────────────────────────────────────────────────── */
-function Hero({ data }: { data: SapConnector }) {
-  const { hero, logo } = data;
-  return (
-    <section className="relative overflow-hidden border-b border-[var(--hairline)] bg-[var(--bg)] pb-16 pt-[120px] sm:pb-20 sm:pt-[140px]">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0"
-        style={{ background: "radial-gradient(ellipse 60% 50% at 50% 0%, var(--brand-glow), transparent 70%)" }}
-      />
-      <div className="relative mx-auto w-full max-w-[1280px] px-4 sm:px-6 md:px-8 lg:px-10 xl:px-16">
-        <div className="mb-7">
-          <SeoBreadcrumb items={data.breadcrumb} />
-        </div>
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: EASE }}
-          className="flex max-w-[820px] flex-col gap-6"
-        >
-          <span className="inline-flex w-fit items-center gap-2.5 rounded-full border border-[var(--hairline-strong)] bg-[color-mix(in_srgb,var(--fg-primary)_5%,transparent)] px-3 py-1.5">
-            <span className="inline-flex h-4 items-center">
-              <img src={logo} alt={hero.tag} className="h-[14px] w-auto object-contain" />
-            </span>
-            <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-[var(--fg-secondary)]">
-              {hero.tag}
-            </span>
-          </span>
-
-          <h1 className="m-0 font-display text-[clamp(34px,5vw,60px)] font-semibold leading-[1.05] tracking-[-0.025em] text-[var(--fg-primary)] text-balance">
-            {hero.title}
-          </h1>
-          <p className="m-0 max-w-[620px] text-[16px] leading-[1.6] text-[var(--fg-secondary)] sm:text-[18px]">
-            {hero.sub}
-          </p>
-          <p className="m-0 font-display text-[15px] font-medium text-[var(--fg-primary)] sm:text-[16px]">
-            {hero.support}
-          </p>
-
-          <div className="mt-1 flex flex-wrap gap-3">
-            <CtaButton cta={hero.primary} />
-            <CtaButton cta={hero.secondary} variant="ghost" />
-          </div>
-
-          <div className="mt-2 flex flex-wrap gap-x-6 gap-y-2.5">
-            {hero.badges.map((b) => (
-              <span key={b} className="inline-flex items-center gap-2 text-[13px] text-[var(--fg-secondary)]">
-                <CheckCircle2 size={15} style={{ color: ACCENT }} />
-                {b}
-              </span>
-            ))}
-          </div>
-        </motion.div>
-      </div>
-    </section>
-  );
-}
 
 /* ── Problem ──────────────────────────────────────────────────────────────── */
 function Problem({ data }: { data: SapConnector["problem"] }) {
@@ -516,7 +457,7 @@ export function SapConnectorPage({ data }: { data: SapConnector }) {
       <StructuredData schema={schema} />
       <Header mode="home" />
       <main itemScope itemType="https://schema.org/SoftwareApplication">
-        <Hero data={data} />
+        <ConnectorHero data={data} />
         <IntegrationFlowSection data={data} />
         <Problem data={data.problem} />
         <Solution data={data.solution} />
@@ -527,7 +468,7 @@ export function SapConnectorPage({ data }: { data: SapConnector }) {
         <Developer data={data.developer} />
         <Proof data={data.proof} />
         <Why data={data.why} />
-        <FAQSection data={data.faq} />
+        <FAQSection data={data.faq} centered />
         <Closing data={data.closing} />
       </main>
       <Footer />

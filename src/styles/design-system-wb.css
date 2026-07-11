@@ -2917,10 +2917,10 @@ img {
 }
 
 .wb-crumbs .wb-crumb-sep {
-  color: rgba(255, 255, 255, 0.15);
+  color: var(--text);
   display: inline-block;
   transform: scale(1.6);
-  font-weight: 700;
+  font-weight: 500;
 }
 
 /* ---------- Subpage hero (compact) ---------- */

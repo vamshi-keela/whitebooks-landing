@@ -3,12 +3,10 @@
  * e-Way Bill). A faithful, on-brand conversion of the legacy
  * whitebooks.in/connectors/tally-* pages. Content from `connectors.data.ts`.
  */
-import { motion } from "framer-motion";
 import { CheckCircle2, Download, FileCheck2, MousePointerClick, QrCode } from "lucide-react";
 import { Header, Footer } from "@/layouts/SiteShell";
 import { SeoHead } from "@/seo/components/SeoHead";
 import { StructuredData } from "@/seo/components/StructuredData";
-import { SeoBreadcrumb } from "@/seo/components/SeoBreadcrumb";
 import {
   buildJsonLd,
   buildWebPageSchema,
@@ -18,58 +16,13 @@ import {
 } from "@/seo/schema/generators";
 import { useReveal } from "@/hooks/useReveal";
 import type { FeatureBlock, TallyConnector } from "./connectors.data";
-import { CtaButton, EASE, Eyebrow, FaqAccordion, Reveal, Section, SectionHeader } from "./_sections";
+import { CtaButton, Eyebrow, Reveal, Section, SectionHeader } from "./_sections";
+import { ConnectorHero } from "./ConnectorHero";
 import { IntegrationFlowSection } from "./IntegrationFlow";
 import { FAQSection } from "@/components/subpage/FAQSection";
 
 const ACCENT = "var(--brand)";
 const STEP_ICONS = [Download, FileCheck2, MousePointerClick];
-
-/* ── Hero ─────────────────────────────────────────────────────────────────── */
-function Hero({ data }: { data: TallyConnector }) {
-  const { hero, logo } = data;
-  return (
-    <section className="relative overflow-hidden border-b border-[var(--hairline)] bg-[var(--bg)] pb-16 pt-[120px] sm:pb-20 sm:pt-[140px]">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0"
-        style={{ background: "radial-gradient(ellipse 60% 50% at 50% 0%, var(--brand-glow), transparent 70%)" }}
-      />
-      <div className="relative mx-auto w-full max-w-[1280px] px-4 sm:px-6 md:px-8 lg:px-10 xl:px-16">
-        <div className="mb-7">
-          <SeoBreadcrumb items={data.breadcrumb} />
-        </div>
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: EASE }}
-          className="flex max-w-[820px] flex-col gap-6"
-        >
-          <span className="inline-flex w-fit items-center gap-2.5 rounded-full border border-[var(--hairline-strong)] bg-[color-mix(in_srgb,var(--fg-primary)_5%,transparent)] px-3 py-1.5">
-            <span className="inline-flex h-4 items-center">
-              <img src={logo} alt="Tally" className="h-[14px] w-auto object-contain" />
-            </span>
-            <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-[var(--fg-secondary)]">
-              {hero.tag}
-            </span>
-          </span>
-
-          <h1 className="m-0 font-display text-[clamp(32px,5vw,58px)] font-semibold leading-[1.06] tracking-[-0.025em] text-[var(--fg-primary)] text-balance">
-            {hero.title}
-          </h1>
-          <p className="m-0 max-w-[620px] text-[16px] leading-[1.6] text-[var(--fg-secondary)] sm:text-[18px]">
-            {hero.sub}
-          </p>
-          <p className="m-0 text-[14px] text-[var(--fg-tertiary)]">{hero.support}</p>
-
-          <div className="mt-1">
-            <CtaButton cta={hero.primary} />
-          </div>
-        </motion.div>
-      </div>
-    </section>
-  );
-}
 
 /* ── 3-step setup ─────────────────────────────────────────────────────────── */
 function Setup({ data }: { data: TallyConnector["setup"] }) {
@@ -268,13 +221,13 @@ export function TallyConnectorPage({ data }: { data: TallyConnector }) {
       <StructuredData schema={schema} />
       <Header mode="home" />
       <main itemScope itemType="https://schema.org/SoftwareApplication">
-        <Hero data={data} />
+        <ConnectorHero data={data} />
         <IntegrationFlowSection data={data} />
         <Setup data={data.setup} />
         <FeatureBlocks features={data.features} />
         {data.params && <Params data={data.params} />}
 
-        <FAQSection data={data.faq} />
+        <FAQSection data={data.faq} centered />
         <Closing data={data.closing} />
       </main>
       <Footer />

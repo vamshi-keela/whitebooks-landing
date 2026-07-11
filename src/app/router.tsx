@@ -209,6 +209,7 @@ function SoftwareSubPageRoute() {
     <>
       <SubPage
         data={pageDef as SubPageData}
+        productSlug={product}
         onPrimaryClick={() => { window.location.href = 'https://accounts.whitebooks.in/login'; }}
         onSecondaryClick={() => setDemoOpen(true)}
       />

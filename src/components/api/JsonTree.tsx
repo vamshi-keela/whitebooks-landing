@@ -62,13 +62,15 @@ function tokenize(json: string): Token[] {
   return tokens;
 }
 
+/* Theme-aware token colors — resolve per theme (and stay dark inside a
+   `.dp-code-panel` scope, which re-declares these variables). */
 const tokenColors: Record<Token['type'], string> = {
-  key: '#ff7aa8',
-  string: '#a5e3a1',
-  number: '#f5c986',
-  boolean: '#c084fc',
-  null: '#9a9aae',
-  punct: '#8a8aa0',
+  key: 'var(--dp-accent-2)',
+  string: 'var(--dp-str-fg)',
+  number: 'var(--dp-type-fg)',
+  boolean: 'var(--dp-kw-fg)',
+  null: 'var(--dp-fg-dim)',
+  punct: 'var(--dp-fg-muted)',
   ws: 'transparent',
 };
 
@@ -83,7 +85,7 @@ export default function JsonTree({ json, maxHeight = 400, showCopy = true, bare 
   }, [json]);
 
   return (
-    <div className="dp-code-panel" style={{ position: 'relative', background: 'transparent' }}>
+    <div style={{ position: 'relative', background: 'transparent' }}>
       {showCopy && (
         <div style={{ position: 'absolute', top: 8, right: 8, zIndex: 1 }}>
           <CopyButton text={json} label={false} />
@@ -91,9 +93,8 @@ export default function JsonTree({ json, maxHeight = 400, showCopy = true, bare 
       )}
       <div
         style={{
-          /* Fern-style: code blocks stay dark in both themes */
-          background: '#0d0d10',
-          border: bare ? 'none' : '1px solid rgba(255,255,255,0.08)',
+          background: 'var(--dp-code-bg)',
+          border: bare ? 'none' : '1px solid var(--dp-border)',
           borderRadius: bare ? 0 : 10,
           padding: '14px 48px 14px 14px',
           fontFamily: 'var(--dp-font-mono)',
@@ -103,7 +104,6 @@ export default function JsonTree({ json, maxHeight = 400, showCopy = true, bare 
           overflowY: 'auto',
           maxHeight,
           whiteSpace: 'pre',
-          colorScheme: 'dark',
         }}
       >
         {tokens.map((tok, i) => (

@@ -265,7 +265,9 @@ body {
   box-sizing: border-box;
 }
 
-.dp-root a {
+/* :where() keeps specificity at zero so utility classes (e.g. Tailwind's
+   text-white on the Sign up ButtonLink) can override the inherited color. */
+:where(.dp-root a) {
   color: inherit;
   text-decoration: none;
 }

@@ -10,18 +10,32 @@ function getRequestBodyExample(op: NormalizedOperation, spec: OpenApiSpec): stri
   return JSON.stringify(example, null, 2);
 }
 
-function getQueryParams(op: NormalizedOperation): string {
+/** User-entered playground values; fall back to spec examples when empty. */
+export interface ExampleOverrides {
+  query?: Record<string, string>;
+  headers?: Record<string, string>;
+}
+
+const entered = (v: string | undefined): string | undefined =>
+  v?.trim() ? v.trim() : undefined;
+
+function getQueryParams(op: NormalizedOperation, ov?: ExampleOverrides): string {
   const params = (op.parameters ?? []).filter(p => p.in === 'query');
   if (!params.length) return '';
-  const qs = params.map(p => `${p.name}=${p.example ?? 'value'}`).join('&');
+  const qs = params
+    .map(p => `${p.name}=${entered(ov?.query?.[p.name]) ?? p.example ?? 'value'}`)
+    .join('&');
   return `?${qs}`;
 }
 
-function getHeaderParams(op: NormalizedOperation): Record<string, string> {
+function getHeaderParams(op: NormalizedOperation, ov?: ExampleOverrides): Record<string, string> {
   const headers: Record<string, string> = {};
   const params = (op.parameters ?? []).filter(p => p.in === 'header');
   for (const p of params) {
-    if (p.name === 'Authorization') {
+    const user = entered(ov?.headers?.[p.name]);
+    if (user !== undefined) {
+      headers[p.name] = user;
+    } else if (p.name === 'Authorization') {
       headers['Authorization'] = 'Bearer YOUR_TOKEN';
     } else {
       headers[p.name] = String(p.example ?? 'value');
@@ -30,9 +44,9 @@ function getHeaderParams(op: NormalizedOperation): Record<string, string> {
   return headers;
 }
 
-export function generateCurl(op: NormalizedOperation, baseUrl: string, spec: OpenApiSpec): string {
-  const url = `${baseUrl}${op.path}${getQueryParams(op)}`;
-  const headers = getHeaderParams(op);
+export function generateCurl(op: NormalizedOperation, baseUrl: string, spec: OpenApiSpec, ov?: ExampleOverrides): string {
+  const url = `${baseUrl}${op.path}${getQueryParams(op, ov)}`;
+  const headers = getHeaderParams(op, ov);
   const body = getRequestBodyExample(op, spec);
 
   const lines = [`curl -X ${op.method} "${url}"`];
@@ -47,9 +61,9 @@ export function generateCurl(op: NormalizedOperation, baseUrl: string, spec: Ope
 }
 
 /** Shared fetch-based snippet used by both the Node.js and TypeScript tabs. */
-function generateFetch(op: NormalizedOperation, baseUrl: string, spec: OpenApiSpec, typed: boolean): string {
-  const url = `${baseUrl}${op.path}${getQueryParams(op)}`;
-  const headers = { ...getHeaderParams(op), ...(op.requestBody ? { 'Content-Type': 'application/json' } : {}) };
+function generateFetch(op: NormalizedOperation, baseUrl: string, spec: OpenApiSpec, typed: boolean, ov?: ExampleOverrides): string {
+  const url = `${baseUrl}${op.path}${getQueryParams(op, ov)}`;
+  const headers = { ...getHeaderParams(op, ov), ...(op.requestBody ? { 'Content-Type': 'application/json' } : {}) };
   const body = getRequestBodyExample(op, spec);
 
   const headerObj = JSON.stringify(headers, null, 2).replace(/"([^"]+)":/g, '$1:');
@@ -62,17 +76,17 @@ function generateFetch(op: NormalizedOperation, baseUrl: string, spec: OpenApiSp
   return code;
 }
 
-export function generateNode(op: NormalizedOperation, baseUrl: string, spec: OpenApiSpec): string {
-  return generateFetch(op, baseUrl, spec, false);
+export function generateNode(op: NormalizedOperation, baseUrl: string, spec: OpenApiSpec, ov?: ExampleOverrides): string {
+  return generateFetch(op, baseUrl, spec, false, ov);
 }
 
-export function generateTypeScript(op: NormalizedOperation, baseUrl: string, spec: OpenApiSpec): string {
-  return generateFetch(op, baseUrl, spec, true);
+export function generateTypeScript(op: NormalizedOperation, baseUrl: string, spec: OpenApiSpec, ov?: ExampleOverrides): string {
+  return generateFetch(op, baseUrl, spec, true, ov);
 }
 
-export function generateJava(op: NormalizedOperation, baseUrl: string, spec: OpenApiSpec): string {
-  const url = `${baseUrl}${op.path}${getQueryParams(op)}`;
-  const headers = getHeaderParams(op);
+export function generateJava(op: NormalizedOperation, baseUrl: string, spec: OpenApiSpec, ov?: ExampleOverrides): string {
+  const url = `${baseUrl}${op.path}${getQueryParams(op, ov)}`;
+  const headers = getHeaderParams(op, ov);
   const body = getRequestBodyExample(op, spec);
 
   let code = `import java.net.URI;\n`;
@@ -99,9 +113,9 @@ export function generateJava(op: NormalizedOperation, baseUrl: string, spec: Ope
   return code;
 }
 
-export function generateGo(op: NormalizedOperation, baseUrl: string, spec: OpenApiSpec): string {
-  const url = `${baseUrl}${op.path}${getQueryParams(op)}`;
-  const headers = getHeaderParams(op);
+export function generateGo(op: NormalizedOperation, baseUrl: string, spec: OpenApiSpec, ov?: ExampleOverrides): string {
+  const url = `${baseUrl}${op.path}${getQueryParams(op, ov)}`;
+  const headers = getHeaderParams(op, ov);
   const body = getRequestBodyExample(op, spec);
 
   let code = `package main\n\n`;
@@ -130,9 +144,9 @@ export function generateGo(op: NormalizedOperation, baseUrl: string, spec: OpenA
   return code;
 }
 
-export function generatePHP(op: NormalizedOperation, baseUrl: string, spec: OpenApiSpec): string {
-  const url = `${baseUrl}${op.path}${getQueryParams(op)}`;
-  const headers = getHeaderParams(op);
+export function generatePHP(op: NormalizedOperation, baseUrl: string, spec: OpenApiSpec, ov?: ExampleOverrides): string {
+  const url = `${baseUrl}${op.path}${getQueryParams(op, ov)}`;
+  const headers = getHeaderParams(op, ov);
   const body = getRequestBodyExample(op, spec);
 
   const headerLines = Object.entries(headers).map(([k, v]) => `    "${k}: ${v}"`);
@@ -157,9 +171,9 @@ export function generatePHP(op: NormalizedOperation, baseUrl: string, spec: Open
   return code;
 }
 
-export function generatePython(op: NormalizedOperation, baseUrl: string, spec: OpenApiSpec): string {
+export function generatePython(op: NormalizedOperation, baseUrl: string, spec: OpenApiSpec, ov?: ExampleOverrides): string {
   const url = `${baseUrl}${op.path}`;
-  const headers = getHeaderParams(op);
+  const headers = getHeaderParams(op, ov);
   const body = getRequestBodyExample(op, spec);
   const params = (op.parameters ?? []).filter(p => p.in === 'query');
 
@@ -169,7 +183,9 @@ export function generatePython(op: NormalizedOperation, baseUrl: string, spec: O
     code += `headers = ${JSON.stringify(headers, null, 4)}\n\n`;
   }
   if (params.length) {
-    const paramsObj = Object.fromEntries(params.map(p => [p.name, p.example ?? 'value']));
+    const paramsObj = Object.fromEntries(
+      params.map(p => [p.name, entered(ov?.query?.[p.name]) ?? p.example ?? 'value']),
+    );
     code += `params = ${JSON.stringify(paramsObj, null, 4)}\n\n`;
   }
   if (body) {
@@ -185,15 +201,15 @@ export function generatePython(op: NormalizedOperation, baseUrl: string, spec: O
   return code;
 }
 
-export function getAllExamples(op: NormalizedOperation, baseUrl: string, spec: OpenApiSpec) {
+export function getAllExamples(op: NormalizedOperation, baseUrl: string, spec: OpenApiSpec, ov?: ExampleOverrides) {
   return {
-    'Node.js': generateNode(op, baseUrl, spec),
-    Python: generatePython(op, baseUrl, spec),
-    TypeScript: generateTypeScript(op, baseUrl, spec),
-    Java: generateJava(op, baseUrl, spec),
-    Go: generateGo(op, baseUrl, spec),
-    PHP: generatePHP(op, baseUrl, spec),
-    cURL: generateCurl(op, baseUrl, spec),
+    'Node.js': generateNode(op, baseUrl, spec, ov),
+    Python: generatePython(op, baseUrl, spec, ov),
+    TypeScript: generateTypeScript(op, baseUrl, spec, ov),
+    Java: generateJava(op, baseUrl, spec, ov),
+    Go: generateGo(op, baseUrl, spec, ov),
+    PHP: generatePHP(op, baseUrl, spec, ov),
+    cURL: generateCurl(op, baseUrl, spec, ov),
   };
 }
 

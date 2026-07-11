@@ -96,6 +96,24 @@ export function SectionHeader({
   );
 }
 
+/* ── BrandHighlight — wraps the first matching phrase in brand color, echoing
+   the home hero's accented headline. ───────────────────────────────────────── */
+export function BrandHighlight({ text, phrases }: { text: string; phrases: string[] }) {
+  for (const phrase of phrases) {
+    const idx = text.indexOf(phrase);
+    if (idx !== -1) {
+      return (
+        <>
+          {text.slice(0, idx)}
+          <span className="text-[var(--brand)]">{phrase}</span>
+          {text.slice(idx + phrase.length)}
+        </>
+      );
+    }
+  }
+  return <>{text}</>;
+}
+
 /* ── External CTA — opens accounts.whitebooks.in in a new tab ──────────────── */
 export function CtaButton({
   cta,

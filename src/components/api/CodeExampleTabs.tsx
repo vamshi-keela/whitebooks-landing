@@ -8,6 +8,9 @@ import CopyButton from './CopyButton';
 
 interface Props {
   operation: NormalizedOperation;
+  /** Live playground values; empty fields fall back to spec examples. */
+  headerValues?: Record<string, string>;
+  queryValues?: Record<string, string>;
 }
 
 type Lang = 'Node.js' | 'Python' | 'TypeScript' | 'Java' | 'Go' | 'PHP' | 'cURL';
@@ -186,13 +189,13 @@ function LangDropdown({
 
 /* ─── Main ──────────────────────────────────────────────────────────────── */
 
-export default memo(function CodeExampleTabs({ operation }: Props): React.ReactElement {
+export default memo(function CodeExampleTabs({ operation, headerValues, queryValues }: Props): React.ReactElement {
   const { spec, baseUrl } = useSpec();
   const [activeLang, setActiveLang] = useState<Lang>('Node.js');
 
   const examples = useMemo(
-    () => getAllExamples(operation, baseUrl, spec),
-    [operation, baseUrl, spec]
+    () => getAllExamples(operation, baseUrl, spec, { headers: headerValues, query: queryValues }),
+    [operation, baseUrl, spec, headerValues, queryValues]
   );
 
   const activeCode = examples[activeLang];

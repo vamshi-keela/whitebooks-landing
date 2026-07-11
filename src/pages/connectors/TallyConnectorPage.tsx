@@ -19,7 +19,7 @@ import {
 import { useReveal } from "@/hooks/useReveal";
 import type { FeatureBlock, TallyConnector } from "./connectors.data";
 import { CtaButton, EASE, Eyebrow, FaqAccordion, Reveal, Section, SectionHeader } from "./_sections";
-import { IntegrationFlow } from "./IntegrationFlow";
+import { IntegrationFlowSection } from "./IntegrationFlow";
 import { FAQSection } from "@/components/subpage/FAQSection";
 
 const ACCENT = "var(--brand)";
@@ -39,44 +39,33 @@ function Hero({ data }: { data: TallyConnector }) {
         <div className="mb-7">
           <SeoBreadcrumb items={data.breadcrumb} />
         </div>
-        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,420px)] lg:gap-10 xl:gap-16">
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: EASE }}
-            className="flex max-w-[820px] flex-col gap-6"
-          >
-            <span className="inline-flex w-fit items-center gap-2.5 rounded-full border border-[var(--hairline-strong)] bg-[color-mix(in_srgb,var(--fg-primary)_5%,transparent)] px-3 py-1.5">
-              <span className="inline-flex h-4 items-center">
-                <img src={logo} alt="Tally" className="h-[14px] w-auto object-contain" />
-              </span>
-              <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-[var(--fg-secondary)]">
-                {hero.tag}
-              </span>
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: EASE }}
+          className="flex max-w-[820px] flex-col gap-6"
+        >
+          <span className="inline-flex w-fit items-center gap-2.5 rounded-full border border-[var(--hairline-strong)] bg-[color-mix(in_srgb,var(--fg-primary)_5%,transparent)] px-3 py-1.5">
+            <span className="inline-flex h-4 items-center">
+              <img src={logo} alt="Tally" className="h-[14px] w-auto object-contain" />
             </span>
+            <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-[var(--fg-secondary)]">
+              {hero.tag}
+            </span>
+          </span>
 
-            <h1 className="m-0 font-display text-[clamp(30px,4vw,48px)] font-semibold leading-[1.08] tracking-[-0.025em] text-[var(--fg-primary)] text-balance">
-              {hero.title}
-            </h1>
-            <p className="m-0 max-w-[620px] text-[16px] leading-[1.6] text-[var(--fg-secondary)] sm:text-[18px]">
-              {hero.sub}
-            </p>
-            <p className="m-0 text-[14px] text-[var(--fg-tertiary)]">{hero.support}</p>
+          <h1 className="m-0 font-display text-[clamp(32px,5vw,58px)] font-semibold leading-[1.06] tracking-[-0.025em] text-[var(--fg-primary)] text-balance">
+            {hero.title}
+          </h1>
+          <p className="m-0 max-w-[620px] text-[16px] leading-[1.6] text-[var(--fg-secondary)] sm:text-[18px]">
+            {hero.sub}
+          </p>
+          <p className="m-0 text-[14px] text-[var(--fg-tertiary)]">{hero.support}</p>
 
-            <div className="mt-1">
-              <CtaButton cta={hero.primary} />
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, ease: EASE, delay: 0.15 }}
-            className="w-full max-w-[460px] justify-self-center lg:justify-self-end"
-          >
-            <IntegrationFlow data={data} />
-          </motion.div>
-        </div>
+          <div className="mt-1">
+            <CtaButton cta={hero.primary} />
+          </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -280,6 +269,7 @@ export function TallyConnectorPage({ data }: { data: TallyConnector }) {
       <Header mode="home" />
       <main itemScope itemType="https://schema.org/SoftwareApplication">
         <Hero data={data} />
+        <IntegrationFlowSection data={data} />
         <Setup data={data.setup} />
         <FeatureBlocks features={data.features} />
         {data.params && <Params data={data.params} />}

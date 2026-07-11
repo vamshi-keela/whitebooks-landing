@@ -19,6 +19,7 @@ import {
   Palette,
   PenTool,
   QrCode,
+  ScanLine,
   Stamp,
   X,
   type LucideIcon,
@@ -183,7 +184,7 @@ function FanCard({
         "absolute w-[150px] cursor-pointer overflow-hidden rounded-[20px] border bg-[var(--bg-card)] transition-[left,top,transform,box-shadow] duration-500 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)] sm:w-[190px] lg:w-[230px] xl:w-[250px]",
         isActive
           ? "border-[color-mix(in_srgb,var(--fg-primary)_16%,transparent)] shadow-[0_50px_100px_-30px_rgba(0,0,0,0.6)]"
-          : "border-[color-mix(in_srgb,var(--fg-primary)_10%,transparent)] shadow-[0_28px_64px_-26px_rgba(0,0,0,0.55)] hover:border-[color-mix(in_srgb,var(--fg-primary)_20%,transparent)]",
+          : "border-[color-mix(in_srgb,var(--fg-primary)_10%,transparent)] shadow-[0_28px_64px_-26px_rgba(0,0,0,0.55)]",
       )}
       style={{
         left: `${slot.left}%`,
@@ -415,8 +416,183 @@ function FeaturesRow() {
   );
 }
 
+/* ── Signed IRN QR — e-Invoice-only affordance ────────────────────────────
+   Every e-invoice carries the IRP-signed QR (IRN, GSTINs, invoice value,
+   HSN, timestamp). We render it as a placeholder so the page reads as
+   genuinely e-invoice-aware. The QR itself is a self-contained SVG
+   (finder patterns + deterministic module field) — no asset, always dark-
+   on-white so it stays legible in either theme, wrapped in the same glass
+   card language as the Customize block so it blends in rather than shouting. */
+const QR_MODULES = 21; // QR version 1 grid
+const QR_UNIT = 4;
+const QR_QUIET = 8; // 2-module quiet zone → 21*4 + 16 = 100 viewBox
+
+function inFinderZone(x: number, y: number) {
+  const box = (bx: number, by: number) => x >= bx - 1 && x <= bx + 7 && y >= by - 1 && y <= by + 7;
+  return box(0, 0) || box(QR_MODULES - 7, 0) || box(0, QR_MODULES - 7);
+}
+
+// Deterministic pseudo-random module field so the placeholder looks like a
+// real code yet never shifts between renders.
+const QR_DATA_MODULES: Array<[number, number]> = (() => {
+  const cells: Array<[number, number]> = [];
+  for (let y = 0; y < QR_MODULES; y++) {
+    for (let x = 0; x < QR_MODULES; x++) {
+      if (inFinderZone(x, y)) continue;
+      const h = ((x * 73856093) ^ (y * 19349663) ^ ((x + y) * 83492791)) >>> 0;
+      if (h % 100 < 47) cells.push([x, y]);
+    }
+  }
+  return cells;
+})();
+
+function QrFinder({ gx, gy }: { gx: number; gy: number }) {
+  const p = (m: number) => QR_QUIET + m * QR_UNIT;
+  return (
+    <g>
+      <rect x={p(gx)} y={p(gy)} width={QR_UNIT * 7} height={QR_UNIT * 7} rx={6} fill="#0B0F17" />
+      <rect x={p(gx + 1)} y={p(gy + 1)} width={QR_UNIT * 5} height={QR_UNIT * 5} rx={4} fill="#ffffff" />
+      <rect x={p(gx + 2)} y={p(gy + 2)} width={QR_UNIT * 3} height={QR_UNIT * 3} rx={2.5} fill="#0B0F17" />
+    </g>
+  );
+}
+
+function QrPlaceholder() {
+  return (
+    <svg
+      viewBox="0 0 100 100"
+      role="img"
+      aria-label="Placeholder signed IRN QR code"
+      className="h-full w-full"
+      shapeRendering="crispEdges"
+    >
+      {QR_DATA_MODULES.map(([x, y]) => (
+        <rect
+          key={`${x}-${y}`}
+          x={QR_QUIET + x * QR_UNIT}
+          y={QR_QUIET + y * QR_UNIT}
+          width={QR_UNIT}
+          height={QR_UNIT}
+          rx={0.6}
+          fill="#0B0F17"
+        />
+      ))}
+      <QrFinder gx={0} gy={0} />
+      <QrFinder gx={QR_MODULES - 7} gy={0} />
+      <QrFinder gx={0} gy={QR_MODULES - 7} />
+    </svg>
+  );
+}
+
+/* ── QR lightbox — enlarged view opened from the QR tile, mirrors the
+   template lightbox so the interaction feels native to the section. */
+function QrLightbox({ onClose }: { onClose: () => void }) {
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.2 }}
+      onClick={onClose}
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-6 backdrop-blur-sm"
+    >
+      <motion.div
+        initial={{ opacity: 0, scale: 0.94 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.96 }}
+        transition={{ duration: 0.22, ease: EASE }}
+        onClick={(e) => e.stopPropagation()}
+        className="relative w-full max-w-[min(88vw,340px)]"
+      >
+        <div className="rounded-3xl bg-white p-5 shadow-[0_60px_140px_-30px_rgba(0,0,0,0.7)] ring-1 ring-black/5 sm:p-6">
+          <div className="aspect-square w-full">
+            <QrPlaceholder />
+          </div>
+        </div>
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Close QR preview"
+          className="absolute -right-3 -top-3 flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-[#15151c] text-white/80 shadow-lg transition-colors hover:bg-white/10 hover:text-white"
+        >
+          <X size={16} />
+        </button>
+        <div className="mt-4 flex flex-col items-center gap-1.5 text-center">
+          <div className="inline-flex items-center gap-2 text-[15px] font-semibold text-white">
+            <ScanLine size={16} strokeWidth={2.2} style={{ color: ACCENT }} />
+            Scan to verify
+          </div>
+          <p className="m-0 max-w-[280px] text-[12.5px] leading-[1.5] text-white/60">
+            Point your camera at the code to confirm the IRN, both GSTINs and the invoice value.
+          </p>
+          <span className="mt-1 font-mono text-[10.5px] uppercase tracking-[0.16em] text-white/40">
+            Signed IRN QR
+          </span>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+function InvoiceQrPanel() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <div className="flex items-center gap-4 rounded-2xl border border-[var(--hairline-strong)] bg-[color-mix(in_srgb,var(--fg-primary)_4%,transparent)] p-4">
+        <div className="relative shrink-0">
+          <span
+            aria-hidden
+            className="pointer-events-none absolute -inset-2 rounded-2xl blur-lg"
+            style={{ background: `radial-gradient(circle, ${ACCENT}33, transparent 70%)` }}
+          />
+          <button
+            type="button"
+            onClick={() => setOpen(true)}
+            aria-label="Enlarge signed IRN QR"
+            className="group relative block h-[76px] w-[76px] cursor-pointer rounded-xl border-0 bg-white p-2 shadow-[0_10px_28px_-14px_rgba(0,0,0,0.5)] outline-none ring-1 ring-black/5 transition-transform duration-300 hover:scale-[1.04] focus-visible:ring-2 focus-visible:ring-[var(--brand)] sm:h-[84px] sm:w-[84px]"
+          >
+            <QrPlaceholder />
+            <span className="pointer-events-none absolute inset-0 flex items-center justify-center rounded-xl bg-black/40 opacity-0 backdrop-blur-[1px] transition-opacity duration-200 group-hover:opacity-100">
+              <Expand size={16} className="text-white" />
+            </span>
+          </button>
+        </div>
+        <div className="min-w-0 flex flex-col gap-2">
+          <span className="font-mono text-[10.5px] font-medium uppercase tracking-[0.18em] text-[var(--fg-tertiary)]">
+            Signed IRN QR
+          </span>
+          <div className="flex items-center gap-2">
+            <ScanLine size={17} strokeWidth={2.2} style={{ color: ACCENT }} />
+            <h4 className="m-0 font-display text-[16px] font-semibold leading-[1.2] tracking-[-0.01em] text-[var(--fg-primary)]">
+              Scan to verify
+            </h4>
+          </div>
+          <p className="m-0 text-[13.5px] leading-[1.6] text-[var(--fg-secondary)]">
+            Every e-invoice carries the IRP-signed QR. Scan it to instantly confirm the IRN, both GSTINs and the invoice value.
+          </p>
+          <span className="mt-0.5 inline-flex w-fit items-center gap-1.5 rounded-full border border-[var(--hairline-strong)] bg-[color-mix(in_srgb,var(--fg-primary)_4%,transparent)] px-2.5 py-1 text-[11.5px] font-medium text-[var(--fg-secondary)]">
+            <BadgeCheck size={13} style={{ color: ACCENT }} />
+            IRP-verified
+          </span>
+        </div>
+      </div>
+
+      <AnimatePresence>{open && <QrLightbox onClose={() => setOpen(false)} />}</AnimatePresence>
+    </>
+  );
+}
+
 /* ── Section ───────────────────────────────────────────────────────────── */
-export function InvoiceTemplates() {
+export function InvoiceTemplates({ showQr = false }: { showQr?: boolean } = {}) {
   const { resolvedTheme } = useTheme();
   const isDark = resolvedTheme === "dark";
   const [activeId, setActiveId] = useState<TemplateId>(TEMPLATES[0].id);
@@ -450,6 +626,7 @@ export function InvoiceTemplates() {
           <div className="order-2 flex flex-col gap-5 lg:order-1">
             <TemplateInfo template={activeTemplate} />
             <CustomizationRow />
+            {showQr && <InvoiceQrPanel />}
             {/* <ExportRow /> */}
             <FeaturesRow />
           </div>

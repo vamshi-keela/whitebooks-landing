@@ -29,9 +29,8 @@ interface Props {
 /**
  * Response card used in both the detail-page right rail (example payloads) and
  * the Playground (live results). Mirrors the Sandbox reference: a header strip
- * with status pills + copy, then a syntax-highlighted JSON body.
- *
- * Expects to be rendered inside a `.dp-code-panel` scope so its chrome stays dark.
+ * with status pills + copy, then a syntax-highlighted JSON body. Theme-aware:
+ * follows the ambient dp token scope (dark inside `.dp-code-panel`).
  */
 export default function ResponseCard({ operation, live, maxHeight = 320 }: Props): React.ReactElement {
   const { spec } = useSpec();

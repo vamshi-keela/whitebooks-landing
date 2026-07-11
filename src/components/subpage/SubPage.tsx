@@ -30,6 +30,8 @@ import TrustStats from "@/sections/TrustStats";
 
 interface SubPageProps {
   data: SubPageData;
+  /** Route product slug (e.g. "e-invoice") — used to gate page-specific affordances. */
+  productSlug?: string;
   onPrimaryClick?: () => void;
   onSecondaryClick?: () => void;
 }
@@ -74,7 +76,7 @@ function buildApiPageSchema(data: SubPageData) {
   return buildJsonLd(...nodes);
 }
 
-export function SubPage({ data, onPrimaryClick, onSecondaryClick }: SubPageProps) {
+export function SubPage({ data, productSlug, onPrimaryClick, onSecondaryClick }: SubPageProps) {
   useReveal();
   const schema = buildSoftwareSchema(data);
   const handleSecondaryClick = onSecondaryClick ?? (() => {
@@ -103,7 +105,7 @@ export function SubPage({ data, onPrimaryClick, onSecondaryClick }: SubPageProps
         {data.extra}
         <EnterpriseControls />
         {data.exploreShowCase && <ExploreShowcase features={data.exploreShowCase} />}
-        <InvoiceTemplates />
+        <InvoiceTemplates showQr={productSlug === "e-invoice"} />
         <WbTrust />
         {data.integrations && <IntegrationSection data={data.integrations} />}
         {data.ai && <AILayerSection data={data.ai} />}

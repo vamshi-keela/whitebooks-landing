@@ -1,6 +1,6 @@
 import { Header, Footer, Breadcrumb } from '@/layouts/SiteShell';
-import { useReveal } from '@/hooks/useReveal';
-import EyebrowPill from '@/components/ui/EyebrowPill';
+import { useReveal } from '@/shared/hooks/useReveal';
+import EyebrowPill from '@/shared/ui/EyebrowPill';
 import { FaqList, SubClose } from '@/layouts/SubpageShell';
 import { ProofSection } from '@/sections/WbProof';
 import { CheckCircle } from 'lucide-react';

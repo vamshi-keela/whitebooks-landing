@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Sparkles, Copy, Check, FileText, ChevronDown } from 'lucide-react';
-import type { NormalizedOperation } from '../../data/openapi-spec';
+import type { NormalizedOperation } from '@/data/openapi-spec';
 import { useSpec } from '../../contexts/SpecContext';
 
 interface Props {

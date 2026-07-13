@@ -1,4 +1,4 @@
-import type { SeoMeta } from './types';
+import type { SeoMeta } from '@/seo/types';
 import { SITE } from './config/site';
 import { CANONICAL_ROUTES } from './utils/canonical';
 

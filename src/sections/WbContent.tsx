@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Icon } from '@/components/icons/Icon';
-import { ButtonLink } from '@/components/ui/Button';
+import { ButtonLink } from '@/shared/ui/Button';
 
 // ─── useCountUp (wb-content local variant) ────────────────────────────────────
 // Signature: useCountUp(target, duration?, start?)

@@ -13,4 +13,4 @@ export {
   buildTechArticleSchema,
   buildJsonLd,
 } from './schema/generators';
-export type { SeoMeta, BreadcrumbEntry, SchemaFaqItem } from './types';
+export type { SeoMeta, BreadcrumbEntry, SchemaFaqItem } from '@/seo/types';

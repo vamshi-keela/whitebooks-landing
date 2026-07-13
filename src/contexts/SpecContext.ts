@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import type { OpenApiSpec, SchemaObject } from '../data/openapi-spec';
+import type { OpenApiSpec, SchemaObject } from '@/data/openapi-spec';
 import { resolveRef } from '../utils/normalizeSpec';
 
 export interface SpecContextValue {

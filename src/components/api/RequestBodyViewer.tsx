@@ -1,5 +1,5 @@
 import React, { useState, memo, useMemo } from 'react';
-import type { RequestBodyObject } from '../../data/openapi-spec';
+import type { RequestBodyObject } from '@/data/openapi-spec';
 import { useSpec } from '../../contexts/SpecContext';
 import { generateExampleFromSchema } from '../../utils/schemaHelpers';
 import { resolveSchema } from '../../utils/normalizeSpec';

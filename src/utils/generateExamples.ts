@@ -1,4 +1,4 @@
-import type { NormalizedOperation, OpenApiSpec } from '../data/openapi-spec';
+import type { NormalizedOperation, OpenApiSpec } from '@/data/openapi-spec';
 import { generateExampleFromSchema } from './schemaHelpers';
 import { resolveSchema } from './normalizeSpec';
 

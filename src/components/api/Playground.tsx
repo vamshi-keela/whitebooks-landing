@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { X, Check, ChevronDown, ChevronRight, Search, Play, Loader2, AlertCircle } from 'lucide-react';
-import { openApiSpec, type NormalizedOperation, type NormalizedMethod, type ApiSpecKey } from '../../data/openapi-spec';
+import { openApiSpec, type NormalizedOperation, type NormalizedMethod, type ApiSpecKey } from '@/data/openapi-spec';
 import { environments, type Environment } from '../../data/environments';
 import { useSpec, SpecContext, makeSpecContext } from '../../contexts/SpecContext';
 import { generateExampleFromSchema } from '../../utils/schemaHelpers';
 import { resolveSchema } from '../../utils/normalizeSpec';
-import { searchOps, getOpIndex } from '../../pages/developer/devSearch';
+import { searchOps, getOpIndex } from '@/features/developer/devSearch';
 import MethodBadge from './MethodBadge';
 import CodeExampleTabs from './CodeExampleTabs';
 import ResponseCard, { type LiveResponse } from './ResponseCard';
@@ -487,9 +487,9 @@ function PlaygroundInner({
       )}
 
       {/* ── Body: form | code+response ───────────────────────────────────── */}
-      <div className="flex-1 min-h-0 overflow-y-auto lg:overflow-hidden flex flex-col lg:flex-row">
+      <div className="flex-1 min-h-0 overflow-y-auto flex flex-col lg:flex-row">
         {/* Left: request form */}
-        <div className="lg:flex-1 lg:min-w-0 lg:overflow-y-auto p-4 sm:p-6">
+        <div className="lg:flex-1 lg:min-w-0 p-4 sm:p-6">
           <h2 className="font-[family-name:var(--dp-font-display)] text-[20px] font-semibold text-[var(--dp-fg)] m-0 mb-1 tracking-[-0.01em]">
             {operation.summary}
           </h2>
@@ -575,9 +575,13 @@ function PlaygroundInner({
         </div>
 
         {/* Right: code + response — always dark (Fern style) */}
-        <div className="dp-code- lg:w-[42%] xl:w-[44%] lg:shrink-0 lg:overflow-y-auto border-t lg:border-t-0 lg:border-l border-[var(--dp-border)] p-4 flex flex-col gap-4">
-          <CodeExampleTabs operation={operation} />
-          <ResponseCard operation={operation} live={response} maxHeight={360} />
+        <div className="dp-code-bg lg:w-[42%] xl:w-[44%] lg:shrink-0 border-t lg:border-t-0 lg:border-l border-[var(--dp-border)] p-4 flex flex-col gap-4 ">
+          <div className="shrink-0">
+            <CodeExampleTabs operation={operation} />
+          </div>
+          <div className="shrink-0 pb-2">
+            <ResponseCard operation={operation} live={response} maxHeight={420} />
+          </div>
         </div>
       </div>
     </>

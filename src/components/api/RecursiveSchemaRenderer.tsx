@@ -1,6 +1,6 @@
 import React, { useState, memo } from 'react';
 import { ChevronRight } from 'lucide-react';
-import type { SchemaOrRef, SchemaObject } from '../../data/openapi-spec';
+import type { SchemaOrRef, SchemaObject } from '@/data/openapi-spec';
 import { useSpec } from '../../contexts/SpecContext';
 import { resolveSchema } from '../../utils/normalizeSpec';
 import { getTypeLabel, isRequired, flattenSchema } from '../../utils/schemaHelpers';

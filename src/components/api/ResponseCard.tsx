@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import type { NormalizedOperation } from '../../data/openapi-spec';
+import type { NormalizedOperation } from '@/data/openapi-spec';
 import { useSpec } from '../../contexts/SpecContext';
 import { getResponseExample } from '../../utils/generateExamples';
 import JsonTree from './JsonTree';
@@ -23,7 +23,12 @@ interface Props {
   operation: NormalizedOperation;
   /* When a live request has been sent, show its result instead of the example. */
   live?: LiveResponse | null;
-  maxHeight?: number;
+  /* Body height cap (scrolls past it). Numbers are px; strings pass through
+     (e.g. '60vh'). Pass 'none' to grow to full height (outer container scrolls). */
+  maxHeight?: number | string;
+  /* Fill the parent flex column and scroll the body internally (used in the
+     Playground so the card shares the panel height instead of overflowing it). */
+  fill?: boolean;
 }
 
 /**
@@ -32,7 +37,7 @@ interface Props {
  * with status pills + copy, then a syntax-highlighted JSON body. Theme-aware:
  * follows the ambient dp token scope (dark inside `.dp-code-panel`).
  */
-export default function ResponseCard({ operation, live, maxHeight = 320 }: Props): React.ReactElement {
+export default function ResponseCard({ operation, live, maxHeight = 320, fill = false }: Props): React.ReactElement {
   const { spec } = useSpec();
   const codes = useMemo(() => Object.keys(operation.responses ?? {}), [operation]);
   const [activeCode, setActiveCode] = useState(codes[0] ?? '200');
@@ -45,9 +50,9 @@ export default function ResponseCard({ operation, live, maxHeight = 320 }: Props
   );
 
   return (
-    <div className="rounded-[10px] border border-[var(--dp-border)] overflow-hidden bg-[var(--dp-code-bg)]">
+    <div className={`rounded-[12px] border border-solid border-[var(--dp-border-strong)] overflow-hidden bg-[var(--dp-code-bg)] shadow-[0_1px_2px_rgba(0,0,0,0.06)]${fill ? ' flex flex-col lg:flex-1 lg:min-h-0' : ''}`}>
       {/* Header: status pills/tabs + copy */}
-      <div className="flex items-center justify-between gap-2 px-2.5 py-2 border-b border-[var(--dp-border)] bg-[var(--dp-surface)]">
+      <div className="rounded-[12px] shrink-0 flex items-center justify-between gap-2 px-2.5 py-2 border-b  border-[var(--dp-border)] bg-[var(--dp-surface)]">
         <div className="flex items-center gap-1.5 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {live ? (() => {
             const col = statusColor(live.status);
@@ -86,7 +91,7 @@ export default function ResponseCard({ operation, live, maxHeight = 320 }: Props
 
       {/* Body */}
       {json
-        ? <JsonTree json={json} maxHeight={maxHeight} showCopy={false} bare />
+        ? <JsonTree json={json} maxHeight={maxHeight} fill={fill} showCopy={false} bare />
         : <div className="px-4 py-6 text-[13px] text-[var(--dp-fg-faint)] font-[family-name:var(--dp-font-mono)]">No example available.</div>}
     </div>
   );

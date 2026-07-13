@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { SITE } from '../config/site';
-import type { SeoMeta } from '../types';
+import type { SeoMeta } from '@/seo/types';
 
 interface SeoHeadProps extends SeoMeta {}
 

@@ -1,10 +1,10 @@
 import React from 'react';
 import Icon from '@/components/icons/Icon';
-import { ButtonLink } from '@/components/ui/Button';
+import { ButtonLink } from '@/shared/ui/Button';
 import { Header, Footer, FluidBackground, Eyebrow, Breadcrumb } from '@/layouts/SiteShell';
 import { PlainSection, ColumnGrid, SubClose } from '@/layouts/SubpageShell';
-import { useReveal } from '@/hooks/useReveal';
-import EyebrowPill from '@/components/ui/EyebrowPill';
+import { useReveal } from '@/shared/hooks/useReveal';
+import EyebrowPill from '@/shared/ui/EyebrowPill';
 
 interface ApiProduct {
   icon: React.ReactNode;

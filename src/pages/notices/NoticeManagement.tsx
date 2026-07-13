@@ -19,14 +19,14 @@ import {
   Plus,
 } from 'lucide-react';
 import { Header, Footer, FluidBackground } from '@/layouts/SiteShell';
-import { ButtonLink } from '@/components/ui/Button';
+import { ButtonLink } from '@/shared/ui/Button';
 import { LOGIN_URL } from '@/utils/contants';
 import noticeDashboard from '@/assets/product-images/notice-management/notice-management-dashboard.png';
 import noticeInbox from '@/assets/product-images/notice-management/notice-management-notices.png';
 import noticeAddReply from '@/assets/product-images/notice-management/notice-management-add-reply.png';
 import { SeoBreadcrumb } from '@/seo/components/SeoBreadcrumb';
-import { BreadcrumbItem } from '@/types/pages';
-import EyebrowPill from '@/components/ui/EyebrowPill';
+import { BreadcrumbItem } from '@/shared/types/pages';
+import EyebrowPill from '@/shared/ui/EyebrowPill';
 
 /* ─── Data ─────────────────────────────────────────────────────────────────── */
 

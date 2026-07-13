@@ -25,8 +25,8 @@ import {
   WalletCards,
 } from 'lucide-react';
 import { BookDemoModal } from '@/components/modals/BookDemoModal';
-import { Button, ButtonLink } from '@/components/ui/Button';
-import EyebrowPill from '@/components/ui/EyebrowPill';
+import { Button, ButtonLink } from '@/shared/ui/Button';
+import EyebrowPill from '@/shared/ui/EyebrowPill';
 import { Header, Footer, Breadcrumb } from '@/layouts/SiteShell';
 import { LOGIN_URL } from '@/utils/contants';
 

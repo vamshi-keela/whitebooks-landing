@@ -25,7 +25,7 @@ import {
   SectionShell,
   fadeUp,
   staggerParent,
-} from "@/components/ui/SectionKit";
+} from "@/shared/ui/SectionKit";
 import { DEVELOPER_EXPERIENCE, type DeveloperExperienceData } from "./developer-experience.data";
 
 const DEV_ICON: Record<string, LucideIcon> = {

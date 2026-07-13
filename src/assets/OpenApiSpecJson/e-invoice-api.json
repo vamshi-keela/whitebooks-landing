@@ -20,7 +20,7 @@
     "tags": [
         {
             "name": "Authentication",
-            "description": "Authentication API"
+            "description": ": Authentication API"
         },
         {
             "name": "Get GSTN Details",
@@ -32,11 +32,11 @@
         },
         {
             "name": "Generate IRN",
-            "description": "Generate Invoice Reference Number (IRN)"
+            "description": ": Generate Invoice Reference Number (IRN)"
         },
         {
             "name": "Get EInvoice Details",
-            "description": "Get e-Invoice details for a given IRN"
+            "description": ": Get e-Invoice details for a given IRN"
         },
         {
             "name": "Get IRN details by Doc Details",
@@ -44,7 +44,7 @@
         },
         {
             "name": "Cancel IRN",
-            "description": "Cancel Invoice Reference Number (IRN)"
+            "description": ": Cancel Invoice Reference Number (IRN)"
         },
         {
             "name": "Get Rejected IRNs",

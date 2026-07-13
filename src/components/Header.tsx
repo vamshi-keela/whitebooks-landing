@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import type { ReactNode } from 'react'
 import { Box, Code } from '@/components/icons/Icon'
-import { ButtonLink } from '@/components/ui/Button'
+import { ButtonLink } from '@/shared/ui/Button'
 
 type HeaderMode = 'home' | 'softwares' | 'apis'
 

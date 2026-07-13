@@ -122,6 +122,10 @@
         {
             "name": "Change Multi Vehicles",
             "description": "Change Multi Vehicles"
+        },
+        {
+            "name": "Closure e-Way Bill",
+            "description": "Closure e-Way Bill"
         }
     ],
     "paths": {
@@ -156,6 +160,15 @@
                         "in": "query",
                         "description": "Password",
                         "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "irp",
+                        "in": "query",
+                        "description": "e-WayBill Server Type(NIC1/NIC2)",
+                        "required": false,
                         "schema": {
                             "type": "string"
                         }
@@ -220,6 +233,15 @@
                         "in": "query",
                         "description": "User Email",
                         "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "irp",
+                        "in": "query",
+                        "description": "e-WayBill Server Type(NIC1/NIC2)",
+                        "required": false,
                         "schema": {
                             "type": "string"
                         }
@@ -441,34 +463,6 @@
                                         "description": "Transaction type",
                                         "example": 4
                                     },
-                                    "dispatchFromGSTIN": {
-                                        "maxLength": 15,
-                                        "minLength": 15,
-                                        "pattern": "[0-9]{2}[0-9|A-Z]{13}",
-                                        "type": "string",
-                                        "description": "GSTIN of Dispatch-From ",
-                                        "example": "29AAAAA1303P1ZV"
-                                    },
-                                    "dispatchFromTradeName": {
-                                        "maxLength": 100,
-                                        "type": "string",
-                                        "description": "Trade name of Dispatch-From",
-                                        "example": "ABC Traders"
-                                    },
-                                    "shipToGSTIN": {
-                                        "maxLength": 15,
-                                        "minLength": 15,
-                                        "pattern": "[0-9]{2}[0-9|A-Z]{13}",
-                                        "type": "string",
-                                        "description": "GSTIN of Ship-To",
-                                        "example": "29ALSPR1722R1Z3"
-                                    },
-                                    "shipToTradeName": {
-                                        "maxLength": 100,
-                                        "type": "string",
-                                        "description": "Trade name of Ship-To",
-                                        "example": "XYZ Traders"
-                                    },
                                     "totalValue": {
                                         "multipleOf": 0.01,
                                         "type": "number",
@@ -510,6 +504,12 @@
                                         "type": "number",
                                         "description": "Total Invoice Value",
                                         "example": 57200.23
+                                    },
+                                    "otherValue": {
+                                        "type": "number",
+                                        "multipleOf": 0.01,
+                                        "description": "Other charges, if any ",
+                                        "example": 0
                                     },
                                     "transMode": {
                                         "type": "string",
@@ -580,7 +580,7 @@
                                                 "hsnCode": {
                                                     "type": "number",
                                                     "description": "HSN Code",
-                                                    "example": 1001
+                                                    "example": 33030010
                                                 },
                                                 "quantity": {
                                                     "type": "number",
@@ -623,6 +623,12 @@
                                                     "multipleOf": 0.001,
                                                     "description": "Cess Rate of Tax",
                                                     "example": 0
+                                                },
+                                                "cessNonadvol": {
+                                                    "type": "number",
+                                                    "multipleOf": 0.001,
+                                                    "description": "Cess Non-Advolerum",
+                                                    "example": 0
                                                 }
                                             }
                                         }
@@ -657,6 +663,15 @@
                         "in": "query",
                         "description": "User Email",
                         "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "irp",
+                        "in": "query",
+                        "description": "e-WayBill Server Type(NIC1/NIC2)",
+                        "required": false,
                         "schema": {
                             "type": "string"
                         }
@@ -938,6 +953,15 @@
                         }
                     },
                     {
+                        "name": "irp",
+                        "in": "query",
+                        "description": "e-WayBill Server Type(NIC1/NIC2)",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
                         "name": "ip_address",
                         "in": "header",
                         "description": "IP Address",
@@ -1116,6 +1140,15 @@
                         "in": "query",
                         "description": "User Email",
                         "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "irp",
+                        "in": "query",
+                        "description": "e-WayBill Server Type(NIC1/NIC2)",
+                        "required": false,
                         "schema": {
                             "type": "string"
                         }
@@ -2962,6 +2995,105 @@
                         "description": "Internal server error"
                     }
                 }
+            }
+        },
+        "/ewaybillapi/v1.03/ewayapi/clsewb": {
+            "post": {
+                "tags": [
+                    "Closure e-Way Bill"
+                ],
+                "summary": "Closure e-Way Bill",
+                "description": "Closure e-Way Bill",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "User Email",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "ip_address",
+                        "in": "header",
+                        "description": "IP Address",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "client_id",
+                        "in": "header",
+                        "description": "Client ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "client_secret",
+                        "in": "header",
+                        "description": "Client Secret",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "gstin",
+                        "in": "header",
+                        "description": "GSTIN number",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Request Body",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "ewbNo",
+                                    "closureDate",
+                                    "remarks"
+                                ],
+                                "type": "object",
+                                "properties": {
+                                    "ewbNo": {
+                                        "type": "number",
+                                        "description": "Ewaybill Number",
+                                        "example": 381009282489
+                                    },
+                                    "closureDate": {
+                                        "type": "Date",
+                                        "description": "Closure Date",
+                                        "example": "21/05/2026"
+                                    },
+                                    "remarks": {
+                                        "maxLength": 50,
+                                        "type": "string",
+                                        "description": "remarks",
+                                        "example": "Closed the order"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "404": {
+                        "description": "Not Found. If requested entity is not found or if requested API is not found."
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                },
+                "x-codegen-request-body-name": "body"
             }
         }
     },

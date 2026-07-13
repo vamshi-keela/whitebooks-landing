@@ -18,15 +18,15 @@ import {
   LifeBuoy,
   Network,
 } from 'lucide-react';
-import { ButtonLink, Button } from '@/components/ui/Button';
+import { ButtonLink, Button } from '@/shared/ui/Button';
 import { Header, Footer, FluidBackground, Breadcrumb } from '@/layouts/SiteShell';
 import { PlainSection, SubClose, FaqList } from '@/layouts/SubpageShell';
-import { useReveal } from '@/hooks/useReveal';
-import EyebrowPill from '@/components/ui/EyebrowPill';
+import { useReveal } from '@/shared/hooks/useReveal';
+import EyebrowPill from '@/shared/ui/EyebrowPill';
 import { ProofSection } from '@/sections/WbProof';
-import { AnimationPlaceholder, type FlowStep } from '@/components/ui/SectionKit';
+import { AnimationPlaceholder, type FlowStep } from '@/shared/ui/SectionKit';
 import { BookDemoModal } from '@/components/modals/BookDemoModal';
-import { cn } from '@/lib/cn';
+import { cn } from '@/shared/lib/cn';
 import { usePhoneInput, defaultCountries, parseCountry, FlagImage } from 'react-international-phone';
 
 const wrap = "max-w-[1240px] mx-auto px-8 max-sm:px-5";

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Header, Footer, Breadcrumb } from '@/layouts/SiteShell';
-import { useReveal } from '@/hooks/useReveal';
-import EyebrowPill from '@/components/ui/EyebrowPill';
+import { useReveal } from '@/shared/hooks/useReveal';
+import EyebrowPill from '@/shared/ui/EyebrowPill';
 
 const wrap = "w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4";
 

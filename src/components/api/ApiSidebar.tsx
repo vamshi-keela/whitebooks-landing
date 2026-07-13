@@ -1,7 +1,7 @@
 import React, { useState, useEffect, memo } from 'react';
 import { ChevronDown, ChevronRight, X, Check, LayoutGrid } from 'lucide-react';
 import type { TagGroup } from '../../utils/groupOperations';
-import type { NormalizedMethod } from '../../data/openapi-spec';
+import type { NormalizedMethod } from '@/data/openapi-spec';
 import MethodBadge from './MethodBadge';
 import { useMobileNav } from '../../contexts/MobileNavContext';
 

@@ -10,7 +10,7 @@ import {
     CheckCircle,
 } from 'lucide-react';
 import { FaqType, ResourceItem } from './gst-api-page-data';
-import { SdkType } from '@/pages/developer/GstOverview';
+import { SdkType } from '@/features/developer/GstOverview';
 import { LOGIN_URL, SIGNUP_URL } from '@/utils/contants';
 import sdkPhp from '@/assets/logos/php-logo.svg';
 import sdkPostman from '@/assets/logos/postman.svg';

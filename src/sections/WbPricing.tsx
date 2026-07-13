@@ -1,6 +1,6 @@
 import React from 'react';
-import { ButtonLink } from '@/components/ui/Button';
-import SectionLabel from '@/components/ui/SectionLabel';
+import { ButtonLink } from '@/shared/ui/Button';
+import SectionLabel from '@/shared/ui/SectionLabel';
 
 export function PricingSection() {
   return (

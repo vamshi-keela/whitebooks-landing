@@ -6,7 +6,7 @@ import type {
   NormalizedMethod,
   OperationObject,
   ParameterObject,
-} from '../data/openapi-spec';
+} from '@/data/openapi-spec';
 
 export function resolveRef(spec: OpenApiSpec, ref: string): SchemaObject | null {
   if (!ref.startsWith('#/')) return null;

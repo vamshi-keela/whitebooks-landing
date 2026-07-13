@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import type { AISection as AISectionData } from "../../types/pages.ts";
-import TickMark from "../ui/TickMark.tsx";
+import type { AISection as AISectionData } from "@/shared/types/pages";
+import TickMark from "@/shared/ui/TickMark";
 
 interface Props {
   data: AISectionData;

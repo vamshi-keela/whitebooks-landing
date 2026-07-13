@@ -1,9 +1,9 @@
 import React from 'react';
 import Icon from '@/components/icons/Icon';
-import { ButtonLink } from '@/components/ui/Button';
+import { ButtonLink } from '@/shared/ui/Button';
 import { Header, Footer, FluidBackground, Breadcrumb } from '@/layouts/SiteShell';
-import { useReveal } from '@/hooks/useReveal';
-import EyebrowPill from '@/components/ui/EyebrowPill';
+import { useReveal } from '@/shared/hooks/useReveal';
+import EyebrowPill from '@/shared/ui/EyebrowPill';
 import imgRegistration from '@/assets/services/services-register.png';
 import imgCompliance from '@/assets/services/compliance.png';
 import imgAudit from '@/assets/services/audit-services.png';

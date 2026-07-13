@@ -40,8 +40,8 @@ import {
   buildSoftwareApplicationSchema,
   buildFAQSchema,
 } from "@/seo/schema/generators";
-import { useReveal } from "@/hooks/useReveal";
-import { cn } from "@/lib/cn";
+import { useReveal } from "@/shared/hooks/useReveal";
+import { cn } from "@/shared/lib/cn";
 import type { SapConnector } from "./connectors.data";
 import { CtaButton, Eyebrow, Reveal, Section, SectionHeader, StatStrip } from "./_sections";
 import { ConnectorHero } from "./ConnectorHero";

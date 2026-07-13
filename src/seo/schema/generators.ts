@@ -1,6 +1,6 @@
 import { SITE } from '../config/site';
 import { schemaId } from '../utils/slugs';
-import type { BreadcrumbEntry, SchemaFaqItem } from '../types';
+import type { BreadcrumbEntry, SchemaFaqItem } from '@/seo/types';
 
 // ── Organization ─────────────────────────────────────────────────────────────
 

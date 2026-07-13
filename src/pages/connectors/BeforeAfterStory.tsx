@@ -35,7 +35,7 @@ import {
   Zap,
   type LucideIcon,
 } from "lucide-react";
-import { cn } from "@/lib/cn";
+import { cn } from "@/shared/lib/cn";
 import { useTheme } from "@/contexts/ThemeContext";
 import type { SapConnector } from "./connectors.data";
 

@@ -29,7 +29,7 @@ import {
   fadeUp,
   staggerParent,
   BRAND,
-} from "@/components/ui/SectionKit";
+} from "@/shared/ui/SectionKit";
 import {
   API_ARCHITECTURE,
   type ApiArchitectureData,

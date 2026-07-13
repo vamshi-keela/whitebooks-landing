@@ -1,9 +1,9 @@
-import DpIcon from "@/pages/developer/DpIcon.tsx";
+import DpIcon from "@/features/developer/DpIcon.tsx";
 import { FluidBackground } from "../../layouts/SiteShell";
 import { SeoBreadcrumb } from "@/seo/components/SeoBreadcrumb";
-import type { HeroConfig } from "../../types/pages.ts";
-import { Button } from "../ui/Button";
-import EyebrowPill from "../ui/EyebrowPill.tsx";
+import type { HeroConfig } from "@/shared/types/pages";
+import { Button } from "@/shared/ui/Button";
+import EyebrowPill from "@/shared/ui/EyebrowPill";
 import PhotoRoom from "@/assets/Photoroom.png";
 import { useNavigate } from "react-router-dom";
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import type { NormalizedMethod } from '../../data/openapi-spec';
+import type { NormalizedMethod } from '@/data/openapi-spec';
 
 interface Props {
   method: NormalizedMethod;

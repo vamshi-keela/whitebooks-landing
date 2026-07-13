@@ -1,5 +1,5 @@
-import type { FAQSection as FAQSectionData } from "../../types/pages.ts";
-import FAQ from "../ui/FAQ.tsx";
+import type { FAQSection as FAQSectionData } from "@/shared/types/pages";
+import FAQ from "@/shared/ui/FAQ";
 
 interface Props {
   data: FAQSectionData;

@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Header, Footer, FluidBackground, Breadcrumb } from '@/layouts/SiteShell';
 import { SubClose } from '@/layouts/SubpageShell';
-import { useReveal } from '@/hooks/useReveal';
-import EyebrowPill from '@/components/ui/EyebrowPill';
+import { useReveal } from '@/shared/hooks/useReveal';
+import EyebrowPill from '@/shared/ui/EyebrowPill';
 
 interface VideoItem {
   id: string;

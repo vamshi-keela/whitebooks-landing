@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { SiteLogo } from '@/components/ui/SiteLogo';
+import { SiteLogo } from '@/shared/ui/SiteLogo';
 import { Link } from 'react-router-dom';
 import { BookDemoModal } from '@/components/modals/BookDemoModal';
 

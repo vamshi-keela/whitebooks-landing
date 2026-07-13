@@ -1,6 +1,6 @@
-import { cn } from "@/lib/cn";
-import { ButtonLink } from "../ui/Button";
-import type { PricingSection as PricingSectionData } from "../../types/pages.ts";
+import { cn } from "@/shared/lib/cn";
+import { ButtonLink } from "@/shared/ui/Button";
+import type { PricingSection as PricingSectionData } from "@/shared/types/pages";
 
 interface Props {
   data: PricingSectionData;

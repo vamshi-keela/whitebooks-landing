@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
-import type { FeatureItem } from "../../types/pages.ts";
+import type { FeatureItem } from "@/shared/types/pages";
 import { VISUALS, DefaultVisual } from "./visuals";
 
 interface FeatureGuideProps {

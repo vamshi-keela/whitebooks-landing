@@ -14,11 +14,11 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, Play, ArrowRight } from 'lucide-react';
 import { useTheme } from '@/contexts/ThemeContext';
-import { cn } from '@/lib/cn';
-import { PillButton } from '@/components/ui/PillButton';
-import { ButtonLink } from '@/components/ui/Button';
-import { ExploreShowCase, MetricCard, } from '@/types/pages';
-import EyebrowPill from '@/components/ui/EyebrowPill';
+import { cn } from '@/shared/lib/cn';
+import { PillButton } from '@/shared/ui/PillButton';
+import { ButtonLink } from '@/shared/ui/Button';
+import { ExploreShowCase, MetricCard, } from '@/shared/types/pages';
+import EyebrowPill from '@/shared/ui/EyebrowPill';
 
 const SIGNUP_URL = 'https://accounts.whitebooks.in/signupall';
 const DEMO_URL = '/about/contact-us';

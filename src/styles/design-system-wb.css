@@ -803,7 +803,7 @@ img {
 /* Silk flow sits right behind the hero eyebrow pill — on the white page the
    full-strength ribbons drown the pill text, so ease the canvas back. */
 [data-theme="light"] .wb-halo-canvas {
-  opacity: 0.6;
+  opacity: 0.5;
 }
 
 [data-theme="light"] .wb-halo-vignette {
@@ -1732,7 +1732,6 @@ img {
   color: rgba(0, 0, 0, 0.15);
 }
 
-.wb-logo-wall {}
 
 .wb-logo-wall-header {
   display: grid;

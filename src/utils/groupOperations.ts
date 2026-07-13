@@ -1,4 +1,4 @@
-import type { NormalizedOperation, TagObject } from '../data/openapi-spec';
+import type { NormalizedOperation, TagObject } from '@/data/openapi-spec';
 
 export interface TagGroup {
   tag: TagObject;

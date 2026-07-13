@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { cn } from '@/lib/cn';
-import { Button } from '../ui/Button';
+import { cn } from '@/shared/lib/cn';
+import { Button } from '@/shared/ui/Button';
 import { Close } from '../icons/Icon';
 
 /* ─── Types ──────────────────────────────────────────────────────────────── */

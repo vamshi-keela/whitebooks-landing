@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode, type RefObject } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { PillButton } from "@/components/ui/PillButton";
+import { PillButton } from "@/shared/ui/PillButton";
 import {
   FEATURE_BASE,
   SHOWCASE_HEADER,

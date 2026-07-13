@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import type { BreadcrumbItem } from '@/types/components';
-import HeroFlowCanvas from '@/components/ui/HeroFlowCanvas';
+import type { BreadcrumbItem } from '@/shared/types/components';
+import HeroFlowCanvas from '@/shared/ui/HeroFlowCanvas';
 
 // Re-exports for backward compat — consumers import from '@/layouts/SiteShell'
 export { Header } from './Header';
 export { Footer } from './Footer';
-export { SiteLogo } from '@/components/ui/SiteLogo';
+export { SiteLogo } from '@/shared/ui/SiteLogo';
 
 // ── FluidBackground ──────────────────────────────────────────────────────────
 
@@ -42,7 +42,7 @@ export function HeroFluidBackground({ variant = 'right', gradientOpacity = 1, pa
       {/* L2: Silk current — animated WebGL flow (the only moving layer) */}
       <HeroFlowCanvas paused={paused} />
       {/* L3: Meridian arc — crisp elliptical rim + bloom crowning the h1 */}
-      <div className="wb-halo-dawn" />
+      {/* <div className="wb-halo-dawn" /> */}
       {/* L4: Vignette — darkens corners, pulls the eye to the content */}
       <div className="wb-halo-vignette" />
       {/* L5: Film grain — kills gradient banding, adds tactile depth */}

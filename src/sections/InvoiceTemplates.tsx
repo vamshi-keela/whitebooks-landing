@@ -24,7 +24,7 @@ import {
   X,
   type LucideIcon,
 } from "lucide-react";
-import { cn } from "@/lib/cn";
+import { cn } from "@/shared/lib/cn";
 import { useTheme } from "@/contexts/ThemeContext";
 import {
   CUSTOMIZATION_ITEMS,
@@ -35,7 +35,7 @@ import {
   type InvoiceTemplate,
   type TemplateId,
 } from "./invoice-templates.data";
-import EyebrowPill from "@/components/ui/EyebrowPill";
+import EyebrowPill from "@/shared/ui/EyebrowPill";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 const ACCENT = "#ff5a8e";

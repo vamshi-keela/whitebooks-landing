@@ -1,6 +1,6 @@
 import React, { useState, memo } from 'react';
 import { ChevronDown, ChevronRight, AlertTriangle, Link } from 'lucide-react';
-import type { NormalizedOperation } from '../../data/openapi-spec';
+import type { NormalizedOperation } from '@/data/openapi-spec';
 import MethodBadge from './MethodBadge';
 import ParameterTable from './ParameterTable';
 import RequestBodyViewer from './RequestBodyViewer';

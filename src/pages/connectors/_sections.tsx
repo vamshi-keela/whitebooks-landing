@@ -6,7 +6,7 @@
 import { useState, type ReactNode } from "react";
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
-import { cn } from "@/lib/cn";
+import { cn } from "@/shared/lib/cn";
 import type { Cta, FaqItem } from "./connectors.data";
 
 export const EASE = [0.22, 1, 0.36, 1] as const;

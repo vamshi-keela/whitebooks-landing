@@ -1,15 +1,15 @@
 import type { CSSProperties } from "react";
-import { ButtonLink } from "../ui/Button";
-import { EyebrowPill } from "../ui/EyebrowPill";
+import { ButtonLink } from "@/shared/ui/Button";
+import { EyebrowPill } from "@/shared/ui/EyebrowPill";
 import type {
   IntegrationSection as IntegrationSectionData,
   IntegrationHighlight,
   IntegrationStat,
-} from "../../types/pages.ts";
+} from "@/shared/types/pages";
 import { useNavigate } from "react-router-dom";
 import { Zap, ShieldCheck, CheckCircle2, Lock, Image as ImageIcon, Boxes } from "lucide-react";
 import wbLogo from "@/assets/logo-white-books.svg";
-import { SiteLogo } from "../ui/SiteLogo.tsx";
+import { SiteLogo } from "@/shared/ui/SiteLogo";
 import { getLogoAsset } from "./logoAssets.ts";
 
 interface Props {

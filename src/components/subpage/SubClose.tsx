@@ -1,5 +1,5 @@
-import { Button, ButtonLink } from "../ui/Button";
-import type { ClosingSection } from "../../types/pages.ts";
+import { Button, ButtonLink } from "@/shared/ui/Button";
+import type { ClosingSection } from "@/shared/types/pages";
 import { useEffect, useState } from "react";
 import { BookDemoModal } from "../modals/BookDemoModal.tsx";
 import { Link, useNavigate } from "react-router-dom";

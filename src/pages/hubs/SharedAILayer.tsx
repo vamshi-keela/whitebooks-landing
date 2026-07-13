@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { ButtonLink } from '@/components/ui/Button'
+import { ButtonLink } from '@/shared/ui/Button'
 
 
 export interface ClosingConfig {

@@ -30,7 +30,7 @@ import {
   SectionShell,
   fadeUp,
   staggerParent,
-} from "@/components/ui/SectionKit";
+} from "@/shared/ui/SectionKit";
 import {
   INTEGRATION_PARTNERS,
   type ApiNode as ApiNodeData,

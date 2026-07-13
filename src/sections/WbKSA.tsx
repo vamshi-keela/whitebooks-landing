@@ -1,5 +1,5 @@
-import { ButtonLink } from "@/components/ui/Button";
-import DpIcon from "@/pages/developer/DpIcon";
+import { ButtonLink } from "@/shared/ui/Button";
+import DpIcon from "@/features/developer/DpIcon";
 import { useNavigate } from "react-router-dom";
 
 export function KSASection() {

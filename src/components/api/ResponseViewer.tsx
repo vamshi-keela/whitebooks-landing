@@ -1,5 +1,5 @@
 import React, { useState, memo } from 'react';
-import type { NormalizedOperation } from '../../data/openapi-spec';
+import type { NormalizedOperation } from '@/data/openapi-spec';
 import { useSpec } from '../../contexts/SpecContext';
 import { getResponseExample } from '../../utils/generateExamples';
 import RecursiveSchemaRenderer from './RecursiveSchemaRenderer';

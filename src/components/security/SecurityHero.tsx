@@ -16,7 +16,7 @@ import {
     KeyRound,
 } from "lucide-react";
 import securityShield from "@/assets/resources/security_shield.png";
-import { Button, ButtonLink } from "../ui/Button";
+import { Button, ButtonLink } from "@/shared/ui/Button";
 import { useNavigate } from "react-router-dom";
 
 const PINK = "#E73476";

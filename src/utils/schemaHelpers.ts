@@ -1,4 +1,4 @@
-import type { SchemaObject, SchemaOrRef, OpenApiSpec } from '../data/openapi-spec';
+import type { SchemaObject, SchemaOrRef, OpenApiSpec } from '@/data/openapi-spec';
 import { resolveSchema } from './normalizeSpec';
 
 export function getTypeLabel(schema: SchemaObject): string {

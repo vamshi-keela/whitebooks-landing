@@ -1,9 +1,9 @@
 import React from 'react';
-import { ButtonLink } from '@/components/ui/Button';
+import { ButtonLink } from '@/shared/ui/Button';
 import { Header, Footer, FluidBackground, Breadcrumb } from '@/layouts/SiteShell';
 import { PlainSection, SubClose, FaqList } from '@/layouts/SubpageShell';
-import { useReveal } from '@/hooks/useReveal';
-import EyebrowPill from '@/components/ui/EyebrowPill';
+import { useReveal } from '@/shared/hooks/useReveal';
+import EyebrowPill from '@/shared/ui/EyebrowPill';
 import { ProofSection } from '@/sections/WbProof';
 import Icon from '@/components/icons/Icon';
 

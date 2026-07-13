@@ -14,7 +14,7 @@ import {
   buildSoftwareApplicationSchema,
   buildFAQSchema,
 } from "@/seo/schema/generators";
-import { useReveal } from "@/hooks/useReveal";
+import { useReveal } from "@/shared/hooks/useReveal";
 import type { FeatureBlock, TallyConnector } from "./connectors.data";
 import { CtaButton, Eyebrow, Reveal, Section, SectionHeader } from "./_sections";
 import { ConnectorHero } from "./ConnectorHero";

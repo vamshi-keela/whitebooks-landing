@@ -27,7 +27,7 @@ import {
   fadeUp,
   staggerParent,
   type FlowStep,
-} from "@/components/ui/SectionKit";
+} from "@/shared/ui/SectionKit";
 import { COMPLIANCE_SUPPORT, type ComplianceSupportData } from "./compliance-support.data";
 
 const FEATURE_ICON: Record<string, LucideIcon> = {

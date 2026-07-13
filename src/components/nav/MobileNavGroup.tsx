@@ -1,7 +1,7 @@
 import { useState, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import type { NavItem } from './navConfig';
-import { Button } from '../ui/Button';
+import { Button } from '@/shared/ui/Button';
 
 interface Group {
   label: string;

@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Play, Loader2, AlertCircle, AlertTriangle } from 'lucide-react';
-import type { NormalizedOperation } from '../../data/openapi-spec';
+import type { NormalizedOperation } from '@/data/openapi-spec';
 import { useSpec } from '../../contexts/SpecContext';
 import { generateExampleFromSchema } from '../../utils/schemaHelpers';
 import { resolveSchema } from '../../utils/normalizeSpec';

@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import type { ParameterObject } from '../../data/openapi-spec';
+import type { ParameterObject } from '@/data/openapi-spec';
 
 interface Props {
   parameters: ParameterObject[];

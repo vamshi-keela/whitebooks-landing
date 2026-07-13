@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, AlertTriangle, Play } from 'lucide-react';
-import type { NormalizedOperation, ApiSpecKey } from '../../data/openapi-spec';
+import type { NormalizedOperation, ApiSpecKey } from '@/data/openapi-spec';
 import { useSpec } from '../../contexts/SpecContext';
 import MethodBadge from './MethodBadge';
 import CopyButton from './CopyButton';

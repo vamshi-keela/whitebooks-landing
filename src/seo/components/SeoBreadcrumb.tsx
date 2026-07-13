@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { StructuredData } from './StructuredData';
 import { buildBreadcrumbSchema, buildJsonLd } from '../schema/generators';
-import type { BreadcrumbEntry } from '../types';
+import type { BreadcrumbEntry } from '@/seo/types';
 
 interface SeoBreadcrumbProps {
   items: BreadcrumbEntry[];

@@ -3,10 +3,16 @@ import CopyButton from './CopyButton';
 
 interface Props {
   json: string;
-  maxHeight?: number;
+  /* Cap the body height, scrolling vertically past it. Numbers are px; strings
+     pass through (e.g. '60vh'). Pass 'none' to grow to full content height so
+     an outer container handles the scrolling. */
+  maxHeight?: number | string;
   showCopy?: boolean;
   /* Drop the box's own border/radius so it can be embedded inside a card. */
   bare?: boolean;
+  /* Fill the parent flex column and scroll internally instead of using a fixed
+     `maxHeight`. Responsive: capped at 60vh on mobile, flex-fills on lg+. */
+  fill?: boolean;
 }
 
 type Token = { type: 'key' | 'string' | 'number' | 'boolean' | 'null' | 'punct' | 'ws'; value: string };
@@ -74,7 +80,7 @@ const tokenColors: Record<Token['type'], string> = {
   ws: 'transparent',
 };
 
-export default function JsonTree({ json, maxHeight = 400, showCopy = true, bare = false }: Props): React.ReactElement {
+export default function JsonTree({ json, maxHeight = 400, showCopy = true, bare = false, fill = false }: Props): React.ReactElement {
   const tokens = useMemo(() => {
     try {
       const formatted = JSON.stringify(JSON.parse(json), null, 2);
@@ -85,13 +91,17 @@ export default function JsonTree({ json, maxHeight = 400, showCopy = true, bare 
   }, [json]);
 
   return (
-    <div style={{ position: 'relative', background: 'transparent' }}>
+    <div
+      className={fill ? 'lg:flex-1 lg:min-h-0 lg:flex lg:flex-col' : undefined}
+      style={{ position: 'relative', background: 'transparent' }}
+    >
       {showCopy && (
         <div style={{ position: 'absolute', top: 8, right: 8, zIndex: 1 }}>
           <CopyButton text={json} label={false} />
         </div>
       )}
       <div
+        className={fill ? 'max-h-[60vh] lg:max-h-none lg:flex-1 lg:min-h-0' : undefined}
         style={{
           background: 'var(--dp-code-bg)',
           border: bare ? 'none' : '1px solid var(--dp-border)',
@@ -100,9 +110,11 @@ export default function JsonTree({ json, maxHeight = 400, showCopy = true, bare 
           fontFamily: 'var(--dp-font-mono)',
           fontSize: 12.5,
           lineHeight: 1.7,
+          scrollbarWidth: 'thin',
           overflowX: 'auto',
-          overflowY: 'auto',
-          maxHeight,
+          overflowY: maxHeight === 'none' ? 'visible' : 'auto',
+          // In fill mode, sizing is handled by the responsive classes above.
+          maxHeight: fill ? undefined : (maxHeight === 'none' ? undefined : maxHeight),
           whiteSpace: 'pre',
         }}
       >

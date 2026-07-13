@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { Accounting, GST, EInvoice, EWayBill, NoticeManagement } from '@/components/icons/Icon';
 import { Home, FileText, ShieldCheck, Search, Briefcase, Users, LifeBuoy, PlayCircle, BookOpen, Calculator, Hash, Layers } from 'lucide-react';
-import DpIcon from '@/pages/developer/DpIcon';
+import DpIcon from '@/features/developer/DpIcon';
 
 export interface NavItem {
   label: string;

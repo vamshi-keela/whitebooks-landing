@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useRef, useEffect, memo } from 'react';
 import { ChevronDown, Check } from 'lucide-react';
-import type { NormalizedOperation } from '../../data/openapi-spec';
+import type { NormalizedOperation } from '@/data/openapi-spec';
 import { useSpec } from '../../contexts/SpecContext';
 import { getAllExamples } from '../../utils/generateExamples';
 import MethodBadge from './MethodBadge';

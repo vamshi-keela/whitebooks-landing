@@ -2,14 +2,14 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Icon } from '@/components/icons/Icon';
 import { Plug, ArrowRight, Bug } from 'lucide-react';
-import { Button, ButtonLink } from '@/components/ui/Button';
-import { SiteLogo } from '@/components/ui/SiteLogo';
+import { Button, ButtonLink } from '@/shared/ui/Button';
+import { SiteLogo } from '@/shared/ui/SiteLogo';
 import { NavDropdown } from '@/components/nav/NavDropdown';
 import { MobileNavGroup } from '@/components/nav/MobileNavGroup';
 import { SOFT_ITEMS, API_ITEMS, SERVICES_ITEMS, RESOURCES_ITEMS, TOOLS_ITEMS, API_DEVELOPER_ITEMS, CONNECTOR_GROUPS } from '@/components/nav/navConfig';
-import type { HeaderMode } from '@/types/components';
+import type { HeaderMode } from '@/shared/types/components';
 import homeIcon from '@/assets/home.svg';
-import { ThemeToggle } from '@/components/ui/ThemeToggle';
+import { ThemeToggle } from '@/shared/ui/ThemeToggle';
 import { BookDemoModal } from '@/components/modals/BookDemoModal';
 import { LOGIN_URL } from '@/utils/contants';
 

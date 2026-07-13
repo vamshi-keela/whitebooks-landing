@@ -1,4 +1,4 @@
-import type { ProblemSection as ProblemSectionData } from "../../types/pages.ts";
+import type { ProblemSection as ProblemSectionData } from "@/shared/types/pages";
 
 interface Props {
   data: ProblemSectionData;

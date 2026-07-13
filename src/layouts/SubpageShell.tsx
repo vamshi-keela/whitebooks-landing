@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import Icon from '@/components/icons/Icon';
-import { ButtonLink } from '@/components/ui/Button';
+import { ButtonLink } from '@/shared/ui/Button';
 import { Header, Footer, FluidBackground, Eyebrow, Breadcrumb } from '@/layouts/SiteShell';
-import { useReveal } from '@/hooks/useReveal';
-import type { HeaderMode, BreadcrumbItem, FaqItem } from '@/types/components';
+import { useReveal } from '@/shared/hooks/useReveal';
+import type { HeaderMode, BreadcrumbItem, FaqItem } from '@/shared/types/components';
 import type {
     HeroDef,
     ProblemDef,
@@ -15,7 +15,7 @@ import type {
     PricingTier,
     FaqDef,
     ClosingDef,
-} from '@/types/page-registry';
+} from '@/shared/types/page-registry';
 
 // ── SubHero ──────────────────────────────────────────────────────────────────
 

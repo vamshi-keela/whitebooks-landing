@@ -1,5 +1,5 @@
 import { PlainSection } from "@/layouts/SubpageShell.tsx";
-import type { FeaturesSection as FeaturesSectionData, FeatureItem } from "../../types/pages.ts";
+import type { FeaturesSection as FeaturesSectionData, FeatureItem } from "@/shared/types/pages";
 import { FeatureGuide } from "@/components/feature-guide/FeatureGuide";
 import { PlatformShowcase } from "@/sections/PlatformShowcase";
 

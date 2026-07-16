@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import type { NormalizedOperation } from '@/data/openapi-spec';
+import type { NormalizedOperation, ApiSpecKey } from '@/data/openapi-spec';
 import { useSpec } from '../../contexts/SpecContext';
 import { getResponseExample } from '../../utils/generateExamples';
+import { resolveApiError } from '../../utils/resolveApiError';
 import JsonTree from './JsonTree';
 import CopyButton from './CopyButton';
+import ErrorExplainer from './ErrorExplainer';
 
 export interface LiveResponse {
   status: number;
@@ -29,6 +31,8 @@ interface Props {
   /* Fill the parent flex column and scroll the body internally (used in the
      Playground so the card shares the panel height instead of overflowing it). */
   fill?: boolean;
+  /* Scopes error-code lookups for the ErrorExplainer on live failures. */
+  apiType?: ApiSpecKey;
 }
 
 /**
@@ -37,7 +41,7 @@ interface Props {
  * with status pills + copy, then a syntax-highlighted JSON body. Theme-aware:
  * follows the ambient dp token scope (dark inside `.dp-code-panel`).
  */
-export default function ResponseCard({ operation, live, maxHeight = 320, fill = false }: Props): React.ReactElement {
+export default function ResponseCard({ operation, live, maxHeight = 320, fill = false, apiType }: Props): React.ReactElement {
   const { spec } = useSpec();
   const codes = useMemo(() => Object.keys(operation.responses ?? {}), [operation]);
   const [activeCode, setActiveCode] = useState(codes[0] ?? '200');
@@ -47,6 +51,11 @@ export default function ResponseCard({ operation, live, maxHeight = 320, fill = 
   const json = useMemo(
     () => (live ? live.body : getResponseExample(operation, activeCode, spec)),
     [live, operation, activeCode, spec],
+  );
+
+  const resolvedError = useMemo(
+    () => (live ? resolveApiError(live, apiType) : null),
+    [live, apiType],
   );
 
   return (
@@ -88,6 +97,9 @@ export default function ResponseCard({ operation, live, maxHeight = 320, fill = 
         </div>
         {json && <CopyButton text={json} label={false} size={12} />}
       </div>
+
+      {/* Plain-language explainer for live failures */}
+      {resolvedError?.failed && <ErrorExplainer resolved={resolvedError} />}
 
       {/* Body */}
       {json

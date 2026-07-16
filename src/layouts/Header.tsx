@@ -11,13 +11,13 @@ import type { HeaderMode } from '@/shared/types/components';
 import homeIcon from '@/assets/home.svg';
 import { ThemeToggle } from '@/shared/ui/ThemeToggle';
 import { BookDemoModal } from '@/components/modals/BookDemoModal';
-import { LOGIN_URL } from '@/utils/contants';
+import { DEV_SIGNUP_URL, SIGNUP_ALL_URL, LOGIN_URL } from '@/utils/contants';
 
 interface HeaderProps {
   mode?: HeaderMode;
 }
 
-export function AuthButtons({ className = '' }: { className?: string }) {
+export function AuthButtons({ cardType = 'All', className = '' }: { className?: string, cardType?: ContactCardType }) {
   return (
     <div className={`flex items-center gap-2 ${className}`.trim()}>
       <ButtonLink
@@ -29,7 +29,7 @@ export function AuthButtons({ className = '' }: { className?: string }) {
         Sign in
       </ButtonLink>
       <ButtonLink
-        href="https://accounts.whitebooks.in/signupall"
+        href={cardType === 'API Team' ? DEV_SIGNUP_URL : SIGNUP_ALL_URL}
         rel="noopener noreferrer"
         variant="primary"
         size="sm"

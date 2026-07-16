@@ -511,9 +511,9 @@ export default function DpNav({ onOpenPalette }: DpNavProps): React.ReactElement
           >
             <DpIcon name="search" size={16} />
           </button>
-          <AuthButtons className="hidden sm:flex" />
-          <ContactUsDropdown cardType='API Team' />
           <ThemeToggle size={32} />
+          <ContactUsDropdown cardType='API Team' />
+          <AuthButtons className="hidden sm:flex" cardType='API Team' />
 
           {/* Mobile menu — only when the page has a left sub-nav */}
           {/* {showHamburger && (

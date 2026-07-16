@@ -318,6 +318,7 @@ export default memo(function CodeExampleTabs({ operation, headerValues, queryVal
           fontFamily: 'var(--dp-font-mono)',
           fontSize: 12.5,
           overflowX: 'auto',
+          scrollbarWidth: 'thin',
           maxHeight: 460,
           overflowY: 'auto',
           color: 'var(--dp-fg)',

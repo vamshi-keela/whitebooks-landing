@@ -67,7 +67,7 @@ const VERTICAL: Layout = {
   a: { x: 20, y: 6, w: 168, h: 60 },
   b: { x: 120, y: 140, w: 200, h: 72 },
   c: { x: 60, y: 286, w: 168, h: 60 },
-  receipt: { x: 70, y: 380, w: 206, h: 84 },
+  receipt: { x: 30, y: 380, w: 280, h: 84 },
 };
 
 /* Path-progress fractions where the packet label morphs (enter hub / near target). */
@@ -121,30 +121,23 @@ function NodeCard({
         height={rect.h}
         rx={14}
         strokeWidth={1}
-        style={{
-          fill: "var(--bg-card)",
-          stroke: accent
-            ? "color-mix(in srgb, var(--brand) 40%, transparent)"
-            : "var(--hairline-strong)",
-        }}
+        className={
+          accent
+            ? "fill-bg-card stroke-[color-mix(in_srgb,var(--brand)_40%,transparent)]"
+            : "fill-bg-card stroke-[var(--hairline-strong)]"
+        }
       />
       <text
         x={rect.x + 16}
         y={rect.y + rect.h / 2 - 4}
-        style={{
-          fill: "var(--fg-primary)",
-          fontFamily: "var(--font-display)",
-          fontSize: 13.5,
-          fontWeight: 600,
-          letterSpacing: "-0.01em",
-        }}
+        className="fill-fg-primary font-display font-semibold tracking-[-0.01em] text-[14px] lg:text-[16px]"
       >
         {node.label}
       </text>
       <text
         x={rect.x + 16}
         y={rect.y + rect.h / 2 + 15}
-        style={{ fill: "var(--fg-tertiary)", fontFamily: "var(--font-body)", fontSize: 10.5 }}
+        className="fill-fg-tertiary font-body text-[10.5px] lg:text-[12px] [overflow:visible]"
       >
         {node.sub}
       </text>
@@ -154,7 +147,7 @@ function NodeCard({
 
 /* ── Receipt card (below target node) ─────────────────────────────────────── */
 function Receipt({ rect, receipt }: { rect: Rect; receipt: PipelineConfig["receipt"] }) {
-  const qrCell = 5;
+  const qrCell = 4;
   const qrSize = QR_ROWS.length * qrCell;
   const qrX = rect.x + rect.w - qrSize - 14;
   const qrY = rect.y + (rect.h - qrSize) / 2;
@@ -172,25 +165,20 @@ function Receipt({ rect, receipt }: { rect: Rect; receipt: PipelineConfig["recei
         height={rect.h}
         rx={12}
         strokeWidth={1}
-        style={{ fill: "var(--bg-card)", stroke: "var(--hairline-strong)" }}
+        className="fill-bg-card stroke-[var(--hairline-strong)]"
       />
-      <circle cx={rect.x + 18} cy={rect.y + 26} r={3.5} style={{ fill: "var(--success)" }} />
+      <circle cx={rect.x + 18} cy={rect.y + 26} r={3.5} className="fill-ok" />
       <text
         x={rect.x + 28}
         y={rect.y + 30}
-        style={{
-          fill: "var(--fg-primary)",
-          fontFamily: "var(--font-display)",
-          fontSize: 12.5,
-          fontWeight: 600,
-        }}
+        className="fill-fg-primary font-display font-semibold text-[13px] lg:text-[14px]"
       >
         {receipt.title}
       </text>
       <text
         x={rect.x + 15}
         y={rect.y + 56}
-        style={{ fill: "var(--fg-secondary)", fontFamily: "var(--font-mono)", fontSize: 9.5 }}
+        className="fill-fg-secondary font-mono text-[11px] lg:text-[9px]"
       >
         {receipt.meta}
       </text>
@@ -204,7 +192,7 @@ function Receipt({ rect, receipt }: { rect: Rect; receipt: PipelineConfig["recei
                 y={qrY + r * qrCell}
                 width={qrCell - 1}
                 height={qrCell - 1}
-                style={{ fill: "var(--fg-primary)", opacity: 0.8 }}
+                className="fill-fg-primary opacity-80"
               />
             ) : null,
           ),
@@ -289,8 +277,7 @@ export function ConnectorPipeline({ config, className }: { config: PipelineConfi
   return (
     <svg
       viewBox={layout.viewBox}
-      className={className}
-      style={{ width: "100%", height: "auto", display: "block" }}
+      className={`block h-auto w-full ${className ?? ""}`}
       role="img"
       aria-label={`${config.source.label} to ${config.target.label} via ${config.hub.label} — automated compliance pipeline`}
     >
@@ -302,7 +289,7 @@ export function ConnectorPipeline({ config, className }: { config: PipelineConfi
         d={layout.d}
         fill="none"
         strokeWidth={1.5}
-        style={{ stroke: "var(--hairline-strong)" }}
+        className="stroke-[var(--hairline-strong)]"
         initial={reduced ? false : { pathLength: 0 }}
         animate={{ pathLength: 1 }}
         transition={{ duration: 0.9, ease: "easeInOut", delay: 0.15 }}
@@ -314,7 +301,7 @@ export function ConnectorPipeline({ config, className }: { config: PipelineConfi
         strokeWidth={1.5}
         strokeDasharray="6 14"
         strokeLinecap="round"
-        style={{ stroke: "var(--brand)", opacity: 0.3 }}
+        className="stroke-brand"
         initial={{ opacity: 0 }}
         animate={
           reduced
@@ -325,9 +312,9 @@ export function ConnectorPipeline({ config, className }: { config: PipelineConfi
           reduced
             ? { duration: 0.4 }
             : {
-                opacity: { duration: 0.4, delay: 0.9 },
-                strokeDashoffset: { duration: 5, ease: "linear", repeat: Infinity, delay: 0.9 },
-              }
+              opacity: { duration: 0.4, delay: 0.9 },
+              strokeDashoffset: { duration: 5, ease: "linear", repeat: Infinity, delay: 0.9 },
+            }
         }
       />
 
@@ -346,10 +333,7 @@ export function ConnectorPipeline({ config, className }: { config: PipelineConfi
           rx={14}
           fill="none"
           strokeWidth={1.5}
-          style={{
-            stroke: "var(--brand)",
-            filter: "drop-shadow(0 0 10px var(--brand-glow))",
-          }}
+          className="stroke-brand [filter:drop-shadow(0_0_10px_var(--brand-glow))]"
           initial={{ opacity: 0 }}
           animate={{ opacity: [0, 0.9, 0] }}
           transition={{ duration: 0.7, ease: "easeOut" }}
@@ -369,7 +353,7 @@ export function ConnectorPipeline({ config, className }: { config: PipelineConfi
             width={66}
             height={26}
             rx={13}
-            style={{ fill: "var(--brand)", filter: "drop-shadow(0 0 12px var(--brand-glow))" }}
+            className="fill-brand [filter:drop-shadow(0_0_12px_var(--brand-glow))]"
           />
           <AnimatePresence mode="popLayout" initial={false}>
             <motion.text
@@ -380,13 +364,7 @@ export function ConnectorPipeline({ config, className }: { config: PipelineConfi
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.16 }}
-              style={{
-                fill: "#fff",
-                fontFamily: "var(--font-mono)",
-                fontSize: 11,
-                fontWeight: 600,
-                letterSpacing: "0.06em",
-              }}
+              className="fill-white font-mono font-semibold tracking-[0.06em] text-[13px] lg:text-[15px]"
             >
               {config.packets[stage]}
             </motion.text>

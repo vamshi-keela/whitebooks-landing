@@ -577,10 +577,10 @@ function PlaygroundInner({
         {/* Right: code + response — always dark (Fern style) */}
         <div className="dp-code-bg lg:w-[42%] xl:w-[44%] lg:shrink-0 border-t lg:border-t-0 lg:border-l border-[var(--dp-border)] p-4 flex flex-col gap-4 ">
           <div className="shrink-0">
-            <CodeExampleTabs operation={operation} />
+            <CodeExampleTabs operation={operation} headerValues={headerVals} queryValues={queryVals} />
           </div>
           <div className="shrink-0 pb-2">
-            <ResponseCard operation={operation} live={response} maxHeight={420} />
+            <ResponseCard operation={operation} live={response} maxHeight={420} apiType={apiType} />
           </div>
         </div>
       </div>

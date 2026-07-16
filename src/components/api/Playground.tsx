@@ -575,7 +575,7 @@ function PlaygroundInner({
         </div>
 
         {/* Right: code + response — always dark (Fern style) */}
-        <div className="dp-code-bg lg:w-[42%] xl:w-[44%] lg:shrink-0 border-t lg:border-t-0 lg:border-l border-[var(--dp-border)] p-4 flex flex-col gap-4 ">
+        <div className="dp-code-bg lg:w-[50%] xl:w-[50%] lg:shrink-0 border-t lg:border-t-0 lg:border-l border-[var(--dp-border)] p-4 flex flex-col gap-4 ">
           <div className="shrink-0">
             <CodeExampleTabs operation={operation} headerValues={headerVals} queryValues={queryVals} />
           </div>

@@ -12,6 +12,7 @@ import {
   MiniEwayApiMock,
 } from './PillarCards';
 import gstDashboard from '@/assets/product-images/gst-software/gst-dashboard-1.png';
+import noticeMangaement from '@/assets/product-images/notice-management/notice-management-dashboard.png';
 import einvoiceDashboard from '@/assets/product-images/e-invoice-software/e-invoice-dashboard.png';
 import ewayDashboard from '@/assets/product-images/e-way-bill-software/e-way-bill-dashboard.png';
 import accountingDashboard from '@/assets/product-images/softwares/whitebooks_softwares_1.png';
@@ -151,7 +152,7 @@ export function HubSection({ tab, setTab, navigate }: HubSectionProps) {
             tone="amber"
             metricValue="100%"
             metricLabel="notices auto-fetched"
-            image={gstDashboard}
+            image={noticeMangaement}
             imageAlt="WhiteBooks Notice Management dashboard"
             onClick={() => navigate('notice-mgmt')}
             wide

@@ -42,6 +42,9 @@ import {
   Truck,
   ScrollText,
   Flag,
+  Users,
+  LifeBuoy,
+  PlayCircle,
   type LucideProps,
 } from 'lucide-react';
 
@@ -87,7 +90,10 @@ export type IconName =
   | 'receipt'
   | 'truck'
   | 'scroll'
-  | 'flag';
+  | 'flag'
+  | 'users'
+  | 'life-buoy'
+  | 'play-circle';
 
 type IconComponent = React.ForwardRefExoticComponent<Omit<LucideProps, 'ref'> & React.RefAttributes<SVGSVGElement>>;
 
@@ -108,6 +114,9 @@ const iconMap: Record<IconName, IconComponent> = {
   'key': Key,
   'globe': Globe,
   'book': BookOpen,
+  'users': Users,
+  'life-buoy': LifeBuoy,
+  'play-circle': PlayCircle,
   'code': Code2,
   'terminal': Terminal,
   'webhook': Network,

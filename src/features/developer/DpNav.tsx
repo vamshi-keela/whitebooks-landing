@@ -9,6 +9,7 @@ import { searchOps } from './devSearch';
 import type { NormalizedMethod } from '@/data/openapi-spec';
 import { AuthButtons, ContactUsDropdown } from '@/layouts/Header';
 import { LOGIN_URL } from '@/utils/contants';
+import { RESOURCE_PATHS } from '@/components/nav/navConfig';
 
 /* ─── Route map ─────────────────────────────────────────────────────────── */
 
@@ -39,9 +40,14 @@ const RESOURCE_ITEMS: ResourceItem[] = [
   { icon: 'book', label: 'Postman Collections', href: LOGIN_URL },
   { icon: 'package', label: 'SDKs & Clients', href: LOGIN_URL },
   // { icon: 'terminal', label: 'MCP Server', href: 'https://developer.sandbox.co.in/mcp' },
+  // Internal resource links — paths shared with the marketing nav (navConfig).
   { icon: 'activity', label: 'Status', href: '/status', internal: true },
   // { icon: 'wallet', label: 'Pricing', href: 'https://sandbox.co.in/pricing' },
   // { icon: 'star', label: 'Customer Stories', href: 'https://sandbox.co.in/customers' },
+  { icon: 'users', label: 'Partners', href: RESOURCE_PATHS.partners, internal: true },
+  { icon: 'life-buoy', label: 'Support', href: RESOURCE_PATHS.support, internal: true },
+  { icon: 'play-circle', label: 'Videos', href: RESOURCE_PATHS.videos, internal: true },
+  // { icon: 'book', label: 'Blog', href: RESOURCE_PATHS.blog, internal: true },
 ];
 
 /* Routes that belong to the "API Reference" tab (the landing + the four API docs). */
@@ -360,6 +366,7 @@ function ReferenceTab({ isActive }: { isActive: boolean }): React.ReactElement {
   const [open, setOpen] = useState(false);
   const [pos, setPos] = useState<{ left: number; top: number }>({ left: 0, top: 0 });
   const navigate = useNavigate();
+  const { pathname } = useLocation();
   const btnRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -442,22 +449,39 @@ function ReferenceTab({ isActive }: { isActive: boolean }): React.ReactElement {
         onMouseLeave={scheduleClose}
       >
         <div className="w-56 max-w-[calc(100vw-1.5rem)] rounded-2xl border border-[var(--dp-border)] bg-[var(--dp-surface-2)] shadow-[0_20px_60px_-10px_rgba(0,0,0,0.5)] p-1">
-          {REFERENCE_SUBITEMS.map(item => (
-            <button
-              key={item.type}
-              role="menuitem"
-              onClick={() => { setOpen(false); navigate(item.path); }}
-              className="group w-full flex items-center gap-2.5 rounded-xl px-2.5 py-2 bg-transparent border-0 cursor-pointer text-left text-[var(--dp-fg-muted)] hover:text-[var(--dp-fg)] hover:bg-[var(--dp-accent-soft)] focus-visible:bg-[var(--dp-accent-soft)] focus:outline-none transition-colors duration-100"
-            >
-              <DpIcon name={item.icon} size={16} className="shrink-0" style={{ color: 'var(--dp-fg-dim)' }} />
-              <span className="flex-1 min-w-0 text-sm font-medium">{item.label}</span>
-              <DpIcon
-                name="arrow-right"
-                size={14}
-                className="shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-100"
-              />
-            </button>
-          ))}
+          {REFERENCE_SUBITEMS.map(item => {
+            /* Selected when the current route lives under this API's section,
+               e.g. /developer/gst-api or /developer/gst-api/:opSlug. */
+            const root = `/developer/${item.type}`;
+            const selected = pathname === root || pathname.startsWith(root + '/');
+            return (
+              <button
+                key={item.type}
+                role="menuitem"
+                aria-current={selected ? 'page' : undefined}
+                onClick={() => { setOpen(false); navigate(item.path); }}
+                className={[
+                  'group w-full flex items-center gap-2.5 rounded-xl px-2.5 py-2 border-0 cursor-pointer text-left focus:outline-none transition-colors duration-100',
+                  selected
+                    ? 'bg-[var(--dp-accent-soft)] text-[var(--dp-fg)]'
+                    : 'bg-transparent text-[var(--dp-fg-muted)] hover:text-[var(--dp-fg)] hover:bg-[var(--dp-accent-soft)] focus-visible:bg-[var(--dp-accent-soft)]',
+                ].join(' ')}
+              >
+                <DpIcon
+                  name={item.icon}
+                  size={16}
+                  className="shrink-0"
+                  style={{ color: selected ? 'var(--dp-accent)' : 'var(--dp-fg-dim)' }}
+                />
+                <span className="flex-1 min-w-0 text-sm font-medium">{item.label}</span>
+                <DpIcon
+                  name="arrow-right"
+                  size={14}
+                  className={`shrink-0 transition-opacity duration-100 ${selected ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}
+                />
+              </button>
+            );
+          })}
         </div>
       </div>
     </div>

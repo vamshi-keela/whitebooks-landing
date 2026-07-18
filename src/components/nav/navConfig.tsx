@@ -70,11 +70,21 @@ export const SERVICES_ITEMS: NavItem[] = [
 ];
 
 
+/** Canonical resource route paths — shared between the marketing nav
+    (RESOURCES_ITEMS below) and the developer-hub Resources menu so both
+    link to the same destinations. */
+export const RESOURCE_PATHS = {
+  partners: '/resources/partners',
+  support: '/resources/support',
+  videos: '/resources/videos',
+  blog: '/resources/blog',
+} as const;
+
 export const RESOURCES_ITEMS: NavItem[] = [
-  { label: 'Partners', href: '/resources/partners', icon: <Users size={14} /> },
-  { label: 'Support', href: '/resources/support', icon: <LifeBuoy size={14} /> },
-  { label: 'Videos', href: '/resources/videos', icon: <PlayCircle size={14} /> },
-  { label: 'Blog', href: '/resources/blog', icon: <BookOpen size={14} /> },
+  { label: 'Partners', href: RESOURCE_PATHS.partners, icon: <Users size={14} /> },
+  { label: 'Support', href: RESOURCE_PATHS.support, icon: <LifeBuoy size={14} /> },
+  { label: 'Videos', href: RESOURCE_PATHS.videos, icon: <PlayCircle size={14} /> },
+  { label: 'Blog', href: RESOURCE_PATHS.blog, icon: <BookOpen size={14} /> },
 ];
 
 export const TOOLS_ITEMS: NavItem[] = [

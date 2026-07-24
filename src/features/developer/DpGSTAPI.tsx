@@ -123,7 +123,7 @@ export default function DpGSTAPI({ apiType }: { apiType: ApiSpecKey }): React.Re
         {
           isStaticId(selectedOpId) ?
             <></> :
-            <EnvironmentBar environments={environments} selected={selectedEnv} onChange={setSelectedEnv} />
+            <EnvironmentBar environments={environments} selected={selectedEnv} onChange={setSelectedEnv} apiType="gst-api" />
         }
 
         <div className="flex min-h-[calc(100vh-100px)]">

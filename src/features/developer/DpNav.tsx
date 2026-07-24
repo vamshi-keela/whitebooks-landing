@@ -34,19 +34,19 @@ const REFERENCE_SUBITEMS: ReferenceSubItem[] = [
 /* External resources surfaced in the far-right "Resources" dropdown of row 2.
    These mirror the developer hub's resource menu; swap the hrefs for the
    WhiteBooks equivalents as they come online. */
-interface ResourceItem { icon: IconName; label: string; href: string; internal?: boolean }
+interface ResourceItem { icon: IconName; label: string; href: string; }
 
 const RESOURCE_ITEMS: ResourceItem[] = [
   { icon: 'book', label: 'Postman Collections', href: LOGIN_URL },
   { icon: 'package', label: 'SDKs & Clients', href: LOGIN_URL },
   // { icon: 'terminal', label: 'MCP Server', href: 'https://developer.sandbox.co.in/mcp' },
   // Internal resource links — paths shared with the marketing nav (navConfig).
-  { icon: 'activity', label: 'Status', href: '/status', internal: true },
+  { icon: 'activity', label: 'Status', href: '/status', },
   // { icon: 'wallet', label: 'Pricing', href: 'https://sandbox.co.in/pricing' },
   // { icon: 'star', label: 'Customer Stories', href: 'https://sandbox.co.in/customers' },
-  { icon: 'users', label: 'Partners', href: RESOURCE_PATHS.partners, internal: true },
-  { icon: 'life-buoy', label: 'Support', href: RESOURCE_PATHS.support, internal: true },
-  { icon: 'play-circle', label: 'Videos', href: RESOURCE_PATHS.videos, internal: true },
+  { icon: 'users', label: 'Partners', href: RESOURCE_PATHS.partners, },
+  { icon: 'life-buoy', label: 'Support', href: RESOURCE_PATHS.support, },
+  { icon: 'play-circle', label: 'Videos', href: RESOURCE_PATHS.videos, },
   // { icon: 'book', label: 'Blog', href: RESOURCE_PATHS.blog, internal: true },
 ];
 
@@ -201,7 +201,7 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps): React.Re
         onClick={e => e.stopPropagation()}
       >
         <div className="flex items-center gap-2.5 px-4 py-3.5 border-b border-[var(--dp-border)]">
-          <DpIcon name="search" size={16} style={{ color: 'var(--dp-fg-dim)', flexShrink: 0 }} />
+          <DpIcon name="astroid" size={16} style={{ color: 'var(--dp-fg-dim)', flexShrink: 0 }} />
           <input
             ref={inputRef}
             value={query}
@@ -337,18 +337,17 @@ function ResourcesDropdown(): React.ReactElement {
             <a
               key={item.label}
               href={item.href}
-              {...(item.internal ? {} : { target: '_blank', rel: 'noreferrer' })}
+              target='_blank'
               role="menuitem"
               onClick={e => {
                 setOpen(false);
-                if (item.internal) { e.preventDefault(); navigate(item.href); }
               }}
               className="group flex items-center gap-2.5 rounded-xl px-2.5 py-2 no-underline text-[var(--dp-fg-muted)] hover:text-[var(--dp-fg)] hover:bg-[var(--dp-accent-soft)] focus-visible:bg-[var(--dp-accent-soft)] focus:outline-none transition-colors duration-100"
             >
               <DpIcon name={item.icon} size={16} className="shrink-0" style={{ color: 'var(--dp-fg-dim)' }} />
               <span className="flex-1 min-w-0 text-sm font-medium">{item.label}</span>
               <DpIcon
-                name={item.internal ? 'arrow-right' : 'arrow-up-right'}
+                name={'arrow-up-right'}
                 size={14}
                 className="shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-100"
               />
@@ -519,7 +518,7 @@ export default function DpNav({ onOpenPalette }: DpNavProps): React.ReactElement
           className="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center gap-2.5 w-full max-w-[460px] px-4 py-[9px] rounded-xl cursor-pointer border border-solid border-[var(--dp-border-strong)] text-[14px] font-body text-[var(--dp-fg-dim)] hover:border-[var(--dp-fg-faint)] transition-colors duration-150"
           style={{ background: 'var(--dp-surface)' }}
         >
-          <DpIcon name="search" size={15} />
+          <DpIcon name="astroid" size={15} />
           <span className="flex-1 text-left">Search...</span>
           <kbd className="text-[11px] font-mono px-1.5 py-0.5 rounded-[5px] border border-solid border-[var(--dp-border)] bg-[var(--dp-surface-2)] text-[var(--dp-fg-faint)]">⌘K</kbd>
         </button>

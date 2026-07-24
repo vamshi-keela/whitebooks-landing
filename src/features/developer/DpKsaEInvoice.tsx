@@ -71,7 +71,7 @@ export default function DpKsaEInvoiceAPI(): React.ReactElement {
     return (
         <SpecContext.Provider value={specCtx}>
             <div className="min-h-screen bg-[var(--dp-bg)]">
-                <EnvironmentBar environments={environments} selected={selectedEnv} onChange={setSelectedEnv} />
+                <EnvironmentBar environments={environments} selected={selectedEnv} onChange={setSelectedEnv} apiType="ksa-e-invoice-api" />
                 <div className="flex min-h-[calc(100vh-100px)]">
                     <ApiSidebar
                         groups={filteredGroups}

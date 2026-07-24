@@ -11,6 +11,7 @@ import CodeExampleTabs from './CodeExampleTabs';
 import ResponseCard from './ResponseCard';
 import Playground from './Playground';
 import PageActions from './PageActions';
+import { API_TYPE_LABELS } from './EnvironmentBar';
 
 interface Props {
   operation: NormalizedOperation;
@@ -94,6 +95,8 @@ export default function OperationDetail({
 
         {/* Breadcrumb */}
         <div className="flex items-center gap-1.5 mb-3 text-[12.5px] font-medium">
+          <span className="text-[var(--dp-fg-dim)]">{API_TYPE_LABELS[apiType]}</span>
+          <ChevronRight size={12} color="var(--dp-fg-faint)" className="shrink-0" />
           <span className="text-[var(--dp-fg-dim)]">{operation.tag}</span>
           <ChevronRight size={12} color="var(--dp-fg-faint)" className="shrink-0" />
           <span className="text-[var(--dp-accent)]">{operation.summary}</span>

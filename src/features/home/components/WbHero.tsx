@@ -1,5 +1,10 @@
-import { memo, useEffect, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import accountingDashboard from '@/assets/product-images/softwares/whitebooks_softwares_1.png';
+import gstDashboard from '@/assets/product-images/gst-software/gst-dashboard-1.png';
+import einvoiceDashboard from '@/assets/product-images/e-invoice-software/e-invoice-dashboard.png';
+import ewayDashboard from '@/assets/product-images/e-way-bill-software/e-way-bill-dashboard.png';
+import noticeManagement from '@/assets/product-images/notice-management/notice-management-dashboard.png';
 import gspProvider from "@/assets/gsp-provider.svg";
 import isoCertified from "@/assets/iso-certified-2022.svg";
 import sslSecure from "@/assets/ssl-secure.png";
@@ -206,6 +211,152 @@ const TRUST_STATS = [
   { val: '99.95%', lbl: 'API uptime SLA' },
 ];
 
+/* Product screenshots reused from the hub cards (WbHubs → ProductPillarCard). */
+const SHOWCASE_SLIDES: { src: string; alt: string; caption: string }[] = [
+  { src: gstDashboard, alt: 'WhiteBooks GST software dashboard', caption: 'GST filing & 2A/2B reconciliation' },
+  { src: einvoiceDashboard, alt: 'WhiteBooks e-Invoicing dashboard', caption: 'e-Invoicing — IRNs generated at scale' },
+  { src: ewayDashboard, alt: 'WhiteBooks e-Way Bill dashboard', caption: 'e-Way Bills — generate, extend, cancel' },
+  { src: accountingDashboard, alt: 'WhiteBooks accounting software dashboard', caption: 'Books that journal themselves' },
+  { src: noticeManagement, alt: 'WhiteBooks Notice Management dashboard', caption: 'Notice management & deadline tracking' },
+];
+
+/* ─── ProofCarousel ─────────────────────────────────────────────────────────
+   Native, dependency-free snap-scroll rail (same idiom as HeroShowcase's
+   ProductCardRail) layered inside the offset gradient frame. Swipe on touch,
+   arrows on desktop, dots everywhere. Autoplay is gentle and self-pauses on
+   hover / focus / touch, when the tab is hidden, or under reduced-motion. */
+function ProofCarousel() {
+  const railRef = useRef<HTMLDivElement>(null);
+  const resumeTimer = useRef<ReturnType<typeof setTimeout>>();
+  const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const count = SHOWCASE_SLIDES.length;
+
+  const pause = () => { clearTimeout(resumeTimer.current); setPaused(true); };
+  const resumeSoon = () => {
+    clearTimeout(resumeTimer.current);
+    resumeTimer.current = setTimeout(() => setPaused(false), 3500);
+  };
+
+  const goTo = (i: number) => {
+    const el = railRef.current;
+    if (!el) return;
+    el.scrollTo({ left: ((i + count) % count) * el.clientWidth, behavior: 'smooth' });
+  };
+
+  // setState bails when the index is unchanged, so scroll only re-renders on a move.
+  const onScroll = () => {
+    const el = railRef.current;
+    if (!el) return;
+    setActive(Math.min(count - 1, Math.round(el.scrollLeft / el.clientWidth)));
+  };
+
+  useEffect(() => {
+    if (paused) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const id = setInterval(() => {
+      const el = railRef.current;
+      if (!el || document.hidden) return;
+      el.scrollTo({ left: ((Math.round(el.scrollLeft / el.clientWidth) + 1) % count) * el.clientWidth, behavior: 'smooth' });
+    }, 4200);
+    return () => clearInterval(id);
+  }, [paused, count]);
+
+  useEffect(() => () => clearTimeout(resumeTimer.current), []);
+
+  const step = (dir: -1 | 1) => { pause(); goTo(active + dir); resumeSoon(); };
+
+  return (
+    <div
+      className="relative w-full max-w-[1280px] mx-auto"
+      role="region"
+      aria-roledescription="carousel"
+      aria-label="WhiteBooks product screenshots"
+      onMouseEnter={pause}
+      onMouseLeave={resumeSoon}
+      onFocusCapture={pause}
+      onBlurCapture={resumeSoon}
+      onTouchStart={pause}
+      onTouchEnd={resumeSoon}
+    >
+      {/* Offset gradient frame peeking out behind the photo */}
+      <div
+        aria-hidden
+        className="absolute -inset-3 rounded-[24px] rotate-[1.5deg] pointer-events-none"
+        style={{ background: 'linear-gradient(135deg, var(--brand-soft) 0%, transparent 55%)' }}
+      />
+
+      <div className="relative rounded-2xl overflow-hidden border border-solid border-[var(--hairline-bright)] shadow-[0_32px_80px_-32px_rgba(0,0,0,0.45)]">
+        {/* Track */}
+        <div
+          ref={railRef}
+          onScroll={onScroll}
+          className="wb-hscroll flex snap-x snap-mandatory overflow-x-auto overscroll-x-contain"
+        >
+          {SHOWCASE_SLIDES.map((s, i) => (
+            <figure key={s.src} className="relative m-0 basis-full shrink-0 snap-center aspect-[1.9/1]">
+              <img
+                src={s.src}
+                alt={s.alt}
+                className="w-full h-full object-cover object-top select-none"
+                loading={i === 0 ? 'eager' : 'lazy'}
+                decoding="async"
+                draggable={false}
+              />
+              {/* One caption per slide, over a soft bottom scrim for legibility. */}
+              <figcaption className="absolute inset-x-0 bottom-0 px-4 py-3 sm:px-5 sm:py-4 bg-gradient-to-t from-[rgba(0,0,0,0.6)] via-[rgba(0,0,0,0.25)] to-transparent">
+                <span className="text-[12.5px] sm:text-[13.5px] font-medium tracking-[0.01em] text-white/95 [text-shadow:0_1px_2px_rgba(0,0,0,0.45)]">
+                  {s.caption}
+                </span>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+
+        {/* Prev / Next — glass controls; swipe covers touch, so hide < sm. */}
+        <button
+          type="button"
+          onClick={() => step(-1)}
+          aria-label="Previous screenshot"
+          className="hidden sm:flex absolute left-3 top-1/2 -translate-y-1/2 z-10 w-11 h-11 items-center justify-center rounded-full border border-solid border-[var(--hairline-bright)] bg-[var(--bg-elev)] text-[var(--text)] backdrop-blur-md cursor-pointer transition-[background-color,transform] duration-150 hover:scale-105 active:scale-95"
+        >
+          <ChevronLeft size={18} />
+        </button>
+        <button
+          type="button"
+          onClick={() => step(1)}
+          aria-label="Next screenshot"
+          className="hidden sm:flex absolute right-3 top-1/2 -translate-y-1/2 z-10 w-11 h-11 items-center justify-center rounded-full border border-solid border-[var(--hairline-bright)] bg-[var(--bg-elev)] text-[var(--text)] backdrop-blur-md cursor-pointer transition-[background-color,transform] duration-150 hover:scale-105 active:scale-95"
+        >
+          <ChevronRight size={18} />
+        </button>
+      </div>
+
+      {/* Progress dots */}
+      <div className="mt-5 flex justify-center gap-2">
+        {SHOWCASE_SLIDES.map((s, i) => (
+          <button
+            key={s.src}
+            type="button"
+            aria-label={`Show ${s.caption}`}
+            aria-current={i === active}
+            onClick={() => { pause(); goTo(i); resumeSoon(); }}
+            className="group flex items-center h-6 border-0 bg-transparent p-0 cursor-pointer"
+          >
+            <span
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                i === active
+                  ? 'w-6 bg-[var(--brand)]'
+                  : 'w-1.5 bg-[rgba(220,47,101,0.28)] group-hover:bg-[rgba(220,47,101,0.55)]'
+              }`}
+            />
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function LogoWall() {
   return (
     <section className="relative overflow-hidden" data-reveal>
@@ -251,44 +402,8 @@ export function LogoWall() {
           </div>
         </div>
 
-        {/* Layered visual with floating proof cards */}
-        <div className="relative w-full max-w-[1280px] mx-auto">
-          {/* Offset gradient frame peeking out behind the photo */}
-          <div
-            aria-hidden
-            className="absolute -inset-3 rounded-[24px] rotate-[1.5deg] pointer-events-none"
-            style={{ background: 'linear-gradient(135deg, var(--brand-soft) 0%, transparent 55%)' }}
-          />
-          <div className="relative rounded-2xl overflow-hidden border border-solid border-[var(--hairline-bright)] shadow-[0_32px_80px_-32px_rgba(0,0,0,0.45)] ">
-            <img
-              src={accountingDashboard}
-              alt="WhiteBooks compliance dashboard in a finance team's workspace"
-              className="w-full h-full object-cover"
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
-
-          {/* Floating proof: GSP badge */}
-          {/* <div className="absolute -top-4 -right-3 max-sm:right-2 flex items-center gap-2 px-3.5 py-2 rounded-xl border border-solid border-[var(--hairline-bright)] bg-[var(--bg-elev)] shadow-[0_16px_40px_-16px_rgba(0,0,0,0.4)]">
-            <TickMark width={14} height={14} className="shrink-0" />
-            <span className="text-[12.5px] font-medium tracking-[0.02em] text-[var(--text)] whitespace-nowrap">
-              Licensed GSP · GSTN
-            </span>
-          </div> */}
-
-          {/* Floating proof: live reconciliation chip (echoes the product) */}
-          {/* <div className="absolute -bottom-5 -left-3 max-sm:left-2 flex items-center gap-2.5 px-4 py-2.5 rounded-xl border border-solid border-[var(--hairline-bright)] bg-[var(--bg-elev)] shadow-[0_16px_40px_-16px_rgba(0,0,0,0.4)]">
-            <span className="relative flex w-2 h-2 shrink-0" aria-hidden>
-              <span className="absolute inline-flex w-full h-full rounded-full bg-[var(--success)] opacity-60 animate-ping" />
-              <span className="relative inline-flex w-2 h-2 rounded-full bg-[var(--success)]" />
-            </span>
-            <span className="text-[12.5px] leading-tight text-[var(--text)] whitespace-nowrap">
-              GSTR-2B reconciled
-              <span className="text-[var(--muted)]"> · 4,238 invoices matched</span>
-            </span>
-          </div> */}
-        </div>
+        {/* Layered visual with floating proof cards — now a product carousel */}
+        <ProofCarousel />
       </div>
     </section>
   );

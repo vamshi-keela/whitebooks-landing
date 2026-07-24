@@ -45,6 +45,7 @@ import {
   Users,
   LifeBuoy,
   PlayCircle,
+  Astroid,
   type LucideProps,
 } from 'lucide-react';
 
@@ -93,7 +94,8 @@ export type IconName =
   | 'flag'
   | 'users'
   | 'life-buoy'
-  | 'play-circle';
+  | 'play-circle'
+  | 'astroid'
 
 type IconComponent = React.ForwardRefExoticComponent<Omit<LucideProps, 'ref'> & React.RefAttributes<SVGSVGElement>>;
 
@@ -121,6 +123,7 @@ const iconMap: Record<IconName, IconComponent> = {
   'terminal': Terminal,
   'webhook': Network,
   'package': Package,
+  'astroid': Astroid,
   'activity': Activity,
   'compass': Compass,
   'lock': Lock,

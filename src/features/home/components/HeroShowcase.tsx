@@ -1,4 +1,4 @@
-import React, { memo, useRef, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import heroImage from "@/assets/hero-image.png";
 import {
@@ -517,24 +517,50 @@ function MobilePersonStage() {
   );
 }
 
-// Swipeable snap rail of all five product cards with progress dots.
+// Swipeable snap rail of all five product cards with progress dots + autoplay.
 function ProductCardRail() {
   const railRef = useRef<HTMLDivElement>(null);
+  const resumeTimer = useRef<ReturnType<typeof setTimeout>>();
   const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const count = PRODUCT_CARDS.length;
+
+  const pause = () => { clearTimeout(resumeTimer.current); setPaused(true); };
+  const resumeSoon = () => {
+    clearTimeout(resumeTimer.current);
+    resumeTimer.current = setTimeout(() => setPaused(false), 3500);
+  };
 
   // setState bails out when the index is unchanged, so scroll re-renders only
   // fire when the active dot actually moves.
   const onScroll = () => {
     const el = railRef.current;
     if (!el) return;
-    const step = el.scrollWidth / PRODUCT_CARDS.length;
-    setActive(
-      Math.min(PRODUCT_CARDS.length - 1, Math.round(el.scrollLeft / step))
-    );
+    const step = el.scrollWidth / count;
+    setActive(Math.min(count - 1, Math.round(el.scrollLeft / step)));
   };
 
+  // Autoplay — gentle 2s cadence, self-pauses on interaction / reduced-motion.
+  useEffect(() => {
+    if (paused) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const id = setInterval(() => {
+      const el = railRef.current;
+      if (!el || document.hidden) return;
+      const step = el.scrollWidth / count;
+      const next = (Math.round(el.scrollLeft / step) + 1) % count;
+      el.scrollTo({ left: next * step, behavior: 'smooth' });
+    }, 2000);
+    return () => clearInterval(id);
+  }, [paused, count]);
+
+  useEffect(() => () => clearTimeout(resumeTimer.current), []);
+
   return (
-    <div>
+    <div
+      onTouchStart={pause}
+      onTouchEnd={resumeSoon}
+    >
       <div
         ref={railRef}
         onScroll={onScroll}

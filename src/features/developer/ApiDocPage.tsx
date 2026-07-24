@@ -252,6 +252,7 @@ export default function ApiDocPage({ apiType }: Props): React.ReactElement {
             environments={environments}
             selected={selectedEnv}
             onChange={setSelectedEnv}
+            apiType={apiType}
           />
         )}
 

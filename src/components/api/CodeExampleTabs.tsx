@@ -80,7 +80,7 @@ function CodeBlock({ code, lang }: { code: string; lang: Lang }): React.ReactEle
           >
             {i + 1}
           </span>
-          <span style={{ flex: 1, whiteSpace: 'pre' }}>{highlightLine(line, lang)}</span>
+          <span style={{ flex: 1, whiteSpace: 'pre', fontSize: 'inherit' }}>{highlightLine(line, lang)}</span>
         </div>
       ))}
     </>
@@ -322,7 +322,9 @@ export default memo(function CodeExampleTabs({ operation, headerValues, queryVal
           maxHeight: 460,
           overflowY: 'auto',
           color: 'var(--dp-fg)',
-        }}
+          WebkitTextSizeAdjust: '100%',
+          textSizeAdjust: '100%',
+        } as React.CSSProperties}
       >
         <CodeBlock code={activeCode} lang={activeLang} />
       </div>

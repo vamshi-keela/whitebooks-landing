@@ -170,14 +170,16 @@ export function ContactUsDropdown({ cardType = 'All' }: { cardType?: ContactCard
               </div>
             ))}
           </div>
-          <div className="flex items-center justify-between gap-3 px-4 py-3 border-t border-[var(--line)] bg-[var(--bg-2)]">
+          {/* Single (narrow) card stacks the footer so the helper text stays
+              fully visible; the wide two-team card keeps it on one row. */}
+          <div className={`flex px-4 py-3 border-t border-[var(--line)] bg-[var(--bg-2)] ${single ? 'flex-col items-stretch gap-2.5' : 'items-center justify-between gap-3'}`}>
             <div className="flex items-center gap-2 min-w-0">
               <Bug className="w-4 h-4 shrink-0 text-[var(--muted-2)]" strokeWidth={1.75} />
-              <p className="text-[12.5px] font-medium text-[var(--muted-2)] truncate">Have an issue?</p>
+              <p className="text-[12.5px] font-medium text-[var(--muted-2)] whitespace-nowrap">Have an issue?</p>
             </div>
             <a
               href={LOGIN_URL}
-              className="group inline-flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1.5 text-[12.5px] font-semibold text-[var(--brand)] bg-[rgba(220,47,101,0.10)] hover:bg-[var(--brand)] hover:text-white transition-colors duration-150 cursor-pointer"
+              className={`group inline-flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1.5 text-[12.5px] font-semibold text-[var(--brand)] bg-[rgba(220,47,101,0.10)] hover:bg-[var(--brand)] hover:text-white transition-colors duration-150 cursor-pointer ${single ? 'w-full justify-center' : ''}`}
             >
               Raise a ticket
               <ArrowRight className="w-3.5 h-3.5 transition-transform duration-150 group-hover:translate-x-0.5" strokeWidth={2.25} />

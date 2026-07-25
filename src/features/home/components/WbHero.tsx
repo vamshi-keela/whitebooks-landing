@@ -2,8 +2,6 @@ import { memo, useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import accountingDashboard from '@/assets/product-images/softwares/whitebooks_softwares_1.png';
 import gstDashboard from '@/assets/product-images/gst-software/gst-dashboard-1.png';
-import einvoiceDashboard from '@/assets/product-images/e-invoice-software/e-invoice-dashboard.png';
-import ewayDashboard from '@/assets/product-images/e-way-bill-software/e-way-bill-dashboard.png';
 import noticeManagement from '@/assets/product-images/notice-management/notice-management-dashboard.png';
 import gspProvider from "@/assets/gsp-provider.svg";
 import isoCertified from "@/assets/iso-certified-2022.svg";
@@ -213,10 +211,8 @@ const TRUST_STATS = [
 
 /* Product screenshots reused from the hub cards (WbHubs → ProductPillarCard). */
 const SHOWCASE_SLIDES: { src: string; alt: string; caption: string }[] = [
-  { src: gstDashboard, alt: 'WhiteBooks GST software dashboard', caption: 'GST filing & 2A/2B reconciliation' },
-  { src: einvoiceDashboard, alt: 'WhiteBooks e-Invoicing dashboard', caption: 'e-Invoicing — IRNs generated at scale' },
-  { src: ewayDashboard, alt: 'WhiteBooks e-Way Bill dashboard', caption: 'e-Way Bills — generate, extend, cancel' },
   { src: accountingDashboard, alt: 'WhiteBooks accounting software dashboard', caption: 'Books that journal themselves' },
+  { src: gstDashboard, alt: 'WhiteBooks GST software dashboard', caption: 'GST filing & 2A/2B reconciliation' },
   { src: noticeManagement, alt: 'WhiteBooks Notice Management dashboard', caption: 'Notice management & deadline tracking' },
 ];
 
@@ -344,11 +340,10 @@ function ProofCarousel() {
             className="group flex items-center h-6 border-0 bg-transparent p-0 cursor-pointer"
           >
             <span
-              className={`h-1.5 rounded-full transition-all duration-300 ${
-                i === active
+              className={`h-1.5 rounded-full transition-all duration-300 ${i === active
                   ? 'w-6 bg-[var(--brand)]'
                   : 'w-1.5 bg-[rgba(220,47,101,0.28)] group-hover:bg-[rgba(220,47,101,0.55)]'
-              }`}
+                }`}
             />
           </button>
         ))}

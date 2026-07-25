@@ -11,7 +11,7 @@ import CodeExampleTabs from './CodeExampleTabs';
 import ResponseCard from './ResponseCard';
 import Playground from './Playground';
 import PageActions from './PageActions';
-import { API_TYPE_LABELS } from './EnvironmentBar';
+import OperationBreadcrumb from './OperationBreadcrumb';
 
 interface Props {
   operation: NormalizedOperation;
@@ -94,13 +94,7 @@ export default function OperationDetail({
       <div className="flex-1 min-w-0 px-4 sm:px-8 lg:px-12 pt-7 sm:pt-9 lg:pt-10 pb-16 max-w-[820px]">
 
         {/* Breadcrumb */}
-        <div className="flex items-center gap-1.5 mb-3 text-[12.5px] font-medium">
-          <span className="text-[var(--dp-fg-dim)]">{API_TYPE_LABELS[apiType]}</span>
-          <ChevronRight size={12} color="var(--dp-fg-faint)" className="shrink-0" />
-          <span className="text-[var(--dp-fg-dim)]">{operation.tag}</span>
-          <ChevronRight size={12} color="var(--dp-fg-faint)" className="shrink-0" />
-          <span className="text-[var(--dp-accent)]">{operation.summary}</span>
-        </div>
+        <OperationBreadcrumb operation={operation} apiType={apiType} className="mb-3" />
 
         {/* Title */}
         <h1 className="font-[family-name:var(--dp-font-display)] text-[26px] sm:text-[28px] lg:text-[30px] font-semibold text-[var(--dp-fg)] mt-0 mb-3 leading-[1.2] tracking-[-0.02em]">
@@ -187,7 +181,7 @@ export default function OperationDetail({
       */}
       <div className="dp-code-bg flex flex-col w-full border-t border-[var(--dp-border)] lg:w-[420px] xl:w-[440px] lg:shrink-0 lg:border-t-0 lg:border-l lg:sticky lg:top-[var(--dp-nav-h)] lg:h-[calc(100vh_-_var(--dp-nav-h))] lg:overflow-hidden">
         <div className="p-4 lg:flex-1 lg:overflow-y-auto flex flex-col gap-4">
-          <CodeExampleTabs operation={operation} />
+          <CodeExampleTabs operation={operation} apiType={apiType} />
           {hasResponses && <ResponseCard operation={operation} maxHeight={360} />}
         </div>
       </div>

@@ -5,7 +5,6 @@ import type { HeroConfig } from "@/shared/types/pages";
 import { Button } from "@/shared/ui/Button";
 import EyebrowPill from "@/shared/ui/EyebrowPill";
 import PhotoRoom from "@/assets/Photoroom.png";
-import { useNavigate } from "react-router-dom";
 
 interface SubHeroProps extends HeroConfig {
   onPrimaryClick?: () => void;
@@ -14,48 +13,64 @@ interface SubHeroProps extends HeroConfig {
 
 const wrap = "w-full max-w-[1280px] mx-auto px-16 max-lg:px-10 max-md:px-6 max-sm:px-4";
 
-export default function SubHero({ eyebrow, title, sub, primaryCta, secondaryCta, micro, visual, breadcrumb, onPrimaryClick, onSecondaryClick }: SubHeroProps) {
-  const navigate = useNavigate();
-
+/**
+ * Product-render stage — the hero's right column.
+ *
+ * The render is authored bleeding off its own bottom edge (laptop on a chrome
+ * plinth), so it is anchored to the stage's bottom rim and clipped there: the
+ * crop becomes intentional instead of looking like a stray floating cutout.
+ * Styles live in design-system-wb.css under `.wb-substage`.
+ */
+function HeroStage() {
   return (
-    <section className="pt-[70px] pb-[72px] relative overflow-hidden font-[var(--font-display)] bg-[var(--bg-2)] max-xl:min-h-screen">
+    <div className="wb-substage">
+      <div className="wb-substage-glow" aria-hidden="true" />
+      <div className="wb-substage-artwrap">
+        <img
+          src={PhotoRoom}
+          alt="WhiteBooks dashboard showing income, expenses, receivables and cash flow"
+          className="wb-substage-art"
+          loading="eager"
+          decoding="async"
+        />
+      </div>
+    </div>
+  );
+}
+
+export default function SubHero({ eyebrow, title, sub, primaryCta, secondaryCta, micro, visual, breadcrumb, onPrimaryClick, onSecondaryClick }: SubHeroProps) {
+  return (
+    <section className="pt-[70px] pb-[56px] relative overflow-hidden font-[var(--font-display)] bg-[var(--bg-2)]">
       <FluidBackground />
 
       {breadcrumb && (
-        <section style={{ paddingTop: 30, paddingBottom: 20 }}>
-          <div className={wrap}>
-            <SeoBreadcrumb items={breadcrumb} />
-          </div>
-        </section>
+        <div className={`${wrap} relative z-[2] pt-[26px] pb-[18px]`}>
+          <SeoBreadcrumb items={breadcrumb} />
+        </div>
       )}
 
       <div className={`${wrap} relative z-[2]`}>
-        <div className="grid grid-cols-[1.05fr_1fr] gap-10 items-end max-[1000px]:grid-cols-1">
-          <div>
+        <div className="grid grid-cols-[minmax(0,1.06fr)_minmax(0,0.94fr)] gap-14 items-center max-[1080px]:grid-cols-1 max-[1080px]:gap-10">
+          <div className="max-[1080px]:max-w-[720px]">
             <EyebrowPill label={eyebrow} />
-            <h1 className="font-[var(--font-display)] font-semibold leading-[1.05] tracking-[-0.025em] mb-0 max-w-[880px] text-balance"
-              style={{ fontSize: "clamp(36px, 4vw, 101px)" }}>
+            <h1
+              className="font-[var(--font-display)] font-semibold leading-[1.06] tracking-[-0.025em] mt-5 mb-0 text-balance max-[1080px]:max-w-[18ch]"
+              style={{ fontSize: "clamp(34px, 3.6vw, 58px)" }}
+            >
               {title}
             </h1>
-            <p className="mt-[22px] mb-0 max-w-[620px] text-base md:text-lg text-[var(--muted-2)] leading-[1.55] [&_strong]:text-[var(--text)] [&_strong]:font-medium max-md:max-w-full">
+            <p className="mt-5 mb-0 max-w-[46ch] text-base md:text-[17px] text-[var(--muted-2)] leading-[1.6] [&_strong]:text-[var(--text)] [&_strong]:font-medium max-md:max-w-full">
               {sub}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               {primaryCta && (
-                <Button
-                  variant="developerPrimary"
-                  onClick={onPrimaryClick}
-                >
+                <Button variant="developerPrimary" onClick={onPrimaryClick}>
                   {primaryCta.label}
                   <DpIcon name="arrow-right" size={14} />
                 </Button>
               )}
               {secondaryCta && (
-                <Button
-                  variant="ghost"
-                  className="border-2"
-                  onClick={onSecondaryClick}
-                >
+                <Button variant="ghost" className="border-2 border-solid" onClick={onSecondaryClick}>
                   <DpIcon name="arrow-right" size={14} />
                   {secondaryCta.label}
                 </Button>
@@ -69,20 +84,9 @@ export default function SubHero({ eyebrow, title, sub, primaryCta, secondaryCta,
             )}
           </div>
 
-          {visual && (
-            <div className="mt-[10px] max-[1000px]:mt-0">
-              {visual}
-            </div>
-          )}
+          <div className="max-[1080px]:mt-2">{visual ?? <HeroStage />}</div>
         </div>
       </div>
-
-      <img
-        src={PhotoRoom}
-        alt=""
-        aria-hidden="true"
-        className="absolute bottom-0 right-0 h-full w-auto max-w-[55%] object-contain object-[bottom_right] pointer-events-none z-0 max-[1024px]:max-w-[40%] max-[1024px]:opacity-70 max-[700px]:hidden"
-      />
     </section>
   );
 }

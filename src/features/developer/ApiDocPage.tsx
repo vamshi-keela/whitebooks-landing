@@ -19,6 +19,7 @@ import {
   buildTechArticleSchema,
 } from '../../seo/schema/generators';
 import { SITE } from '../../seo/config/site';
+import { buildApiEndpointSeo } from '../../seo/apiSeo';
 import { operationToSlug, slugToOperation } from './utils/operationSlug';
 import GstOverview from './GstOverview';
 import InvoiceApiOverview from './EinvoiceApiOverview';
@@ -138,19 +139,20 @@ export default function ApiDocPage({ apiType }: Props): React.ReactElement {
 
   /* ── SEO ──────────────────────────────────────────────────────────────── */
 
-  const canonicalUrl = selectedOp
-    ? `${SITE.baseUrl}/developer/${apiSlug}/${opSlug}`
+  /* Endpoint pages get full per-operation SeoMeta (title, description, keywords,
+     aiSummary, robots, OG, Twitter) derived from the spec + overrides. Overview
+     pages keep the API-level defaults. */
+  const endpointSeo = selectedOp ? buildApiEndpointSeo(apiType, selectedOp) : null;
+
+  const canonicalUrl = endpointSeo
+    ? endpointSeo.canonical
     : `${SITE.baseUrl}/developer/${apiSlug}`;
 
-  const pageTitle = selectedOp
-    ? `${selectedOp.summary} — ${apiLabel} Reference | WhiteBooks`
+  const pageTitle = endpointSeo
+    ? endpointSeo.title
     : `${apiLabel} Documentation — WhiteBooks Developer Portal`;
 
-  const pageDesc = selectedOp
-    ? (selectedOp.description
-      ? `${selectedOp.description.slice(0, 220).replace(/\n/g, ' ')}`
-      : `${selectedOp.method} ${selectedOp.path} — ${apiLabel} endpoint. Request parameters, response schemas, and code examples.`)
-    : apiDesc;
+  const pageDesc = endpointSeo ? endpointSeo.description : apiDesc;
 
   const schema = selectedOp
     ? buildJsonLd(
@@ -158,7 +160,7 @@ export default function ApiDocPage({ apiType }: Props): React.ReactElement {
         canonicalUrl,
         title: pageTitle,
         description: pageDesc,
-        keywords: `${apiLabel}, ${selectedOp.summary}, ${selectedOp.path}, API reference, WhiteBooks developer docs`,
+        keywords: endpointSeo?.keywords ?? `${apiLabel}, ${selectedOp.summary}, ${selectedOp.path}, API reference`,
       }),
       buildBreadcrumbSchema([
         { label: 'Home', href: '/' },
@@ -222,24 +224,28 @@ export default function ApiDocPage({ apiType }: Props): React.ReactElement {
 
   return (
     <SpecContext.Provider value={specCtx}>
-      <SeoHead
-        title={pageTitle}
-        description={pageDesc}
-        canonical={canonicalUrl}
-        robots={SITE.defaultRobots}
-        og={{
-          title: pageTitle,
-          description: pageDesc,
-          image: SITE.defaultOgImage,
-          type: 'article',
-        }}
-        twitter={{
-          card: 'summary_large_image',
-          title: pageTitle,
-          description: pageDesc,
-          image: SITE.defaultOgImage,
-        }}
-      />
+      {endpointSeo ? (
+        <SeoHead {...endpointSeo} />
+      ) : (
+        <SeoHead
+          title={pageTitle}
+          description={pageDesc}
+          canonical={canonicalUrl}
+          robots={SITE.defaultRobots}
+          og={{
+            title: pageTitle,
+            description: pageDesc,
+            image: SITE.defaultOgImage,
+            type: 'website',
+          }}
+          twitter={{
+            card: 'summary_large_image',
+            title: pageTitle,
+            description: pageDesc,
+            image: SITE.defaultOgImage,
+          }}
+        />
+      )}
       <StructuredData schema={schema} />
 
       <div className="min-h-screen bg-[var(--dp-bg)]">

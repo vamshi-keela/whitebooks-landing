@@ -57,14 +57,21 @@ async function prerender() {
     process.exit(1);
   }
 
-  const { render } = await import(serverEntry) as {
+  const { render, apiEndpointRoutes } = await import(serverEntry) as {
     render: (url: string) => {
       html: string;
       helmetData: { context: { helmet: Record<string, { toString(): string }> } };
-    }
+    };
+    apiEndpointRoutes: () => string[];
   };
 
+  // Append spec-derived, indexable API endpoint routes to the static route set.
+  const endpointRoutes = apiEndpointRoutes();
+  for (const url of endpointRoutes) ROUTES.push({ url });
+  console.log(`  + ${endpointRoutes.length} indexable API endpoint routes\n`);
+
   let successCount = 0;
+  const written: string[] = [];
 
   for (const { url, out } of ROUTES) {
     try {
@@ -91,6 +98,7 @@ async function prerender() {
 
       fs.writeFileSync(outPath, output, 'utf-8');
       console.log(`  ✓ ${url} → dist/${routePath}`);
+      written.push(route);
       successCount++;
     } catch (err) {
       console.warn(`  ✗ ${url} — ${(err as Error).message}`);
@@ -98,6 +106,24 @@ async function prerender() {
   }
 
   console.log(`\nPrerender complete: ${successCount}/${ROUTES.length} routes.`);
+
+  // ── Sitemap ────────────────────────────────────────────────────────────
+  // Only prerendered (= indexable) routes go in the sitemap. Thin/noindex
+  // endpoints are intentionally absent — do not list what you don't index.
+  const BASE = 'https://whitebooks.in';
+  const today = new Date().toISOString().slice(0, 10);
+  const urls = [...new Set(written)]
+    .map(r => (r === '/' ? BASE + '/' : BASE + r))
+    .sort();
+  const sitemap =
+    `<?xml version="1.0" encoding="UTF-8"?>\n` +
+    `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
+    urls
+      .map(u => `  <url>\n    <loc>${u}</loc>\n    <lastmod>${today}</lastmod>\n  </url>`)
+      .join('\n') +
+    `\n</urlset>\n`;
+  fs.writeFileSync(path.resolve(distDir, 'sitemap.xml'), sitemap, 'utf-8');
+  console.log(`Sitemap written: dist/sitemap.xml (${urls.length} URLs)`);
 }
 
 prerender().catch((err) => {

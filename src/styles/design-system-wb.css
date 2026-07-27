@@ -7182,3 +7182,121 @@ a.wb-block--link:hover .endpoint {
 .group:hover .wb-ts-label {
   color: var(--ts-label-hover);
 }
+
+/* ── Subpage hero: product stage ──────────────────────────────────────────────
+   The subpage hero pairs copy (left) with a framed "stage" (right) holding the
+   product render. The render is authored bleeding off its own bottom edge, so
+   the stage clips it at the bottom rim — that turns an accidental-looking crop
+   into a deliberate plinth. No runtime blur() lives here: everything is a
+   gradient (see the wb-halo note in SiteShell for why).
+--------------------------------------------------------------------------- */
+
+.wb-substage {
+  position: relative;
+  isolation: isolate;
+  height: clamp(340px, 33vw, 470px);
+  border-radius: 26px;
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-style: solid;
+  overflow: hidden;
+  background:
+    radial-gradient(130% 100% at 50% 0%, rgba(255, 255, 255, 0.06), transparent 62%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0));
+  box-shadow:
+    0 40px 90px -50px rgba(0, 0, 0, 0.75),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+
+/* Top rim highlight — the one crisp edge that sells the panel as a surface */
+.wb-substage::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  z-index: 3;
+  pointer-events: none;
+}
+
+[data-theme="light"] .wb-substage {
+  border-color: rgba(13, 13, 20, 0.08);
+  background:
+    radial-gradient(130% 100% at 50% 0%, #ffffff, rgba(255, 255, 255, 0) 65%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.2));
+  box-shadow:
+    0 40px 80px -50px rgba(13, 13, 20, 0.35),
+    inset 0 1px 0 #ffffff;
+}
+
+[data-theme="light"] .wb-substage::after {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.9), transparent);
+}
+
+/* Brand spotlight sitting behind the render */
+.wb-substage-glow {
+  position: absolute;
+  left: 50%;
+  top: -14%;
+  width: 84%;
+  aspect-ratio: 1 / 1;
+  transform: translateX(-50%);
+  background: radial-gradient(circle at 50% 50%, var(--brand-glow), transparent 62%);
+  z-index: 0;
+  pointer-events: none;
+  animation: wbStageBreathe 11s ease-in-out infinite;
+}
+
+.wb-substage-artwrap {
+  position: absolute;
+  left: 50%;
+  bottom: -6%;
+  width: 118%;
+  transform: translateX(-50%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.wb-substage-art {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 26px 40px rgba(0, 0, 0, 0.45));
+  animation: wbStageFloat 12s ease-in-out infinite;
+}
+
+[data-theme="light"] .wb-substage-art {
+  filter: drop-shadow(0 26px 38px rgba(13, 13, 20, 0.22));
+}
+
+@keyframes wbStageFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes wbStageBreathe {
+  0%, 100% { opacity: 0.75; }
+  50% { opacity: 1; }
+}
+
+@media (max-width: 1080px) {
+  .wb-substage {
+    height: clamp(300px, 46vw, 430px);
+    border-radius: 22px;
+  }
+  .wb-substage-artwrap { width: 82%; }
+}
+
+@media (max-width: 640px) {
+  .wb-substage {
+    height: clamp(240px, 62vw, 320px);
+    border-radius: 18px;
+  }
+  .wb-substage-artwrap { width: 118%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wb-substage-art,
+  .wb-substage-glow {
+    animation: none;
+  }
+}

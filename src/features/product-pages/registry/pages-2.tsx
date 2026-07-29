@@ -43,6 +43,8 @@ const PAGES_2: Record<string, SubPageData> = {
       ),
       primaryCta: { label: "Start Free Trail" },
       secondaryCta: { label: "Book a 20-min Demo" },
+      image: eInvoiceDashboardImage,
+      imageAlt: "WhiteBooks e-Invoice dashboard showing IRN generation status, signed QR archive and IRP exceptions",
       // micro:
       //   "AATO above ₹10 crore? <a href='#'>WhiteBooks enforces the 30-day window automatically — never miss ITC eligibility →</a>",
     },
@@ -198,6 +200,8 @@ const PAGES_2: Record<string, SubPageData> = {
         "Auto-populate from your IRN or invoice. Bulk-generate for warehouse dispatch batches. Extend validity for in-transit delays. Cancel within 24 hours when needed. One screen, every workflow.",
       primaryCta: { label: "Start Free Trail" },
       secondaryCta: { label: "Book a 20-min Demo" },
+      image: ewayBillDashboardImage,
+      imageAlt: "WhiteBooks e-Way Bill dashboard showing live bill status, validity countdowns and expiry alerts across GSTINs",
       // micro:
       //   "Dispatching from multiple warehouses? <a href='#'>See how Pharmeasy generates e-way bills for 14 locations on WhiteBooks →</a>",
     },

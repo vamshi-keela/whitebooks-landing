@@ -1,5 +1,11 @@
 import React from 'react';
 import { SubPageData } from '@/shared/types/pages';
+import {
+  GST_API_HERO_TABS,
+  E_INVOICE_API_HERO_TABS,
+  E_WAY_BILL_API_HERO_TABS,
+  KSA_E_INVOICE_API_HERO_TABS,
+} from '@/features/developer/apiHeroCode';
 
 const PAGES_3: Record<string, SubPageData> = {
 
@@ -35,6 +41,7 @@ const PAGES_3: Record<string, SubPageData> = {
       ),
       primaryCta: { label: "Get sandbox keys" },
       secondaryCta: { label: "Read API docs", href: '/developer/gst-api', target: '_blank' },
+      codeTabs: GST_API_HERO_TABS,
       // micro: "Used in production by <a href='#'>Razorpay, Pharmeasy, Cars24, WheelsEye, and 200+ teams</a>.",
     },
     problem: {
@@ -153,6 +160,7 @@ const PAGES_3: Record<string, SubPageData> = {
       ),
       primaryCta: { label: "Get sandbox keys" },
       secondaryCta: { label: "Read API docs", href: "/developer/e-invoice-api", target: "_blank" },
+      codeTabs: E_INVOICE_API_HERO_TABS,
     },
     problem: {
       heading: (
@@ -265,6 +273,7 @@ const PAGES_3: Record<string, SubPageData> = {
       ),
       primaryCta: { label: "Get sandbox keys" },
       secondaryCta: { label: "Read API docs", href: '/developer/e-way-api', target: '_blank' },
+      codeTabs: E_WAY_BILL_API_HERO_TABS,
     },
     problem: {
       heading: (
@@ -377,6 +386,7 @@ const PAGES_3: Record<string, SubPageData> = {
       ),
       primaryCta: { label: "Get sandbox keys" },
       secondaryCta: { label: "Talk to KSA solutions team", href: '/developer/ksa-e-invoice-api', target: '_blank' },
+      codeTabs: KSA_E_INVOICE_API_HERO_TABS,
     },
     problem: {
       heading: (

@@ -2,7 +2,7 @@
 import { Header } from "@/layouts/SiteShell";
 import { Footer } from "@/layouts/SiteShell";
 import { useReveal } from "@/shared/hooks/useReveal";
-import SubHero from "@/components/subpage/SubHero";
+import SubHero, { APISubHero } from "@/components/subpage/SubHero";
 import { ProblemSection } from "@/components/subpage/ProblemSection";
 import { FeaturesSection } from "@/components/subpage/FeaturesSection";
 import { IntegrationSection } from "@/components/subpage/IntegrationSection";
@@ -132,7 +132,7 @@ export function APISubPage({ data, onPrimaryClick, onSecondaryClick }: SubPagePr
       {schema && <StructuredData schema={schema} />}
       <Header mode={data.headerMode} />
       <main itemScope itemType="https://schema.org/TechArticle">
-        <SubHero
+        <APISubHero
           {...data.hero}
           breadcrumb={data.breadcrumb}
           onPrimaryClick={onPrimaryClick}

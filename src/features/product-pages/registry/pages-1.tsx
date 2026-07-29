@@ -6,6 +6,7 @@ import purchaseInvoiceImage from '@/assets/product-images/feature-images/purchas
 import expensesRegisterImage from '@/assets/product-images/feature-images/expenses-register.svg';
 import receiptsRegisterImage from '@/assets/product-images/feature-images/receipts-register-banking.svg';
 import gstDashboardImage from '@/assets/product-images/gst-software/gst-dashboard-1.png';
+import accountDashboardImage from '@/assets/product-images/softwares/whitebooks_softwares_1.png'
 import prepareGstr1Image from '@/assets/product-images/feature-images/prepare-gstr1-dashboard.svg';
 import gstr2aRegisterImage from '@/assets/product-images/feature-images/gstr2A-register.svg';
 import gstr2bReconcileImage from '@/assets/product-images/feature-images/gstr2B-reconcile-register.svg';
@@ -48,6 +49,7 @@ const PAGES: Record<string, SubPageData> = {
       ),
       primaryCta: { label: "Start Free Trail" },
       secondaryCta: { label: "Book a 20-min Demo" },
+      image: accountDashboardImage,
       // micro: "Moving from Tally? <a href='#'>We import your 3 most recent years of books in under 2 hours →</a>",
     },
     problem: {
@@ -257,6 +259,8 @@ const PAGES: Record<string, SubPageData> = {
       ),
       primaryCta: { label: "Start Free Trail" },
       secondaryCta: { label: "Book a 20-min Demo" },
+      image: gstDashboardImage,
+      imageAlt: "WhiteBooks GST dashboard showing GSTR filing status, ledger cards and reconciliation summary across GSTINs",
       // micro:
       //   "Migrating from ClearTax TaxCloud, Tally, or Zoho? <a href='#'>We import your prior 36 months of returns →</a>",
     },

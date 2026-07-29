@@ -7268,6 +7268,47 @@ a.wb-block--link:hover .endpoint {
   filter: drop-shadow(0 26px 38px rgba(13, 13, 20, 0.22));
 }
 
+/* Screenshot mode — the stage takes its height from the image it holds.
+   The artwrap leaves the absolute/bleed layout and sits in normal flow, so the
+   panel is exactly as tall as the shot's own width:height ratio, whatever that
+   ratio happens to be.
+
+   The shots are bare app screenshots with square corners, so the frame is drawn
+   here rather than baked into the pixels — a fixed 16px radius and one hairline,
+   the same treatment the Notice Management hero uses. A CSS radius holds its
+   size at any render width; a baked one shrinks with the image. The panel's own
+   border, fill and rim highlight step aside so there is only ever one frame. */
+.wb-substage--fit {
+  height: auto;
+  border: 0;
+  background: none;
+  box-shadow: none;
+  overflow: visible;
+}
+
+.wb-substage--fit::after { display: none; }
+
+/* Oversized 20% past the grid column and re-centred on it, so the shot reads at
+   a legible scale. Height follows width, so both grow together. The bleed sits
+   in the column gap on one side and the page gutter on the other; below 1080px
+   the stage is already full-width, so it drops back to 100%. */
+.wb-substage--fit .wb-substage-artwrap {
+  position: relative;
+  left: auto;
+  bottom: auto;
+  width: 120%;
+  margin-left: -10%;
+  transform: none;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.wb-substage--fit .wb-substage-art {
+  filter: none;
+  animation: none;
+}
+
 @keyframes wbStageFloat {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
@@ -7279,18 +7320,15 @@ a.wb-block--link:hover .endpoint {
 }
 
 @media (max-width: 1080px) {
-  .wb-substage {
-    height: clamp(300px, 46vw, 430px);
-    border-radius: 22px;
-  }
+  .wb-substage:not(.wb-substage--fit) { height: clamp(300px, 46vw, 430px); }
+  .wb-substage { border-radius: 22px; }
   .wb-substage-artwrap { width: 82%; }
+  .wb-substage--fit .wb-substage-artwrap { width: 100%; margin-left: 0; }
 }
 
 @media (max-width: 640px) {
-  .wb-substage {
-    height: clamp(240px, 62vw, 320px);
-    border-radius: 18px;
-  }
+  .wb-substage:not(.wb-substage--fit) { height: clamp(240px, 62vw, 320px); }
+  .wb-substage { border-radius: 18px; }
   .wb-substage-artwrap { width: 118%; }
 }
 

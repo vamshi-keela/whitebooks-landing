@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import type { SeoMeta } from '@/seo/types'
 import { ShowcaseCategory } from '@/data/accouting-platform-showcase.data'
+import type { CodeTab } from '@/features/developer/DpComponents'
 
 export type HeaderMode = 'home' | 'softwares' | 'apis'
 
@@ -23,6 +24,11 @@ export interface HeroConfig {
     micro?: string
     visual?: ReactNode
     breadcrumb?: BreadcrumbItem[]
+    /** Product screenshot for the hero stage. The stage sizes itself to it. */
+    image?: string
+    imageAlt?: string
+    /** API pages: the code sample shown in place of the screenshot. */
+    codeTabs?: CodeTab[]
 }
 
 export interface ProblemItem {
@@ -253,4 +259,9 @@ export interface HeroProps {
     /** HTML-like micro line; preserved from source which used dangerouslySetInnerHTML. */
     micro?: string;
     visual?: ReactNode;
+    /** Product screenshot for the hero stage. The stage sizes itself to it. */
+    image?: string;
+    imageAlt?: string;
+    /** API pages: the code sample shown in place of the screenshot. */
+    codeTabs?: CodeTab[];
 }

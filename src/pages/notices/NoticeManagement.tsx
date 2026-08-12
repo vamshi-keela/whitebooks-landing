@@ -21,7 +21,7 @@ import {
 import { Header, Footer, FluidBackground } from '@/layouts/SiteShell';
 import { ButtonLink } from '@/shared/ui/Button';
 import { LOGIN_URL } from '@/utils/contants';
-import noticeDashboard from '@/assets/product-images/notice-management/notice-management-dashboard.png';
+import { HeroVisual } from '@/components/hero-visuals';
 import noticeInbox from '@/assets/product-images/notice-management/notice-management-notices.png';
 import noticeAddReply from '@/assets/product-images/notice-management/notice-management-add-reply.png';
 import { SeoBreadcrumb } from '@/seo/components/SeoBreadcrumb';
@@ -237,13 +237,9 @@ export default function NoticeManagement() {
                 </p>
               </div>
 
-              {/* Live inbox preview */}
+              {/* Live deadline tracker — the page's promise, animated */}
               <div className="mt-[10px] max-[1000px]:mt-0">
-                <img
-                  src={noticeDashboard}
-                  alt="WhiteBooks Notice Management dashboard showing total notices, overdue count, department-wise breakdown, and notice processing funnel"
-                  className="w-full rounded-2xl border border-[var(--line)] object-cover object-top aspect-[1.62/1]"
-                />
+                <HeroVisual name="notice-deadlines" />
               </div>
             </div>
           </div>

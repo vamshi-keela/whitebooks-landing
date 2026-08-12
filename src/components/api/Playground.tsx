@@ -1,13 +1,22 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { X, Check, ChevronDown, ChevronRight, Search, Play, Loader2, AlertCircle } from 'lucide-react';
-import { openApiSpec, type NormalizedOperation, type NormalizedMethod, type ApiSpecKey } from '@/data/openapi-spec';
+import { X, Check, ChevronDown, ChevronRight, Play, Loader2, AlertCircle } from 'lucide-react';
+import {
+  openApiSpec,
+  type NormalizedOperation,
+  type ApiSpecKey,
+  type ParameterObject,
+  type RequestBodyObject,
+  type OpenApiSpec,
+} from '@/data/openapi-spec';
 import { environments, type Environment } from '../../data/environments';
 import { useSpec, SpecContext, makeSpecContext } from '../../contexts/SpecContext';
-import { generateExampleFromSchema } from '../../utils/schemaHelpers';
+import { generateExampleFromSchema, flattenSchema } from '../../utils/schemaHelpers';
 import { resolveSchema } from '../../utils/normalizeSpec';
-import { searchOps, getOpIndex } from '@/features/developer/devSearch';
+import { warmOpIndex } from '@/features/developer/devSearch';
 import MethodBadge from './MethodBadge';
+import ApiTypeBadge from './ApiTypeBadge';
+import EndpointPicker from './EndpointPicker';
 import OperationBreadcrumb from './OperationBreadcrumb';
 import CodeExampleTabs from './CodeExampleTabs';
 import ResponseCard, { type LiveResponse } from './ResponseCard';
@@ -15,23 +24,55 @@ import CopyButton from './CopyButton';
 
 /* ─── Shared field styles ─────────────────────────────────────────────────── */
 
-const inputCls = [
-  'w-full bg-[var(--dp-input-bg)] border border-[var(--dp-input-border)] rounded-lg',
+const inputBase = [
+  'w-full border border-solid rounded-lg',
   'px-3 py-2',
   'font-[family-name:var(--dp-font-mono)] text-[12.5px] text-[var(--dp-fg)]',
-  'outline-none focus:border-[var(--dp-input-border-focus)] focus:shadow-[0_0_0_3px_var(--dp-accent-soft)]',
-  'transition-[border-color,box-shadow] duration-150',
+  'outline-none transition-[border-color,box-shadow] duration-150',
   'placeholder:text-[var(--dp-input-placeholder)]',
 ].join(' ');
+
+const inputRest = [
+  'bg-[var(--dp-input-bg)] border-[var(--dp-input-border)]',
+  'focus:border-[var(--dp-input-border-focus)] focus:shadow-[0_0_0_3px_var(--dp-accent-soft)]',
+].join(' ');
+
+/* Invalid state. Kept exclusive with `inputRest` rather than layered on top of
+   it — same-specificity arbitrary utilities win by stylesheet order, not by
+   class-attribute order, so overriding the border there is a coin flip. */
+const inputInvalid = [
+  'bg-[rgba(220,47,101,0.06)] border-[var(--dp-accent)]',
+  'focus:border-[var(--dp-accent)] focus:shadow-[0_0_0_3px_rgba(220,47,101,0.2)]',
+].join(' ');
+
+const fieldCls = (invalid?: boolean) => `${inputBase} ${invalid ? inputInvalid : inputRest}`;
+
+/* ─── Inline "this is missing" note ───────────────────────────────────────── */
+
+function FieldError({ id, children }: { id?: string; children: React.ReactNode }): React.ReactElement {
+  return (
+    <p
+      id={id}
+      className="flex items-center gap-1.5 m-0 mt-1.5 text-[11.5px] leading-[1.5] text-[var(--dp-accent)] font-[family-name:var(--dp-font-body)]"
+    >
+      <AlertCircle size={12} className="shrink-0" />
+      {children}
+    </p>
+  );
+}
 
 /* ─── Collapsible section ─────────────────────────────────────────────────── */
 
 function Section({
-  title, count, children, defaultOpen = true,
+  title, count, children, defaultOpen = true, invalidCount = 0,
 }: {
   title: string; count?: number; children: React.ReactNode; defaultOpen?: boolean;
+  /** Missing required fields inside. Pins the section open so they stay visible. */
+  invalidCount?: number;
 }): React.ReactElement {
   const [open, setOpen] = useState(defaultOpen);
+  const hasErrors = invalidCount > 0;
+  const isOpen = open || hasErrors;
   return (
     <div className="border border-[var(--dp-border)] rounded-xl mb-4 overflow-hidden bg-[var(--dp-surface)]">
       <button
@@ -42,16 +83,23 @@ function Section({
           size={15}
           color="var(--dp-fg-dim)"
           className="shrink-0 transition-transform duration-150"
-          style={{ transform: open ? 'rotate(90deg)' : 'none' }}
+          style={{ transform: isOpen ? 'rotate(90deg)' : 'none' }}
         />
         <span className="text-[14px] font-semibold text-[var(--dp-fg)] flex-1">{title}</span>
         {count !== undefined && count > 0 && (
-          <span className="text-[11px] font-[family-name:var(--dp-font-mono)] text-[var(--dp-fg-faint)] bg-[var(--dp-surface-2)] border border-[var(--dp-border)] rounded-[5px] px-1.5 py-px">
-            {count}
+          <span
+            className={[
+              'text-[11px] font-[family-name:var(--dp-font-mono)] rounded-[5px] px-1.5 py-px border border-solid',
+              hasErrors
+                ? 'text-[var(--dp-accent)] bg-[rgba(220,47,101,0.1)] border-[rgba(220,47,101,0.35)]'
+                : 'text-[var(--dp-fg-faint)] bg-[var(--dp-surface-2)] border-[var(--dp-border)]',
+            ].join(' ')}
+          >
+            {hasErrors ? `${invalidCount}/${count}` : count}
           </span>
         )}
       </button>
-      {open && <div className="px-4 pb-1 border-t border-[var(--dp-border)]">{children}</div>}
+      {isOpen && <div className="px-4 pb-1 border-t border-[var(--dp-border)]">{children}</div>}
     </div>
   );
 }
@@ -59,10 +107,12 @@ function Section({
 /* ─── Parameter field row ─────────────────────────────────────────────────── */
 
 function ParamField({
-  name, type, required, description, placeholder, value, onChange,
+  name, type, required, description, placeholder, value, onChange, invalid,
 }: {
   name: string; type: string; required?: boolean; description?: string;
   placeholder?: string; value: string; onChange: (v: string) => void;
+  /** Required but still empty, and the user has already tried to send. */
+  invalid?: boolean;
 }): React.ReactElement {
   return (
     <div className="grid grid-cols-1 md:grid-cols-[1fr_minmax(0,280px)] gap-3 md:gap-6 py-4 border-b border-[var(--dp-border)] last:border-0 items-start">
@@ -78,135 +128,64 @@ function ParamField({
           <p className="text-[13px] text-[var(--dp-fg-muted)] leading-[1.6] mt-1.5 m-0">{description}</p>
         )}
       </div>
+      {/* No per-field caption: the row already says "required" in the same accent
+          and the banner names every offender — a third copy is just noise. */}
       <input
         type="text"
         placeholder={placeholder ?? `enter ${name}`}
         value={value}
         onChange={e => onChange(e.target.value)}
-        className={inputCls}
+        className={fieldCls(invalid)}
+        aria-required={required || undefined}
+        aria-invalid={invalid || undefined}
+        data-dp-missing={invalid ? '1' : undefined}
       />
     </div>
   );
 }
 
-/* ─── Endpoint switcher dropdown (global across all APIs) ─────────────────── */
+/* ─── Request-body validation ─────────────────────────────────────────────────
+   The body is a free-form JSON editor, so there is nothing per-field to outline
+   the way params get outlined. We flag the editor as a whole and name what is
+   wrong: unparseable JSON, or top-level required properties left blank.
+   ─────────────────────────────────────────────────────────────────────────── */
 
-interface OpResult {
-  apiType: ApiSpecKey;
-  apiLabel: string;
-  op: NormalizedOperation;
-  method: NormalizedMethod;
-  summary: string;
-  path: string;
-}
+type BodyIssue = { kind: 'empty' | 'json' | 'keys'; message: string };
 
-function EndpointSelect({
-  activeApiType, activeOp, onSelect,
-}: {
-  activeApiType: ApiSpecKey;
-  activeOp: NormalizedOperation;
-  onSelect: (apiType: ApiSpecKey, op: NormalizedOperation) => void;
-}): React.ReactElement {
-  const [open, setOpen] = useState(false);
-  const [query, setQuery] = useState('');
-  const [debounced, setDebounced] = useState('');
-  const ref = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
+/** Methods whose body actually goes on the wire — the rest can't be blocked on it. */
+const BODY_METHODS = ['POST', 'PUT', 'PATCH'];
 
-  useEffect(() => {
-    if (open) setTimeout(() => inputRef.current?.focus(), 30);
-    else setQuery('');
-  }, [open]);
+/** Present in the JSON but with nothing in it still counts as unfilled. */
+const isBlank = (v: unknown): boolean =>
+  v === undefined || v === null || (typeof v === 'string' && v.trim() === '');
 
-  /* Debounce so typing stays smooth even with thousands of endpoints. */
-  useEffect(() => {
-    const t = setTimeout(() => setDebounced(query), 60);
-    return () => clearTimeout(t);
-  }, [query]);
+function validateBody(raw: string, requestBody: RequestBodyObject | undefined, spec: OpenApiSpec): BodyIssue | null {
+  if (!requestBody) return null;
 
-  useEffect(() => {
-    const handle = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
-    };
-    if (open) document.addEventListener('mousedown', handle);
-    return () => document.removeEventListener('mousedown', handle);
-  }, [open]);
+  if (!raw.trim()) {
+    return requestBody.required ? { kind: 'empty', message: 'Request body is required' } : null;
+  }
 
-  const isGlobal = debounced.trim().length > 0;
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(raw);
+  } catch {
+    return { kind: 'json', message: 'Request body is not valid JSON' };
+  }
 
-  /* Empty query → browse the active API. Typing → global search across all APIs. */
-  const results = useMemo<OpResult[]>(() => {
-    if (!isGlobal) {
-      return getOpIndex()
-        .filter(e => e.apiType === activeApiType)
-        .map(e => ({ apiType: e.apiType, apiLabel: e.apiLabel, op: e.op, method: e.method, summary: e.summary, path: e.path }));
-    }
-    return searchOps(debounced, 50).map(s => ({
-      apiType: s.apiType, apiLabel: s.apiLabel, op: s.op, method: s.method, summary: s.summary, path: s.path,
-    }));
-  }, [isGlobal, debounced, activeApiType]);
+  const schema = requestBody.content?.['application/json']?.schema;
+  if (!schema || typeof parsed !== 'object' || parsed === null || Array.isArray(parsed)) return null;
 
-  return (
-    <div ref={ref} className="relative shrink-0">
-      <button
-        onClick={() => setOpen(o => !o)}
-        className="flex items-center gap-2 w-full sm:w-[260px] px-2.5 py-2 rounded-lg border border-solid border-[var(--dp-border-strong)] bg-[var(--dp-surface)] cursor-pointer transition-colors duration-150 hover:border-[var(--dp-fg-faint)]"
-      >
-        <MethodBadge method={activeOp.method} size="sm" />
-        <span className="flex-1 min-w-0 text-left text-[13px] font-medium text-[var(--dp-fg)] truncate">
-          {activeOp.summary}
-        </span>
-        <ChevronDown size={15} color="var(--dp-fg-dim)" className="shrink-0" style={{ transform: open ? 'rotate(180deg)' : 'none', transition: 'transform 0.15s' }} />
-      </button>
+  // Top level only — nested required properties are left to the API to reject.
+  const flat = flattenSchema(resolveSchema(spec, schema), spec);
+  const record = parsed as Record<string, unknown>;
+  const missing = (flat.required ?? []).filter(key => isBlank(record[key]));
+  if (missing.length === 0) return null;
 
-      {open && (
-        <div className="absolute z-10 mt-1.5 w-[360px] max-w-[88vw] rounded-xl border border-[var(--dp-border-strong)] bg-[var(--dp-surface-2)] shadow-[0_16px_48px_rgba(0,0,0,0.4)] overflow-hidden">
-          <div className="flex items-center gap-2 px-3 py-2.5 border-b border-[var(--dp-border)]">
-            <Search size={14} color="var(--dp-fg-dim)" className="shrink-0" />
-            <input
-              ref={inputRef}
-              value={query}
-              onChange={e => setQuery(e.target.value)}
-              placeholder="Search endpoints across all APIs..."
-              className="flex-1 min-w-0 bg-transparent border-0 outline-none text-[13px] font-body text-[var(--dp-fg)] placeholder:text-[var(--dp-fg-dim)]"
-            />
-          </div>
-          <div className="max-h-[360px] overflow-y-auto py-1">
-            {results.map(r => {
-              const isActive = r.apiType === activeApiType && r.op.id === activeOp.id;
-              return (
-                <button
-                  key={`${r.apiType}:${r.op.id}`}
-                  onClick={() => { onSelect(r.apiType, r.op); setOpen(false); }}
-                  className="w-full flex items-center gap-2.5 px-3 py-2 cursor-pointer border-0 bg-transparent text-left transition-colors duration-100 hover:bg-[var(--dp-sidebar-hover)]"
-                  style={{ background: isActive ? 'var(--dp-accent-soft)' : undefined }}
-                >
-                  <MethodBadge method={r.method} size="sm" />
-                  <span className="flex-1 min-w-0">
-                    <span className={[
-                      'block truncate text-[13px]',
-                      isActive ? 'text-[var(--dp-accent-2)] font-medium' : 'text-[var(--dp-fg)]',
-                    ].join(' ')}>
-                      {r.summary}
-                    </span>
-                    <span className="block truncate text-[11px] font-[family-name:var(--dp-font-mono)] text-[var(--dp-fg-faint)]">{r.path}</span>
-                  </span>
-                  {isGlobal && (
-                    <span className="shrink-0 text-[10.5px] text-[var(--dp-fg-dim)] bg-[var(--dp-surface-3)] border border-[var(--dp-border)] rounded-full px-2 py-0.5">
-                      {r.apiLabel}
-                    </span>
-                  )}
-                </button>
-              );
-            })}
-            {results.length === 0 && (
-              <div className="px-3 py-5 text-center text-[13px] text-[var(--dp-fg-dim)]">No endpoints found</div>
-            )}
-          </div>
-        </div>
-      )}
-    </div>
-  );
+  return {
+    kind: 'keys',
+    message: `Fill the required body ${missing.length === 1 ? 'field' : 'fields'}: ${missing.join(', ')}`,
+  };
 }
 
 /* ─── URL composer ────────────────────────────────────────────────────────── */
@@ -380,19 +359,72 @@ function PlaygroundInner({
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState<LiveResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [warn, setWarn] = useState(false);
+  /** Set by a Send that failed validation — what turns the highlights on. */
+  const [attempted, setAttempted] = useState(false);
+  const [focusTick, setFocusTick] = useState(0);
+  const formRef = useRef<HTMLDivElement>(null);
 
-  const canSend = useMemo(() => {
-    if (pathParams.some(p => p.required && !pathVals[p.name]?.trim())) return false;
-    if (queryParams.some(p => p.required && !queryVals[p.name]?.trim())) return false;
-    if (headerParams.some(p => p.required && !headerVals[p.name]?.trim())) return false;
-    return true;
+  /* Recomputed from the live values on every keystroke, so a field drops out of
+     `ids` the moment it is filled in — that is what makes the outline clear
+     per field instead of only on the next Send. */
+  const missing = useMemo(() => {
+    const ids = new Set<string>();
+    const names: string[] = [];
+    const scan = (loc: string, params: ParameterObject[], vals: Record<string, string>) => {
+      for (const p of params) {
+        if (p.required && !vals[p.name]?.trim()) {
+          ids.add(`${loc}:${p.name}`);
+          names.push(p.name);
+        }
+      }
+    };
+    // Same order as the form, so the banner reads top-to-bottom.
+    scan('header', headerParams, headerVals);
+    scan('path', pathParams, pathVals);
+    scan('query', queryParams, queryVals);
+    return { ids, names };
   }, [pathParams, queryParams, headerParams, pathVals, queryVals, headerVals]);
 
-  // Clear the "required fields" warning as soon as everything is filled in.
+  const sendsBody = BODY_METHODS.includes(operation.method.toUpperCase());
+  const bodyIssue = useMemo(
+    () => (sendsBody ? validateBody(body, operation.requestBody, spec) : null),
+    [sendsBody, body, operation.requestBody, spec],
+  );
+
+  const canSend = missing.names.length === 0 && !bodyIssue;
+
+  /* Once everything is valid the attempt is spent: emptying a field again is
+     the user editing, not an error, until they press Send once more. */
   useEffect(() => {
-    if (canSend && warn) setWarn(false);
-  }, [canSend, warn]);
+    if (canSend) setAttempted(false);
+  }, [canSend]);
+
+  const showErrors = attempted && !canSend;
+  const isMissing = (loc: string, name: string) => showErrors && missing.ids.has(`${loc}:${name}`);
+  const missingIn = (loc: string, params: ParameterObject[]) =>
+    showErrors ? params.filter(p => missing.ids.has(`${loc}:${p.name}`)).length : 0;
+
+  // Sections holding a missing field render open, so this runs against final DOM.
+  useEffect(() => {
+    if (!focusTick) return;
+    const el = formRef.current?.querySelector<HTMLElement>('[data-dp-missing]');
+    if (!el) return;
+    el.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    el.focus({ preventScroll: true });
+  }, [focusTick]);
+
+  const warnText = useMemo(() => {
+    const parts: string[] = [];
+    if (missing.names.length) {
+      const shown = missing.names.slice(0, 4).join(', ');
+      const extra = missing.names.length - 4;
+      parts.push(
+        `Fill the required ${missing.names.length === 1 ? 'field' : 'fields'}: ${shown}${extra > 0 ? ` +${extra} more` : ''}`,
+      );
+    }
+    if (bodyIssue) parts.push(bodyIssue.message);
+    return parts.join(' · ');
+  }, [missing.names, bodyIssue]);
 
   const fullUrl = `${baseUrl}${operation.path}`;
 
@@ -411,10 +443,11 @@ function PlaygroundInner({
   const handleSend = () => {
     if (loading) return;
     if (!canSend) {
-      setWarn(true);
+      setAttempted(true);
+      setFocusTick(t => t + 1); // jump to the first thing that needs filling in
       return;
     }
-    setWarn(false);
+    setAttempted(false);
     void execute();
   };
 
@@ -429,7 +462,7 @@ function PlaygroundInner({
         if (headerVals[p.name]) headers[p.name] = headerVals[p.name];
       }
       const opts: RequestInit = { method: operation.method.toUpperCase(), headers };
-      if (['POST', 'PUT', 'PATCH'].includes(operation.method.toUpperCase()) && body) opts.body = body;
+      if (sendsBody && body) opts.body = body;
       const res = await fetch(buildUrl(), opts);
       const durationMs = Math.round(performance.now() - t0);
       const text = await res.text();
@@ -445,11 +478,53 @@ function PlaygroundInner({
 
   return (
     <>
-      {/* ── Top bar ──────────────────────────────────────────────────────── */}
-      <div className="flex flex-col sm:flex-row sm:items-center gap-2.5 px-3 sm:px-4 py-3 border-b border-[var(--dp-border)] shrink-0">
-        <EndpointSelect activeApiType={apiType} activeOp={operation} onSelect={onSelect} />
+      {/* ── Dialog header — names the API scope the moment the modal opens.
+             Hidden on mobile, where the tag rides the switcher row instead so
+             the sheet doesn't spend two strips of height on chrome. ───────── */}
+      <div className="hidden sm:flex items-center gap-2.5 px-3 sm:px-4 py-2.5 border-b border-[var(--dp-border)] bg-[var(--dp-surface)] shrink-0">
+        <h2 id="dp-playground-title" className="flex items-center gap-2 m-0 min-w-0">
+          <ApiTypeBadge apiType={apiType} />
+          <span className="truncate font-[family-name:var(--dp-font-display)] text-[14px] font-semibold text-[var(--dp-fg)]">
+            Playground
+          </span>
+        </h2>
+        <span className="hidden sm:block flex-1 truncate text-right text-[12px] text-[var(--dp-fg-dim)]">
+          Send a live request against the {selectedEnv.name.toLowerCase()} environment
+        </span>
+        <button
+          onClick={onClose}
+          className="w-8 h-8 flex items-center justify-center rounded-lg cursor-pointer border border-solid border-[var(--dp-border)] bg-[var(--dp-bg)] text-[var(--dp-fg-muted)] shrink-0 transition-colors duration-150 hover:text-[var(--dp-fg)] hover:border-[var(--dp-border-strong)]"
+          aria-label="Close playground"
+        >
+          <X size={16} />
+        </button>
+      </div>
+
+      {/* ── Top bar ──────────────────────────────────────────────────────────
+             `relative` gives the endpoint picker's popover something viewport-
+             wide to anchor to on mobile, where the trigger itself is too narrow
+             to hang a menu off. ─────────────────────────────────────────────── */}
+      <div className="relative flex flex-col sm:flex-row sm:items-center gap-2.5 px-3 sm:px-4 py-3 border-b border-[var(--dp-border)] shrink-0">
+        {/* `sm:contents` dissolves this wrapper on desktop so the switcher sits
+            directly in the toolbar row again. */}
+        <div className="flex items-center gap-2 sm:contents">
+          <ApiTypeBadge apiType={apiType} className="sm:hidden" />
+          <EndpointPicker
+            activeApiType={apiType}
+            activeOp={operation}
+            onSelect={onSelect}
+            className="flex-1 sm:flex-none sm:shrink-0"
+          />
+          <button
+            onClick={onClose}
+            className="sm:hidden w-9 h-9 flex items-center justify-center rounded-lg cursor-pointer border border-solid border-[var(--dp-border)] bg-[var(--dp-surface)] text-[var(--dp-fg-muted)] shrink-0"
+            aria-label="Close playground"
+          >
+            <X size={17} />
+          </button>
+        </div>
         <UrlComposer method={operation.method} path={operation.path} selectedEnv={selectedEnv} onEnvChange={onEnvChange} />
-        <div className="flex items-center gap-2.5 shrink-0">
+        <div className="flex items-center shrink-0">
           <button
             onClick={handleSend}
             disabled={loading}
@@ -466,32 +541,26 @@ function PlaygroundInner({
           >
             {loading ? <><Loader2 size={14} className="animate-spin" /> Sending</> : <>Send <Play size={13} /></>}
           </button>
-          <button
-            onClick={onClose}
-            className="w-9 h-9 flex items-center justify-center rounded-lg cursor-pointer border border-[var(--dp-border)] bg-[var(--dp-surface)] text-[var(--dp-fg-muted)] shrink-0 transition-colors duration-150 hover:text-[var(--dp-fg)]"
-            aria-label="Close playground"
-          >
-            <X size={17} />
-          </button>
         </div>
       </div>
 
       {/* ── Required-fields warning ──────────────────────────────────────── */}
-      {warn && (
+      {showErrors && (
         <div
           role="alert"
-          className="flex items-center gap-2 px-3 sm:px-4 py-2 border-b border-[rgba(220,47,101,0.25)] bg-[rgba(220,47,101,0.08)] text-[var(--dp-accent)] text-[12.5px] font-[family-name:var(--dp-font-body)] shrink-0"
+          className="flex items-start gap-2 px-3 sm:px-4 py-2 border-b border-[rgba(220,47,101,0.25)] bg-[rgba(220,47,101,0.08)] text-[var(--dp-accent)] text-[12.5px] leading-[1.5] font-[family-name:var(--dp-font-body)] shrink-0"
         >
-          <AlertCircle size={14} className="shrink-0" />
-          Fill all the required fields
+          <AlertCircle size={14} className="shrink-0 mt-px" />
+          {warnText}
         </div>
       )}
 
       {/* ── Body: form | code+response ───────────────────────────────────── */}
-      <div className="flex-1 min-h-0 overflow-y-auto flex flex-col lg:flex-row">
+      <div ref={formRef} className="flex-1 min-h-0 overflow-y-auto flex flex-col lg:flex-row">
         {/* Left: request form */}
         <div className="lg:flex-1 lg:min-w-0 p-4 sm:p-6">
-          <OperationBreadcrumb operation={operation} apiType={apiType} className="mb-2.5" />
+          {/* The top-bar switcher already names the API — don't repeat it here. */}
+          <OperationBreadcrumb operation={operation} apiType={apiType} showApiType={false} className="mb-2.5" />
           <h2 className="font-[family-name:var(--dp-font-display)] text-[20px] font-semibold text-[var(--dp-fg)] m-0 mb-1 tracking-[-0.01em]">
             {operation.summary}
           </h2>
@@ -501,7 +570,7 @@ function PlaygroundInner({
           {!operation.description && <div className="mb-4" />}
 
           {headerParams.length > 0 && (
-            <Section title="Header" count={headerParams.length}>
+            <Section title="Header" count={headerParams.length} invalidCount={missingIn('header', headerParams)}>
               {headerParams.map(p => (
                 <ParamField
                   key={p.name}
@@ -512,13 +581,14 @@ function PlaygroundInner({
                   placeholder={`enter ${p.name}`}
                   value={headerVals[p.name] ?? ''}
                   onChange={v => setHeaderVals(s => ({ ...s, [p.name]: v }))}
+                  invalid={isMissing('header', p.name)}
                 />
               ))}
             </Section>
           )}
 
           {pathParams.length > 0 && (
-            <Section title="Path" count={pathParams.length}>
+            <Section title="Path" count={pathParams.length} invalidCount={missingIn('path', pathParams)}>
               {pathParams.map(p => (
                 <ParamField
                   key={p.name}
@@ -529,13 +599,14 @@ function PlaygroundInner({
                   placeholder={`enter ${p.name}`}
                   value={pathVals[p.name] ?? ''}
                   onChange={v => setPathVals(s => ({ ...s, [p.name]: v }))}
+                  invalid={isMissing('path', p.name)}
                 />
               ))}
             </Section>
           )}
 
           {queryParams.length > 0 && (
-            <Section title="Query" count={queryParams.length}>
+            <Section title="Query" count={queryParams.length} invalidCount={missingIn('query', queryParams)}>
               {queryParams.map(p => (
                 <ParamField
                   key={p.name}
@@ -546,20 +617,25 @@ function PlaygroundInner({
                   placeholder={`enter ${p.name}`}
                   value={queryVals[p.name] ?? ''}
                   onChange={v => setQueryVals(s => ({ ...s, [p.name]: v }))}
+                  invalid={isMissing('query', p.name)}
                 />
               ))}
             </Section>
           )}
 
           {operation.requestBody && (
-            <Section title="Body">
+            <Section title="Body" invalidCount={showErrors && bodyIssue ? 1 : 0}>
               <div className="py-4">
                 <textarea
                   value={body}
                   onChange={e => setBody(e.target.value)}
                   rows={10}
-                  className={`${inputCls} resize-y leading-[1.6]`}
+                  className={`${fieldCls(showErrors && !!bodyIssue)} resize-y leading-[1.6]`}
+                  aria-invalid={(showErrors && !!bodyIssue) || undefined}
+                  aria-describedby={showErrors && bodyIssue ? 'dp-body-err' : undefined}
+                  data-dp-missing={showErrors && bodyIssue ? '1' : undefined}
                 />
+                {showErrors && bodyIssue && <FieldError id="dp-body-err">{bodyIssue.message}</FieldError>}
               </div>
             </Section>
           )}
@@ -579,7 +655,7 @@ function PlaygroundInner({
         {/* Right: code + response — always dark (Fern style) */}
         <div className="dp-code-bg lg:w-[50%] xl:w-[50%] lg:shrink-0 border-t lg:border-t-0 lg:border-l border-[var(--dp-border)] p-4 flex flex-col gap-4 ">
           <div className="shrink-0">
-            <CodeExampleTabs operation={operation} headerValues={headerVals} apiType={apiType} queryValues={queryVals} />
+            <CodeExampleTabs operation={operation} headerValues={headerVals} queryValues={queryVals} />
           </div>
           <div className="shrink-0 pb-2">
             <ResponseCard operation={operation} live={response} maxHeight={420} apiType={apiType} />
@@ -608,6 +684,11 @@ export default function Playground({ open, onClose, operation, apiType }: Playgr
   );
 
   useEffect(() => { if (open) setActive({ apiType, op: operation }); }, [open, apiType, operation]);
+
+  // Build the cross-API endpoint index during idle time. The GST spec alone is
+  // ~3 MB of JSON, so normalising it lazily on the frame the picker opens is
+  // visible jank; doing it here means the menu is instant when it's clicked.
+  useEffect(() => { warmOpIndex(); }, []);
 
   // Re-sync to the page's environment whenever the playground (re)opens.
   useEffect(() => {
@@ -642,6 +723,9 @@ export default function Playground({ open, onClose, operation, apiType }: Playgr
       onClick={onClose}
     >
       <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="dp-playground-title"
         className="dp-playground-panel flex flex-col w-full h-full sm:h-[85vh] sm:max-w-[1320px] sm:rounded-2xl bg-[var(--dp-bg)] shadow-[0_32px_100px_rgba(0,0,0,0.55)] overflow-hidden"
         onClick={e => e.stopPropagation()}
       >

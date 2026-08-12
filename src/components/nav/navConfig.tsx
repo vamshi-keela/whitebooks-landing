@@ -96,7 +96,7 @@ export const TOOLS_ITEMS: NavItem[] = [
 
 export const API_DEVELOPER_ITEMS: NavItem[] = [
   {
-    label: 'Getting Started', href: '/developer', icon: <DpIcon
+    label: 'API Docs', href: '/developer', icon: <DpIcon
       name='book'
       size={15}
       style={{ color: 'var(--dp-accent)' }}

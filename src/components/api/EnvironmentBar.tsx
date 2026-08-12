@@ -3,6 +3,7 @@ import { Check, Copy, Globe, KeyRound } from 'lucide-react';
 import type { Environment as Env } from '../../data/environments';
 import type { ApiSpecKey } from '@/data/openapi-spec';
 import CopyButton from './CopyButton';
+import ApiTypeBadge from './ApiTypeBadge';
 
 interface Props {
   environments: Env[];
@@ -13,12 +14,7 @@ interface Props {
   apiType?: ApiSpecKey;
 }
 
-export const API_TYPE_LABELS: Record<ApiSpecKey, string> = {
-  'gst-api': 'GST API',
-  'e-invoice-api': 'E-Invoice API',
-  'e-way-bill-api': 'E-Way Bill API',
-  'ksa-e-invoice-api': 'KSA E-Invoice API',
-};
+export { API_TYPE_LABELS } from './ApiTypeBadge';
 
 export default function EnvironmentBar({ environments, selected, onChange, apiType }: Props): React.ReactElement {
   const [copied, setCopied] = React.useState(false);
@@ -29,23 +25,10 @@ export default function EnvironmentBar({ environments, selected, onChange, apiTy
   // The sandbox default OTP is a GST-API-only affordance.
   const isGstApi = apiType === 'gst-api';
 
-  const apiLabel = apiType ? API_TYPE_LABELS[apiType] : undefined;
-
   return (
     <div className="bg-[var(--dp-nav-bg)] border-b border-[var(--dp-border)] sticky top-[var(--dp-nav-h)] z-40 backdrop-blur-xl">
       <div className="max-w-[1440px] mx-auto flex flex-wrap items-center gap-2 sm:gap-3 px-4 sm:px-6 py-[7px]">
-        {apiLabel && (
-          <span
-            className="text-[11px] font-semibold tracking-[0.03em] px-2 py-[2px] rounded-md shrink-0"
-            style={{
-              background: 'var(--dp-accent-soft)',
-              color: 'var(--dp-accent)',
-              border: '1px solid rgba(220,47,101,0.18)',
-            }}
-          >
-            {apiLabel}
-          </span>
-        )}
+        {apiType && <ApiTypeBadge apiType={apiType} />}
         <Globe size={13} color="var(--dp-fg-faint)" className="shrink-0" />
 
         <span className="text-xs text-[var(--dp-fg-dim)] font-body shrink-0">

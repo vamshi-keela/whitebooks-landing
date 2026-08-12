@@ -181,7 +181,7 @@ export default function OperationDetail({
       */}
       <div className="dp-code-bg flex flex-col w-full border-t border-[var(--dp-border)] lg:w-[420px] xl:w-[440px] lg:shrink-0 lg:border-t-0 lg:border-l lg:sticky lg:top-[var(--dp-nav-h)] lg:h-[calc(100vh_-_var(--dp-nav-h))] lg:overflow-hidden">
         <div className="p-4 lg:flex-1 lg:overflow-y-auto flex flex-col gap-4">
-          <CodeExampleTabs operation={operation} apiType={apiType} />
+          <CodeExampleTabs operation={operation} />
           {hasResponses && <ResponseCard operation={operation} maxHeight={360} />}
         </div>
       </div>

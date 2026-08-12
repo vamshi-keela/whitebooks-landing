@@ -1,16 +1,13 @@
 import React, { useState, useMemo, useRef, useEffect, memo } from 'react';
 import { ChevronDown, Check } from 'lucide-react';
-import type { NormalizedOperation, ApiSpecKey } from '@/data/openapi-spec';
+import type { NormalizedOperation } from '@/data/openapi-spec';
 import { useSpec } from '../../contexts/SpecContext';
 import { getAllExamples } from '../../utils/generateExamples';
 import MethodBadge from './MethodBadge';
 import CopyButton from './CopyButton';
-import { API_TYPE_LABELS } from './EnvironmentBar';
 
 interface Props {
   operation: NormalizedOperation;
-  /** Which API reference this snippet belongs to — renders a scope pill in the header. */
-  apiType?: ApiSpecKey;
   /** Live playground values; empty fields fall back to spec examples. */
   headerValues?: Record<string, string>;
   queryValues?: Record<string, string>;
@@ -192,7 +189,7 @@ function LangDropdown({
 
 /* ─── Main ──────────────────────────────────────────────────────────────── */
 
-export default memo(function CodeExampleTabs({ operation, apiType, headerValues, queryValues }: Props): React.ReactElement {
+export default memo(function CodeExampleTabs({ operation, headerValues, queryValues }: Props): React.ReactElement {
   const { spec, baseUrl } = useSpec();
   const [activeLang, setActiveLang] = useState<Lang>('Node.js');
 
@@ -236,24 +233,6 @@ export default memo(function CodeExampleTabs({ operation, apiType, headerValues,
           minWidth: 0,
         }}
       >
-        {apiType && (
-          <span
-            style={{
-              flexShrink: 0,
-              fontSize: 11,
-              fontWeight: 600,
-              letterSpacing: '0.03em',
-              padding: '2px 8px',
-              borderRadius: 6,
-              whiteSpace: 'nowrap',
-              background: 'var(--dp-accent-soft)',
-              color: 'var(--dp-accent)',
-              border: '1px solid rgba(220,47,101,0.18)',
-            }}
-          >
-            {API_TYPE_LABELS[apiType]}
-          </span>
-        )}
         <MethodBadge method={operation.method} />
         <code
           role="button"

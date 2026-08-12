@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 import type { SeoMeta } from '@/seo/types'
 import { ShowcaseCategory } from '@/data/accouting-platform-showcase.data'
 import type { CodeTab } from '@/features/developer/DpComponents'
+import type { HeroVisualKey } from '@/components/hero-visuals/types'
 
 export type HeaderMode = 'home' | 'softwares' | 'apis'
 
@@ -24,6 +25,8 @@ export interface HeroConfig {
     micro?: string
     visual?: ReactNode
     breadcrumb?: BreadcrumbItem[]
+    /** Animated hero visual, resolved by @/components/hero-visuals. Wins over `image`. */
+    visualKey?: HeroVisualKey
     /** Product screenshot for the hero stage. The stage sizes itself to it. */
     image?: string
     imageAlt?: string
@@ -259,6 +262,8 @@ export interface HeroProps {
     /** HTML-like micro line; preserved from source which used dangerouslySetInnerHTML. */
     micro?: string;
     visual?: ReactNode;
+    /** Animated hero visual, resolved by @/components/hero-visuals. Wins over `image`. */
+    visualKey?: HeroVisualKey
     /** Product screenshot for the hero stage. The stage sizes itself to it. */
     image?: string;
     imageAlt?: string;

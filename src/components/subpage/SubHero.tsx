@@ -5,6 +5,7 @@ import type { HeroConfig } from "@/shared/types/pages";
 import { Button } from "@/shared/ui/Button";
 import EyebrowPill from "@/shared/ui/EyebrowPill";
 import PhotoRoom from "@/assets/Photoroom.png";
+import { HeroVisual } from "@/components/hero-visuals";
 import { CodeBlock } from "@/features/developer/DpComponents";
 import { heroTabs } from "@/features/developer/DpHomeData";
 
@@ -46,7 +47,7 @@ function HeroStage({ image, imageAlt }: { image?: string; imageAlt?: string }) {
   );
 }
 
-export default function SubHero({ eyebrow, title, sub, primaryCta, secondaryCta, micro, visual, image, imageAlt, breadcrumb, onPrimaryClick, onSecondaryClick }: SubHeroProps) {
+export default function SubHero({ eyebrow, title, sub, primaryCta, secondaryCta, micro, visual, visualKey, image, imageAlt, breadcrumb, onPrimaryClick, onSecondaryClick }: SubHeroProps) {
   return (
     <section className="pt-[70px] pb-[56px] relative overflow-hidden font-[var(--font-display)] bg-[var(--bg-2)]">
       <FluidBackground />
@@ -92,7 +93,11 @@ export default function SubHero({ eyebrow, title, sub, primaryCta, secondaryCta,
             )}
           </div>
 
-          <div className="max-[1080px]:mt-2">{visual ?? <HeroStage image={image} imageAlt={imageAlt} />}</div>
+          {/* Precedence: an explicit node beats the animated visual, which beats a screenshot. */}
+          <div className="max-[1080px]:mt-2">
+            {visual ??
+              (visualKey ? <HeroVisual name={visualKey} /> : <HeroStage image={image} imageAlt={imageAlt} />)}
+          </div>
         </div>
       </div>
     </section>

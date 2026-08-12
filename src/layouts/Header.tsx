@@ -163,9 +163,15 @@ export function ContactUsDropdown({ cardType = 'All' }: { cardType?: ContactCard
           ${open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
       >
         <div className={`relative ${single ? 'w-[240px]' : 'w-[420px]'} rounded-xl border border-[var(--line-2)] bg-[var(--bg-3)] shadow-[0_20px_60px_-10px_rgba(0,0,0,0.5)] overflow-hidden transition-transform duration-150 ease-out ${open ? 'translate-y-0' : '-translate-y-1'}`}>
-          <div className={`grid ${single ? 'grid-cols-1' : 'grid-cols-2'} divide-x divide-[var(--line)]`}>
-            {teams.map((team) => (
-              <div key={team.name} className="p-2.5">
+          {/* Column rule is drawn per-card, not with divide-x: preflight is off,
+              so divide-x renders nothing without divide-solid, and divide-solid
+              then styles all four sides at the UA default `medium` width. */}
+          <div className={`grid ${single ? 'grid-cols-1' : 'grid-cols-2'}`}>
+            {teams.map((team, i) => (
+              <div
+                key={team.name}
+                className={`p-3 ${i > 0 ? 'border-0 border-l border-solid border-[var(--line-2)]' : ''}`}
+              >
                 <TeamCard team={team} />
               </div>
             ))}

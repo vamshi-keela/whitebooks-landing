@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react';
 import { Route, useParams, Navigate } from 'react-router-dom';
 import { PartnerWithUs } from '@/pages/resources/PartnerWithUs';
 import { SupportPage } from '@/pages/resources/Support';
@@ -24,6 +25,13 @@ import { HomeRoute } from '@/features/home/HomeRoute';
 import { renderSoftwareRoutes } from '@/features/softwares/routes';
 import { renderApiRoutes } from '@/features/apis/routes';
 
+const LoginPage = lazy(() =>
+  import('@/pages/auth/AuthPage').then((module) => ({ default: module.LoginPage }))
+);
+const SignupPage = lazy(() =>
+  import('@/pages/auth/AuthPage').then((module) => ({ default: module.SignupPage }))
+);
+
 function ServicesHubRoute() {
   return <HubServices />;
 }
@@ -39,15 +47,33 @@ function ConnectorPageRoute() {
   const { slug } = useParams<{ slug: string }>();
   const data = CONNECTOR_REGISTRY[slug ?? ''];
   if (!data) return <Navigate to="/" replace />;
-  return data.platform === 'tally'
-    ? <TallyConnectorPage data={data} />
-    : <SapConnectorPage data={data} />;
+  return data.platform === 'tally' ? (
+    <TallyConnectorPage data={data} />
+  ) : (
+    <SapConnectorPage data={data} />
+  );
 }
 
 export function renderMarketingRoutes() {
   return (
     <>
       <Route path="/" element={<HomeRoute />} />
+      <Route
+        path="/login"
+        element={
+          <Suspense fallback={<div style={{ minHeight: '100svh', background: '#f7f6f8' }} />}>
+            <LoginPage />
+          </Suspense>
+        }
+      />
+      <Route
+        path="/signup"
+        element={
+          <Suspense fallback={<div style={{ minHeight: '100svh', background: '#f7f6f8' }} />}>
+            <SignupPage />
+          </Suspense>
+        }
+      />
       {renderSoftwareRoutes()}
       {renderApiRoutes()}
       <Route path="/services" element={<ServicesHubRoute />} />

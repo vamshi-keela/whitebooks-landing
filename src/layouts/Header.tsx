@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Icon } from '@/components/icons/Icon';
 import { Plug, ArrowRight, Bug } from 'lucide-react';
-import { Button, ButtonLink } from '@/shared/ui/Button';
+import { Button } from '@/shared/ui/Button';
 import { SiteLogo } from '@/shared/ui/SiteLogo';
 import { NavDropdown } from '@/components/nav/NavDropdown';
 import { MobileNavGroup } from '@/components/nav/MobileNavGroup';
@@ -11,7 +11,7 @@ import type { HeaderMode } from '@/shared/types/components';
 import homeIcon from '@/assets/home.svg';
 import { ThemeToggle } from '@/shared/ui/ThemeToggle';
 import { BookDemoModal } from '@/components/modals/BookDemoModal';
-import { DEV_SIGNUP_URL, SIGNUP_ALL_URL, LOGIN_URL } from '@/utils/contants';
+import { LOGIN_URL } from '@/utils/contants';
 
 interface HeaderProps {
   mode?: HeaderMode;
@@ -20,22 +20,18 @@ interface HeaderProps {
 export function AuthButtons({ cardType = 'All', className = '' }: { className?: string, cardType?: ContactCardType }) {
   return (
     <div className={`flex items-center gap-2 ${className}`.trim()}>
-      <ButtonLink
-        href="https://accounts.whitebooks.in/login"
-        rel="noopener noreferrer"
-        variant="secondary"
-        size="sm"
+      <Link
+        to="/login"
+        className="inline-flex items-center justify-center gap-2 whitespace-nowrap no-underline font-semibold tracking-[0.005em] border-solid transition-all duration-[160ms] ease-in-out rounded-[7px] px-3 py-[7px] text-[11px] border border-[var(--hairline-strong)] bg-transparent text-[var(--fg-secondary)] hover:bg-[var(--surface-hover)] hover:border-[var(--hairline-hover)] hover:text-[var(--fg-primary)]"
       >
         Sign in
-      </ButtonLink>
-      <ButtonLink
-        href={cardType === 'API Team' ? DEV_SIGNUP_URL : SIGNUP_ALL_URL}
-        rel="noopener noreferrer"
-        variant="primary"
-        size="sm"
+      </Link>
+      <Link
+        to={cardType === 'API Team' ? '/signup?type=developer' : '/signup'}
+        className="inline-flex items-center justify-center gap-2 whitespace-nowrap no-underline font-semibold tracking-[0.005em] border-solid transition-all duration-[160ms] ease-in-out rounded-[7px] px-3 py-[7px] text-[11px] border border-[var(--accent)] bg-[var(--accent)] text-white hover:bg-[#e8447a] hover:shadow-[0_8px_24px_-8px_rgba(220,47,101,0.55)] hover:-translate-y-px"
       >
         Sign up
-      </ButtonLink>
+      </Link>
     </div>
   );
 }
@@ -354,12 +350,12 @@ export function Header({ mode = 'home' }: HeaderProps) {
               Book a 20-min Demo
             </Button>
             <div className="flex flex-col gap-2 pt-2 border-t border-[var(--line)]">
-              <a href="https://accounts.whitebooks.in/signupall" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm text-[var(--text)] bg-[var(--bg-elev)] border border-[var(--line)] no-underline font-medium">
+              <Link to="/signup" onClick={() => setMenuOpen(false)} className="flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm text-[var(--text)] bg-[var(--bg-elev)] border border-[var(--line)] no-underline font-medium">
                 Sign up
-              </a>
-              <a href="https://accounts.whitebooks.in/login" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm text-[var(--muted-2)] no-underline">
+              </Link>
+              <Link to="/login" onClick={() => setMenuOpen(false)} className="flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm text-[var(--muted-2)] no-underline">
                 Sign in
-              </a>
+              </Link>
             </div>
           </div>
         )}
